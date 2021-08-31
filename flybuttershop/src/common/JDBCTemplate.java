@@ -11,8 +11,8 @@ import oracle.jdbc.OracleConnection;
 import oracle.jdbc.pool.OracleDataSource;
 
 public class JDBCTemplate {
-	//C:/Wallet_fbshop/ 이부분은 전자지갑 편한곳에 압출풀어서 본인 폴더경로
-	final static String DB_URL = "jdbc:oracle:thin:@fbshop_medium?TNS_ADMIN=C:/Wallet_fbshop/";
+	final static String directoryName = System.getProperty("user.dir").replaceAll("\\\\","/");
+	final static String DB_URL = "jdbc:oracle:thin:@fbshop_medium?TNS_ADMIN="+directoryName+"/src/common/Wallet_fbshop";
 	final static String DB_USER = "admin";
 	final static String DB_PASSWORD = "Flybuttershop0";
 
