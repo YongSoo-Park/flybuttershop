@@ -13,6 +13,6 @@
 			location.replace("login");
 
 		}
-	</script>
+	</script> 
 </body>
 </html>
