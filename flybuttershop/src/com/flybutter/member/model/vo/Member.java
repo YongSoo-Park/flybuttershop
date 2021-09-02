@@ -13,6 +13,7 @@ public class Member {
 	private String address;
 	private int lev;
 	private String status;
+	private int category;
 	
 	
 	public Member() {}
@@ -29,8 +30,7 @@ public class Member {
 		this.email = email;
 	}
 	
-	public Member(String userId, String userName, String phone, 
-			String email, String address) {
+	public Member(String userId, String userName, String phone, String email, String address) {
 		this.userId = userId;
 		this.userName = userName;
 		this.phone = phone;
@@ -38,8 +38,7 @@ public class Member {
 		this.address = address;
 	}
 	
-	public Member(String userId, String phone, 
-			String email, String address) {
+	public Member(String userId, String phone, String email, String address) {
 		this.userId = userId;
 		this.phone = phone;
 		this.email = email;
@@ -58,7 +57,7 @@ public class Member {
 	}
 	
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, 
-			String email,String address, int lev, String status) {
+			String email,String address, int lev, String status, int category) {
 		this.userNo = userNo;
 		this.userId = userId;
 		this.userPwd = userPwd;
@@ -68,6 +67,7 @@ public class Member {
 		this.address = address;
 		this.lev = lev;
 		this.status = status;
+		this.category = category;
 	}
 	
 	
@@ -159,12 +159,21 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public int getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(int category) {
+		this.category = category;
+	}
 
 
 	@Override
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
-				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", lev=" + lev + ", status=" + status + "]";
+				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", lev=" + lev + ", status=" + status +", category=" + category + "]";
 				
 	}
 }
