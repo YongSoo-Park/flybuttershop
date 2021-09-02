@@ -1,4 +1,4 @@
-package com.flybutter.cs.help.model.vo;
+package com.flybutter.help.model.vo;
 
 import java.sql.Date;
 

@@ -1,4 +1,5 @@
-package com.flybutter.cs.notice.controller;
+package com.flybutter.notice.controller;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.cs.notice.model.service.NoticeService;
-import com.flybutter.cs.notice.model.vo.Notice;
+import com.flybutter.notice.model.service.NoticeService;
+import com.flybutter.notice.model.vo.Notice;
+
 
 /**
  * Servlet implementation class EntireNoticeList
@@ -34,7 +36,7 @@ public class EntireNoticeListServlet extends HttpServlet {
 		ArrayList<Notice> list = new NoticeService().entireSelectList();
 		
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/cs/notice/entireNoticeListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/notice/entireNoticeListView.jsp").forward(request, response);
 	}
 
 	/**

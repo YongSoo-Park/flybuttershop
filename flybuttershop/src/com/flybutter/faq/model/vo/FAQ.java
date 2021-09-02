@@ -1,4 +1,4 @@
-package com.flybutter.cs.faq.model.vo;
+package com.flybutter.faq.model.vo;
 
 public class FAQ {
 	
