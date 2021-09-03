@@ -28,6 +28,8 @@
 </form>
 <br>
 <br>
+<form action="header" method="post">
+<input type="submit" value="헤더">
 </form>
 </body>
 </html>
