@@ -3,33 +3,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
+<style type="text/css">
 
-<form action="entireList.no" method="post">
-<input type="submit" value="고객센터">
+
+</style>
+
+</head>
+<body style="margin: 0 auto">
+<jsp:include page="../header_footer/header.jsp" flush="true"/>
+
+<main>
+<br>
+<br>
+<form action="dummyLoginA.ma" method="post">
+
+<input type="hidden" value="0" name="no">
+<input type="submit" value="관리자로그인">
 </form>
 <br>
 <br>
-<form action="sellerMyPage.sl" method="post">
-<input type="submit" value="판매자 마이페이지">
+<form action="dummyLoginA.ma" method="post">
+
+<input type="hidden" value="1" name="no">
+<input type="submit" value="일반회원로그인">
 </form>
 <br>
 <br>
-<form action="basket.do" method="post">
-<input type="submit" value="장바구니">
+<form action="dummyLoginA.ma" method="post">
+<input type="hidden" value="4" name="no">
+<input type="submit" value="판매자로그인">
 </form>
+
 <br>
-<br>
-<form action="main.mp" method="post">
-<input type="submit" value="회원 마이페이지">
-</form>
-<br>
-<br>
-<form action="header" method="post">
-<input type="submit" value="헤더">
-</form>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<jsp:include page="../header_footer/footer.jsp" flush="true"/>
+</main>
 </body>
 </html>

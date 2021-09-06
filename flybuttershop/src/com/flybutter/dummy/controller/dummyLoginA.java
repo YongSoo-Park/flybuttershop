@@ -1,8 +1,6 @@
 package com.flybutter.dummy.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,16 +12,16 @@ import com.flybutter.dummy.model.service.MemberService;
 import com.flybutter.dummy.model.vo.Member;
 
 /**
- * Servlet implementation class dummyLogin
+ * Servlet implementation class dummyLoginA
  */
-@WebServlet("/main.ma")
-public class dummyLogin extends HttpServlet {
+@WebServlet("/dummyLoginA.ma")
+public class dummyLoginA extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public dummyLogin() {
+    public dummyLoginA() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +30,15 @@ public class dummyLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		Member m = new MemberService().loginMember(0);
-//		HttpSession session = request.getSession();
+		int no = Integer.parseInt(request.getParameter("no"));
+		Member loginMember = new MemberService().loginMember(no);
+		HttpSession session = request.getSession();
 //		session.setAttribute("MEM_USER_NO", m.getMEM_USER_NO());
 //		session.setAttribute("MEM_USER_NAME", m.getMEM_USER_NAME());
 //		session.setAttribute("MEM_CATEGORY", m.getMEM_CATEGORY());
-		request.getRequestDispatcher("views/main_search_category_page/mainPage.jsp").forward(request, response);
-		
+		session.setAttribute("loginMember", loginMember);
+		response.setContentType("text/html;charset=UTF-8");
+		response.sendRedirect(request.getContextPath());
 	}
 
 	/**
