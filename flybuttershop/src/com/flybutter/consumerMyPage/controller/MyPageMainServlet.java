@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 /**
  * Servlet implementation class MyPageMainServlet
@@ -28,17 +29,19 @@ public class MyPageMainServlet extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		
+		
 		if(userId != null) {
 			
 			//메인페이지 jsp 띄우기 
-			//멤버 접속해서 현재 등급 , 구매 실적 확인하기 실적은 어떤 식으로 확인해야하지? 
+			//멤버 접속해서 현재 등급 , 구매 실적 확인하기 실적 확인
+			
 			
 			
 			
 			
 		}else {
 			
-			request.setAttribute("mgs", "로그인이 필요한 서비스 입니다.");
+			request.setAttribute("msg", "로그인이 필요한 서비스 입니다.");
 			//로그인 페이지로 이동 되도록
 			
 		}
