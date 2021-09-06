@@ -1,4 +1,4 @@
-package com.kh.board.model.vo;
+package com.flybutter.review.model.vo;
 
 public class PageInfo {
 	
