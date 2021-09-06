@@ -1,6 +1,8 @@
 package com.flybutter.seller.model.vo;
 
-public class Seller {
+import com.flybutter.member.model.vo.Member;
+
+public class Seller extends Member{
 	
 	private int store_No;
 	private int user_No;
