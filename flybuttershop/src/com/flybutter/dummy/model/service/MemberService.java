@@ -10,10 +10,10 @@ import com.flybutter.dummy.model.vo.Member;
 
 public class MemberService {
 
-	public Member loginMember() {
+	public Member loginMember(int no) {
 		Connection conn = getConnection();
 
-		Member loginUser = new MemberDao().loginMember(conn);
+		Member loginUser = new MemberDao().loginMember(conn, no);
 		close(conn);
 		return loginUser;
 	}

@@ -3,16 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body style="margin: 0 auto">
 	<script type="text/javascript">
 		window.onload = function() {
-
-			location.replace("login");
+			location.replace("main.ma");
 
 		}
-	</script> 
+	</script>
+	
 </body>
 </html>

@@ -33,21 +33,20 @@ public class MemberDao {
 
 	}
 
-	public Member loginMember(Connection conn) {
+	public Member loginMember(Connection conn,int no) {
 		Member loginUser = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("dummyMember");
 		try {
 			pstmt = conn.prepareStatement(sql);
-
+			pstmt.setInt(1, no);
 
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-				loginUser = new Member(rset.getInt("MEM_USER_NO"), rset.getString("MEM_USER_ID"), rset.getString("MEM_USER_PWD"),
-						rset.getString("MEM_USER_NAME"), rset.getString("MEM_PHONE"), rset.getString("MEM_EMAIL"),
-						rset.getString("MEM_ADDRESS"), rset.getInt("MEM_LEV"), rset.getString("MEM_STATUS"));
+				loginUser = new Member(rset.getInt("MEM_USER_NO"), 
+						rset.getString("MEM_USER_NAME"),rset.getInt("MEM_LEV"),rset.getInt("MEM_CATEGORY"));
 			}
 			
 
