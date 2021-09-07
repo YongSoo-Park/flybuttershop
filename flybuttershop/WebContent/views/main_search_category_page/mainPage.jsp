@@ -28,6 +28,15 @@
 </form>
 <br>
 <br>
+<form action="loginPage.lp" method="post">
+<input type="submit" value="로그인">
+
+</form>
+<br>
+<br>
+<form action="userInsertPage.uIP" method="post">
+<input type="submit" value="회원가입">
+
 </form>
 </body>
 </html>
