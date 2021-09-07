@@ -77,7 +77,7 @@
 	text-align: center;
 	}
 	
-	#inputbox{
+	#userId,#userPwd,#userName,#checkPwd,#phone,#email,#address{
 	border-style: solid;
     border-radius: 8px;
 	width: 230px;
