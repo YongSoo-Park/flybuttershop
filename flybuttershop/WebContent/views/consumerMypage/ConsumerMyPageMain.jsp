@@ -55,6 +55,8 @@
 	
 <body>
 
+ <jsp:include page="../header_footer/header.jsp" flush="true"/>
+
     <div id="wrap">
 
         <h3>MY PAGE</h3>
@@ -82,7 +84,7 @@
     
     <script>
         function goUpdateMember(){
-            location.href="#";
+            location.href="/memberUpdate.mp";
         }
     
         function goReviewList(){
@@ -110,6 +112,12 @@
 
 
     </div>
+
+<div>
+<!--<jsp:include page="../header_footer/footer.jsp" flush="true"/>-->
+
+</div>
+
 
     
 </body>
