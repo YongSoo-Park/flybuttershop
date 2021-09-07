@@ -1,38 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.flybutter.seller.model.vo.Seller"%>
+    pageEncoding="UTF-8"%>
     
-<%
-	Seller sel = ((Seller)request.getAttribute("loginSeller"));
 
-	String storeName = sel.getStore_Name();
-	String phone = sel.getPhone();
-	String address = sel.getAddress();
-	String email = sel.getEmail();
-	String storeExp = sel.getStore_Exp();
-
-%>    
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
-<body>
-
-	<%@ include file="../common/sellerMenuBar.jsp" %>
-	
-	상점이름 : <p><%= storeName %></p><br><br>
-	대표자 : <p><%= storeName %><br><br>
-	연락처 : <p><%= phone %><br><br>
-	이메일 : <p><%= email %><br><br>
-	소재지 : <p><%= address %><br><br>
-	상점소개 : <p><%= storeExp %><br><br>
+<body style="margin: 0 auto">
+<jsp:include page="../header_footer/header.jsp" flush="true"/>
+<jsp:include page="../common/sellerMenuBar.jsp" flush="true"/>
+	<br><br>
 	
 	
+	상점이름 : ${requestScope.seller.store_Name} <br><br>
+	
+	대표자 : <br><br>
+	연락처 : <br><br>
+	이메일 : <br><br>
+	소재지 : <br><br>
+	상점소개 : <br><br>
+	
+	
 	
 
 
 
-
+<jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>
 </html>
