@@ -63,12 +63,12 @@ public class FindIdServlet extends HttpServlet {
 		 if( member != null) {
 			 HttpSession session = request.getSession();
 			 session.setAttribute("member", member);
-			 RequestDispatcher view = request.getRequestDispatcher("views/cs/member/memberIdFindResult.jsp");
+			 RequestDispatcher view = request.getRequestDispatcher("views/member/memberIdFindResult.jsp");
 			 view.forward(request, response);
 			}else {
 				
 				request.setAttribute("msg", "존재하지 않습니다.");
-				RequestDispatcher view = request.getRequestDispatcher("views/cs/member/errorPage.jsp");
+				RequestDispatcher view = request.getRequestDispatcher("views/member/errorPage.jsp");
 				view.forward(request, response);
 
 	}

@@ -152,7 +152,7 @@
 	<div class= "loginArea">
 		
 		<% if(loginUser == null) {%>
-	<form id = "loginForm" action="<%=request.getContextPath()%>/login.me" method="post" onsubmit="return loginValidate();">
+	<form id = "loginForm" action="<%=request.getContextPath()%>/loginPage.me" method="post" onsubmit="return loginValidate();">
 
 		<div class ="btns" align="center">
 			<div>

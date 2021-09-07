@@ -99,8 +99,9 @@
 	<div class= "loginArea">
 		
 
-	<form id = "loginForm" action="<%=request.getContextPath()%>/userInsert.jsp" method="post" onsubmit="return loginValidate();">
-
+<%-- 	<form id = "loginForm" action="<%=request.getContextPath()%>/userInsert.jsp" method="post" onsubmit="return loginValidate();">
+ --%>
+ 		<form id = "loginForm" method="post" onsubmit="return loginValidate();">
 		<div class ="btns" align="center">
 			<div>
 				<table id ="loginMenu" border="1" >
