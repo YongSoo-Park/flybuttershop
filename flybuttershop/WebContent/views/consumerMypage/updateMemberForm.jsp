@@ -24,6 +24,7 @@
 </head>
 <body>
     
+    <jsp:include page="../header_footer/header.jsp" flush="true"/>
 
     <div id="wrap">
 
@@ -61,5 +62,6 @@
 
     </div>
 
+	 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>
 </html>
