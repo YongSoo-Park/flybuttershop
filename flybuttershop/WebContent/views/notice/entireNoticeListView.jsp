@@ -10,9 +10,10 @@ ArrayList<Notice> list = (ArrayList<Notice>) request.getAttribute("list");
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
@@ -99,16 +100,16 @@ hr {
 
 
 </head>
-<body>
+<body style="margin: 0 auto">
 
 	<!-- <%@ include file="../common/csMenubar.jsp" %> -->
-
+<jsp:include page="../header_footer/header.jsp" flush="true"/>
 	<section>
 		<div class="container" id="container">
 
-			<form class="form-inline" action="/action_page.php">
+			<form class="form-inline" >
 				<div class="cs">
-					<button class="btn btn-light btn-lg" id="cslogo" type="submit">고객센터</button>
+					<button class="btn btn-light btn-lg" id="cslogo" onclick="gocustomerservice" type="submit">고객센터</button>
 				</div>
 				<div class="search">
 					<input class="form-control mr-sm-2" id="searchbar" type="text"
@@ -133,6 +134,9 @@ hr {
 			</form>
 		</div>
 		<script>
+		function goNotice(){
+			location.href="<%=request.getContextPath()%>/entireList.no";
+		}
 		function golivechat(){
 			location.href="<%=request.getContextPath()%>/livechat";
 			
@@ -171,6 +175,17 @@ hr {
 	</script>
 
 		<hr>
+	<script>
+		function goEntireNoticeList(){
+			location.href="<%=request.getContextPath()%>/entireList.no";
+		}
+		function goNoticeList(){
+			location.href="<%=request.getContextPath()%>/noticeList.no";
+		}
+		function goEventList(){
+			location.href="<%=request.getContextPath()%>/eventList.no";
+			}
+		</script>
 
 		<div class="btn-group" id="container1">
 
@@ -183,49 +198,57 @@ hr {
 				onclick="goEventList();">이벤트</button>
 		</div>
 
-		<script>
-		function goEntireNoticeList(){
-			location.href="<%=request.getContextPath()%>/entireList.no";
-		}
-		function goNoticeList(){
-			location.href="<%=request.getContextPath()%>/noticeList.no";
-		}
-		function goEventList(){
-			location.href="<%=request.getContextPath()%>
-			/eventList.no";
-			}
-		</script>
-
+	
 		<hr>
+					
 
-
-
-
-		<div class="outer">
-
-			<table class="listArea" align="center">
-				<thead>
-					<tr>
-						<th width="100">글번호</th>
-						<th width="300">글제목</th>
-						<th width="100">작성자</th>
-					</tr>
-				</thead>
-				<tbody>
-
-					<%
-					if (list.isEmpty()) {
-					%>
-					<tr>
+<div class="outer">
+		
+		        
+		<table class="listArea" align="center">
+			<thead>
+				<tr>
+					<th width="100">글번호</th>
+					<th width="300">글제목</th>
+			
+				</tr>
+			</thead>
+			<tbody>
+				
+				 <% if(list.isEmpty()){ %>
+				 	<tr>
 						<td colspan="5">존재하는 공지사항이 없습니다.</td>
 					</tr>
-					<%
-					} else {
-					%>
-					<%
-					for (Notice n : list) {
-					%>
-					<tr>
+				 <% }else{  %>
+				 	<% for(Notice n : list){ %>
+				 		<tr>
+				 			<td><%= n.getNotice_No() %></td>
+							<td><%= n.getNotice_Title() %></td>
+					
+				 		</tr>
+				 	<% } %>
+				 <% } %>
+			</tbody>
+			
+		</table>
+	
+		<form class="searchArea" align="center">
+			<select id="condition" name="condition">
+				<option value="number">글번호</option>
+				<option value="title">제목</option>
+				<option value="content">내용</option>
+			</select>
+			<input type="search" name="search">
+			<button type="submit">검색하기</button>
+		</form>
+		<br><br>
+		<div align="center">
+			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
+			
+			<button onclick="location.href='<%=contextPath%>/enrollForm.no'">작성하기</button> 
+		<% } %>
+		</div>
+	
 						<div>
 							<a href=#none id="show"
 								onclick="if(hide.style.display=='none') {hide.style.display='';show.innerText='▲'} else {hide.style.display='none';show.innerText='▼'}">▼</a>
@@ -234,37 +257,10 @@ hr {
 							</div>
 						</div>
 
-					</tr>
-					<%
-					}
-					%>
-					<%
-					}
-					%>
-				</tbody>
-
-			</table>
-
-			<form class="searchArea" align="center">
-				<select id="condition" name="condition">
-					<option value="writer">작성자</option>
-					<option value="title">제목</option>
-					<option value="content">내용</option>
-				</select> <input type="search" name="search">
-				<button type="submit">검색하기</button>
-			</form>
-			<br>
-			<br>
-			<div align="center"></div>
-
-		</div>
-		<script>
-	
-		
-	</script>
-
-
 	</section>
+
+<jsp:include page="../header_footer/footer.jsp" flush="true"/>
+
 
 </body>
 </html>

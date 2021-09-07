@@ -58,7 +58,7 @@ public class NoticeDao {
 			close(pstmt);
 			close(rset);
 		}
-		
+		System.out.println(list);
 		return list;
 	}
 

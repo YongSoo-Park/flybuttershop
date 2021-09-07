@@ -37,6 +37,7 @@ public class EntireNoticeListServlet extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/notice/entireNoticeListView.jsp").forward(request, response);
+		System.out.println(list);
 	}
 
 	/**
