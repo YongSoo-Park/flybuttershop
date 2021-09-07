@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.basket.model.vo.*"%>
+<%
+ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <style>
-    #basketlogo{
-        margin: 8%;
-    }
+
     #deleteProductBtn{
         float: right;
         padding: 10px;
@@ -17,8 +18,8 @@
         border: unset;
         background-color: lightgray;
         position: relative;
-        top: 20px;
-        left: 40px;
+        top: -20px;
+        
     }
     .logo{
         width: 600px;
@@ -30,11 +31,10 @@
         height: 50px;
         float: left;
     }
-    .bar{
+    .basketTable{
         width: 1200px;
         height: 80px;
         background-color: midnightblue;
-        margin: 4%;
     }
     .outer{
         display: inline-block;
@@ -43,61 +43,99 @@
         width: 20px;
         height: 20px;
         position: relative;
-        top: 28px;
+        top: 5px;
         left: 10px;
     }
+    #tc{
+    	width: 40px;
+    }
     #t1{
-        position: relative;
-        top: -19px;
-        left: 250px;
+        width: 490px;
         color: white;
-        float: left;
     }
     #t2{
-        position: relative;
-        top: -19px;
-        left: 600px;
+        width: 350px;
         color: white;
-        float: left;
     }
     #t3{
-        position: relative;
-        top: -19px;
-        left: 800px;
+        width: 150px;
         color: white;
-        float: left;
     }
     #t4{
-        position: relative;
-        top: -19px;
-        left: 900px;
+        width: 150px;
         color: white;
-        float: left;
+    }
+    #pDCheck{
+        width: 20px;
+        height: 20px;
+        position: relative;
+        top: 28px;
+        left: 50px;
+    }
+    .list{
+        background-color: blue;
+        width: 1200px;
+        height: 200px;
+        margin: 4%;
+    }
+    th{
+        background-color: midnightblue;
+        position: relative;
+        top: 20px;
+        font-size: 18px;
+    }
+    td{
+        height: 200px;
+        position: relative;
+        top: 20px;
+        font-size: 18px;
+        text-align: center;
     }
 </style>
-<body>
+<body style="margin: 0 auto">
+    
+    <jsp:include page="../header_footer/header.jsp" flush="true"/>
     
     <div class="outer">
     <div class="logo">
 		<br>
 		<h2 id="basketlogo">장바구니</h2>
 	</div>
+	<br>
     <div class="btn">
 		<br>
         <br>
         <button type="button" id="deleteProductBtn" onclick="deleteProduct();">선택상품 삭제</button>
     </div>
-	
     <br clear="left">
     <br>
-    <div class="bar">
+    <div class="basketTable">
         <form method="POST">
-            <input type="checkbox" id="deleteCheck">      
+            <form method="POST" action="<%=request.getContextPath()%>/basket.do">
+                <table id="productlist">
+                    <tr>
+                        <th id="tc"><input type="checkbox" id="deleteCheck"></th>
+                        <th id="t1">상품정보</th>
+                        <th id="t2">옵션</th>
+                        <th id="t3">배송비</th>
+                        <th id="t4">상품금액</th>
+                    </tr>
+            <%if(list.isEmpty()){%>
+				
+			<%}else{%>
+				<% for(Basket b : list){ %>
+                    <tr>
+                     	<td><input type="checkbox" id="deleteCheck"></td>
+                     	<td></td>
+                        <td><%=b.getbOption()%> / <%=b.getbAmount()%>개</td>
+                        <td>2500원</td>
+                        <td><%=b.getPrice()%>원</td>
+                    </tr>
+                	<%}%>
+				 <%}%>
+                </table>
+            </form> 
         </form>
-        <h3 id="t1" >상품정보</h3>
-        <h3 id="t2" >옵션</h3>
-        <h3 id="t3" >배송비</h3>
-        <h3 id="t4" >상품금액</h3>
     </div>
     </div>
 </body>
