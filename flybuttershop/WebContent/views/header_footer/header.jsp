@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -64,6 +64,7 @@ opacity: 0;
   visibility: hidden;
 background-color: white;
 display: block;
+z-index: 5;
 }
 
 #recentlyViewedItems{
@@ -94,6 +95,7 @@ margin-top: 0;
   display: block;
   padding: 10px;
   border: solid black 2px;
+  z-index: 5;
 }
 
 .subCategoty {
@@ -106,6 +108,7 @@ margin-top: 0;
   height : 350px;
   top : 0px;
   left: 200px;
+  z-index: 5;
 }
 
 #mainCategory > li:hover > a{
