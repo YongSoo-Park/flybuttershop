@@ -16,7 +16,7 @@ public class NoticeService {
 		ArrayList<Notice> list = new NoticeDao().entireSelectList(conn);
 		close(conn);
 		
-		
+		System.out.println(list);
 		return list;
 	}
 
