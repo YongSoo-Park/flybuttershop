@@ -12,14 +12,20 @@ public class Member {
 	private int MEM_LEV;
 	private String MEM_STATUS;
 	private int MEM_CATEGORY;
+	private String REC_PNO;
+	private int MONEY;
 
 	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
+	
 	public Member(int mEM_USER_NO, String mEM_USER_ID, String mEM_USER_PWD, String mEM_USER_NAME, String mEM_PHONE,
-			String mEM_EMAIL, String mEM_ADDRESS, int mEM_LEV, String mEM_STATUS, int mEM_CATEGORY) {
+			String mEM_EMAIL, String mEM_ADDRESS, int mEM_LEV, String mEM_STATUS, int mEM_CATEGORY, String rEC_PNO,
+			int mONEY) {
 		super();
 		MEM_USER_NO = mEM_USER_NO;
 		MEM_USER_ID = mEM_USER_ID;
@@ -31,9 +37,13 @@ public class Member {
 		MEM_LEV = mEM_LEV;
 		MEM_STATUS = mEM_STATUS;
 		MEM_CATEGORY = mEM_CATEGORY;
+		REC_PNO = rEC_PNO;
+		MONEY = mONEY;
 	}
 
-	
+
+
+
 	public Member(int mEM_USER_NO, String mEM_USER_NAME, int mEM_LEV, int mEM_CATEGORY) {
 		super();
 		MEM_USER_NO = mEM_USER_NO;
@@ -41,6 +51,21 @@ public class Member {
 		MEM_LEV = mEM_LEV;
 		MEM_CATEGORY = mEM_CATEGORY;
 	}
+	
+	
+
+	public Member(int mEM_USER_NO, String mEM_USER_NAME, int mEM_LEV, int mEM_CATEGORY, String rEC_PNO, int mONEY) {
+		super();
+		MEM_USER_NO = mEM_USER_NO;
+		MEM_USER_NAME = mEM_USER_NAME;
+		MEM_LEV = mEM_LEV;
+		MEM_CATEGORY = mEM_CATEGORY;
+		REC_PNO = rEC_PNO;
+		MONEY = mONEY;
+	}
+
+
+
 
 	public int getMEM_USER_NO() {
 		return MEM_USER_NO;
@@ -122,12 +147,44 @@ public class Member {
 		MEM_CATEGORY = mEM_CATEGORY;
 	}
 
+
+
+
+	public String getREC_PNO() {
+		return REC_PNO;
+	}
+
+
+
+
+	public void setREC_PNO(String rEC_PNO) {
+		REC_PNO = rEC_PNO;
+	}
+
+
+
+
+	public int getMONEY() {
+		return MONEY;
+	}
+
+
+
+
+	public void setMONEY(int mONEY) {
+		MONEY = mONEY;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return "Member [MEM_USER_NO=" + MEM_USER_NO + ", MEM_USER_ID=" + MEM_USER_ID + ", MEM_USER_PWD=" + MEM_USER_PWD
 				+ ", MEM_USER_NAME=" + MEM_USER_NAME + ", MEM_PHONE=" + MEM_PHONE + ", MEM_EMAIL=" + MEM_EMAIL
 				+ ", MEM_ADDRESS=" + MEM_ADDRESS + ", MEM_LEV=" + MEM_LEV + ", MEM_STATUS=" + MEM_STATUS
-				+ ", MEM_CATEGORY=" + MEM_CATEGORY + "]";
+				+ ", MEM_CATEGORY=" + MEM_CATEGORY + ", REC_PNO=" + REC_PNO + ", MONEY=" + MONEY + "]";
 	}
 
+	
 }

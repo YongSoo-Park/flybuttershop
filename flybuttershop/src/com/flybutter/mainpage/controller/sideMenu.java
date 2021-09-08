@@ -1,4 +1,4 @@
-package com.flybutter.dummy.controller;
+package com.flybutter.mainpage.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,22 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.flybutter.dummy.model.service.MemberService;
-import com.flybutter.dummy.model.vo.Member;
 
 /**
- * Servlet implementation class dummyLoginA
+ * Servlet implementation class sideMenu
  */
-@WebServlet("/dummyLoginA.ma")
-public class dummyLoginA extends HttpServlet {
+@WebServlet("/sideMenu.ma")
+public class sideMenu extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public dummyLoginA() {
+    public sideMenu() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,19 +26,11 @@ public class dummyLoginA extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("no"));
-		Member loginMember=null;
-		if(no==0) {
-			loginMember = new MemberService().loginAdmin(no);
-			loginMember.setREC_PNO("0");
-			loginMember.setMONEY(999999);
-		}else {
-			loginMember = new MemberService().loginMember(no);
+		String RVitems = request.getParameter("RVitems");
+		if(RVitems.equals("0")) {
+			RVitems = "";
 		}
-		HttpSession session = request.getSession();
-		session.setAttribute("loginMember", loginMember);
-		response.setContentType("text/html;charset=UTF-8");
-		response.sendRedirect(request.getContextPath());
+		System.out.println(RVitems);
 	}
 
 	/**

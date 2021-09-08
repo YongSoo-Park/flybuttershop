@@ -153,6 +153,7 @@ $(function() {
 	
 	
 	
+	
 })
 </script>
 </head>
@@ -170,7 +171,6 @@ $(function() {
 
 <div id="header2Div">
 <c:choose>
-<%-- <c:when test="${0==sessionScope.MEM_USER_NO}"> --%>
 <c:when test="${0==sessionScope.loginMember.MEM_CATEGORY}">
 <img src="${pageContext.request.contextPath}/resources/icon/cart35.png" alt="이미지파일" class="header2DivItem35" onclick="movingPage('basket.do')"/>
 <img src="${pageContext.request.contextPath}/resources/icon/mypageicon35.png" alt="이미지파일" class="header2DivItem35" onclick="movingPage('main.mp')"/>
@@ -203,7 +203,7 @@ $(function() {
 </c:choose>
 <c:out value="${sessionScope.loginMember.MEM_USER_NAME}님"/>
 <br>
-<c:out value="000000pt"/>
+<c:out value="${sessionScope.loginMember.MONEY}pt"/>
 </c:when>
 <c:otherwise>
 <span style="line-height:180%;">
