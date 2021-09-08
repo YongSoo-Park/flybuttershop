@@ -17,6 +17,14 @@ public class MemberService {
 		close(conn);
 		return loginUser;
 	}
+	
+	public Member loginAdmin(int no) {
+		Connection conn = getConnection();
+
+		Member loginUser = new MemberDao().loginAdmin(conn, no);
+		close(conn);
+		return loginUser;
+	}
 
 
 }

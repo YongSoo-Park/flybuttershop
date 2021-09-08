@@ -48,8 +48,8 @@
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-<jsp:include page="../header_footer/footer.jsp" flush="true"/>
-</main>
 
+</main>
+<jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>
 </html>
