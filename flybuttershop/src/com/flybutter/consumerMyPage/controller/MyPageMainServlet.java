@@ -32,23 +32,31 @@ public class MyPageMainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		Member m = (Member) request.getSession().getAttribute("loginMember");
 		
-	
-		request.getRequestDispatcher("views/consumerMypage/ConsumerMyPageMain.jsp").forward(request, response);;
+		//int no = Integer.parseInt(request.getParameter("no"));
+		//Member loginMember = new MemberService().loginMember(no);
+		
+
+		System.out.println(m);
+		
+		int userNo = m.getMEM_USER_NO();
+		String userName = m.getMEM_USER_NAME();
+		int level = m.getMEM_LEV();
+
+		System.out.println(userNo);
+		System.out.println(userName);
+		System.out.println(level);
 		
 		
 		
-		
-		/*if(userId != null) {
+		if(userName != null) {
 			
-			//메인페이지 jsp 띄우기 
-			//멤버 접속해서 현재 등급 , 구매 실적 확인하기 실적 확인
+			request.setAttribute("name", userName);
+			request.setAttribute("level", level);
 			
-			RequestDispatcher view = request.getRequestDispatcher("views/consumerMyPage/ConsumerMyPageMain.jsp");
-			
-			view.forward(request, response);
-			
-			
+			request.getRequestDispatcher("views/consumerMypage/ConsumerMyPageMain.jsp").forward(request, response);
 			
 			
 		}else {
@@ -58,7 +66,8 @@ public class MyPageMainServlet extends HttpServlet {
 			
 			view.forward(request, response);
 			
-		}*/
+			
+		}
 		
 	}
 
