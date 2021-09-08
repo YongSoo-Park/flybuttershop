@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%String userName = String.valueOf(request.getSession().getAttribute("MEM_USER_NAME")); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +50,8 @@
         }*/
 
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 </head>
 <body>
@@ -64,7 +67,14 @@
         <div id="infoWrap">
 
 
-                애벌레 님의 등급은 골드입니다 <br>
+                <c:out value="${sessionScope.loginMember.MEM_USER_NAME}"/> 님의 등급은 
+                <c:choose>
+  				<c:when test="${sessionScope.loginMember.MEM_LEV == '1'}">애벌레</c:when>
+  				<c:when test="${sessionScope.loginMember.MEM_LEV == '2'}">번데기</c:when>
+  				<c:when test="${sessionScope.loginMember.MEM_LEV == '3'}">나비</c:when>
+  				<c:otherwise>오류</c:otherwise>
+				</c:choose>
+				입니다 <br>
                 300,000 원 이상 구매 시 프리미엄으로 업그레이드
 
         </div>
