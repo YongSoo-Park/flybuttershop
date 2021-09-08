@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ page import="com.flybutter.dummy.model.vo.Member" %>
+ 
+ <%
+ 	Member loginUser = (Member)session.getAttribute("loginUser");
+	
+	String contextPath = request.getContextPath();
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +80,7 @@ hr {
 
 </style>
 </head>
-<body>
+<body style="margin: 0 auto">
 
 	<div class="container" id="container">
 
@@ -86,14 +93,14 @@ hr {
 				<input class="form-control mr-sm-2" id="searchbar" type="text"
 					placeholder="Search">
 			</div>
-			<div class="searchicon">
+	<!-- 	<div class="searchicon">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 					fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
   <path
 						d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
 </svg>
 			</div>
-
+ -->	
 			<div class="searchbtn">
 				<button class="btn btn-light btn-lg btn-success" type="submit">Search</button>
 
@@ -124,8 +131,15 @@ hr {
 			onclick="goNotice();">공지사항</button>
 		<button type="button" class="btn btn-outline-dark" onclick="goFAQ();">자주
 			묻는 질문</button>
+			
+<%--	<% if(loginUser.getMEM_USER_ID().equals("admin")){ %>  --%>
+		<button type="button" class="btn btn-outline-dark"
+			onclick="goNoticeWrite();">글쓰기</button>
+		
+<%--	<%}else { %>  --%>
 		<button type="button" class="btn btn-outline-dark"
 			onclick="goHelpWrite();">1대1문의</button>
+<%--	<%} %>  --%>
 		<button type="button" class="btn btn-outline-dark"
 			onclick="goHelpList();">문의내역</button>
 	</div>
@@ -140,36 +154,15 @@ hr {
 		function goHelpWrite(){
 			location.href="<%=request.getContextPath()%>/write.help";
 		}
+		function goNoticeWrite(){
+			location.href="<%=request.getContextPath()%>/enrollForm.no";
+		}
 		function goHelpList(){
 			location.href="<%=request.getContextPath()%>/entireList.help";
 		}
 	</script>
 
 	<hr>
-	<script>
-		function goEntireNoticeList(){
-			location.href="<%=request.getContextPath()%>/entireList.no";
-		}
-		function goNoticeList(){
-			location.href="<%=request.getContextPath()%>/noticeList.no";
-		}
-		function goEventList(){
-			location.href="<%=request.getContextPath()%>/eventList.no";
-			}
-		</script>
-
-	<div class="btn-group" id="container1">
-
-
-		<button type="button" class="btn btn-outline-dark"
-			onclick="goEntireNoticeList();">전체</button>
-		<button type="button" class="btn btn-outline-dark"
-			onclick="goNoticeList();">공지</button>
-		<button type="button" class="btn btn-outline-dark"
-			onclick="goEventList();">이벤트</button>
-	</div>
-
-
-	<hr>
+	
 </body>
 </html>
