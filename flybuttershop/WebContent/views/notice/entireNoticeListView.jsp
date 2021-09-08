@@ -102,91 +102,12 @@ hr {
 </head>
 <body style="margin: 0 auto">
 
-	<!-- <%@ include file="../common/csMenubar.jsp" %> -->
+
 <jsp:include page="../header_footer/header.jsp" flush="true"/>
+<jsp:include page="../common/csMenubar.jsp" flush="true"/>
 	<section>
-		<div class="container" id="container">
-
-			<form class="form-inline" >
-				<div class="cs">
-					<button class="btn btn-light btn-lg" id="cslogo" onclick="gocustomerservice" type="submit">고객센터</button>
-				</div>
-				<div class="search">
-					<input class="form-control mr-sm-2" id="searchbar" type="text"
-						placeholder="Search">
-				</div>
-				<div class="searchicon">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-						fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-  <path
-							d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-</svg>
-				</div>
-
-				<div class="searchbtn">
-					<button class="btn btn-light btn-lg btn-success" type="submit">Search</button>
-
-				</div>
-				<div class="live">
-					<button type="button" class="btn btn-dark btn-lg" id="livechat"
-						onclick="golivechat();">실시간 채팅상담</button>
-				</div>
-			</form>
-		</div>
-		<script>
-		function goNotice(){
-			location.href="<%=request.getContextPath()%>/entireList.no";
-		}
-		function golivechat(){
-			location.href="<%=request.getContextPath()%>/livechat";
-			
-		}
+	
 		
-	</script>
-
-
-		<br>
-
-
-		<div class="btn-group" id="container1">
-			<button type="button" class="btn btn-outline-dark"
-				onclick="goNotice();">공지사항</button>
-			<button type="button" class="btn btn-outline-dark" onclick="goFAQ();">자주
-				묻는 질문</button>
-			<button type="button" class="btn btn-outline-dark"
-				onclick="goHelpWrite();">1대1문의</button>
-			<button type="button" class="btn btn-outline-dark"
-				onclick="goHelpList();">문의내역</button>
-		</div>
-
-		<script>
-		function goNotice(){
-			location.href="<%=request.getContextPath()%>/entireList.no";
-		}
-		function goFAQ(){
-			location.href="<%=request.getContextPath()%>/deliveryList.faq";
-		}
-		function goHelpWrite(){
-			location.href="<%=request.getContextPath()%>/write.help";
-		}
-		function goHelpList(){
-			location.href="<%=request.getContextPath()%>/entireList.help";
-		}
-	</script>
-
-		<hr>
-	<script>
-		function goEntireNoticeList(){
-			location.href="<%=request.getContextPath()%>/entireList.no";
-		}
-		function goNoticeList(){
-			location.href="<%=request.getContextPath()%>/noticeList.no";
-		}
-		function goEventList(){
-			location.href="<%=request.getContextPath()%>/eventList.no";
-			}
-		</script>
-
 		<div class="btn-group" id="container1">
 
 
@@ -208,7 +129,7 @@ hr {
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
-					<th width="100">글번호</th>
+					<th width="100">카테고리</th>
 					<th width="300">글제목</th>
 			
 				</tr>
@@ -222,7 +143,7 @@ hr {
 				 <% }else{  %>
 				 	<% for(Notice n : list){ %>
 				 		<tr>
-				 			<td><%= n.getNotice_No() %></td>
+				 			<td><%= n.getNotice_Category() %></td>
 							<td><%= n.getNotice_Title() %></td>
 					
 				 		</tr>
@@ -243,10 +164,10 @@ hr {
 		</form>
 		<br><br>
 		<div align="center">
-			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
+			<%--<% if(loginUser != null && loginUser.getUserId().equals("admin")) { --%>
 			
-			<button onclick="location.href='<%=contextPath%>/enrollForm.no'">작성하기</button> 
-		<% } %>
+			<button onclick="goEnrollForm();">작성하기</button> 
+	<%--<% } %> --%>	
 		</div>
 	
 						<div>
@@ -256,7 +177,25 @@ hr {
 								펼치면 보이는 내용을 적어줍니다. <br /> 아무 내용이나 적어주세요. <br />
 							</div>
 						</div>
+	<script>
+		
 
+		function goEntireNoticeList(){
+			location.href="<%=request.getContextPath()%>/entireList.no";
+		}
+		function goNoticeList(){
+			location.href="<%=request.getContextPath()%>/noticeList.no";
+		}
+		function goEventList(){
+			location.href="<%=request.getContextPath()%>/eventList.no";
+			}
+		function goEntireNoticeList(){
+			location.href="<%=request.getContextPath()%>/entireList.no";
+		}
+		function goEnrollForm(){
+			location.href="<%=request.getContextPath()%>/enrollForm.no";
+		}
+		</script>
 	</section>
 
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
