@@ -9,10 +9,6 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 <style>
-		body{
-		background:url('<%=request.getContextPath() %>/resources/images/semi3.jpg') no-repeat; 
-		background-size:cover;
-	}
 	
 	#findIdForm{
 	width:100%;
@@ -40,7 +36,7 @@
 	}
 	
 	td{
-	color:white;
+	color:orangered;
 	}
 	#joinId{
 	color:white;
@@ -83,7 +79,7 @@
 
 </head>
 <body>
-   <h1 id = "userIdfindText" align = "center" style="color:white; ">아이디 찾기</h1>
+   <h1 id = "userIdfindText" align = "center" style="color:skyblue; ">아이디 찾기</h1>
 	<div class="outer">
 		<form id="findIdForm" action="<%=request.getContextPath() %>/findIdForm.me" method="post" onsubmit="return joinValidate();">
 			<table align="center">

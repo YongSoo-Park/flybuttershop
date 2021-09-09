@@ -10,10 +10,6 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 <style>
-	body{
-		background:url('<%=request.getContextPath() %>/resources/images/semi1.jpg') no-repeat; 
-		background-size:cover;
-	}
 
 	#enrollForm{
  	height: 200px;

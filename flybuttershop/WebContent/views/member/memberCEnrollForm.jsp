@@ -2,6 +2,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ page import="com.flybutter.member.model.vo.Member" %>
+
+<%
+	Member member = (Member)session.getAttribute("member");
+	
+	String msg = (String)session.getAttribute("msg");
+	
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +19,6 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 <style>
-	body{
-		background:url('<%=request.getContextPath() %>/resources/images/semi5.jpg') no-repeat; 
-		background-size:cover;
-	}
-
 	#enrollForm{
  	height: 200px;
 	float:center;
@@ -64,7 +68,7 @@
 	}
 	#joinBtn:hover{
     background:mediumblue;
-     color:white;
+     color:skyblue;
 	}
 
 	#userJoinText{
@@ -85,7 +89,7 @@
 	margin :5px;
 	}
 	#joinId{
-	color:white;
+	color:skyblue;
 	width: 150px;
 	height: 20px;
 	}
@@ -95,7 +99,7 @@
 </head>
 <body>
 
-	<h1 id = "userJoinText" align = "center" style="color:white; ">Consumer</h1>
+	<h1 id = "userJoinText" align = "center" style="color:skyblue; ">Consumer</h1>
 	<div class="outer">
 		<form id="enrollForm" action="<%=request.getContextPath() %>/cInsert.me" method="post" onsubmit="return joinValidate();">
 			<table align="center">
