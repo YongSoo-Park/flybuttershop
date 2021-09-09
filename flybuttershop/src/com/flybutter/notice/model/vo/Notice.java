@@ -28,6 +28,13 @@ public class Notice {
 		this.notice_Date = notice_Date;
 	}
 
+	public Notice(int notice_No, int notice_Category, String notice_Title) {
+		super();
+		this.notice_No = notice_No;
+		this.notice_Category = notice_Category;
+		this.notice_Title = notice_Title;
+	}
+
 	public Notice(int notice_Category, String notice_Title) {
 		super();
 		this.notice_Category = notice_Category;
