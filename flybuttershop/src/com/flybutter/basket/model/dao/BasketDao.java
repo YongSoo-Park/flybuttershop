@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 import static com.common.JDBCTemplate.*;
-
 import com.flybutter.basket.model.vo.Basket;
 
 public class BasketDao {
@@ -51,7 +50,7 @@ public class BasketDao {
 								rset.getInt("BAMOUNT"),
 								rset.getInt("PRICE"),
 								rset.getDate("BASKET_DATE"),
-								rset.getInt("USER_NO")
+								rset.getInt("USER_NO")	
 						));
 			}
 			
@@ -64,6 +63,44 @@ public class BasketDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int insertBasket(Connection conn, Basket b) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertMember");
+		
+//		insertBasket=INSERT INTO BASKET VALUES(?,BASKET_NO_SQ,?,?,?,SYSDATE,?)
+		
+//		PCODE
+//		BASKET_NO
+//		BOPTION
+//		BAMOUNT
+//		PRICE
+//		BASKET_DATE
+//		USER_NO
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, b.getpCode());
+			pstmt.setString(2, b.getbOption());
+			pstmt.setInt(3, b.getbAmount());
+			pstmt.setInt(4, b.getPrice());
+			pstmt.setInt(5, b.getUser_No());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

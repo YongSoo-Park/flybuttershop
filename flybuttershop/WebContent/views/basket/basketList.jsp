@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.basket.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.basket.model.vo.*, 
+    java.util.ArrayList, com.flybutter.member.model.vo.*"%>
 <%
 ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list");
+Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+int resultPrice = 0;
+int shipPrice = 0;
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +23,8 @@ ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list");
         border: unset;
         background-color: lightgray;
         position: relative;
-        top: -20px;
+        top: -30px; 
+        left: 600px;
         
     }
     .logo{
@@ -31,10 +37,12 @@ ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list");
         height: 50px;
         float: left;
     }
-    .basketTable{
+    .basketTB{
         width: 1200px;
         height: 80px;
         background-color: midnightblue;
+        position: relative;
+        top: 30px; 
     }
     .outer{
         display: inline-block;
@@ -48,22 +56,42 @@ ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list");
     }
     #tc{
     	width: 40px;
+    	background-color: midnightblue;
+        position: relative;
+        top: 18px;
+        font-size: 18px;
     }
     #t1{
         width: 490px;
         color: white;
+        background-color: midnightblue;
+        position: relative;
+        top: 20px;
+        font-size: 18px;
     }
     #t2{
         width: 350px;
         color: white;
+         background-color: midnightblue;
+        position: relative;
+        top: 20px;
+        font-size: 18px;
     }
     #t3{
         width: 150px;
         color: white;
+         background-color: midnightblue;
+        position: relative;
+        top: 20px;
+        font-size: 18px;
     }
     #t4{
         width: 150px;
         color: white;
+         background-color: midnightblue;
+        position: relative;
+        top: 20px;
+        font-size: 18px;
     }
     #pDCheck{
         width: 20px;
@@ -78,19 +106,98 @@ ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list");
         height: 200px;
         margin: 4%;
     }
-    th{
-        background-color: midnightblue;
-        position: relative;
-        top: 20px;
-        font-size: 18px;
-    }
-    td{
-        height: 200px;
+    #btc{
+    	height: 180px;
         position: relative;
         top: 20px;
         font-size: 18px;
         text-align: center;
     }
+    #bt1{
+    	height: 180px;
+        position: relative;
+        top: 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+    #bt2{
+    	height: 180px;
+        position: relative;
+        top: 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+    #bt3{
+    	height: 180px;
+        position: relative;
+        top: 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+    #bt4{
+    	height: 180px;
+        position: relative;
+        top: 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+    #e1{
+   		text-align: center;
+  	}
+  	#e2{
+    	text-align: center;
+    	color: gray;
+  	}
+  	.emptyList{
+  		position: relative;
+        top: 150px;
+      	width: 1200px;
+     	height: 500px;
+  	}
+  	#eb{
+  		position: relative;
+        top: 180px;
+        left: 500px;
+  		width: 200px;
+  		height: 200px;
+  	}
+  	#productlist{
+  		position: relative;
+        top: -48px;
+        
+  	}
+  	.basketTable{
+    	height:auto;	
+  	}
+  	#resultDiv{
+  		width: 1200px;
+  		height: 200px;
+  		float: left;
+  	}
+  	#th1{
+  		width: 15%;
+  		height: 80px;
+  	}
+  	#th2{
+  		width: 10%;
+  	}
+  	#th3{
+  		width: 20%;
+  	}
+  	#th4{
+  		position: relative;
+  		left: -50px;
+  	}
+  	#td1{
+  		text-align: center;
+  		height: 40px;
+  	}
+  	#td2{
+  		text-align: center;
+  	}
+  	#td3{
+  		text-align: center;
+  	}
 </style>
 <body style="margin: 0 auto">
     
@@ -102,17 +209,26 @@ ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list");
 		<h2 id="basketlogo">장바구니</h2>
 	</div>
 	<br>
-    <div class="btn">
-		<br>
-        <br>
-        <button type="button" id="deleteProductBtn" onclick="deleteProduct();">선택상품 삭제</button>
-    </div>
     <br clear="left">
-    <br>
-    <div class="basketTable">
-        <form method="POST">
+    <br>            
+    
+    <%--user_No값이 로그인한 유저의 user_No와 동일하면 띄우는 걸로 if조건문 만들어야함 / 로그인 안 했을 때 띄워지는 창 or alert(확인 누르면 메인) --%>
+    
+            <%if(list.isEmpty()){%>
+            <img id="eb" src="resources/icon/empty_basket.png"/>
+			<div class="emptyList">
+				
+       			<h3 id="e1">장바구니에 담긴 상품이 없습니다.</h3>
+        		<h4 id="e2">원하시는 상품을 장바구니에 담아보세요!</h4>
+   			 </div>
+			<%}else{%>
+		<div class="btn">
+        <button type="button" id="deleteProductBtn" onclick="deleteProduct();">선택상품 삭제</button>
+   		 </div>
+   		 <div class="basketTable">
+			<div class="basketTB">
             <form method="POST" action="<%=request.getContextPath()%>/basket.do">
-                <table id="productlist">
+				 <table id="productlist">
                     <tr>
                         <th id="tc"><input type="checkbox" id="deleteCheck"></th>
                         <th id="t1">상품정보</th>
@@ -120,23 +236,39 @@ ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list");
                         <th id="t3">배송비</th>
                         <th id="t4">상품금액</th>
                     </tr>
-            <%if(list.isEmpty()){%>
-				
-			<%}else{%>
+                    
 				<% for(Basket b : list){ %>
                     <tr>
-                     	<td><input type="checkbox" id="deleteCheck"></td>
-                     	<td></td>
-                        <td><%=b.getbOption()%> / <%=b.getbAmount()%>개</td>
-                        <td>2500원</td>
-                        <td><%=b.getPrice()%>원</td>
+                     	<td id="btc"><input type="checkbox" id="deleteCheck"></td>
+                     	<td id="bt1"></td> <%--상품 정보를 담는 공간 (사진, 상품 이름) --%>
+                        <td id="bt2"><%=b.getbOption()%> / <%=b.getbAmount()%>개</td>
+                        <td id="bt3"><%=shipPrice%>원</td>
+                        <td id="bt4"><%=b.getPrice()%>원</td>
                     </tr>
                 	<%}%>
-				 <%}%>
-                </table>
-            </form> 
-        </form>
-    </div>
+                	</table>
+                	<hr>
+                	<div id="resultDiv">
+                	<table id="resultTB">
+                		<tr>
+                			<th id="th1">총 상품금액</th>
+                			<th id="th2">배송비</th>
+                			<th id="th3">할인예상금액</th>
+                			<th rowspan = "2" id="th4">총 주문금액</th>
+                		</tr>
+                		<tr>
+                			<td id="td1">1</td>
+                			<td id="td2">2</td>
+                			<td id="td3">3</td>
+                		</tr>
+                	</table>
+                	</div>
+                	<hr>
+                	</form> 
+                	</div>
+                </div>
+			 <%}%>           
     </div>
 </body>
+<jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </html>

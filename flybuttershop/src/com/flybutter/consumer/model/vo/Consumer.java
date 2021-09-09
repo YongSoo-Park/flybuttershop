@@ -4,21 +4,23 @@ public class Consumer {
 
 	private int user_No;
 	private String new_Address;
-	private int rec_Pno;
+	private String rec_Pno;
 	private char user_Cel;
 	private int money;
+	private int sum_Price;
 	
 	public Consumer() {
 		
 	}
 	
-	public Consumer(int user_No, String new_Address, int rec_Pno, char user_Cel, int money) {
+	public Consumer(int user_No, String new_Address, String rec_Pno, char user_Cel, int money, int sum_Price) {
 		super();
 		this.user_No = user_No;
 		this.new_Address = new_Address;
 		this.rec_Pno = rec_Pno;
 		this.user_Cel = user_Cel;
 		this.money = money;
+		this.sum_Price = sum_Price;
 	}
 
 	public int getUser_No() {
@@ -37,11 +39,11 @@ public class Consumer {
 		this.new_Address = new_Address;
 	}
 
-	public int getRec_Pno() {
+	public String getRec_Pno() {
 		return rec_Pno;
 	}
 
-	public void setRec_Pno(int rec_Pno) {
+	public void setRec_Pno(String rec_Pno) {
 		this.rec_Pno = rec_Pno;
 	}
 
@@ -61,11 +63,18 @@ public class Consumer {
 		this.money = money;
 	}
 
+	public int getSum_Price() {
+		return sum_Price;
+	}
+
+	public void setSum_Price(int sum_Price) {
+		this.sum_Price = sum_Price;
+	}
+
 	@Override
 	public String toString() {
 		return "Consumer [user_No=" + user_No + ", new_Address=" + new_Address + ", rec_Pno=" + rec_Pno + ", user_Cel="
-				+ user_Cel + ", money=" + money + "]";
+				+ user_Cel + ", money=" + money + ", sum_Price=" + sum_Price + "]";
 	}
-	
 	
 }
