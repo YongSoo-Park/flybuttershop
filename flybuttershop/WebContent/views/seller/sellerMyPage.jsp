@@ -16,18 +16,15 @@
 	<br><br>
 	
 	
-	상점이름 : ${requestScope.seller.store_Name} <br><br>
+	상점이름 : <p name="storeName">${requestScope.seller.store_Name}</p> <br><br>
+	소재지 : ${requestScope.seller.store_Address}<br><br>
+	사업자번호 : ${requestScope.seller.seller_No}<br><br>
+	계좌번호 : ${requestScope.seller.store_Account}<br><br>
+	상점소개 : ${requestScope.seller.store_Exp}<br><br>
 	
-	대표자 : <br><br>
-	연락처 : <br><br>
-	이메일 : <br><br>
-	소재지 : <br><br>
-	상점소개 : <br><br>
+	<button type="button" class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath()%>/updateForm.sl'">정보 수정</button>
 	
 	
-	
-
-
 
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>

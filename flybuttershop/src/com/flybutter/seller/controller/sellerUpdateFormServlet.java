@@ -13,16 +13,16 @@ import com.flybutter.seller.model.service.SellerService;
 import com.flybutter.seller.model.vo.Seller;
 
 /**
- * Servlet implementation class sellerMyPageServlet
+ * Servlet implementation class sellerUpdateServlet
  */
-@WebServlet("/sellerMyPage.sl")
-public class sellerMyPageServlet extends HttpServlet {
+@WebServlet("/updateForm.sl")
+public class sellerUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public sellerMyPageServlet() {
+    public sellerUpdateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,23 +31,23 @@ public class sellerMyPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
 		
-	      Seller seller = new SellerService().selectSeller();
+		request.setCharacterEncoding("UTF-8");
+		
+		Seller seller = new SellerService().selectSeller();
 	      
 	      RequestDispatcher view = null;
 	      
 	      if(seller != null) {
 	         request.setAttribute("seller", seller);
-	         view = request.getRequestDispatcher("views/seller/sellerMyPage.jsp");
+	         view = request.getRequestDispatcher("views/seller/sellerUpdateForm.jsp");
 	         
-	      
 	      }else {
-	    	  request.setAttribute("msg", "판매자 정보를 불러올 수 없습니다");
+	    	  request.setAttribute("msg", "판매자 정보를 수정할 수 없습니다");
 	         view = request.getRequestDispatcher("views/error/errorPage.jsp");
 	      }
 	      view.forward(request, response);
-
+	
 	}
 
 	/**

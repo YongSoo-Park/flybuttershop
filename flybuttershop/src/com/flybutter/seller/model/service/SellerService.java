@@ -23,11 +23,37 @@ public class SellerService {
 		return sel;
 	}
 
-	public ArrayList<Product> selectProductList() {
+
+	public Seller updateSeller(Seller seller) {
+		
+		Connection conn = getConnection();
+		
+		Seller updateStore = null;
+		
+		int result = new SellerDao().updateMember(conn, seller);
+		
+		if(result > 0) {
+			commit(conn);
+			updateStore = new SellerDao().selectStore(conn, seller.getStore_Name());
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateStore;
+	}
+	
+
+	public ArrayList<Product> productList(int storeNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new SellerDao().productList(conn, storeNo);
+		close(conn);
 		
 		
-		
-		return null;
-}
+		return list;
+	}
+
 
 }
