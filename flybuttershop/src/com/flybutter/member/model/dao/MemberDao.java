@@ -38,9 +38,6 @@ public class MemberDao {
 		Member loginUser = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^ userId :"+userId);
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^ userPwd :"+userPwd);
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^ sql :"+conn);
 		
 		String sql = prop.getProperty("loginMember");
 		try {
@@ -192,8 +189,6 @@ public class MemberDao {
 			pstmt.setString(1, mem.getUserName());
 			pstmt.setString(2, mem.getPhone());
 			pstmt.setString(3, mem.getEmail());
-			
-			System.out.println("$$$$$$$$$$$$$$$$ getUserName()"+ mem);
 
 			rset = pstmt.executeQuery();
 			if (rset.next()) {
@@ -219,7 +214,6 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("$$$$$$$$$$$$$$$$ return:"+ member);
 		return member;
 	}
 

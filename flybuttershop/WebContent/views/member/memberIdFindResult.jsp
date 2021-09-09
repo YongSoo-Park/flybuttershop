@@ -15,10 +15,6 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 <style>
-		body{
-		background:url('<%=request.getContextPath() %>/resources/images/semi3.jpg') no-repeat; 
-		background-size:cover;
-	}
 
 
 	#userIdfindText{
@@ -62,16 +58,17 @@
 </style>
 </head>
 <body>
-	<h1 id = "userIdfindText" align = "center" style="color:white; ">당신의 아이디는</h1>
+	<h1 id = "userIdfindText" align = "center" style="color:skyblue; ">당신의 아이디는</h1>
 	<div class="outer">
 	
 		<div align="center">
-			<h1><b style = "color:white;"><%=member.getUserId()%> 입니다</h1> </b>
+		
+			<h1 style=color:skyblue;>"<b><%=member.getUserId()%>" 입니다</h1></b>
 		</div>
 		
 		<div class="btns" align="center">
 		
-			<button type="button" id="goLogin" onclick = "location.href='<%=request.getContextPath()%>/views/cs/member/loginPage.jsp'" >홈으로 돌아가기</button>
+			<button type="button" id="goLogin" onclick = "location.href='<%=request.getContextPath()%>/main.ma'" >홈으로 돌아가기</button>
 			<button type="button" id="goMain" onclick="history.go(-1)">취소</button>
 			
 		</div> 

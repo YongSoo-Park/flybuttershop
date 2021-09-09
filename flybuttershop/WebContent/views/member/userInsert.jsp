@@ -10,22 +10,13 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 <style>
-	body{
-		background:url('<%=request.getContextPath() %>/resources/images/semi.jpg') no-repeat; 
-		background-size:cover;
-	}
-	
-	/* 로그인 폼 관련 스타일	*/
 	#loginForm,
 	#userInfo{
-
 	float:center;
-
 	}
 	
 	.btns{
 	border-radius:5px;
-	
 	}
 
 
@@ -62,14 +53,9 @@
 	 background-color: mediumpurple;
 	 font-size: 20px;
 	 border-radius:5px;
-
-	 
 	 }
 
-	 
-	 
     #FlyButter{
-	
 	font-family: 'Lobster', cursive;
 	font-size:100px;
 	padding :40px;
@@ -95,7 +81,7 @@
 </head>
 
 <body>
-	<h1 id = "FlyButter" align = "center" style="color:white;">FlyButterShop</h1>
+	<h1 id = "FlyButter" align = "center" style="color:skyblue;">Membership</h1>
 	<div class= "loginArea">
 		
 

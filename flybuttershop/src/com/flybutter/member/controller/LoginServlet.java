@@ -18,7 +18,7 @@ import com.flybutter.member.model.vo.Member;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/loginPage.me")
+@WebServlet("/loginPage.lp")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,11 +47,10 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("originPwd", originPwd);
-			//response.sendRedirect(request.getContextPath() + "/loginPage.lp");
-			RequestDispatcher view = request.getRequestDispatcher("views/member/loginPage.jsp");
+			//response.sendRedirect("/main.ma");
+			RequestDispatcher view = request.getRequestDispatcher("/main.ma");
 			view.forward(request, response);
-			System.out.println("%%%%%%%%%%%%%%%%%%%%%% request.getContextPath() : " + request.getContextPath());
-			
+			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%% loginUser :"+loginUser);
 		}else {
 			request.setAttribute("msg", "로그인에 실패했습니다.");
 			

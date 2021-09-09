@@ -18,14 +18,7 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 <style>
-	body{
-		background:url('<%=request.getContextPath() %>/resources/images/semi.jpg') no-repeat; 
-		background-size:cover;
-	}
-	
-	/* 로그인 폼 관련 스타일	*/
-	#loginForm,
-	#userInfo{
+	#loginForm{
 
 	float:center;
 
@@ -78,46 +71,30 @@
 	 #userId,
 	 #userPwd{
 	 font-family: 'Lobster', cursive;
-	 width: 250px;
+	 width: 180px;
 	 height: 30px;
 	 }
 	 
 	 
     #FlyButter{
-	
 	font-family: 'Lobster', cursive;
-	
 	font-size:100px;
 	padding :40px;
-
 	}
-	#logoutBtn{
+	
+	#goMain{
 	width: 200px;
     height: 50px;
     margin :5px;
     font-size: 20px;
-	background-color:thistle;
-    transition-duration: 1s;
-	}
-	#logoutBtn:hover{
-    background:mediumblue;
-    color:white;
-	}
-	 
-	#nextPageBtn{
-	width: 200px;
-    height: 50px;
-    margin :5px;
-    font-size: 20px;
+    border-radius:5px;
 	background-color:bisque;
 	transition-duration: 1s;
 	}
-	#nextPageBtn:hover{
+	#goMain:hover{
     background:mediumblue;
     color:white;
 	}
-
-
 </style>
 <script>
 	$(function(){
@@ -148,11 +125,10 @@
 </head>
 
 <body>
-	<h1 id = "FlyButter" align = "center" style="color:white;">FlyButterShop</h1>
+	<h1 id = "FlyButter" align = "center" style="color:skyblue;">LOG-IN</h1>
 	<div class= "loginArea">
 		
-		<% if(loginUser == null) {%>
-	<form id = "loginForm" action="<%=request.getContextPath()%>/loginPage.me" method="post" onsubmit="return loginValidate();">
+	<form id = "loginForm" action="<%=request.getContextPath()%>/loginPage.lp" method="post" onsubmit="return loginValidate();">
 
 		<div class ="btns" align="center">
 			<div>
@@ -174,25 +150,10 @@
 				<button id = "findIdBtn" type="button" onclick="findIdPage();">아이디 찾기</button>
 				<button id = "findPwdBtn" type="button" onclick="findPwdPage();">비밀번호 찾기</button>
 			</div>
-			<!-- <br> -->
 	
 			<button type="button" id="goMain" onclick="history.go(-1)">메인으로</button>
 		</div>
 	</form>
-		<%}else {%>
-			<div id = "userInfo"  align="center">
-				<h1><b style = "color:white;"><%=loginUser.getUserName() %> 님 </b>
-				 의 방문을 환영합니다.</h1>
-				<br><br>
-				<div class ="btns" align="center">
-					 <a href = "<%=request.getContextPath() %>/nextpage.me"><button id="nextPageBtn">다음페이지</button></a>
-					<div>
-					 <a href = "<%=request.getContextPath() %>/logout.me"><button id = "logoutBtn">로그아웃</button></a>
-					</div>
-				</div>
-			
-			</div>
-			  <%} %>
 	</div>
 	
 

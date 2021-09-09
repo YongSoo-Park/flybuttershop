@@ -16,7 +16,6 @@ public class MemberService {
 
 	public Member loginMember(String userId, String userPwd) {
 		Connection conn = getConnection();
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$ conn :"+conn);
 		Member loginUser = new MemberDao().loginMember(conn,userId, userPwd);
 		close(conn);
 		
