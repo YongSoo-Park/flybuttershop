@@ -46,19 +46,21 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Notice(rset.getInt("NOTICE_CATEGORY"),
+				list.add(new Notice(rset.getInt("NOTICE_NO"),
+									rset.getInt("NOTICE_CATEGORY"),
 									rset.getString("NOTICE_TITLE")));
 			}
-			
+			System.out.println("dao list : " + list);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt); 
+		
 		}
-		System.out.println("dao list : " + list);
+	
 		return list;
 	}
 
@@ -89,6 +91,74 @@ public class NoticeDao {
 				close(pstmt);
 			}
 			System.out.println("result from dao : " + result);
+		return result;
+	}
+
+
+	public Notice selectNotice(Connection conn, int no) {
+		Notice n = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectNotice");
+		//selectNotice=SELECT NOTICE_NO, NOTICE_CATEGORY, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_FILE_ORIGIN, NOTICE_FILE_SYSTEM, NOTICE_DATE FROM NOTICE WHERE NOTICE_NO=?
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				n = new Notice( rset.getInt("NOTICE_NO"),
+						rset.getInt("NOTICE_CATEGORY"),
+						rset.getString("NOTICE_TITLE"),
+						rset.getString("NOTICE_CONTENT"),
+						rset.getString("NOTICE_FILE_ORIGIN"),
+						rset.getString("NOTICE_FILE_SYSTEM"),
+						rset.getDate("NOTICE_DATE")
+						);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("dao select n : " + n);
+		return n;
+	}
+
+
+	public int updateNotice(Connection conn, Notice n) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateNotice");
+		//updateNotice=UPDATE NOTICE SET NOTICE_TITLE=?, NOTICE_CONTENT=? WHERE NOTICE_NO=?
+	//updateNotice=UPDATE NOTICE SET NOTICE_CATEGORY=?, NOTICE_TITLE=?, NOTICE_CONTENT=? NOTICE_FILE_ORIGIN=? NOTICE_FILE_SYSTEM=? WHERE NOTICE_NO=?
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, n.getNotice_Category());
+			pstmt.setString(2, n.getNotice_Title());
+			pstmt.setString(3, n.getNotice_Content());
+			pstmt.setString(4, n.getNotice_File_Origin());
+			pstmt.setString(5, n.getNotice_File_System());
+			
+			
+			result = pstmt.executeUpdate();
+			System.out.println("update dao result : " + result);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 

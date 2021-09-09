@@ -35,4 +35,42 @@ public class NoticeService {
 		return result;
 	}
 
+	public Notice selectNotice(int no) {
+		Connection conn = getConnection();
+		
+		Notice n  = new NoticeDao().selectNotice(conn, no);
+		System.out.println("service select n : " + n);
+		close(conn);
+		
+		return n;
+	}
+
+	public Notice selectUpdateNotice(int no) {
+		Connection conn = getConnection();
+		
+		Notice n = new NoticeDao().selectNotice(conn, no);
+		close(conn);
+		
+		return n;
+	}
+
+	public int updateNotice(Notice n) {
+		Connection conn = getConnection();
+		int result = new NoticeDao().updateNotice(conn, n);
+		System.out.println("service");
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);	
+		System.out.println("update result from service : " + result);
+	
+		return result;
+		
+	}
+	
+	
+
 }

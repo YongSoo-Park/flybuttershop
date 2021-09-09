@@ -104,9 +104,9 @@ hr {
 
 
 <jsp:include page="../header_footer/header.jsp" flush="true"/>
-<jsp:include page="../common/csMenubar.jsp" flush="true"/>
+
 	<section>
-	
+	<jsp:include page="../common/csMenubar.jsp" flush="true"/>
 		
 		<div class="btn-group" id="container1">
 
@@ -129,6 +129,7 @@ hr {
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
+					 <th style="visibility:hidden;" width="100">글번호</th>
 					<th width="100">카테고리</th>
 					<th width="300">글제목</th>
 			
@@ -143,6 +144,7 @@ hr {
 				 <% }else{  %>
 				 	<% for(Notice n : list){ %>
 				 		<tr>
+				 			<td style="visibility:hidden;" ><%= n.getNotice_No() %></td>
 				 			<td><%= n.getNotice_Category() %></td>
 							<td><%= n.getNotice_Title() %></td>
 					
@@ -195,6 +197,15 @@ hr {
 		function goEnrollForm(){
 			location.href="<%=request.getContextPath()%>/enrollForm.no";
 		}
+		<%if(!list.isEmpty()){%>
+		$(function(){
+			$(".listArea>tbody>tr").click(function(){
+				var no = $(this).children().eq(0).text();
+				location.href="<%= request.getContextPath()%>/detail.no?no="+no;
+			})
+		})
+		<%}%>
+		
 		</script>
 	</section>
 
