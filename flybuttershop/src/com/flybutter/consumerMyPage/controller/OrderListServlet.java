@@ -1,4 +1,4 @@
-package com.flybutter.review.controller;
+package com.flybutter.consumerMyPage.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MyPageMainServlet
+ * Servlet implementation class OrderListServlet
  */
-@WebServlet("/mai1n.mp")
-public class MyPageMainServlet extends HttpServlet {
+@WebServlet("/orderList.mp")
+public class OrderListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public MyPageMainServlet() {
+    public OrderListServlet() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -36,9 +37,5 @@ public class MyPageMainServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
-	
-	
-	
 
 }
