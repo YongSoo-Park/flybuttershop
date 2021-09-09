@@ -95,27 +95,27 @@
     
     <script>
         function goUpdateMember(){
-            location.href="/memberUpdate.mp";
+            location.href="/checkPass.mp";
         }
     
         function goReviewList(){
-            location.href="#";
+            location.href="/reviewList.rv";
         }
         
         function goOrderCheck(){
-            location.href="#";
+            location.href="/orderList.mp";
         }
         
         function goCoupon(){
-            location.href="#";
+            location.href="/couponList.mp";
         }
 
         function goRecentlyView(){
-            location.href="#";
+            location.href="/recentlyList.mp";
         }
 
         function goWishList(){
-            location.href="#";
+            location.href="/wishlist.mp";
         }
     
     
