@@ -1,6 +1,8 @@
 package com.flybutter.dummy.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import com.flybutter.dummy.model.service.MemberService;
 import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.mainpage.model.service.mainPageService;
+import com.flybutter.product.model.vo.Product;
 
 /**
  * Servlet implementation class dummyLoginA
@@ -32,6 +36,7 @@ public class dummyLoginA extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no = Integer.parseInt(request.getParameter("no"));
 		Member loginMember=null;
+		HashMap<String,Product> RVItemsList = null;;
 		if(no==0) {
 			loginMember = new MemberService().loginAdmin(no);
 			loginMember.setREC_PNO("0");
@@ -39,8 +44,13 @@ public class dummyLoginA extends HttpServlet {
 		}else {
 			loginMember = new MemberService().loginMember(no);
 		}
+		if(!loginMember.getREC_PNO().equals("0")) {
+			RVItemsList  = new mainPageService().RVItemsList(loginMember.getREC_PNO());			
+		}
+		System.out.println(RVItemsList);
 		HttpSession session = request.getSession();
 		session.setAttribute("loginMember", loginMember);
+		session.setAttribute("RVItemsList", RVItemsList);
 		response.setContentType("text/html;charset=UTF-8");
 		response.sendRedirect(request.getContextPath());
 	}

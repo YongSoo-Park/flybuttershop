@@ -38,6 +38,24 @@ public class Product {
 		this.sale_Flag = sale_Flag;
 	}
 
+	
+
+	public Product(String pName, String pImage_Origin) {
+		this.pName = pName;
+		this.pImage_Origin = pImage_Origin;
+	}
+
+
+
+	public Product() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
+
 
 	public String getpCode() {
 		return pCode;
