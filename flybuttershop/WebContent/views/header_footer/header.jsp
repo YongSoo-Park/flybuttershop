@@ -68,15 +68,29 @@ z-index: 5;
 }
 
 #recentlyViewedItems{
-width: 200px;
-height: 600px;
 position: fixed;
 top: 180px;
 left: 50%;
 transform:translateX(650px);
 
-background-color: paleturquoise;
 
+}
+
+.RVItemsView{
+position : absolute;
+top : 0px;
+left : 0px;
+width: 180px;
+
+border : solid 1px blue;
+
+font-size: 13px;
+display: inline-block;
+text-align: center;
+}
+#RVItemsView2{
+visibility: hidden;
+opacity : 0;
 }
 #mainCategory{
 margin-top: 0;
@@ -131,6 +145,19 @@ function movingPage(url) {
 	form.submit();
 	
 }
+function detailP(pCode) {
+	var form = document.createElement('form');
+	var hInput = document.createElement('input');
+	form.setAttribute('method','post');
+	form.setAttribute('action', '/detail.pr');
+	hInput.setAttribute('type','hidden');
+	hInput.setAttribute('name', 'pCode');
+	hInput.setAttribute('value', pCode);
+	form.appendChild(hInput);
+	document.body.appendChild(form);
+	form.submit();
+	
+}
 
 
 </script>
@@ -138,7 +165,6 @@ function movingPage(url) {
 $(function() {
 	
 	$('#mainCategoryOpen').click(function() {
-		console.log("asfafasf");
 		var mainCategoryToggle = $('#mainCategoryDiv').css('visibility');
 		
 		if(mainCategoryToggle=='hidden'){
@@ -151,6 +177,23 @@ $(function() {
 		
 	})
 	
+	$('.rivViewBtn').click(function() {
+		
+
+		let rviView1 = $('#RVItemsView1').css('visibility');
+		if(rviView1 == 'hidden'){
+			$('#RVItemsView1').css('visibility','visible');
+			$('#RVItemsView1').css('opacity','1');
+			$('#RVItemsView2').css('visibility','hidden');
+			$('#RVItemsView2').css('opacity','0');
+			console.log("222");
+		}else{
+			$('#RVItemsView1').css('visibility','hidden');
+			$('#RVItemsView1').css('opacity','0');
+			$('#RVItemsView2').css('visibility','visible');
+			$('#RVItemsView2').css('opacity','1');
+		}
+	})
 	
 	
 	
@@ -295,21 +338,31 @@ $(function() {
 </div>
 
 <div id="recentlyViewedItems">
- 최근 본 상품<br><br>
- 최근 본 상품<br><br>
- 최근 본 상품<br><br>
- 최근 본 상품<br><br>
- 최근 본 상품<br><br>
- 최근 본 상품<br><br>
- 최근 본 상품<br><br>
- 최근 본 상품<br><br>
- 최근 본 상품<br><br>
- 최근 본 상품<br><br>
- 최근 본 상품<br><br>
-  최근 본 상품<br><br>
- 최근 본 상품<br><br>
-  최근 본 상품<br><br>
- 최근 본 상품
+ <c:if test="${!empty sessionScope.RVItemsList}">
+ <div class="RVItemsView" id="RVItemsView1">
+ <b style="font-size: 25px"><br>최근 본 상품<br><br></b><hr>
+ <c:forEach items="${sessionScope.RVItemsList}" var="list" end="4">
+ <c:forEach items="${list.key}" var="item">
+ <img src="${pageContext.request.contextPath}${sessionScope.RVItemsList[item].pImage_Origin}" width="80px" height="80px" onclick="detailP('${list.key}')"><br>
+ ${sessionScope.RVItemsList[item].pName}${list.key}<hr><br>
+</c:forEach>
+</c:forEach>
+<c:if test="${sessionScope.RVItemsList.size() > 5}">
+<button id="rviNext" class="rivViewBtn">NEXT ></button><br><br>
+</c:if>
+</div>
+ <div class="RVItemsView" id="RVItemsView2">
+ <b style="font-size: 25px"><br>최근 본 상품<br><br></b><hr>
+ <c:forEach items="${sessionScope.RVItemsList}" var="list" begin="5">
+ <c:forEach items="${list.key}" var="item">
+ <img src="${pageContext.request.contextPath}${sessionScope.RVItemsList[item].pImage_Origin}" width="80px" height="80px" onclick="detailP('${list.key}')"><br>
+ ${sessionScope.RVItemsList[item].pName}${list.key}<hr><br>
+</c:forEach>
+</c:forEach>
+<button id="rviPrev" class="rivViewBtn">< PREV</button><br><br>
+</div>
+ 
+ </c:if>
 </div>
 </body>
 </html>
