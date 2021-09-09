@@ -1,7 +1,6 @@
 package com.flybutter.basket.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,18 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.basket.model.service.BasketService;
 import com.flybutter.basket.model.vo.Basket;
+import com.flybutter.member.model.vo.Member;
 
 /**
- * Servlet implementation class basketListServlet
+ * Servlet implementation class InsertBasketServlet
  */
-@WebServlet("/basket.do")
-public class BasketListServlet extends HttpServlet {
+@WebServlet("/insertbasket.do")
+public class InsertBasketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BasketListServlet() {
+    public InsertBasketServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,10 +31,27 @@ public class BasketListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Basket> list = new BasketService().selectBasketList();
+		request.setCharacterEncoding("UTF-8");
 		
-        request.setAttribute("list", list);
-        request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		
+		Basket b = new Basket();
+		
+		String pCode = request.getParameter("pCode");
+		String bOption = request.getParameter("pOption");
+		int price = Integer.parseInt(request.getParameter("price"));
+		int bAmount = Integer.parseInt(request.getParameter("bAmount"));
+		
+		b.setpCode(pCode);
+		b.setbOption(bOption);
+		b.setPrice(price);
+		b.setbAmount(bAmount);
+		b.setUser_No(loginUser.getUserNo());
+		
+		//user_No는 따로 consumer(또는 로그인유저)에서 가져와서 넘겨주기
+		
+		int result = new BasketService().insertBasket(b);
+		
 	}
 
 	/**
