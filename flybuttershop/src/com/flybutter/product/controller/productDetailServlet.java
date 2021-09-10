@@ -1,4 +1,4 @@
-package com.flybutter.seller.controller;
+package com.flybutter.product.controller;
 
 import java.io.IOException;
 
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.seller.model.service.SellerService;
-import com.flybutter.seller.model.vo.Seller;
+import com.flybutter.product.model.service.ProductService;
+import com.flybutter.product.model.vo.Product;
 
 /**
- * Servlet implementation class sellerMyPageServlet
+ * Servlet implementation class productDetailServlet
  */
-@WebServlet("/sellerMyPage.sl")
-public class sellerMyPageServlet extends HttpServlet {
+@WebServlet("/detail.pr")
+public class productDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public sellerMyPageServlet() {
+    public productDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,24 +32,24 @@ public class sellerMyPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-			
-			
+		String pCode = request.getParameter("pCode");
+		System.out.println("pCode" + pCode);
 		
-	      Seller seller = new SellerService().selectSeller();
-	      
-	      RequestDispatcher view = null;
-	      
-	      if(seller != null) {
-	         request.setAttribute("seller", seller);
-	         view = request.getRequestDispatcher("views/seller/sellerMyPage.jsp");
-	         
-	      
-	      }else {
-	    	  request.setAttribute("msg", "판매자 정보를 불러올 수 없습니다");
-	         view = request.getRequestDispatcher("views/error/errorPage.jsp");
-	      }
-	      view.forward(request, response);
-
+		Product p = new ProductService().selectProduct(pCode);
+		
+		System.out.println(p);
+		
+		RequestDispatcher view = null;
+	
+		if(p != null) {
+			request.setAttribute("p", p);
+			request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);;
+		}else {
+			request.setAttribute("msg", "상품정보를 불러올 수 없습니다.");
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
+		}
+		
 	}
 
 	/**

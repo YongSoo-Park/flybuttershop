@@ -35,9 +35,13 @@ public class productManagerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Seller sel = new SellerService().selectSeller();
+		System.out.println("sel" + sel);
+		System.out.println("storeNo : "+sel.getStore_No());
+		int storeNo = sel.getStore_No();
 		
-		ArrayList<Product> list = new SellerService().productList(sel.getStore_No());
+		ArrayList<Product> list = new SellerService().productList(storeNo);
 		request.setAttribute("list", list);
+		System.out.println("plist : "+list);
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/seller/productManager.jsp");
 		view.forward(request, response);
