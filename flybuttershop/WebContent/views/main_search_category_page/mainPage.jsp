@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,60 +12,67 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style type="text/css">
+#bestTitle{
+text-align: center;
+width: 1200px;
+font-size: 40px;
+position: absolute;
+top: 550px;
+left: 0px
+}
 #bestPWrap{
 position: absolute;
-top :530px;
+top :650px;
 left: 0px;
-background-color: blue;
+border : solid 1px;
+background-color: white;
 width: 1200px;
-height: 500px;
+height: 280px;
 display: flex;
 }
-
+#hiddenDiv{
+position: absolute;
+top : 0px;
+right: 0px;
+visibility: hidden;
+opacity: 0;
+display: flex;
+}
+.bestItems{
+text-align: center;
+margin : 4px;
+border: solid 0.5px #48BAE4;
+}
 </style>
 <script type="text/javascript">
 $(function() {
-	console.log("11111")
-	<c:set var="start" value="0" />
-	<c:set var="end" value="6" />
-	<c:set var="sumsub" value="0" />
-	<c:set var="name" value="홍길동" />
+
+	var start = 0;
+	var end = 5;
+	var sumsub = 0;
 	setInterval(() => {
-
-		console.log(${start})
-		<c:if test="${start eq 0}">
-		<c:set var="sumsub" value="1" />
-		console.log("asfasfsf")
-		</c:if>
-		<c:if test="${end == 16}">
-		<c:set var="sumsub" value="2" />
-		</c:if>
-		<c:if test="${sumsub eq 1}">
-		<c:set var="start" value="${start+1}" />
-
-		console.log(${start})
-		<c:set var="end" value="${end+1}" />
-		</c:if>
-		<c:if test="${sumsub == 2}">
-		<c:set var="start" value="${start-1}" />
-		<c:set var="end" value="${end-1}" />
-		</c:if>
-		var opo = <c:out value="${sessionScope.loginMember.MEM_USER_NO}"/>;
+		if(start == 0){
+			sumsub = 1;
+		}
+		if(end == 15){
+			sumsub = 2;
+		}
+		if(sumsub == 1){
+			start = start+1;
+			end = end+1;
+		}
+		if(sumsub == 2){
+			start = start-1;
+			end = end-1;
+		}
+		var strStart = String(start);
+		var strEnd = String(end);
 		var saleitemsview = $('#bestPWrap');
-
-		console.log($('#bestItems'))
- 		saleitemsview.empty(); 
-		var str = '<c:forEach items="${sessionScope.saleList}" var="list" varStatus="status"><div id="bestItems${status.index}">'+
-			'<img alt="" src="${pageContext.request.contextPath}${list.pImage_Origin}" width="190px" height="190px" style="margin: 5px"><br>'+
-			'<c:out value="${list.pName}"/></div></c:forEach>';
-			$('#hiddenDiv').append(str);
-			console.log($('#bestItems0'));
-			saleitemsview.append($('#bestItems0')); 
-			saleitemsview.append($('#bestItems6')); 
-			saleitemsview.append($('#bestItems2')); 
-			saleitemsview.append($('#bestItems3')); 
-			saleitemsview.append($('#bestItems4')); 
-			saleitemsview.append($('#bestItems5')); 
+ 		saleitemsview.empty();
+		for(var i = start; i < end+1 ; i++ ){			
+			saleitemsview.append($('#bestItems'+String(i)).clone()); 
+		}
+		$('#bestTitle').append($('#bestItems16').clone())
 	}, 3000);
 })
 
@@ -97,11 +107,12 @@ $(function() {
 <br>
 
 <br>
-
+<div id="bestTitle"><b>FlyButterShop`s Best!!</b><br></div>
 <div id="bestPWrap">
+
 <c:forEach items="${sessionScope.saleList}" var="list" end="5">
-	<div id="bestItems">
-		<img alt="" src="${pageContext.request.contextPath}${list.pImage_Origin}" width="190px" height="190px" style="margin: 5px"><br>
+	<div id="bestItems" class="bestItems">
+		<img alt="" src="${pageContext.request.contextPath}${list.pImage_Origin}" width="190px" height="190px" onclick="detailP('${list.pCODE}')" style="cursor: pointer;"><br>
 		<c:out value="${list.pName}"/>
 		</div>
 		
@@ -111,12 +122,16 @@ $(function() {
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
-
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<div style="visibility: hidden; opacity: 0" id="hiddenDiv"></div>
 
+<div id="hiddenDiv">
+<c:forEach items="${sessionScope.saleList}" var="list" varStatus="status"><div id="bestItems${status.index}" class="bestItems">
+	<img alt="" src="${pageContext.request.contextPath}${list.pImage_Origin}" width="190px" height="190px" onclick="detailP('${list.pCODE}')" style="cursor: pointer;"><br>
+	<c:out value="${list.pName}"/><c:out value="${status.index}"/></div></c:forEach>
+</div>
 </main>
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
+
 </body>
 </html>
