@@ -17,6 +17,9 @@ public class Review {
 	private String rere_content;
 	private Date rere_date;
 	private int store_no;
+	private int score;
+	private int pur_no;
+	
 	
 	public Review() {
 		// TODO Auto-generated constructor stub
@@ -63,6 +66,42 @@ public class Review {
 		this.re_originFile = re_originFile;
 		this.re_changeFile = re_changeFile;
 		this.re_status = re_status;
+	}
+
+	
+	
+	
+	public Review(int re_no, String pCode, int user_no, String re_title, String re_content, Date re_date,
+			String re_originFile, String re_changeFile, char re_status, int score, int pur_no) {
+		super();
+		this.re_no = re_no;
+		this.pCode = pCode;
+		this.user_no = user_no;
+		this.re_title = re_title;
+		this.re_content = re_content;
+		this.re_date = re_date;
+		this.re_originFile = re_originFile;
+		this.re_changeFile = re_changeFile;
+		this.re_status = re_status;
+		this.score = score;
+		this.pur_no = pur_no;
+	}
+	
+	
+	
+
+	public Review(int re_no, String pCode, int user_no, String re_title, String re_content, Date re_date,
+			char re_status, int score, int pur_no) {
+		super();
+		this.re_no = re_no;
+		this.pCode = pCode;
+		this.user_no = user_no;
+		this.re_title = re_title;
+		this.re_content = re_content;
+		this.re_date = re_date;
+		this.re_status = re_status;
+		this.score = score;
+		this.pur_no = pur_no;
 	}
 
 	public int getRe_no() {
@@ -169,14 +208,31 @@ public class Review {
 		this.store_no = store_no;
 	}
 
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getPur_no() {
+		return pur_no;
+	}
+
+	public void setPur_no(int pur_no) {
+		this.pur_no = pur_no;
+	}
+
 	@Override
 	public String toString() {
 		return "Review [re_no=" + re_no + ", pCode=" + pCode + ", user_no=" + user_no + ", re_title=" + re_title
 				+ ", re_content=" + re_content + ", re_date=" + re_date + ", re_originFile=" + re_originFile
 				+ ", re_changeFile=" + re_changeFile + ", re_status=" + re_status + ", rere_title=" + rere_title
-				+ ", rere_content=" + rere_content + ", rere_date=" + rere_date + ", store_no=" + store_no + "]";
+				+ ", rere_content=" + rere_content + ", rere_date=" + rere_date + ", store_no=" + store_no + ", score="
+				+ score + ", pur_no=" + pur_no + "]";
 	}
-	
+
 	
 	
 	

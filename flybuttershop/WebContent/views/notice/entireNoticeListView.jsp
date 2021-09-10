@@ -30,7 +30,7 @@ ArrayList<Notice> list = (ArrayList<Notice>) request.getAttribute("list");
 	font-weight: bold;
 }
 
-#container {
+#container { 
 	background-color: lightgray;
 	width: 1200px;
 	height: 70px;

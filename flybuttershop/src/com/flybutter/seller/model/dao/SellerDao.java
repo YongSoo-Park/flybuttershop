@@ -48,7 +48,8 @@ public class SellerDao {
 				rset = pstmt.executeQuery();
 				
 				if(rset.next()) {
-					sel = new Seller(rset.getString("STORE_NAME"),
+					sel = new Seller(rset.getInt("STORE_NO"),
+									 rset.getString("STORE_NAME"),
 									 rset.getString("STORE_ADDRESS"),
 									 rset.getString("SELLER_NO"),
 									 rset.getString("STORE_ACCOUNT"),
@@ -114,7 +115,8 @@ public class SellerDao {
 				rset = pstmt.executeQuery();
 				
 				if(rset.next()) {
-					sel = new Seller(rset.getString("STORE_NAME"),
+					sel = new Seller(rset.getInt("STORE_NO"),
+									 rset.getString("STORE_NAME"),
 									 rset.getString("STORE_ADDRESS"),
 									 rset.getString("SELLER_NO"),
 									 rset.getString("STORE_ACCOUNT"),
@@ -143,21 +145,22 @@ public class SellerDao {
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, storeNo);
 				rset = pstmt.executeQuery();
 				
-//				while(rset.next()) {
-//					list.add(new Product(rset.getString("PCODE"),
-//										 rset.getInt("PCATEGORY"),
-//										 rset.getInt("PCATEGORY2"),
-//										 rset.getString("PNAME"),
-//										 rset.getString("POPTION")
-//										 rset.getInt("PSTOCK"),
-//										 rset.getInt("PRICE"),
-//										 rset.getDate("PDATE"),
-//										 rset.getString("PSTATUS")
-//										 rset.getInt("SALE_FLAG")
-//										));
-//				}
+				while(rset.next()) {
+					list.add(new Product(rset.getString("PCODE"),
+										 rset.getInt("PCATEGORY"),
+										 rset.getInt("PCATEGORY2"),
+										 rset.getString("PNAME"),
+										 rset.getString("POPTION"),
+										 rset.getInt("PRICE"),
+										 rset.getInt("PSTOCK"),
+										 rset.getDate("PDATE"),
+										 rset.getString("PSTATUS"),
+										 rset.getInt("SALE_FLAG")
+										));
+				}
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

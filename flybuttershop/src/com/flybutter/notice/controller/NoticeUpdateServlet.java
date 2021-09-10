@@ -44,7 +44,7 @@ public class NoticeUpdateServlet extends HttpServlet {
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new NoticeFileRenamePolicy());
 			System.out.println(1);
-			
+			System.out.println("2servlet");
 			int no = Integer.parseInt(multiRequest.getParameter("no"));
 			System.out.println("servlet no : " + no);
 			
@@ -52,30 +52,34 @@ public class NoticeUpdateServlet extends HttpServlet {
 			n.setNotice_Category(Integer.parseInt(multiRequest.getParameter("category")));
 			n.setNotice_Title(multiRequest.getParameter("title"));
 			n.setNotice_Content(multiRequest.getParameter("content"));
-			System.out.println(2);
+			//n.setNotice_File_System("upfile1");
+			n.setNotice_No(no);
+			System.out.println("n if전 : " + n);
 			
 			
 				
-			if(multiRequest.getOriginalFileName("upFile") != null) {
+			if(multiRequest.getOriginalFileName("upFile1") != null) {
 				
-				n.setNotice_File_Origin(multiRequest.getOriginalFileName("upFile"));
-				n.setNotice_File_System(multiRequest.getFilesystemName("upFile"));
-			
+				n.setNotice_File_Origin(multiRequest.getOriginalFileName("upFile1"));
+				n.setNotice_File_System(multiRequest.getFilesystemName("upFile1"));
+				System.out.println("if upFile1");
 				
-				if(multiRequest.getParameter("originFile") != null) {
-					File deleteFile = new File(savePath + multiRequest.getParameter("originFile"));
+				if(multiRequest.getParameter("upFile1") != null) {
+					File deleteFile = new File(savePath + multiRequest.getParameter("upFile"));
 					
 					deleteFile.delete();
-					
+				System.out.println("if upFile1_ if ");
 						}
 			}
-			
+
+			System.out.println("n if후 : " + n);
 			int result = new NoticeService().updateNotice(n);
-			
+			System.out.println("노티스서비스 후");
 			if(result > 0) {
 				System.out.println("update from servlet result : " + result);
 				response.sendRedirect("detail.no?no=" + no);
-			}else {
+				
+			}else { 
 				request.setAttribute("msg", "게시글 수정에  실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}

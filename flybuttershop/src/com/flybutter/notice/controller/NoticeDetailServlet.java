@@ -36,7 +36,7 @@ public class NoticeDetailServlet extends HttpServlet {
 	System.out.println("servlet no : " + no);
 	System.out.println("servlet n : " + n);
 		if( n != null) {
-			System.out.println("nullerror");
+			System.out.println("nullerror"); 
 			request.setAttribute("n", n);	
 			System.out.println("nullerror222");
 			request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);

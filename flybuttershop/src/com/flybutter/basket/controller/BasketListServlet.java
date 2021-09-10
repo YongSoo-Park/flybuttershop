@@ -33,6 +33,8 @@ public class BasketListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Basket> list = new BasketService().selectBasketList();
 		
+		
+		
         request.setAttribute("list", list);
         request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
 	}

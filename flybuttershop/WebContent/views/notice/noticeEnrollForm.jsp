@@ -29,7 +29,7 @@
 #enrollForm {
 	width: 70%;
 	margin: auto;
-}
+} 
 
 #enrollForm>table {
 	border: 1px solid white;

@@ -31,7 +31,7 @@
 	.outer>table, .outer>table tr>*{
 		border:1px solid black;
 	}
-	
+	 
 	.outer>table{
 		width:1200px;
 		height:1000px;
@@ -88,7 +88,7 @@
 			
 			
 			<a href="updateForm.no?no=<%=n.getNotice_No()%>">수정하기</a> &nbsp;&nbsp;
-			<a href="delete.no?nno=<%=n.getNotice_No()%>">삭제하기</a>
+			<a href="delete.no?no=<%=n.getNotice_No()%>">삭제하기</a>
 		
 		
 		</div>

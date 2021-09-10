@@ -32,5 +32,6 @@
 		
 		</script>
 
+<jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>
 </html>

@@ -26,8 +26,8 @@ public class Seller extends Member{
 	}
 
 
-	public Seller(String store_Name, String store_Address, String seller_No, String store_Account, String store_Exp) {
-		super();
+	public Seller(int store_No, String store_Name, String store_Address, String seller_No, String store_Account, String store_Exp) {
+		this.store_No = store_No;
 		this.store_Name = store_Name;
 		this.store_Address = store_Address;
 		this.seller_No = seller_No;
