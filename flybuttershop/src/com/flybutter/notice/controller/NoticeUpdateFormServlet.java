@@ -30,13 +30,16 @@ public class NoticeUpdateFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no = Integer.parseInt(request.getParameter("no"));
+		
 		Notice n = new NoticeService().selectUpdateNotice(no);
 		
+		System.out.println("nnnnn" + n);
 		if(n != null) {
 			request.setAttribute("n", n);
-	
+			
 			request.getRequestDispatcher("views/notice/noticeUpdateForm.jsp").forward(request, response);	
-		}else {
+			System.out.println("n noticeupdateformservlet : " + n);
+		}else { 
 			request.setAttribute("msg", "수정할 게시글을 불러오는데  실패했습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
