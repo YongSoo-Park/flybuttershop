@@ -148,8 +148,8 @@ function movingPage(url) {
 function detailP(pCode) {
 	var form = document.createElement('form');
 	var hInput = document.createElement('input');
-	form.setAttribute('method','post');
-	form.setAttribute('action', '/detail.pr');
+	form.setAttribute('method','post');  
+	form.setAttribute('action', 'detail.pr');
 	hInput.setAttribute('type','hidden');
 	hInput.setAttribute('name', 'pCode');
 	hInput.setAttribute('value', pCode);
