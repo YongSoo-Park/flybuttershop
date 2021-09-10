@@ -53,6 +53,17 @@ public class Product {
 		this.pName = pName;
 		this.pImage_Origin = pImage_Origin;
 	}
+	
+	
+
+
+
+	public Product(String pCode, String pName, String pImage_Origin) {
+		super();
+		this.pCode = pCode;
+		this.pName = pName;
+		this.pImage_Origin = pImage_Origin;
+	}
 
 
 

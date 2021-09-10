@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body style="margin: 0 auto">
-	<script type="text/javascript">
+	<script type="text/javascript"> 
 		window.onload = function() {
 			location.replace("main.ma");
 
