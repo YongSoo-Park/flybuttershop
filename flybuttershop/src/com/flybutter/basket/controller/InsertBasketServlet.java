@@ -39,8 +39,8 @@ public class InsertBasketServlet extends HttpServlet {
 		
 		String pCode = request.getParameter("pCode");
 		String bOption = request.getParameter("pOption");
-		int price = Integer.parseInt(request.getParameter("price"));
-		int bAmount = Integer.parseInt(request.getParameter("bAmount"));
+		int price = request.getParameter("price");
+		int bAmount = request.getParameter("bAmount");
 		
 		b.setpCode(pCode);
 		b.setbOption(bOption);
