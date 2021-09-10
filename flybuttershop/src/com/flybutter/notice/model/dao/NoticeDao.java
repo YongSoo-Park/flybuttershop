@@ -134,23 +134,55 @@ public class NoticeDao {
 	public int updateNotice(Connection conn, Notice n) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		
+		System.out.println("123");
 		String sql = prop.getProperty("updateNotice");
-		//updateNotice=UPDATE NOTICE SET NOTICE_TITLE=?, NOTICE_CONTENT=? WHERE NOTICE_NO=?
+System.out.println(sql);
 	//updateNotice=UPDATE NOTICE SET NOTICE_CATEGORY=?, NOTICE_TITLE=?, NOTICE_CONTENT=? NOTICE_FILE_ORIGIN=? NOTICE_FILE_SYSTEM=? WHERE NOTICE_NO=?
-		
+		System.out.println("try 밖");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
+				
 			pstmt.setInt(1, n.getNotice_Category());
+			System.out.println("category : " + n.getNotice_Category());
 			pstmt.setString(2, n.getNotice_Title());
+			System.out.println("title : " + n.getNotice_Title());
 			pstmt.setString(3, n.getNotice_Content());
+			System.out.println("content : " + n.getNotice_Content());
 			pstmt.setString(4, n.getNotice_File_Origin());
+			System.out.println("origin : " + n.getNotice_File_Origin());
 			pstmt.setString(5, n.getNotice_File_System());
-			
-			
+			System.out.println("system : " + n.getNotice_File_System());
+	
+			pstmt.setInt(6, n.getNotice_No());
+			System.out.println("no : " + n.getNotice_No());
+				
 			result = pstmt.executeUpdate();
 			System.out.println("update dao result : " + result);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int deleteNotice(Connection conn, int nd) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+	
+		String sql = prop.getProperty("deleteNotice");
+		//deleteNotice=DELTE Notice WHERE BOARD_NO=?
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nd);
+		
+			
+			result = pstmt.executeUpdate();
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

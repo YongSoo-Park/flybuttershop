@@ -8,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.notice.model.service.NoticeService;
-import com.flybutter.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeUpdateFormServlet
+ * Servlet implementation class NoticeDeleteServlet
  */
-@WebServlet("/updateForm.no")
-public class NoticeUpdateFormServlet extends HttpServlet {
+@WebServlet("/delete.no")
+public class NoticeDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeUpdateFormServlet() {
+    public NoticeDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +28,18 @@ public class NoticeUpdateFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("no"));
+		int nd = Integer.parseInt(request.getParameter("no"));
 		
-		Notice n = new NoticeService().selectUpdateNotice(no);
+		int result = new NoticeService().deleteNotice(nd);
 		
-		System.out.println("nnnnn" + n);
-		if(n != null) {
-			request.setAttribute("n", n);
+		if(result > 0) {
+			response.sendRedirect("entireList.no");
 			
-			request.getRequestDispatcher("views/notice/noticeUpdateForm.jsp").forward(request, response);	
-			System.out.println("n noticeupdateformservlet : " + n);
 		}else {
-			request.setAttribute("msg", "수정할 게시글을 불러오는데  실패했습니다.");
+			request.setAttribute("msg", "게시글삭제에 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+			
 	}
 
 	/**
