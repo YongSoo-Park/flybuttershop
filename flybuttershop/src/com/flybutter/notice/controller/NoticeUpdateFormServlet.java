@@ -39,7 +39,7 @@ public class NoticeUpdateFormServlet extends HttpServlet {
 			
 			request.getRequestDispatcher("views/notice/noticeUpdateForm.jsp").forward(request, response);	
 			System.out.println("n noticeupdateformservlet : " + n);
-		}else {
+		}else { 
 			request.setAttribute("msg", "수정할 게시글을 불러오는데  실패했습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}

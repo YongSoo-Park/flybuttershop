@@ -28,7 +28,7 @@
 	margin: auto;
 	margin-top: 50px;
 }
-	#updateForm>table{
+	#updateForm>table{ 
 		border:1px solid black;
 	}
 	

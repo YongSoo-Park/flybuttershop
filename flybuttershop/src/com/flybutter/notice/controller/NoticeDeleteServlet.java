@@ -32,7 +32,7 @@ public class NoticeDeleteServlet extends HttpServlet {
 		
 		int result = new NoticeService().deleteNotice(nd);
 		
-		if(result > 0) {
+		if(result > 0) {  
 			response.sendRedirect("entireList.no");
 			
 		}else {

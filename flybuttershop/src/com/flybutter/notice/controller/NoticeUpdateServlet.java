@@ -79,7 +79,7 @@ public class NoticeUpdateServlet extends HttpServlet {
 				System.out.println("update from servlet result : " + result);
 				response.sendRedirect("detail.no?no=" + no);
 				
-			}else {
+			}else { 
 				request.setAttribute("msg", "게시글 수정에  실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}

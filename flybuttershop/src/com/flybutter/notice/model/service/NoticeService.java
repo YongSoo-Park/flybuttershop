@@ -69,7 +69,7 @@ public class NoticeService {
 	
 		return result;
 		
-	}
+	} 
 
 	public int deleteNotice(int nd) {
 		Connection conn = getConnection();

@@ -26,7 +26,7 @@ public class Notice {
 		this.notice_File_Origin = notice_File_Origin;
 		this.notice_File_System = notice_File_System;
 		this.notice_Date = notice_Date;
-	}
+	} 
 
 	public Notice(int notice_No, int notice_Category, String notice_Title) {
 		super();
