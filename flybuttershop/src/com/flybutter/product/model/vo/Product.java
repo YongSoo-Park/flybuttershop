@@ -7,7 +7,9 @@ public class Product {
 	private String pCode;
 	private int store_No;
 	private int pCategory;
+	private int pCategory2;
 	private String pName;
+	private String pOption;
 	private int pStock;
 	private String pImage_Origin;
 	private String pImage_System;
@@ -16,17 +18,25 @@ public class Product {
 	private int price;
 	private String pStatus;
 	private Date pDate;
-	private String sale_Flag;
+	private int sale_Flag;
+	
+
+	public Product() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	
-	public Product(String pCode, int store_No, int pCategory, String pName, int pStock, String pImage_Origin,
-			String pImage_System, String pExp_Image_Origin, String pExp_Image_System, int price, String pStatus,
-			Date pDate, String sale_Flag) {
+	public Product(String pCode, int store_No, int pCategory, int pCategory2, String pName, String pOption, int pStock,
+			String pImage_Origin, String pImage_System, String pExp_Image_Origin, String pExp_Image_System, int price,
+			String pStatus, Date pDate, int sale_Flag) {
 		super();
 		this.pCode = pCode;
 		this.store_No = store_No;
 		this.pCategory = pCategory;
+		this.pCategory2 = pCategory2;
 		this.pName = pName;
+		this.pOption = pOption;
 		this.pStock = pStock;
 		this.pImage_Origin = pImage_Origin;
 		this.pImage_System = pImage_System;
@@ -37,7 +47,6 @@ public class Product {
 		this.pDate = pDate;
 		this.sale_Flag = sale_Flag;
 	}
-
 	
 
 	public Product(String pName, String pImage_Origin) {
@@ -47,14 +56,31 @@ public class Product {
 
 
 
-	public Product() {
-		super();
-		// TODO Auto-generated constructor stub
+	public Product(String pCode, String pName, String pOption, String pImage_Origin, int price, String pStatus, int sale_Flag) {
+		this.pCode = pCode;
+		this.pName = pName;
+		this.pOption = pOption;
+		this.pImage_Origin = pImage_Origin;
+		this.price = price;
+		this.pStatus = pStatus;
+		this.sale_Flag = sale_Flag;
 	}
 
+	
 
-
-
+	public Product(String pCode, int pCategory, int pCategory2, String pName, String pOption, int price, int pStock, Date pDate,
+			String pStatus, int sale_Flag) {
+		this.pCode = pCode;
+		this.pCategory = pCategory;
+		this.pCategory2 = pCategory2;
+		this.pName = pName;
+		this.pOption = pOption;
+		this.pStock = pStock;
+		this.price = price;
+		this.pStatus = pStatus;
+		this.pDate = pDate;
+		this.sale_Flag = sale_Flag;
+	}
 
 
 	public String getpCode() {
@@ -87,6 +113,16 @@ public class Product {
 	}
 
 
+	public int getpCategory2() {
+		return pCategory2;
+	}
+
+
+	public void setpCategory2(int pCategory2) {
+		this.pCategory2 = pCategory2;
+	}
+
+
 	public String getpName() {
 		return pName;
 	}
@@ -94,6 +130,16 @@ public class Product {
 
 	public void setpName(String pName) {
 		this.pName = pName;
+	}
+
+
+	public String getpOption() {
+		return pOption;
+	}
+
+
+	public void setpOption(String pOption) {
+		this.pOption = pOption;
 	}
 
 
@@ -177,12 +223,12 @@ public class Product {
 	}
 
 
-	public String getSale_Flag() {
+	public int getSale_Flag() {
 		return sale_Flag;
 	}
 
 
-	public void setSale_Flag(String sale_Flag) {
+	public void setSale_Flag(int sale_Flag) {
 		this.sale_Flag = sale_Flag;
 	}
 
