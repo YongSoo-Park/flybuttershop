@@ -22,4 +22,26 @@ public class ProductService {
 		return p;
 	}
 
+	public Product selectProductDetail(String pcode) {
+		
+		Connection conn = getConnection();
+		
+		Product p = new ProductDao().selectProductDetail(conn, pcode);
+		
+		close(conn);
+		
+		return p;
+	}
+
+	public int codeCheck(String pCode) {
+		
+		Connection conn = getConnection();
+		
+		int result = new ProductDao().codeCheck(conn, pCode);
+		
+		close(conn);
+
+		return result;
+	}
+
 }

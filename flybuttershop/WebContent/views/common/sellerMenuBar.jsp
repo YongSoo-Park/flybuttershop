@@ -25,6 +25,9 @@
 			
 				<ul class="nav nav-pills justify-content-center">
 				  <li class="nav-item">
+				    <a class="nav-link" aria-current="page" href="<%=request.getContextPath()%>/sellerMyPage.sl">상점관리</a>
+				  </li>
+				  <li class="nav-item">
 				    <a class="nav-link" aria-current="page" href="<%=request.getContextPath()%>/productManager.sl">상품관리</a>
 				  </li>
 				  <li class="nav-item">

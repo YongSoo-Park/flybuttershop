@@ -1,5 +1,7 @@
 package com.flybutter.seller.model.dao;
 
+import static com.common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,10 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
-
-import static com.common.JDBCTemplate.*;
 
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.seller.model.vo.Seller;
@@ -171,6 +172,33 @@ public class SellerDao {
 			}
 			
 			return list;
+		}
+		public int getProductListCount(Connection conn, int storeNo) {
+			
+			int listCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("getProductListCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, storeNo);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return listCount;
 		}
 
 	}
