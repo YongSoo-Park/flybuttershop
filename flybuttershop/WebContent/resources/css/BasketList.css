@@ -1,0 +1,199 @@
+#deleteProductBtn{
+    float: right;
+    padding: 10px;
+    border-radius: 5px;
+    border: unset;
+    background-color: lightgray;
+    position: relative;
+    top: -30px; 
+    left: 600px;
+    
+}
+.logo{
+    width: 600px;
+    height: 50px;
+    float: left;
+}
+.btn{
+    width: 600px;
+    height: 50px;
+    float: left;
+}
+.basketTB{
+    width: 1200px;
+    height: 80px;
+    background-color: midnightblue;
+    position: relative;
+    top: 30px; 
+}
+.outer{
+    display: inline-block;
+}
+#allCk{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 5px;
+    left: 10px;
+}
+#tc{
+    width: 40px;
+    background-color: midnightblue;
+    position: relative;
+    top: 18px;
+    font-size: 18px;
+}
+#t1{
+    width: 490px;
+    color: white;
+    background-color: midnightblue;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+}
+#t2{
+    width: 350px;
+    color: white;
+     background-color: midnightblue;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+}
+#t3{
+    width: 150px;
+    color: white;
+     background-color: midnightblue;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+}
+#t4{
+    width: 150px;
+    color: white;
+     background-color: midnightblue;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+}
+.ckPd{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left: 10px;
+}
+.list{
+    background-color: blue;
+    width: 1200px;
+    height: 200px;
+    margin: 4%;
+}
+#btc{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#bt1{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#bt2{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#bt3{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#bt4{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#e1{
+       text-align: center;
+  }
+  #e2{
+    text-align: center;
+    color: gray;
+  }
+  .emptyList{
+      position: relative;
+    top: 150px;
+      width: 1200px;
+     height: 500px;
+  }
+  #eb{
+      position: relative;
+    top: 180px;
+    left: 500px;
+      width: 200px;
+      height: 200px;
+  }
+  #productlist{
+      position: relative;
+    top: -48px;
+    
+  }
+  .basketTable{
+    height:auto;	
+  }
+  #resultDiv{
+      width: 1200px;
+      height: 280px;
+      float: left;
+  }
+  #th1{
+      width: 15%;
+      height: 80px;
+  }
+  #th2{
+      width: 10%;
+  }
+  #th3{
+      width: 20%;
+  }
+  #th4{
+      position: relative;
+      left: -50px;
+  }
+  #td1{
+      text-align: center;
+      height: 40px;
+  }
+  #td2{
+      text-align: center;
+  }
+  #td3{
+      text-align: center;
+  }
+  #continueBtn{
+      position: relative;
+      left: 400px;
+       padding: 30px;
+       font-size: 20px;
+       border-radius: 5px;
+    border: unset;
+    background-color: lightgray;
+  }
+  #purBtn{
+      position: relative;
+      left: 450px;
+      padding: 30px;
+      font-size: 20px;
+      border-radius: 5px;
+    border: unset;
+    background-color: skyblue;
+  }

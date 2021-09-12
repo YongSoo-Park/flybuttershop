@@ -1,6 +1,7 @@
 package com.flybutter.basket.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.flybutter.basket.model.service.BasketService;
 import com.flybutter.basket.model.vo.Basket;
 import com.flybutter.member.model.vo.Member;
+import com.flybutter.product.model.vo.Product;
 
 /**
  * Servlet implementation class InsertBasketServlet
@@ -39,8 +41,10 @@ public class InsertBasketServlet extends HttpServlet {
 		
 		String pCode = request.getParameter("pCode");
 		String bOption = request.getParameter("pOption");
-		int price = request.getParameter("price");
-		int bAmount = request.getParameter("bAmount");
+		int price = Integer.parseInt(request.getParameter("price"));
+		int bAmount = Integer.parseInt(request.getParameter("bAmount"));
+		
+		System.out.println(pCode);
 		
 		b.setpCode(pCode);
 		b.setbOption(bOption);
@@ -51,6 +55,10 @@ public class InsertBasketServlet extends HttpServlet {
 		//user_No는 따로 consumer(또는 로그인유저)에서 가져와서 넘겨주기
 		
 		int result = new BasketService().insertBasket(b);
+		
+        ArrayList<Product> pList = new BasketService().selectBProduct(pCode);
+        request.setAttribute("pList", pList);
+        request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
 		
 	}
 
