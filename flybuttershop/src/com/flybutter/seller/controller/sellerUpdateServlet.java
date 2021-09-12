@@ -34,18 +34,18 @@ public class sellerUpdateServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String storeName = request.getParameter("storeName");
-		String address = request.getParameter("address");
-		String sellerNo = request.getParameter("sellerNo");
-		String account = request.getParameter("account");
-		String storeExp = request.getParameter("storeExp");
+		String store_Name = request.getParameter("storeName");
+		String store_Address = request.getParameter("address");
+		String seller_No = request.getParameter("sellerNo");
+		String store_Account = request.getParameter("account");
+		String store_Exp = request.getParameter("storeExp");
 		
-		Seller updateStore = new SellerService().updateSeller(new Seller(storeName, address, sellerNo, account, storeExp));
+		Seller updateStore = new SellerService().updateSeller(new Seller(store_Name, store_Address, seller_No, store_Account, store_Exp));
 		
 		if(updateStore != null) {
 			request.getSession().setAttribute("msg", "");
 			request.getSession().setAttribute("seller", updateStore);
-			request.getRequestDispatcher("views/seller/sellerMyPage.jsp");
+			response.sendRedirect("sellerMyPage.sl");
 			
 		}else {
 			request.setAttribute("msg", "상점정보 수정 실패");
@@ -53,7 +53,6 @@ public class sellerUpdateServlet extends HttpServlet {
 			
 			view.forward(request, response);
 		}
-		
 		
 	}
 

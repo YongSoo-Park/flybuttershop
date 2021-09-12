@@ -56,4 +56,13 @@ public class SellerService {
 	}
 
 
+	public int getProductListCount(int storeNo) {
+		Connection conn = getConnection();
+		
+		int listCount = new SellerDao().getProductListCount(conn, storeNo);
+		close(conn);
+		return listCount;
+	}
+
+
 }

@@ -25,7 +25,7 @@
 		상점소개 : <textarea class="form-control" id="storeExp" cols="10" row="5" name="storeExp">${requestScope.seller.store_Exp}</textarea><br><br>
 
 		<button type="submit" class="btn btn-outline-primary">수정하기</button>
-		<button type="button" class="btn btn-outline-secondary" onclick="cancelUpdateStore();">취소</button>
+		<button type="button" class="btn btn-outline-secondary" onclick="location.href=<%=request.getContextPath()%>">취소</button>
 	
 	</form>
 

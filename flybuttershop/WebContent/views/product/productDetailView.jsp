@@ -32,7 +32,7 @@
             <img src="${pageContext.request.contextPath}${requestScope.p.pImage_Origin}" width="400px" height="400px">
         </div>
         
-        <form id="proOrder" action="<%= request.getContextPath() %>/insertbasket.do" method="post">
+        <form id="proOrder" action="<%= request.getContextPath() %>/insertBasket.do" method="post">
 	        <div class="productInfo" id="pInfo" aline="center">
 	            <label id="pName" name="pName">${requestScope.p.pName}</label><br>
 	            <label id="price" name="price">${requestScope.p.price}</label><br>
