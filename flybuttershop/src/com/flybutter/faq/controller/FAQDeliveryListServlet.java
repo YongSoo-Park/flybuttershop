@@ -1,25 +1,29 @@
-package com.flybutter.notice.controller;
+package com.flybutter.faq.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.notice.model.service.NoticeService;
+import com.flybutter.faq.model.service.FAQService;
+import com.flybutter.faq.model.vo.FAQ;
+
 
 /**
- * Servlet implementation class NoticeDeleteServlet
+ * Servlet implementation class FAQDeliveryServlet
  */
-@WebServlet("/delete.no")
-public class NoticeDeleteServlet extends HttpServlet {
+@WebServlet("/deliveryList.faq")
+public class FAQDeliveryListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDeleteServlet() {
+    public FAQDeliveryListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,19 +32,11 @@ public class NoticeDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("no"));
-		System.out.println("delete servlet no : " + no);
-		int result = new NoticeService().deleteNotice(no);
-		System.out.println("delete servlet result : " + result);
-		if(result > 0) {  
-			System.out.println("delete servlet result in if : " + result);
-			response.sendRedirect("entireList.no");
-			
-		}else {
-			request.setAttribute("msg", "게시글삭제에 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
-			
+		ArrayList<FAQ> list = new FAQService().deliverySelectList();
+		
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/faq/faqDeliveryList.jsp").forward(request, response);
+		System.out.println("servlet list : " + list); 
 	}
 
 	/**

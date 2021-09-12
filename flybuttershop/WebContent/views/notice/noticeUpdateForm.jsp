@@ -83,10 +83,10 @@
 						<td colspan="7" >
 						<% if(n.getNotice_File_Origin() != null){ %> <!-- 기존의 첨부파일이 있었을 경우 -->
 							<%= n.getNotice_File_Origin() %> <br>
-							<input type='hidden' name='upFile' value='<%=n.getNotice_File_System()%>'>
-							
+							<input type='hidden' name='upfile' value='<%=n.getNotice_File_System()%>'>
+							<input type='hidden' name='upfile2' value='<%=n.getNotice_File_Origin()%>'>
 						<% }%>
-						<input type="file" name="upFile1">
+						<input type="file" name="new_upFile">
 						
 						
 						

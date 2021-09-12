@@ -144,10 +144,11 @@ hr {
 				 <% }else{  %>
 				 	<% for(Notice n : list){ %>
 				 		<tr>
+				 		
 				 			<td style="visibility:hidden;" ><%= n.getNotice_No() %></td>
 				 			<td><%= n.getNotice_Category() %></td>
 							<td><%= n.getNotice_Title() %></td>
-					
+							
 				 		</tr>
 				 	<% } %>
 				 <% } %>
@@ -168,7 +169,7 @@ hr {
 		<div align="center">
 			<%--<% if(loginUser != null && loginUser.getUserId().equals("admin")) { --%>
 			
-			<button onclick="goInsertFormForm();">작성하기</button> 
+			<button onclick="goInsertForm();">작성하기</button> 
 	<%--<% } %> --%>	
 		</div>
 	
@@ -194,8 +195,8 @@ hr {
 		function goEntireNoticeList(){
 			location.href="<%=request.getContextPath()%>/entireList.no";
 		}
-		function goInsertFormForm(){
-			location.href="<%=request.getContextPath()%>/insertForm.no";
+		function goInsertForm(){
+			location.href="<%=request.getContextPath()%>/insertFormForm.no";
 		}
 		<%if(!list.isEmpty()){%>
 		$(function(){

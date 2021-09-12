@@ -71,11 +71,11 @@ public class NoticeService {
 		
 	} 
 
-	public int deleteNotice(int nd) {
+	public int deleteNotice(int no) {
 		Connection conn = getConnection();
-		
-		int result = new NoticeDao().deleteNotice(conn, nd);
-		
+		System.out.println("delete service no : " + no);
+		int result = new NoticeDao().deleteNotice(conn, no);
+		System.out.println("delete service result : " + result);
 		
 		if(result > 0) {
 			commit(conn);
@@ -83,7 +83,26 @@ public class NoticeService {
 			rollback(conn);
 		}
 		close(conn);
+		System.out.println("delete service result2 : " + result);
 		return result;
+	}
+
+	public ArrayList<Notice> noticeSelectList() {
+		Connection conn = getConnection();
+		ArrayList<Notice> list = new NoticeDao().noticeSelectList(conn);
+		close(conn);
+		
+		System.out.println("service lsit : " + list);
+		return list;
+	}
+
+	public ArrayList<Notice> eventSelectList() {
+		Connection conn = getConnection();
+		ArrayList<Notice> list = new NoticeDao().eventSelectList(conn);
+		close(conn);
+		
+		System.out.println("service lsit : " + list);
+		return list;
 	}
 	
 

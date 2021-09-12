@@ -170,19 +170,21 @@ System.out.println(sql);
 	}
 
 
-	public int deleteNotice(Connection conn, int nd) {
+	public int deleteNotice(Connection conn, int no) {
 		int result = 0;
+		System.out.println("delete dao no : " + no);
 		PreparedStatement pstmt = null;
 	
 		String sql = prop.getProperty("deleteNotice");
+		System.out.println("delete dao sql : " + sql);
 		//deleteNotice=DELTE Notice WHERE BOARD_NO=?
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, nd);
+			pstmt.setInt(1, no);
 		
 			
 			result = pstmt.executeUpdate();
-			
+			System.out.println("delete dao result in try : " + result);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -190,8 +192,72 @@ System.out.println(sql);
 		}finally {
 			close(pstmt);
 		} 
-		
+		System.out.println("delete dao result 3 : " + result);
 		return result;
+	}
+
+
+	public ArrayList<Notice> noticeSelectList(Connection conn) {
+		ArrayList<Notice> list = new ArrayList<Notice>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("noticeSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Notice(rset.getInt("NOTICE_NO"),
+									rset.getInt("NOTICE_CATEGORY"),
+									rset.getString("NOTICE_TITLE")));
+			}
+			System.out.println("dao list : " + list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt); 
+		
+		}
+	
+		return list;
+	}
+
+
+	public ArrayList<Notice> eventSelectList(Connection conn) {
+		ArrayList<Notice> list = new ArrayList<Notice>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("eventSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Notice(rset.getInt("NOTICE_NO"),
+									rset.getInt("NOTICE_CATEGORY"),
+									rset.getString("NOTICE_TITLE")));
+			}
+			System.out.println("dao list : " + list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt); 
+		
+		}
+	
+		return list;
 	}
 
 		

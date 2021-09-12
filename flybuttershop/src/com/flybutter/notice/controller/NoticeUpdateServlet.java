@@ -52,23 +52,24 @@ public class NoticeUpdateServlet extends HttpServlet {
 			n.setNotice_Category(Integer.parseInt(multiRequest.getParameter("category")));
 			n.setNotice_Title(multiRequest.getParameter("title"));
 			n.setNotice_Content(multiRequest.getParameter("content"));
-			//n.setNotice_File_System("upfile1");
+			n.setNotice_File_System(multiRequest.getParameter("upfile"));
+			n.setNotice_File_Origin(multiRequest.getParameter("upfile2"));
 			n.setNotice_No(no);
 			System.out.println("n if전 : " + n);
 			
 			
 				
-			if(multiRequest.getOriginalFileName("upFile1") != null) {
+			if(multiRequest.getOriginalFileName("new_upFile") != null) {
 				
-				n.setNotice_File_Origin(multiRequest.getOriginalFileName("upFile1"));
-				n.setNotice_File_System(multiRequest.getFilesystemName("upFile1"));
-				System.out.println("if upFile1");
+				n.setNotice_File_Origin(multiRequest.getOriginalFileName("new_upFile"));
+				n.setNotice_File_System(multiRequest.getFilesystemName("new_upFile"));
+				System.out.println("if new_upFile");
 				
-				if(multiRequest.getParameter("upFile1") != null) {
-					File deleteFile = new File(savePath + multiRequest.getParameter("upFile"));
+				if(multiRequest.getParameter("upfile") != null) {
+					File deleteFile = new File(savePath + multiRequest.getParameter("upfile"));
 					
 					deleteFile.delete();
-				System.out.println("if upFile1_ if ");
+				System.out.println("if upFile_ if ");
 						}
 			}
 
