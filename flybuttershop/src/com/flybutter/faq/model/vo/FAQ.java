@@ -19,6 +19,13 @@ public class FAQ {
 		this.faq_Content = faq_Content;
 	}
 
+	public FAQ(int faq_No, int faq_Category, String faq_Title) {
+		super();
+		this.faq_No = faq_No;
+		this.faq_Category = faq_Category;
+		this.faq_Title = faq_Title;
+	}
+
 	public FAQ(int faq_Category, String faq_Title, String faq_Content) {
 		super();
 		this.faq_Category = faq_Category;

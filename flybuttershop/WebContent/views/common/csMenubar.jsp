@@ -87,7 +87,7 @@ hr {
 		<form class="form-inline">
 			<div class="cs">
 				<button class="btn btn-light btn-lg" id="cslogo"
-					onclick="gocustomerservice" type="submit">고객센터</button>
+					onclick="goCustomerService();" type="button">고객센터</button>
 			</div>
 			<div class="search">
 				<input class="form-control mr-sm-2" id="searchbar" type="text"
@@ -112,13 +112,7 @@ hr {
 		</form>
 	</div>
 	<script>
-		function goNotice(){
-			location.href="<%=request.getContextPath()%>/entireList.no";
-		}
-		function golivechat(){
-			location.href="<%=request.getContextPath()%>/livechat";
-			
-		}
+		
 		
 	</script>
 
@@ -145,6 +139,14 @@ hr {
 	</div>
 
 	<script>
+		function goCustomerService(){
+			location.href="<%=request.getContextPath()%>/entireList.no";
+		}
+	
+		function golivechat(){
+			location.href="<%=request.getContextPath()%>/livechat";
+			
+		}
 		function goNotice(){
 			location.href="<%=request.getContextPath()%>/entireList.no";
 		}

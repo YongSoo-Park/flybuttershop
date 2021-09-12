@@ -83,7 +83,7 @@
 		
 		<div class="btns" align="center">
 		
-			<a href="javascript:history.back()">목록으로</a> &nbsp;&nbsp;
+			<a href="entireList.no">목록으로</a> &nbsp;&nbsp;
 				
 			
 			

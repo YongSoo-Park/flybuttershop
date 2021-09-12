@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, com.flybutter.notice.model.vo.*"%>
+	import="java.util.ArrayList, com.flybutter.faq.model.vo.*"%>
 
 <%
-ArrayList<Notice> list = (ArrayList<Notice>) request.getAttribute("list");
+ArrayList<FAQ> list = (ArrayList<FAQ>) request.getAttribute("list");
 %>
 
 
@@ -112,11 +112,15 @@ hr {
 
 
 			<button type="button" class="btn btn-outline-dark"
-				onclick="goEntireNoticeList();">전체</button>
+				onclick="goFAQDeliveryList();">배송문의</button>
 			<button type="button" class="btn btn-outline-dark"
-				onclick="goNoticeList();">공지</button>
+				onclick="goFAQRefundList();">반품/교환/환불</button>
 			<button type="button" class="btn btn-outline-dark"
-				onclick="goEventList();">이벤트</button>
+				onclick="goFAQOrderList();">주문/결제</button>
+			<button type="button" class="btn btn-outline-dark"
+				onclick="goFAQMemberList();">회원서비스</button>
+			<button type="button" class="btn btn-outline-dark"
+				onclick="goFAQSellerList();">판매자문의</button>
 		</div>
 
 	
@@ -142,11 +146,11 @@ hr {
 						<td colspan="5">존재하는 공지사항이 없습니다.</td>
 					</tr>
 				 <% }else{  %>
-				 	<% for(Notice n : list){ %>
+				 	<% for(FAQ f : list){ %>
 				 		<tr>
-				 			<td style="visibility:hidden;" ><%= n.getNotice_No() %></td>
-				 			<td><%= n.getNotice_Category() %></td>
-							<td><%= n.getNotice_Title() %></td>
+				 			<td style="visibility:hidden;" ><%= f.getFaq_No() %></td>
+				 			<td><%= f.getFaq_Category() %></td>
+							<td><%= f.getFaq_Title() %></td>
 					
 				 		</tr>
 				 	<% } %>
@@ -168,7 +172,7 @@ hr {
 		<div align="center">
 			<%--<% if(loginUser != null && loginUser.getUserId().equals("admin")) { --%>
 			
-			<button onclick="goInsertFormForm();">작성하기</button> 
+			<button onclick="goFaqEnrollForm();">작성하기</button> 
 	<%--<% } %> --%>	
 		</div>
 	
@@ -182,26 +186,32 @@ hr {
 	<script>
 		
 
-		function goEntireNoticeList(){
-			location.href="<%=request.getContextPath()%>/entireList.no";
+		function goFAQDeliveryList(){
+			location.href="<%=request.getContextPath()%>/deliveryList.faq";
 		}
-		function goNoticeList(){
-			location.href="<%=request.getContextPath()%>/noticeList.no";
+		function goFAQRefundList(){
+			location.href="<%=request.getContextPath()%>/refundList.faq";
 		}
-		function goEventList(){
-			location.href="<%=request.getContextPath()%>/eventList.no";
+		function goFAQOrderList(){
+			location.href="<%=request.getContextPath()%>/orderList.faq";
 			}
-		function goEntireNoticeList(){
-			location.href="<%=request.getContextPath()%>/entireList.no";
+		function goFAQMemberList(){
+			location.href="<%=request.getContextPath()%>/memberList.faq";
 		}
-		function goInsertFormForm(){
-			location.href="<%=request.getContextPath()%>/insertForm.no";
+		function goFAQSellerList(){
+			location.href="<%=request.getContextPath()%>/sellerList.faq";
+			}
+		
+		
+	
+		function goFaqEnrollForm(){
+			location.href="<%=request.getContextPath()%>/insertForm.faq";
 		}
 		<%if(!list.isEmpty()){%>
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){
 				var no = $(this).children().eq(0).text();
-				location.href="<%= request.getContextPath()%>/detail.no?no="+no;
+				location.href="<%= request.getContextPath()%>/detail.faq?no="+no;
 			})
 		})
 		<%}%>
