@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.basket.model.vo.*, 
-    java.util.ArrayList, com.flybutter.member.model.vo.*"%>
+    java.util.ArrayList, com.flybutter.product.model.vo.*"%>
 <%
 ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list"); 
+ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList"); 
 //Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 int resultPrice = 0;
 int shipPrice = 0;
-//System.out.println(loginUser.getUserNo());
+//System.out.println(pList);
 %>
 
 <!DOCTYPE html>
@@ -14,210 +15,8 @@ int shipPrice = 0;
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="resources/css/BasketList.css">
 </head>
-<style>
-
-    #deleteProductBtn{
-        float: right;
-        padding: 10px;
-        border-radius: 5px;
-        border: unset;
-        background-color: lightgray;
-        position: relative;
-        top: -30px; 
-        left: 600px;
-        
-    }
-    .logo{
-        width: 600px;
-        height: 50px;
-        float: left;
-    }
-    .btn{
-        width: 600px;
-        height: 50px;
-        float: left;
-    }
-    .basketTB{
-        width: 1200px;
-        height: 80px;
-        background-color: midnightblue;
-        position: relative;
-        top: 30px; 
-    }
-    .outer{
-        display: inline-block;
-    }
-    #allCk{
-        width: 20px;
-        height: 20px;
-        position: relative;
-        top: 5px;
-        left: 10px;
-    }
-    #tc{
-    	width: 40px;
-    	background-color: midnightblue;
-        position: relative;
-        top: 18px;
-        font-size: 18px;
-    }
-    #t1{
-        width: 490px;
-        color: white;
-        background-color: midnightblue;
-        position: relative;
-        top: 20px;
-        font-size: 18px;
-    }
-    #t2{
-        width: 350px;
-        color: white;
-         background-color: midnightblue;
-        position: relative;
-        top: 20px;
-        font-size: 18px;
-    }
-    #t3{
-        width: 150px;
-        color: white;
-         background-color: midnightblue;
-        position: relative;
-        top: 20px;
-        font-size: 18px;
-    }
-    #t4{
-        width: 150px;
-        color: white;
-         background-color: midnightblue;
-        position: relative;
-        top: 20px;
-        font-size: 18px;
-    }
-    #pDCheck{
-        width: 20px;
-        height: 20px;
-        position: relative;
-        top: 28px;
-        left: 50px;
-    }
-    .list{
-        background-color: blue;
-        width: 1200px;
-        height: 200px;
-        margin: 4%;
-    }
-    #btc{
-    	height: 180px;
-        position: relative;
-        top: 20px;
-        font-size: 18px;
-        text-align: center;
-    }
-    #bt1{
-    	height: 180px;
-        position: relative;
-        top: 20px;
-        font-size: 18px;
-        text-align: center;
-    }
-    #bt2{
-    	height: 180px;
-        position: relative;
-        top: 20px;
-        font-size: 18px;
-        text-align: center;
-    }
-    #bt3{
-    	height: 180px;
-        position: relative;
-        top: 20px;
-        font-size: 18px;
-        text-align: center;
-    }
-    #bt4{
-    	height: 180px;
-        position: relative;
-        top: 20px;
-        font-size: 18px;
-        text-align: center;
-    }
-    #e1{
-   		text-align: center;
-  	}
-  	#e2{
-    	text-align: center;
-    	color: gray;
-  	}
-  	.emptyList{
-  		position: relative;
-        top: 150px;
-      	width: 1200px;
-     	height: 500px;
-  	}
-  	#eb{
-  		position: relative;
-        top: 180px;
-        left: 500px;
-  		width: 200px;
-  		height: 200px;
-  	}
-  	#productlist{
-  		position: relative;
-        top: -48px;
-        
-  	}
-  	.basketTable{
-    	height:auto;	
-  	}
-  	#resultDiv{
-  		width: 1200px;
-  		height: 280px;
-  		float: left;
-  	}
-  	#th1{
-  		width: 15%;
-  		height: 80px;
-  	}
-  	#th2{
-  		width: 10%;
-  	}
-  	#th3{
-  		width: 20%;
-  	}
-  	#th4{
-  		position: relative;
-  		left: -50px;
-  	}
-  	#td1{
-  		text-align: center;
-  		height: 40px;
-  	}
-  	#td2{
-  		text-align: center;
-  	}
-  	#td3{
-  		text-align: center;
-  	}
-  	#continueBtn{
-  		position: relative;
-  		left: 400px;
-  		 padding: 30px;
-  		 font-size: 20px;
-  		 border-radius: 5px;
-        border: unset;
-        background-color: lightgray;
-  	}
-  	#purBtn{
-  		position: relative;
-  		left: 450px;
-  		padding: 30px;
-  		font-size: 20px;
-  		border-radius: 5px;
-        border: unset;
-        background-color: skyblue;
-  	}
-</style>
 <body style="margin: 0 auto">
     
     <jsp:include page="../header_footer/header.jsp" flush="true"/>
@@ -241,28 +40,33 @@ int shipPrice = 0;
 	<%}else{%>
 		<form id="basketlist" method="POST" action="<%=request.getContextPath()%>/basket.do">
 		<div class="btn">
-        <button type="submit" id="deleteProductBtn" form="basketlist" onclick="deleteProduct();">선택상품 삭제</button>
+        <button type="submit" id="deleteProductBtn" onclick="deleteProduct()" >선택상품 삭제</button>
    		 </div>
    		 <div class="basketTable">
 			<div class="basketTB">
 				 <table id="productlist">
                     <tr>
-                        <th id="tc"><input type="checkbox" id="ckBtn" name="allCk"></th>
-                        <th id="t1">상품정보</th>
+                        <th id="tc"><input type="checkbox" id="allCk" name="allCk"></th>
+                        <th id="t1" name="test">상품정보</th>
                         <th id="t2">옵션</th>
                         <th id="t3">배송비</th>
                         <th id="t4">상품금액</th>
                     </tr>
-                    
+                    <%--<% for(Product p : pList) {
+					System.out.println(pList);
+					<%} %>--%>
 				<% for(Basket b : list){ %>
+					
                     <tr>
-                     	<td id="btc"><input type="checkbox" id="allCk"></td>
-                     	<td id="bt1"></td> <%--상품 정보를 담는 공간 (사진, 상품 이름) --%>
+                     	<td id="btc"><input type="checkbox" class="ckPd" name="ckPd"></td>
+                     	<td id="bt1" style="visibility:hidden;"><%=b.getpCode()%></td> <%--상품 정보를 담는 공간 (사진, 상품 이름) --%>
                         <td id="bt2"><%=b.getbOption()%> / <%=b.getbAmount()%>개</td>
                         <td id="bt3"><%=shipPrice%>원</td>
                         <td id="bt4"><%=b.getPrice()%>원</td>
+                       
                     </tr>
                 	<%}%>
+                	
                 	</table>
                 	<hr>
                 	<div id="resultDiv">
@@ -366,12 +170,36 @@ int shipPrice = 0;
     	 if($("#allCk").prop("checked")) { 
     		  $("input[type=checkbox]").prop("checked",true); 
 		} else { $("input[type=checkbox]").prop("checked",false); } 
-    	 }) 
-    })
+    	 }); 
+    });
 
-    $(function deleteProduct() {
-		
-	})	
+    function deleteProduct() {
+    	
+    	var confirm_val = confirm("정말 삭제하시겠습니까?");
+    	 
+        if (confirm_val) {
+        	
+        	var rowData = new Array();
+            var checkArr = new Array();
+			var checkbox = $("input[class=ckPd]:checked");
+            
+            checkbox.each(function(i){
+            	
+            	var tr = checkbox.parent().parent().eq(i);
+            	var td = tr.children();
+            	
+            	rowData.push(tr.text());
+            	
+            	var pCode = td.eq(1).text();
+            	
+            	checkArr.push(pCode);
+            	
+            })
+            	alert(checkArr)
+            	location.href="<%=request.getContextPath()%>/deleteBasket.hy?checkArr="+checkArr;
+        }
+         return false;
+	}	
    	</script>
 </body>
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>

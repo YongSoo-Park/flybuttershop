@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import static com.common.JDBCTemplate.*;
 import com.flybutter.basket.model.vo.Basket;
+import com.flybutter.product.model.vo.Product;
 
 public class BasketDao {
 
@@ -100,6 +101,64 @@ public class BasketDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public ArrayList<Product> selectBProduct(Connection conn, String pCode) {
+		ArrayList<Product> pList = new ArrayList<Product>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+//		selectBProduct=SELECT PCODE, PNAME, PIMAGE_ORIGIN PROM PRODUCT WHERE PCODE = ?
+		
+		String sql = prop.getProperty("selectBProduct");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pCode);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pList.add(new Product(
+							rset.getString("PCODE"),
+							rset.getString("PNAME"),
+							rset.getString("PIMAGE_ORIGIN")
+						));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Basket 테이블  selectBasketList 오류메세지 : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pList;
+	}
+
+	public int deleteBasket(Connection conn, String ck) {
+		System.out.println("deleteBasketDao");
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteBasket");
+//		deleteBasket=DELETE FROM BASKET WHERE PCODE = ?
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, ck);
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("Basket 테이블  selectBasketList 오류메세지 : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
 		return result;
 	}
 
