@@ -43,6 +43,15 @@ text-align: center;
 margin : 4px;
 border: solid 0.5px #48BAE4;
 }
+#salePWrap{
+ border: solid 1px; 
+ padding-top: 10px;
+ text-align: center;
+ 
+}
+.salePBtn{
+width: 132px;
+}
 </style>
 <script type="text/javascript">
 $(function() {
@@ -121,7 +130,14 @@ $(function() {
 </div>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+<div id="salePWrap">
+<button id="salePBtn0" class="salePBtn">통합</button><button id="salePBtn1" class="salePBtn">의류</button><button id="salePBtn2" class="salePBtn">잡화</button><button id="salePBtn3" class="salePBtn">뷰티</button><button id="salePBtn4" class="salePBtn">식품</button><button id="salePBtn5" class="salePBtn">가구</button><button id="salePBtn6" class="salePBtn">전자기기</button><button id="salePBtn7" class="salePBtn">생필품</button><button id="salePBtn8" class="salePBtn">반려동물</button>
+<div id="saleItems0" style="width: 1186px; height : 500px; border: solid 1px;border-top: none; display: inline-block;" ></div>
+<c:forEach begin="0" end="9" varStatus="status">
+</c:forEach>
 
+
+</div>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
