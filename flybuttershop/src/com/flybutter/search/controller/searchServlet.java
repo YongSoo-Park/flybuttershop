@@ -41,7 +41,7 @@ public class searchServlet extends HttpServlet {
 		searchList = new SearchService().searchList(sWord);
 		searchSaleList = new SearchService().searchSaleList(sWord);
 		if(searchList.size()!= 0) {
-			paging = new 
+			paging = new Paging(0, 1, 10, 10);
 			request.setAttribute("searchList", searchList);
 			request.setAttribute("searchSaleList", searchSaleList);
 			request.setAttribute("searchListEmpty", 0);
