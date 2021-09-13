@@ -195,6 +195,17 @@ $(function() {
 		}
 	})
 	
+	$('#searBtn').click(function() {
+		if($('#userSearch').val().length == 0 ){
+			alert("검색할 단어를 입력해주세요");
+		}else{
+			$('#searchForm').submit();
+		}
+	
+	
+	})
+	
+	
 	
 	
 })
@@ -210,7 +221,7 @@ $(function() {
 <img src="${pageContext.request.contextPath}/resources/icon/flybutterLogo.png" alt="로고 이미지" id="imgLogo" onclick="movingPage('main.ma')" style="cursor: pointer;"/>
 
 
-<form action="search.ma" id="searchForm"><input type="text" id="userSearch" name="userSearch"/><img src="${pageContext.request.contextPath}/resources/icon/search1.png" alt="이미지파일"/></form></div>
+<form action="search.ma" id="searchForm" method="post"><input type="text" id="userSearch" name="sWord"/><img src="${pageContext.request.contextPath}/resources/icon/search1.png" alt="이미지파일" id="searBtn" style="cursor: pointer;"/></form></div>
 
 <div id="header2Div">
 <c:choose>
