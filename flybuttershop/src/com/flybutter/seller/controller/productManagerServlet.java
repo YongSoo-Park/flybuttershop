@@ -35,7 +35,7 @@ public class productManagerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Seller sel = new SellerService().selectSeller();
+		Seller sel = new SellerService().selectStore();
 		System.out.println("sel" + sel);
 		System.out.println("storeNo : "+sel.getStore_No());
 		int storeNo = sel.getStore_No();

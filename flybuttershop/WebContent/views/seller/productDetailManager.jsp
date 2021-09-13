@@ -30,6 +30,7 @@
         .infoImg{
         	 text-align: center;
         }
+       
     </style>
 </head>
 <body style="margin: 0 auto">
@@ -38,6 +39,11 @@
 	<br><br>
 		
 		<h2>상품 상세 관리</h2>
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+			<button type="submit" class="btn btn-outline-primary me-md-2" onclick="updateProduct();">상품 수정</button>
+			<button type="submit" class="btn btn-outline-danger">상품 삭제</button>
+		</div>
+		<br>
 		
 		<div class="topInfo">
 		<table border="1">
@@ -98,13 +104,14 @@
 	
 		
 		<script>
+		function updateProduct(){
+			location.href="<%=request.getContextPath() %>/productUpdateForm.pr";
+					
+		}
+		
 		function deleteProduct(){
 			
 			
-		}
-		function updateProduct(){
-			
-					
 		}
 		
 		</script>

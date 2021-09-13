@@ -35,7 +35,7 @@ public class SellerDao {
 			}	
 			
 		}
-		public Seller selectSeller(Connection conn) {
+		public Seller selectStore(Connection conn) {
 			
 			Seller sel = null;
 			
@@ -50,11 +50,17 @@ public class SellerDao {
 				
 				if(rset.next()) {
 					sel = new Seller(rset.getInt("STORE_NO"),
+									 rset.getInt("USER_NO"),
 									 rset.getString("STORE_NAME"),
 									 rset.getString("STORE_ADDRESS"),
 									 rset.getString("SELLER_NO"),
 									 rset.getString("STORE_ACCOUNT"),
-									 rset.getString("STORE_EXP")
+									 rset.getString("STORE_EXP"),
+									 rset.getInt("STORE_LEV"),
+									 rset.getInt("TOTALSALES"),
+									 rset.getString("STORECALL"),
+									 rset.getString("CEO"),
+									 rset.getString("EMAIL")
 							  		 );
 					}
 
@@ -70,6 +76,8 @@ public class SellerDao {
 			
 			return sel;
 		}
+		
+		
 		public int updateMember(Connection conn, Seller seller) {
 			
 			int result = 0;
@@ -121,7 +129,9 @@ public class SellerDao {
 									 rset.getString("STORE_ADDRESS"),
 									 rset.getString("SELLER_NO"),
 									 rset.getString("STORE_ACCOUNT"),
-									 rset.getString("STORE_EXP")
+									 rset.getString("STORE_EXP"),
+									 rset.getInt("STORE_LEV"),
+									 rset.getInt("TOTALSALES")
 							  		 );
 					}
 				

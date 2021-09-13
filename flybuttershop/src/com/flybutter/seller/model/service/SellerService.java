@@ -11,11 +11,11 @@ import com.flybutter.seller.model.vo.Seller;
 
 public class SellerService {
 	
-	public Seller selectSeller() {
+	public Seller selectStore() {
 		
 		Connection conn = getConnection();
 		
-		Seller sel = new SellerDao().selectSeller(conn);
+		Seller sel = new SellerDao().selectStore(conn);
 		
 		close(conn);
 		

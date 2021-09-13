@@ -52,64 +52,6 @@ public class productDetailManagerServlet extends HttpServlet {
 		}
 		
 		
-		switch(p.getpCategory()) {
-		case 1:
-			
-		case 2:
-			if(p.getpCategory2() == 1) {
-				
-			}else if(p.getpCategory2() == 2) {
-				
-			}else if(p.getpCategory2() == 3) {
-				
-			}else if(p.getpCategory2() == 4) {
-				
-			}else if(p.getpCategory2() == 5) {
-				
-			}
-		case 3:
-			if(p.getpCategory2() == 1) {
-				
-			}else if(p.getpCategory2() == 2) {
-				
-			}else if(p.getpCategory2() == 3) {
-				
-			}else if(p.getpCategory2() == 4) {
-				
-			}else if(p.getpCategory2() == 5) {
-				
-			}
-		case 4:
-			if(p.getpCategory2() == 1) {
-				
-			}else if(p.getpCategory2() == 2) {
-				
-			}else if(p.getpCategory2() == 3) {
-				
-			}else if(p.getpCategory2() == 4) {
-				
-			}else if(p.getpCategory2() == 5) {
-				
-			}
-		case 5:
-			if(p.getpCategory2() == 1) {
-				
-			}else if(p.getpCategory2() == 2) {
-				
-			}else if(p.getpCategory2() == 3) {
-				
-			}else if(p.getpCategory2() == 4) {
-				
-			}else if(p.getpCategory2() == 5) {
-				
-			}
-		case 6:
-		case 7:
-		case 8:
-		default:
-		}
-		
-		
 	}
 
 	/**

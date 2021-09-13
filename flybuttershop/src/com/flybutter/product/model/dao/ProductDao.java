@@ -87,20 +87,22 @@ public class ProductDao {
 			
 			if(rset.next()) {
 				p = new Product(rset.getString("PCODE"),
+								rset.getInt("STORE_NO"),
 								rset.getInt("PCATEGORY"),
 								rset.getInt("PCATEGORY2"),
 								rset.getString("PNAME"),
 								rset.getString("POPTION"),
-								rset.getInt("PRICE"),
 								rset.getInt("PSTOCK"),
 								rset.getString("PIMAGE_ORIGIN"),
 								rset.getString("PIMAGE_SYSTEM"),
 								rset.getString("PEXP_IMAGE_ORIGIN"),
 								rset.getString("PEXP_IMAGE_SYSTEM"),
+								rset.getInt("PRICE"),
 								rset.getString("PSTATUS"),
 								rset.getDate("PDATE"),
 								rset.getInt("SALE_FLAG"),
-								rset.getString("SCORE_AVG")
+								rset.getString("SCORE_AVG"),
+								rset.getInt("SCORE_COUNT")
 								);
 			}
 			
@@ -147,6 +149,38 @@ public class ProductDao {
 		return result;
 	}
 
-
-
+	public int insertProduct(Connection conn, Product p) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, p.getpCode());
+			pstmt.setInt(2, p.getStore_No());
+			pstmt.setInt(3, p.getpCategory());
+			pstmt.setInt(4, p.getpCategory2());
+			pstmt.setString(5, p.getpName());
+			pstmt.setString(6, p.getpOption());
+			pstmt.setInt(7, p.getpStock());
+			pstmt.setString(8, p.getpImage_Origin());
+			pstmt.setString(9, p.getpImage_System());
+			pstmt.setString(10, p.getpExp_Image_Origin());
+			pstmt.setString(11, p.getpExp_Image_System());
+			pstmt.setInt(12, p.getPrice());
+			pstmt.setInt(13, p.getSale_Flag());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

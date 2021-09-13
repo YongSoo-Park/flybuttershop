@@ -34,7 +34,7 @@ public class sellerUpdateFormServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		Seller seller = new SellerService().selectSeller();
+		Seller seller = new SellerService().selectStore();
 	      
 	      RequestDispatcher view = null;
 	      
