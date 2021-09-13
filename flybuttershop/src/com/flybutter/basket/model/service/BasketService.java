@@ -6,14 +6,13 @@ import java.util.ArrayList;
 import static com.common.JDBCTemplate.*;
 import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.basket.model.vo.Basket;
-import com.flybutter.product.model.vo.*;
 
 public class BasketService {
 
-	public ArrayList<Basket> selectBasketList() {
+	public ArrayList<Basket> selectBasketList(int no) {
 		Connection conn = getConnection();
 		
-		ArrayList<Basket> list = new BasketDao().selectBasketList(conn);
+		ArrayList<Basket> list = new BasketDao().selectBasketList(conn, no);
 		close(conn);
 		
 		return list;
@@ -32,15 +31,6 @@ public class BasketService {
 		
 		close(conn);
 		return result;
-	}
-
-	public ArrayList<Product> selectBProduct(String pCode){
-		Connection conn = getConnection();
-		
-		ArrayList<Product> pList = new BasketDao().selectBProduct(conn, pCode);
-		close(conn);
-		
-		return pList;
 	}
 
 	public int deleteBasket(String ck) {

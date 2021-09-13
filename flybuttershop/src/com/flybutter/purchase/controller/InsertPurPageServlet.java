@@ -1,29 +1,26 @@
-package com.flybutter.basket.controller;
+package com.flybutter.purchase.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.basket.model.service.BasketService;
-import com.flybutter.basket.model.vo.Basket;
 import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.purchase.model.vo.Purchase;
 
 /**
- * Servlet implementation class basketListServlet
+ * Servlet implementation class InsertPurchasePageServlet
  */
-@WebServlet("/basket.do")
-public class BasketListServlet extends HttpServlet {
+@WebServlet("/insertPurInfo.hy")
+public class InsertPurPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BasketListServlet() {
+    public InsertPurPageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +29,18 @@ public class BasketListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
-		int no = loginM.getMEM_USER_NO();
-		ArrayList<Basket> list = new BasketService().selectBasketList(no);
-        request.setAttribute("list", list);
-        
-        request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
+		
+		Purchase p = new Purchase();
+		
+//		String pCode, String pur_Image, String pur_Pname, String pur_POption
+		
+//		String pCode = request.getParameter("pCode");
+//		String option = request.getParameter("pOption");
+		
+		
 	}
 
 	/**

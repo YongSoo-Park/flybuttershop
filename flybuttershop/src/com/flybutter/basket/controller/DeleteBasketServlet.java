@@ -37,30 +37,25 @@ public class DeleteBasketServlet extends HttpServlet {
 		String ck = request.getParameter("checkArr");
 		String [] checkArr = ck.split(",");
 		String a = "";
-		BasketService bs = new BasketService();
 		
-		if(checkArr != null) {
-			for(int i = 0; i <= checkArr.length; i++) {
+		int result = 0;
+	      if(checkArr != null) {
+	         for(int i = 0; i < checkArr.length; i++) {
+	            if(1 == new BasketService().deleteBasket(checkArr[i]))
+	               result++;
+	            
+	         }
+	        
+	         //System.out.println(result);
+	      }
+		
+		if(result > 0) {  
+			response.sendRedirect("basket.do");
 			
-			if(i == checkArr.length-1) {
-				a += "'" + checkArr[i] + "'"; 
-			}else {
-				a += "'" + checkArr[i] + "', "; 
-			}
-//			System.out.println("doGet a값 : " + a);
-			}
-			bs.deleteBasket(a);
+		}else {
+			request.setAttribute("msg", "장바구니 삭제에 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		
-		
-		
-//		if(result > 0) {  
-//			response.sendRedirect("basket.do");
-//			
-//		}else {
-//			request.setAttribute("msg", "장바구니 삭제에 실패하였습니다.");
-//			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-//		}
 				
 	}
 

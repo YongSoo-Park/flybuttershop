@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.basket.model.vo.*, 
-    java.util.ArrayList, com.flybutter.product.model.vo.*"%>
+    java.util.ArrayList, com.flybutter.dummy.model.vo.*"%>
 <%
 ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list"); 
-ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList"); 
-//Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+Member loginMember = (Member)request.getSession().getAttribute("loginMember");
 int resultPrice = 0;
 int shipPrice = 0;
 //System.out.println(pList);
@@ -52,9 +51,7 @@ int shipPrice = 0;
                         <th id="t3">배송비</th>
                         <th id="t4">상품금액</th>
                     </tr>
-                    <%--<% for(Product p : pList) {
-					System.out.println(pList);
-					<%} %>--%>
+                 
 				<% for(Basket b : list){ %>
 					
                     <tr>
@@ -195,8 +192,9 @@ int shipPrice = 0;
             	checkArr.push(pCode);
             	
             })
-            	alert(checkArr)
             	location.href="<%=request.getContextPath()%>/deleteBasket.hy?checkArr="+checkArr;
+            	alert("성공적으로 삭제되었습니다.");
+            	location.reload();
         }
          return false;
 	}	

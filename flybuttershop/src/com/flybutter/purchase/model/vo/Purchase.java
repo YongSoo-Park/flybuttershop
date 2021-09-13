@@ -22,14 +22,29 @@ public class Purchase {
 	private int del_No;
 	private char cp_Use;
 	private char money_Use;
+	private String pur_Image;
+	private String pur_Pname;
+	private String pur_POption; 
+	
+
 	
 	public Purchase() {
 		
 	}
 
+	//주문창에 띄울 정보
+	public Purchase(String pCode, String pur_Image, String pur_Pname, String pur_POption, int pur_Price) {
+		super();
+		this.pCode = pCode;
+		this.pur_Image = pur_Image;
+		this.pur_Pname = pur_Pname;
+		this.pur_POption = pur_POption;
+		this.pur_Price = pur_Price;
+	}
+
 	//무통장입금
 	public Purchase(int user_No, String pCode, int pur_No, Date pur_Date, int pur_Price, String pur_Address,
-			int pur_Type, String pur_Bank, String pur_Account, int del_No, char cp_Use, char money_Use) {
+			int pur_Type, String pur_Bank, String pur_Account, int del_No, char cp_Use, char money_Use, String pur_Image, String pur_Pname, String pur_POption) {
 		super();
 		this.user_No = user_No;
 		this.pCode = pCode;
@@ -43,12 +58,15 @@ public class Purchase {
 		this.del_No = del_No;
 		this.cp_Use = cp_Use;
 		this.money_Use = money_Use;
+		this.pur_Image = pur_Image;
+		this.pur_Pname = pur_Pname;
+		this.pur_POption = pur_POption;
 	}
 
 	//카드결제
 	public Purchase(int user_No, String pCode, int pur_No, Date pur_Date, int pur_Price, String pur_Address,
 			int pur_Type, int card_No, String card_Agency, String card_Date, int card_Pw, int del_No, char cp_Use,
-			char money_Use) {
+			char money_Use, String pur_Image, String pur_Pname, String pur_POption) {
 		super();
 		this.user_No = user_No;
 		this.pCode = pCode;
@@ -64,11 +82,14 @@ public class Purchase {
 		this.del_No = del_No;
 		this.cp_Use = cp_Use;
 		this.money_Use = money_Use;
+		this.pur_Image = pur_Image;
+		this.pur_Pname = pur_Pname;
+		this.pur_POption = pur_POption;
 	}
 
 	//휴대폰결제
 	public Purchase(int user_No, String pCode, int pur_No, Date pur_Date, int pur_Price, String pur_Address,
-			int pur_Type, String phone_Agency, int user_Rno, int del_No, char cp_Use, char money_Use) {
+			int pur_Type, String phone_Agency, int user_Rno, int del_No, char cp_Use, char money_Use, String pur_Image, String pur_Pname, String pur_POption) {
 		super();
 		this.user_No = user_No;
 		this.pCode = pCode;
@@ -82,6 +103,9 @@ public class Purchase {
 		this.del_No = del_No;
 		this.cp_Use = cp_Use;
 		this.money_Use = money_Use;
+		this.pur_Image = pur_Image;
+		this.pur_Pname = pur_Pname;
+		this.pur_POption = pur_POption;
 	}
 
 	public int getUser_No() {
@@ -228,13 +252,38 @@ public class Purchase {
 		this.money_Use = money_Use;
 	}
 
+	public String getPur_Image() {
+		return pur_Image;
+	}
+
+	public void setPur_Image(String pur_Image) {
+		this.pur_Image = pur_Image;
+	}
+
+	public String getPur_Pname() {
+		return pur_Pname;
+	}
+
+	public void setPur_Pname(String pur_Pname) {
+		this.pur_Pname = pur_Pname;
+	}
+
+	public String getPur_POption() {
+		return pur_POption;
+	}
+
+	public void setPur_POption(String pur_POption) {
+		this.pur_POption = pur_POption;
+	}
+
 	@Override
 	public String toString() {
 		return "Purchase [user_No=" + user_No + ", pCode=" + pCode + ", pur_No=" + pur_No + ", pur_Date=" + pur_Date
 				+ ", pur_Price=" + pur_Price + ", pur_Address=" + pur_Address + ", pur_Type=" + pur_Type + ", pur_Bank="
 				+ pur_Bank + ", pur_Account=" + pur_Account + ", card_No=" + card_No + ", card_Agency=" + card_Agency
 				+ ", card_Date=" + card_Date + ", card_Pw=" + card_Pw + ", phone_Agency=" + phone_Agency + ", user_Rno="
-				+ user_Rno + ", del_No=" + del_No + ", cp_Use=" + cp_Use + ", money_Use=" + money_Use + "]";
+				+ user_Rno + ", del_No=" + del_No + ", cp_Use=" + cp_Use + ", money_Use=" + money_Use + ", pur_Image="
+				+ pur_Image + ", pur_Pname=" + pur_Pname + ", pur_POption=" + pur_POption + "]";
 	}
-		
+
 }

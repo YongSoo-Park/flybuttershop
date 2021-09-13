@@ -1,6 +1,7 @@
 package com.flybutter.basket.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -11,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.basket.model.service.BasketService;
 import com.flybutter.basket.model.vo.Basket;
-import com.flybutter.member.model.vo.Member;
+import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.product.model.vo.Product;
 
 /**
  * Servlet implementation class InsertBasketServlet
  */
-@WebServlet("/insertbasket.do")
+@WebServlet("/insertBasket.hy")
 public class InsertBasketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,7 +36,7 @@ public class InsertBasketServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		Member loginM = (Member)request.getSession().getAttribute("loginMember");
 		
 		Basket b = new Basket();
 		
@@ -43,22 +44,30 @@ public class InsertBasketServlet extends HttpServlet {
 		String bOption = request.getParameter("pOption");
 		int price = Integer.parseInt(request.getParameter("price"));
 		int bAmount = Integer.parseInt(request.getParameter("bAmount"));
-		
+		String basket_PImg = request.getParameter("pImg");
+		String basket_Pname = request.getParameter("pName");
 		System.out.println(pCode);
+		
+//		private String pCode;
+//		private int basket_No;
+//		private String bOption;
+//		private int bAmount;
+//		private int price;
+//		private Date basket_Date;
+//		private int user_No;
+//		private String basket_PImg;
+//		private String basket_Pname;
 		
 		b.setpCode(pCode);
 		b.setbOption(bOption);
 		b.setPrice(price);
 		b.setbAmount(bAmount);
-		b.setUser_No(loginUser.getUserNo());
-		
-		//user_No는 따로 consumer(또는 로그인유저)에서 가져와서 넘겨주기
+		b.setUser_No(loginM.getMEM_USER_NO());
+		b.setBasket_PImg(basket_PImg);
+		b.setBasket_Pname(basket_Pname);
 		
 		int result = new BasketService().insertBasket(b);
 		
-        ArrayList<Product> pList = new BasketService().selectBProduct(pCode);
-        request.setAttribute("pList", pList);
-        request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
 		
 	}
 

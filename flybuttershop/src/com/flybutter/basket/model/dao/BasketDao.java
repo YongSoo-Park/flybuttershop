@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 import static com.common.JDBCTemplate.*;
 import com.flybutter.basket.model.vo.Basket;
-import com.flybutter.product.model.vo.Product;
 
 public class BasketDao {
 
@@ -31,7 +30,9 @@ public class BasketDao {
 		}
 	}
 
-	public ArrayList<Basket> selectBasketList(Connection conn) {
+	public ArrayList<Basket> selectBasketList(Connection conn, int no) {
+		
+//		selectBasketList=SELECT * FROM BASKET WHERE USER_NO = ?
 		ArrayList<Basket> list = new ArrayList<Basket>();
 		
 		PreparedStatement pstmt = null;
@@ -42,6 +43,17 @@ public class BasketDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
+			pstmt.setInt(1, no);
+			
+//			PCODE
+//			BASKET_NO
+//			BOPTION
+//			BAMOUNT
+//			PRICE
+//			BASKET_DATE
+//			USER_NO
+//			BASKET_PIMAGE
+//			BASKET_PNAME
 			
 			while(rset.next()) {
 				list.add(new Basket(
@@ -51,7 +63,9 @@ public class BasketDao {
 								rset.getInt("BAMOUNT"),
 								rset.getInt("PRICE"),
 								rset.getDate("BASKET_DATE"),
-								rset.getInt("USER_NO")	
+								rset.getInt("USER_NO"),	
+								rset.getString("BASKET_PIMAGE"),
+								rset.getString("BASKET_PNAME")
 						));
 			}
 			
@@ -102,41 +116,6 @@ public class BasketDao {
 		}
 		
 		return result;
-	}
-
-	public ArrayList<Product> selectBProduct(Connection conn, String pCode) {
-		ArrayList<Product> pList = new ArrayList<Product>();
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-//		selectBProduct=SELECT PCODE, PNAME, PIMAGE_ORIGIN PROM PRODUCT WHERE PCODE = ?
-		
-		String sql = prop.getProperty("selectBProduct");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, pCode);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				pList.add(new Product(
-							rset.getString("PCODE"),
-							rset.getString("PNAME"),
-							rset.getString("PIMAGE_ORIGIN")
-						));
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			System.out.println("Basket 테이블  selectBasketList 오류메세지 : " + e.getMessage());
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return pList;
 	}
 
 	public int deleteBasket(Connection conn, String ck) {
