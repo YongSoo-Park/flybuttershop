@@ -177,7 +177,7 @@ System.out.println(sql);
 	
 		String sql = prop.getProperty("deleteNotice");
 		System.out.println("delete dao sql : " + sql);
-		//deleteNotice=DELTE Notice WHERE BOARD_NO=?
+		//deleteNotice=DELTE Notice WHERE NOTICE_NO=?
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
