@@ -15,7 +15,22 @@ public class Member {
 	private String status;
 	private int category;
 	
+	private String newAddress;
+	private String userCel;
+	private int sumPrice;
+	private String recPno;
+	private int money;
 	
+	private int storeNo;
+	private String storeName;
+	private String storeAddress;
+	private String sellerNo;
+	private String storeAccount;
+	private String storeExp;
+	private int storeStatus;
+
+	
+
 	public Member() {}
 	
 
@@ -70,8 +85,35 @@ public class Member {
 		this.category = category;
 	}
 	
+
+	public Member(int userNo,  String recPno, int money) {
+  //public Member(int userNo, String newAddress, String recPno, String userCel,int money, int sumPrice 
+						
+		this.userNo = userNo;
+	//	this.newAddress = newAddress;
+		this.recPno = recPno;
+	//	this.userCel = userCel;	
+		this.money = money;
+	//	this.sumPrice = sumPrice;
+	}
+
 	
-	public int getUserNo() {
+	public Member(int userNo, int storeNo,  String storeName , String storeAddress, String sellerNo, String storeAccount
+			,String storeExp, int storeStatus) {
+		 		
+				this.userNo = userNo;
+				this.storeNo = storeNo;
+				this.storeName = storeName;
+				this.storeAddress = storeAddress;
+				this.sellerNo = sellerNo;	
+				this.storeAccount = storeAccount;
+				this.storeExp = storeExp;
+				this.storeStatus = storeStatus;
+			}
+	
+
+
+public int getUserNo() {
 		return userNo;
 	}
 
@@ -159,7 +201,8 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
+
 	public int getCategory() {
 		return category;
 	}
@@ -170,10 +213,136 @@ public class Member {
 	}
 
 
+	public String getNewAddress() {
+		return newAddress;
+	}
+
+
+	public void setNewAddress(String newAddress) {
+		this.newAddress = newAddress;
+	}
+
+
+	public String getUserCel() {
+		return userCel;
+	}
+
+
+	public void setUserCel(String userCel) {
+		this.userCel = userCel;
+	}
+
+
+	public int getSumPrice() {
+		return sumPrice;
+	}
+
+
+	public void setSumPrice(int sumPrice) {
+		this.sumPrice = sumPrice;
+	}
+
+
+	public String getRecPno() {
+		return recPno;
+	}
+
+
+	public void setRecPno(String recPno) {
+		this.recPno = recPno;
+	}
+
+
+	public int getMoney() {
+		return money;
+	}
+
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
+
+	public int getStoreNo() {
+		return storeNo;
+	}
+
+
+	public void setStoreNo(int storeNo) {
+		this.storeNo = storeNo;
+	}
+
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
+
+	public String getStoreAddress() {
+		return storeAddress;
+	}
+
+
+	public void setStoreAddress(String storeAddress) {
+		this.storeAddress = storeAddress;
+	}
+
+
+	public String getSellerNo() {
+		return sellerNo;
+	}
+
+
+	public void setSellerNo(String sellerNo) {
+		this.sellerNo = sellerNo;
+	}
+
+
+	public String getStoreAccount() {
+		return storeAccount;
+	}
+
+
+	public void setStoreAccount(String storeAccount) {
+		this.storeAccount = storeAccount;
+	}
+
+
+	public String getStoreExp() {
+		return storeExp;
+	}
+
+
+	public void setStoreExp(String storeExp) {
+		this.storeExp = storeExp;
+	}
+
+
+	public int getStoreStatus() {
+		return storeStatus;
+	}
+
+
+	public void setStoreStatus(int storeStatus) {
+		this.storeStatus = storeStatus;
+	}
+
+
 	@Override
 	public String toString() {
+	/*	return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
+				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", lev=" + lev + ", status=" + status +", category=" + category 
+		+ ", sumPrice=" + sumPrice + ", money=" + money + ", userCel=" + userCel + ", newAddress=" + newAddress + ", recPno=" + recPno + "]";    */
+		
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
-				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", lev=" + lev + ", status=" + status +", category=" + category + "]";
-				
+				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", lev=" + lev + ", status=" + status +", category=" + category 
+		+ ", sumPrice=" + sumPrice + ", money=" + money + ", userCel=" + userCel + ", newAddress=" + newAddress + ", recPno=" + recPno 
+		+ ", storeNo=" + storeNo + ", storeName=" + storeName + ", storeAddress=" + storeAddress + ", sellerNo=" + sellerNo + ", storeAccount=" + storeAccount 
+		+ ", storeExp=" + storeExp + ", storeStatus=" + storeStatus + "]";
 	}
 }

@@ -216,5 +216,78 @@ public class MemberDao {
 		}
 		return member;
 	}
+	
+	public Member selectCMember(Connection conn, Member mem) {
+		Member member = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectCMember");	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem.getUserNo());
+			
+			System.out.println("################### selectCMember getUserNo :"+ mem.getUserNo());
+			
+			rset = pstmt.executeQuery();
+			if (rset.next()) {
+				member = new Member(
+						
+						rset.getInt("USER_NO"),
+					//	rset.getString("NEW_ADDRESS"),
+						rset.getString("REC_PNO"),
+					//	rset.getString("USER_CEL"),
+						rset.getInt("MONEY")
+					//	rset.getInt("SUM_PRICE")
+						);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return member;
+	}
+	
+	public Member selectSMember(Connection conn, Member mem) {
+		Member member = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectSMember");	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem.getUserNo());
+			
+			System.out.println("################### selectSMember getUserNo :"+ mem.getUserNo());
+			
+			rset = pstmt.executeQuery();
+			if (rset.next()) {
+				member = new Member(
+						
+						rset.getInt("USER_NO"),
+						rset.getInt("STORE_NO"),
+						rset.getString("STORE_NAME"),
+						rset.getString("STORE_ADDRESS"),
+						rset.getString("SELLER_NO"),
+						rset.getString("STORE_ACCOUNT"),
+						rset.getString("STORE_EXP"),
+						rset.getInt("STORE_STATUS")
+						);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return member;
+	}
+	
 
 }
