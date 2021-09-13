@@ -38,16 +38,58 @@ public class LoginServlet extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-		System.out.println("%%%%%%%%%%%%%%%%%%%%%% userId,userPwd: "+ userId+","+userPwd);
-		String originPwd = request.getParameter("originPwd");
+		//System.out.println("%%%%%%%%%%%%%%%%%%%%%% userId,userPwd: "+ userId+","+userPwd);
+		//String originPwd = request.getParameter("originPwd");
 		
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			session.setAttribute("originPwd", originPwd);
-			//response.sendRedirect("/main.ma");
+			//session.setAttribute("originPwd", originPwd);
+			
+			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$ CATEGOGY : "+ loginUser.getCategory());
+			int category = loginUser.getCategory();
+			if(category == 1) {
+				Member consumerInfo = new MemberService().selectCMember(loginUser);
+				
+				if(consumerInfo != null) {
+				
+					consumerInfo.setUserName(loginUser.getUserName());
+					consumerInfo.setLev(loginUser.getLev());
+					consumerInfo.setCategory(loginUser.getCategory());
+                //	consumerInfo.setUserId(loginUser.getUserId());
+				//	consumerInfo.setPhone(loginUser.getPhone());
+				//	consumerInfo.setEmail(loginUser.getEmail());
+				//	consumerInfo.setAddress(loginUser.getAddress());					
+				//	consumerInfo.setStatus(loginUser.getStatus());
+					
+
+					session.setAttribute("consumerInfo", consumerInfo);
+					System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$ consumerInfo : "+ consumerInfo);
+				}
+
+			}
+			if(category == 2) {
+				Member sellerInfo = new MemberService().selectSMember(loginUser);
+				
+				if(sellerInfo != null) {
+					
+					sellerInfo.setUserName(loginUser.getUserName());
+					sellerInfo.setLev(loginUser.getLev());
+					sellerInfo.setCategory(loginUser.getCategory());
+		             //	consumerInfo.setUserId(loginUser.getUserId());
+					//	consumerInfo.setPhone(loginUser.getPhone());
+					//	consumerInfo.setEmail(loginUser.getEmail());
+					//	consumerInfo.setAddress(loginUser.getAddress());					
+					//	consumerInfo.setStatus(loginUser.getStatus());
+					
+					session.setAttribute("sellerInfo", sellerInfo);
+					System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$ sellerInfo : "+ sellerInfo);
+				}
+				
+			}
+
 			RequestDispatcher view = request.getRequestDispatcher("/main.ma");
 			view.forward(request, response);
 			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%% loginUser :"+loginUser);

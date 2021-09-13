@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flybutter.consumer.model.service.ConsumerService;
 import com.flybutter.member.model.service.MemberService;
 import com.flybutter.member.model.vo.Member;
 
@@ -34,6 +35,8 @@ public class MemberCInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		ConsumerService cs = new ConsumerService();
+		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		String userName = request.getParameter("userName");
@@ -46,6 +49,9 @@ public class MemberCInsertServlet extends HttpServlet {
 		int result = new MemberService().insertCMember(mem);
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$ result : "+result);
 		if(result>0) {
+			
+			cs.createConsumer(mem.getUserNo());
+			
 			request.getSession().setAttribute("msg", "축하합니다 ! 회원가입에 성공하셨습니다!");
 			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$ result : "+result);
 			response.sendRedirect(request.getContextPath());

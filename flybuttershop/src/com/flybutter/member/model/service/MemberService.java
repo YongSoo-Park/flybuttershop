@@ -72,5 +72,23 @@ public class MemberService {
 		close(conn);
 		return member;
 	}
+	
+	
+	public Member selectCMember(Member mem) {
+		Connection conn = getConnection();
+		
+		Member member = new MemberDao().selectCMember(conn, mem);
+		close(conn);
+		return member;
+	}
+	
+	public Member selectSMember(Member mem) {
+		Connection conn = getConnection();
+		
+		Member member = new MemberDao().selectSMember(conn, mem);
+		close(conn);
+		return member;
+	}
+	
 
 }
