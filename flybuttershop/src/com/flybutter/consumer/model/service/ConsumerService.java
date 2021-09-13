@@ -11,11 +11,11 @@ import com.flybutter.consumer.model.vo.Consumer;
 public class ConsumerService {
 
 	
-	public int createConsumer(int user_No) {
+	public int createConsumer(int userNo) {
 		
 		Connection conn = getConnection();
 		
-		int result = new ConsumerDao().createConsumer(conn, user_No);
+		int result = new ConsumerDao().createConsumer(conn, userNo);
 		close(conn);
 		return result;
 	}

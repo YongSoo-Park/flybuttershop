@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import com.flybutter.consumerMyPage.model.service.MypageService;
 import com.flybutter.dummy.model.service.MemberService;
 import com.flybutter.dummy.model.vo.Member;
 
@@ -49,12 +50,20 @@ public class MyPageMainServlet extends HttpServlet {
 		System.out.println(userName);
 		System.out.println(level);
 		
+		int sumPrice = new MypageService().selectSumPrice(userNo);
+		
+		System.out.println("sumPrice = " + sumPrice);
+		
 		
 		
 		if(userName != null) {
 			
 			request.setAttribute("name", userName);
 			request.setAttribute("level", level);
+			
+			request.setAttribute("sumPrice", sumPrice);
+			
+			
 			
 			request.getRequestDispatcher("views/consumerMypage/ConsumerMyPageMain.jsp").forward(request, response);
 			

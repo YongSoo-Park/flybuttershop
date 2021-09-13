@@ -2,10 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%String userName = String.valueOf(request.getSession().getAttribute("MEM_USER_NAME")); %>
+<% int sumPrice = (int)request.getAttribute("sumPrice"); %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>마이페이지</title>
     <style>
 
@@ -133,4 +134,6 @@
 
     
 </body>
+
+
 </html>
