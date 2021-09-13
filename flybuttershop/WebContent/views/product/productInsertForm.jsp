@@ -148,29 +148,29 @@
 			<tr>
 				<td>상품세일여부</td>
 				<td>
-					<input type="radio" name="sale" checked>세일안함
-					<input type="radio" name="sale">세일적용
+					<input type="radio" name="sale" value="2" checked>세일안함
+					<input type="radio" name="sale" value="1">세일적용
 				</td>
 			</tr>
 			<tr>
 				<td>상품이미지</td>
 				<td>
-					<img id="pImg" width="150" height="120">
+					<img id="pImg" width="150" height="150" name="pImg">
 					
 				</td>
 			</tr>
 			<tr>
 				<td>상품설명이미지</td>
 				<td>
-					<img id="pExpImg" width="150" height="120">
+					<img id="pExpImg" width="150" height="150" name="pExpImg">
 					
 				</td>
 			</tr>
 		</table>
 		
 		<div id="fileArea">
-			<input type="file" name="file1" id="file1" onchange="loadImg(this, 1);">
-			<input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
+			<input type="file" name="pImg" id="file1" onchange="loadImg(this, 1);">
+			<input type="file" name="pExpImg" id="file2" onchange="loadImg(this, 2);">
 		</div>
 		
 		<div class="btns" align="center">
@@ -211,7 +211,7 @@
 	}
 	
 	function insertValidate(){
-		if(!(/^[a-z][a-z\d]{3,11}$/i.test($("#productInsert input[name=pName]").val()))){
+		if(!(/^[a-z][a-z\d]{3,20}$/i.test($("#productInsert input[name=pName]").val()))){
 			alert("상품명에는 영어, 한글, 숫자만 입력가능합니다.");
 			$("#productInsert input[name=pName]").focus();
 	        return false;
@@ -228,7 +228,7 @@
 			 $("#productInsert input[name=price]").focus();
 	        return false;
 		 }
-		 if(!(/^[a-z][a-z\d]{3,11}$/i.test($("#productInsert input[name=pOption]").val()))){
+		 if(!(/^[a-z][a-z\d]{3,20}$/i.test($("#productInsert input[name=pOption]").val()))){
 				alert("상품옵션에는 영어, 한글, 숫자만 입력가능합니다.");
 				$("#productInsert input[name=pOption]").focus();
 		        return false;

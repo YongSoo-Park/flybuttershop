@@ -11,10 +11,20 @@ public class Seller extends Member{
 	private String seller_No;
 	private String store_Account;
 	private String store_Exp;
+	private int store_Lev;
+	private int totalSales;
+	private String storeCall;
+	private String ceo;
+	private String email;
 	
+	public Seller() {
+		// TODO Auto-generated constructor stub
+	}
 	
+
 	public Seller(int store_No, int user_No, String store_Name, String store_Address, String seller_No,
-			String store_Account, String store_Exp) {
+			String store_Account, String store_Exp, int store_Lev, int totalSales, String storeCall, String ceo,
+			String email) {
 		super();
 		this.store_No = store_No;
 		this.user_No = user_No;
@@ -23,16 +33,24 @@ public class Seller extends Member{
 		this.seller_No = seller_No;
 		this.store_Account = store_Account;
 		this.store_Exp = store_Exp;
+		this.store_Lev = store_Lev;
+		this.totalSales = totalSales;
+		this.storeCall = storeCall;
+		this.ceo = ceo;
+		this.email = email;
 	}
+	
 
-
-	public Seller(int store_No, String store_Name, String store_Address, String seller_No, String store_Account, String store_Exp) {
+	public Seller(int store_No, String store_Name, String store_Address, String seller_No, String store_Account, String store_Exp,
+			 int store_Lev, int totalSales) {
 		this.store_No = store_No;
 		this.store_Name = store_Name;
 		this.store_Address = store_Address;
 		this.seller_No = seller_No;
 		this.store_Account = store_Account;
 		this.store_Exp = store_Exp;
+		this.store_Lev = store_Lev;
+		this.totalSales = totalSales;
 	}
 
 	public Seller(String store_Name, String store_Address, String seller_No, String store_Account, String store_Exp) {
@@ -42,6 +60,7 @@ public class Seller extends Member{
 		this.store_Account = store_Account;
 		this.store_Exp = store_Exp;
 	}
+
 
 
 	public int getStore_No() {
@@ -111,6 +130,56 @@ public class Seller extends Member{
 
 	public void setStore_Exp(String store_Exp) {
 		this.store_Exp = store_Exp;
+	}
+
+
+	public int getStore_Lev() {
+		return store_Lev;
+	}
+
+
+	public void setStore_Lev(int store_Lev) {
+		this.store_Lev = store_Lev;
+	}
+
+
+	public int getTotalSales() {
+		return totalSales;
+	}
+
+
+	public void setTotalSales(int totalSales) {
+		this.totalSales = totalSales;
+	}
+
+
+	public String getStoreCall() {
+		return storeCall;
+	}
+
+
+	public void setStoreCall(String storeCall) {
+		this.storeCall = storeCall;
+	}
+
+
+	public String getCeo() {
+		return ceo;
+	}
+
+
+	public void setCeo(String ceo) {
+		this.ceo = ceo;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 

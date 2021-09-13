@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.seller.model.service.SellerService;
 import com.flybutter.seller.model.vo.Seller;
 
@@ -32,10 +33,10 @@ public class sellerMyPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-			
-			
 		
-	      Seller seller = new SellerService().selectSeller();
+		//int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMEM_USER_NO();
+			
+	      Seller seller = new SellerService().selectStore();
 	      
 	      RequestDispatcher view = null;
 	      

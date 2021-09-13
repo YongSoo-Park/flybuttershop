@@ -1,28 +1,23 @@
 package com.flybutter.product.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.product.model.service.ProductService;
-import com.flybutter.product.model.vo.Product;
-
 /**
- * Servlet implementation class productDetailServlet
+ * Servlet implementation class productUpdateFormServlet
  */
-@WebServlet("/detail.pr")
-public class productDetailServlet extends HttpServlet {
+@WebServlet("/productUpdateForm.pr")
+public class productUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public productDetailServlet() {
+    public productUpdateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,25 +26,8 @@ public class productDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String pcode = request.getParameter("pCode");
-		System.out.println("pCode" + pcode);
-		
-		Product p = new ProductService().selectProductDetail(pcode);
-		
-		System.out.println("프로덕트 디테일"+p);
-		
-		RequestDispatcher view = null;
-	
-		if(p != null) {
-			request.setAttribute("p", p);
-			request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);;
-		}else {
-			request.setAttribute("msg", "상품정보를 불러올 수 없습니다.");
-			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
-		}
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
