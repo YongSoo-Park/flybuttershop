@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
+import com.flybutter.consumerMyPage.model.service.MypageService;
 import com.flybutter.dummy.model.vo.Member;
 
 /**
@@ -31,9 +33,33 @@ public class CheckPasswordInvalidationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		String password = request.getParameter("checkPass");
 		
-		Member m = (Member) request.getSession().getAttribute("loginMember");
+		System.out.println(password);
+		
+		Member member = (Member) request.getSession().getAttribute("loginMember");
+		
+		int userNo = member.getMEM_USER_NO();
+		
+		System.out.println(member.getMEM_USER_PWD());
+		
+		Member m = new MypageService().selectMember(userNo);
+		
+		String originPass = m.getMEM_USER_PWD();
+		
+		System.out.println(m.getMEM_USER_PWD());
+		
+		if(password.equals(originPass)) {
+			
+			request.setAttribute("m", m);
+			request.getRequestDispatcher("views/consumerMypage/updateMemberForm.jsp").forward(request, response);
+			
+		}else {
+			request.getRequestDispatcher("views/consumerMypage/errorPassPage.jsp").forward(request, response);
+			
+		}
 		
 		
 		//if

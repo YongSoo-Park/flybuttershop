@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.flybutter.dummy.model.vo.*"%>
+<% 
+	Member m = (Member)request.getAttribute("m");	
+	
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +27,27 @@
         }
     </style>
 
+<script>
+
+function checkPass(){
+
+	if($("#pass1").val() != $("#pass2").val()){
+		$("#pwdResult").text("비밀번호 불일치").css("color", "red");
+		return false;			
+	}
+	$("#pwdResult").text("비밀번호 일치").css("color", "blue");
+	
+}
+
+function loginValidate() {
+	if($("#pass1").val() != $("#pass2").val()){
+		$("#pwdResult").text("비밀번호 불일치").css("color", "red");
+		return false;			
+	}
+	return true;
+}
+
+</script>
 </head>
 <body>
     
@@ -32,29 +59,29 @@
         <h2>회원정보 수정</h2>
 
         <div id="loginForm">
-        <form name="login" action="#" method="post">
-            아이디
-            <input type="text" name="user_ID" placeholder="ID" readonly>
+        <form name="login" action="updateMem.mp" method="post" onsubmit="return loginValidate();">
+            <label>아이디</label>
+            <input type="text" name="user_ID" value=<%= m.getMEM_USER_ID() %> readonly>
             
             <br>
-            비밀번호
-            <input type="password" name="user_PW1"><br>
-            비밀번호 재확인 
-            <input type="password" name="user_PW2">
-            <input type="button" name="user_PWcheck" value="비밀번호 재확인">
+             <label>비밀번호</label>
+            <input type="password" id ="pass1" name="user_PW1" required><label id="pwdResult"></label><br>
+             <label>비밀번호 재확인 </label>
+            <input type="password" id ="pass2" name="user_PW2">
+            <input type="button" name="user_PWcheck" value="비밀번호 확인" onclick="checkPass();">
             <br>
-            이름
-            <input type="text" name="user_name" value=""> <br>
-            이메일
-            <input type="email" name="user_email" placeholder="email@gmail.com"><br>
-            휴대전화 
-            <input type="text" name="user_phone" placeholder="010-****-****"><br>
-            주소 
-            <textarea id="user_Address"></textarea>
+            <label>이름 </label>
+            <input type="text" name="name" value=<%= m.getMEM_USER_NAME()%> required> <br>
+             <label>이메일</label>
+            <input type="email" name="email" value=<%= m.getMEM_EMAIL()%> required><br>
+             <label>휴대전화 </label>
+            <input type="text" name="phone" value=<%=m.getMEM_PHONE() %> required><br>
+             <label>주소 </label>
+            <textarea id="address" required><%= m.getMEM_ADDRESS() %></textarea>
 
 
-            <br><br><br>
-            <input type="submit" name="" value="제출">
+            <br><br>
+            <input type="submit" name="submit" value="변경하기">
             
           </form>
         

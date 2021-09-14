@@ -7,19 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.dummy.model.vo.Member;
-
 /**
- * Servlet implementation class CheckPasswordSevlet
+ * Servlet implementation class MemberUpdateServlet
  */
-@WebServlet("/checkPass.mp")
-public class CheckPasswordSevlet extends HttpServlet {
+@WebServlet("/updateMem.mp")
+public class MemberUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckPasswordSevlet() {
+    public MemberUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,8 +27,12 @@ public class CheckPasswordSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-			request.getRequestDispatcher("views/consumerMypage/CheckPasswordView.jsp").forward(request, response);
+		request.setCharacterEncoding("UTF-8");
 		
+		String pwd = request.getParameter("user_PW1");
+		String phone = request.getParameter("phone");
+		String email = request.getParameter("email");
+		String address = request.getParameter("address");
 		
 	}
 

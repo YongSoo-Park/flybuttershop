@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.basket.model.vo.Basket;
+import com.flybutter.dummy.model.vo.Member;
 
 public class MypageDao {
 	
@@ -52,16 +53,11 @@ public class MypageDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			System.out.println(sql);
-			
 			pstmt.setInt(1, userNo);
-			System.out.println(pstmt);
-			System.out.println(userNo);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				sumPrice = rset.getInt("SUM_PRICE");
-				System.out.println(sumPrice);
 			
 						
 			}
@@ -74,6 +70,48 @@ public class MypageDao {
 			close(pstmt);
 		}
 		return sumPrice;
+
+	}
+
+
+
+
+
+	public Member selectMember(Connection conn, int userNo) {
+		
+	Member m =  new Member();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMember");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			System.out.println(pstmt);
+			System.out.println(userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				m.setMEM_USER_ID(rset.getString("MEM_USER_ID"));
+				m.setMEM_USER_PWD(rset.getString("MEM_USER_PWD"));
+				m.setMEM_USER_NAME(rset.getString("MEM_USER_NAME"));
+				m.setMEM_PHONE(rset.getString("MEM_PHONE"));
+				m.setMEM_EMAIL(rset.getString("MEM_EMAIL"));
+				m.setMEM_ADDRESS(rset.getString("MEM_ADDRESS"));
+				System.out.println(m);		
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("MEMBER 테이블  selectMember : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
 
 	}
 
