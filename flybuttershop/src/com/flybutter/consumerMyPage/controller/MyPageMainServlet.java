@@ -42,21 +42,21 @@ public class MyPageMainServlet extends HttpServlet {
 
 		System.out.println(m);
 		
-		int userNo = m.getMEM_USER_NO();
-		String userName = m.getMEM_USER_NAME();
-		int level = m.getMEM_LEV();
+		
+		
+		if(m != null) {
+			
+			int userNo = m.getMEM_USER_NO();
+			String userName = m.getMEM_USER_NAME();
+			int level = m.getMEM_LEV();
 
-		System.out.println(userNo);
-		System.out.println(userName);
-		System.out.println(level);
-		
-		int sumPrice = new MypageService().selectSumPrice(userNo);
-		
-		System.out.println("sumPrice = " + sumPrice);
-		
-		
-		
-		if(userName != null) {
+			System.out.println(userNo);
+			System.out.println(userName);
+			System.out.println(level);
+			
+			int sumPrice = new MypageService().selectSumPrice(userNo);
+			
+			//System.out.println("sumPrice = " + sumPrice);
 			
 			request.setAttribute("name", userName);
 			request.setAttribute("level", level);
@@ -70,10 +70,10 @@ public class MyPageMainServlet extends HttpServlet {
 			
 		}else {
 			
-			request.setAttribute("msg", "로그인이 필요한 서비스 입니다.");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			
-			view.forward(request, response);
+			//request.setAttribute("msg", "로그인이 필요한 서비스 입니다.");
+			//RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.getRequestDispatcher("views/member/loginPage.jsp").forward(request, response);
+;			//view.forward(request, response);
 			
 			
 		}
