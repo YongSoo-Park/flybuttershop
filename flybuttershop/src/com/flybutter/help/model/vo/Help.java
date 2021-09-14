@@ -57,6 +57,13 @@ public class Help {
 		this.help_Date = help_Date;
 	}
 
+	public Help(int help_No, String help_Title, Date help_Date) {
+		super();
+		this.help_No = help_No;
+		this.help_Title = help_Title;
+		this.help_Date = help_Date;
+	}
+
 	public Help(int help_Category, String help_Title, String help_Content, String help_File_Origin,
 			String help_File_System, Date help_Date, String help_status, String help_Answer_Content,
 			Date help_Answer_Date) {

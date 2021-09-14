@@ -160,7 +160,7 @@ hr {
 			location.href="<%=request.getContextPath()%>/enrollForm.no";
 		}
 		function goHelpList(){
-			location.href="<%=request.getContextPath()%>/entireList.help";
+			location.href="<%=request.getContextPath()%>/list.help";
 		}
 	</script>
 

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.flybutter.faq.model.vo.FAQ" %>
+<%@ page import="com.flybutter.help.model.vo.Help" %>
 <%
-	FAQ f = (FAQ)request.getAttribute("f");
+	Help h = (Help)request.getAttribute("h");
 %>
 <!DOCTYPE html>
 <html>
@@ -55,15 +55,28 @@
 		<table align="center">
 			<tr>
 				<td>카테고리</td>
-				<td><%= f.getFaq_Category() %></td>
+				<td colspan="2"><%= h.getHelp_Category() %></td>
 				<td>제목</td>
-				<td colspan="3"><%= f.getFaq_Title()%></td>
-				
+				<td colspan="2"><%= h.getHelp_Title() %></td>
+				<td>작성일</td>
+				<td colspan="2"><%= h.getHelp_Date() %></td>
 			</tr>
-			
 			<tr>
-					<td colspan="6">내용
-					<p><%= f.getFaq_Content() %></p>
+				<td colspan="9">
+					<% if(h.getHelp_File_System() != null){ %>
+					<div class="detailImgArea" align="center">
+						<img width="600px" height="450px" src="<%=request.getContextPath()%>/resources/help/<%=h.getHelp_File_System()%>"><br>
+												
+					</div>
+					
+					<% }else{ %>
+					첨부파일이 없습니다.
+					<% } %>
+				
+			</tr>	
+			<tr>
+					<td colspan="9">내용
+					<p><%= h.getHelp_Content() %></p>
 				</td>
 			</tr>
 		</table>
@@ -72,26 +85,26 @@
 		
 		<div class="btns" align="center">
 		
-			<a href="deliveryList.faq">목록으로</a> &nbsp;&nbsp;
+			<a href="list.help">목록으로</a> &nbsp;&nbsp;
 				
 			
 			
-			<a href="updateForm.faq?no=<%=f.getFaq_No()%>">수정하기</a> &nbsp;&nbsp;
-			<a href="delete.faq?no=<%=f.getFaq_No()%>">삭제하기</a>
+			<a href="updateForm.help?no=<%=h.getHelp_No()%>">수정하기</a> &nbsp;&nbsp;
+			<a href="delete.help?no=<%=h.getHelp_No()%>">삭제하기</a>
 		
 		
 		</div>
 		<form action="" id="postForm" method="post">
-			<input type="hidden" name="no" value="<%= f.getFaq_No() %>">
+			<input type="hidden" name="no" value="<%= h.getHelp_No() %>">
 		</form>
 		<script>
 			function updateForm(){
-				$("#postForm").attr("action", "<%=request.getContextPath()%>/updateForm.faq");
+				$("#postForm").attr("action", "<%=request.getContextPath()%>/updateForm.help");
 				$("#postForm").submit();
 			}
 			
 			function deleteBoard(){
-				$("#postForm").attr("action", "<%=request.getContextPath()%>/deleteF.faq");
+				$("#postForm").attr("action", "<%=request.getContextPath()%>/deleteH.help");
 				$("#postForm").submit();
 			}
 		</script>

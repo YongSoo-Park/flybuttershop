@@ -1,6 +1,8 @@
 package com.flybutter.faq.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +13,16 @@ import com.flybutter.faq.model.service.FAQService;
 import com.flybutter.faq.model.vo.FAQ;
 
 /**
- * Servlet implementation class FAQDetailServlet
+ * Servlet implementation class FAQRefundListServlet
  */
-@WebServlet("/detail.faq")
-public class FAQDetailServlet extends HttpServlet {
+@WebServlet("/refundList.faq")
+public class FAQRefundListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FAQDetailServlet() {
+    public FAQRefundListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +31,11 @@ public class FAQDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("no"));
+		ArrayList<FAQ> list = new FAQService().refundSelectList();
 		
-		FAQ faq = new FAQService().selectFAQ(no);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/faq/faqRefundList.jsp").forward(request, response);
 		
-		String view = "";
-		if(faq != null) {
-			request.setAttribute("f", faq);
-			view = "views/faq/faqDetailView.jsp";
-		
-		}else {
-			request.setAttribute("msg", "게시글을 볼수 없습니다.");
-			view = "views/common/errorPage.jsp";
-		
-		}
-		request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	/**

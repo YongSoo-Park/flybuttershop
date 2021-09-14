@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, com.flybutter.faq.model.vo.*"%>
+	import="java.util.ArrayList, com.flybutter.help.model.vo.*"%>
 
 <%
-ArrayList<FAQ> list = (ArrayList<FAQ>) request.getAttribute("list");
+ArrayList<Help> list = (ArrayList<Help>) request.getAttribute("list");
 %>
 
 
@@ -107,35 +107,16 @@ hr {
 
 	<section>
 	<jsp:include page="../common/csMenubar.jsp" flush="true"/>
-		
-		<div class="btn-group" id="container1">
-
-
-			<button type="button" class="btn btn-outline-dark"
-				onclick="goFAQDeliveryList();">배송문의</button>
-			<button type="button" class="btn btn-outline-dark"
-				onclick="goFAQRefundList();">반품/교환/환불</button>
-			<button type="button" class="btn btn-outline-dark"
-				onclick="goFAQOrderList();">주문/결제</button>
-			<button type="button" class="btn btn-outline-dark"
-				onclick="goFAQMemberList();">회원서비스</button>
-			<button type="button" class="btn btn-outline-dark"
-				onclick="goFAQSellerList();">판매자문의</button>
-		</div>
-
 	
-		<hr>
-					
-
 <div class="outer">
 		
 		        
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
-					 <th style="visibility:hidden;" width="100">글번호</th>
-					<th width="100">카테고리</th>
-					<th width="300">글제목</th>
+					 <th width="100">번호</th>
+					<th width="100">제목</th>
+					<th width="300">날짜</th>
 			
 				</tr>
 			</thead>
@@ -146,11 +127,11 @@ hr {
 						<td colspan="5">존재하는 공지사항이 없습니다.</td>
 					</tr>
 				 <% }else{  %>
-				 	<% for(FAQ f : list){ %>
+				 	<% for(Help h : list){ %>
 				 		<tr>
-				 			<td style="visibility:hidden;" ><%= f.getFaq_No() %></td>
-				 			<td><%= f.getFaq_Category() %></td>
-							<td><%= f.getFaq_Title() %></td>
+				 			<td ><%= h.getHelp_No()%></td>
+				 			<td><%= h.getHelp_Title() %></td>
+							<td><%= h.getHelp_Date() %></td>
 					
 				 		</tr>
 				 	<% } %>
@@ -172,7 +153,7 @@ hr {
 		<div align="center">
 			<%--<% if(loginUser != null && loginUser.getUserId().equals("admin")) { --%>
 			
-			<button onclick="goFaqInsertForm();">작성하기</button> 
+			<button onclick="goHelpInsertForm();">문의글작성</button> 
 	<%--<% } %> --%>	
 		</div>
 	
@@ -186,32 +167,18 @@ hr {
 	<script>
 		
 
-		function goFAQDeliveryList(){
-			location.href="<%=request.getContextPath()%>/deliveryList.faq";
-		}
-		function goFAQRefundList(){
-			location.href="<%=request.getContextPath()%>/refundList.faq";
-		}
-		function goFAQOrderList(){
-			location.href="<%=request.getContextPath()%>/orderList.faq";
-			}
-		function goFAQMemberList(){
-			location.href="<%=request.getContextPath()%>/memberList.faq";
-		}
-		function goFAQSellerList(){
-			location.href="<%=request.getContextPath()%>/sellerList.faq";
-			}
+	
 		
 		
 	
-		function goFaqInsertForm(){
-			location.href="<%=request.getContextPath()%>/insertForm.faq";
+		function goHelpInsertForm(){
+			location.href="<%=request.getContextPath()%>/insertForm.help";
 		}
 		<%if(!list.isEmpty()){%>
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){
 				var no = $(this).children().eq(0).text();
-				location.href="<%= request.getContextPath()%>/detail.faq?no="+no;
+				location.href="<%= request.getContextPath()%>/detail.help?no="+no;
 			})
 		})
 		<%}%>

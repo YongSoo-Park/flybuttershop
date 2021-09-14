@@ -30,12 +30,12 @@ public class FAQUpdateFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("fno"));
+		int no = Integer.parseInt(request.getParameter("no"));
 		
 		FAQ f = new FAQService().selectUpdateFAQ(no);
 		
 		if(f != null) {
-			request.setAttribute("fno", no);
+			request.setAttribute("f", f);
 			
 			request.getRequestDispatcher("views/faq/faqUpdateForm.jsp").forward(request, response);	
 		

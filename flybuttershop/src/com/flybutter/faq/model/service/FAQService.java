@@ -1,8 +1,9 @@
 package com.flybutter.faq.model.service;
 
+import static com.common.JDBCTemplate.*;
 import static com.common.JDBCTemplate.close;
 import static com.common.JDBCTemplate.getConnection;
-import static com.common.JDBCTemplate.*;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -81,6 +82,34 @@ public class FAQService {
 		
 		close(conn);
 		return result;
+	}
+
+	public ArrayList<FAQ> refundSelectList() {
+		Connection conn = getConnection();
+		ArrayList<FAQ> list = new FAQDao().refundSelectList(conn);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<FAQ> orderSelectList() {
+		Connection conn = getConnection();
+		ArrayList<FAQ> list = new FAQDao().orderSelectList(conn);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<FAQ> sellerSelectList() {
+		Connection conn = getConnection();
+		ArrayList<FAQ> list = new FAQDao().sellerSelectList(conn);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<FAQ> memberSelectList() {
+		Connection conn = getConnection();
+		ArrayList<FAQ> list = new FAQDao().memberSelectList(conn);
+		close(conn);
+		return list;
 	}
 
 }

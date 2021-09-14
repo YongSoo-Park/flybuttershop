@@ -1,7 +1,8 @@
 package com.flybutter.faq.model.dao;
 
-import static com.common.JDBCTemplate.close;
+
 import static com.common.JDBCTemplate.*;
+import static com.common.JDBCTemplate.close;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -69,7 +70,7 @@ public class FAQDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			//insertFAQ=INSERT INTO FAQ VALUES(SEQ_FNO.NEXTVAL, ?, ?, ?)
+			//insertFAQ=INSERT INTO FAQ VALUES(FAQ_NO.NEXTVAL, ?, ?, ?)
 			pstmt.setInt(1,f.getFaq_Category());
 			pstmt.setString(2, f.getFaq_Title());
 			pstmt.setString(3, f.getFaq_Content());
@@ -91,7 +92,7 @@ public class FAQDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectFAQ");
-	//	selectFAQ=SELECT FAQ_NO, FAQ_CATEGORY, FAQ_TITLE, FAQ_CONTENT FROM FAQ
+	//	selectFAQ=SELECT FAQ_NO, FAQ_CATEGORY, FAQ_TITLE, FAQ_CONTENT FROM FAQ WHERE FAQ_NO=?
 		
 		
 		try {
@@ -170,5 +171,129 @@ public class FAQDao {
 		}
 
 		return result;
+	}
+
+	public ArrayList<FAQ> refundSelectList(Connection conn) {
+		ArrayList<FAQ> list = new ArrayList<FAQ>();
+	
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("refundSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new FAQ(rset.getInt("FAQ_NO"),
+									rset.getInt("FAQ_CATEGORY"),
+									rset.getString("FAQ_TITLE")));
+			}
+			System.out.println("dao list : " + list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt); 
+		
+		}
+	
+		return list;
+	}
+
+	public ArrayList<FAQ> orderSelectList(Connection conn) {
+		ArrayList<FAQ> list = new ArrayList<FAQ>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("orderSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new FAQ(rset.getInt("FAQ_NO"),
+									rset.getInt("FAQ_CATEGORY"),
+									rset.getString("FAQ_TITLE")));
+			}
+			System.out.println("dao list : " + list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt); 
+		
+		}
+	
+		return list;
+	}
+
+	public ArrayList<FAQ> sellerSelectList(Connection conn) {
+		ArrayList<FAQ> list = new ArrayList<FAQ>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("sellerSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new FAQ(rset.getInt("FAQ_NO"),
+									rset.getInt("FAQ_CATEGORY"),
+									rset.getString("FAQ_TITLE")));
+			}
+			System.out.println("dao list : " + list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt); 
+		
+		}
+	
+		return list;
+	}
+
+	public ArrayList<FAQ> memberSelectList(Connection conn) {
+		ArrayList<FAQ> list = new ArrayList<FAQ>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("memberSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new FAQ(rset.getInt("FAQ_NO"),
+									rset.getInt("FAQ_CATEGORY"),
+									rset.getString("FAQ_TITLE")));
+			}
+			System.out.println("dao list : " + list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt); 
+		
+		}
+	
+		return list;
 	}
 }
