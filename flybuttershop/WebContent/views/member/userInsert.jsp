@@ -42,6 +42,7 @@
     border-radius: 8px;
 	background-color:cornsilk;
 	transition-duration: 1s;
+	 
 	}
 	#enrollBtn2:hover{
     background:mediumblue;
@@ -81,7 +82,7 @@
 </head>
 
 <body>
-	<h1 id = "FlyButter" align = "center" style="color:skyblue;">Membership</h1>
+	<h1 id = "FlyButter" align = "center" style="color:skyblue;">MemberShip</h1>
 	<div class= "loginArea">
 		
 
@@ -92,22 +93,24 @@
 			<div>
 				<table id ="loginMenu" border="1" >
 
-				<tr width = "300px"height = "130">
-				
+				<tr width = "300px"height = "130"  >
 					<td ><b>상품 판매자 회원가입</b></td>
-					<td >
+					<td ><b>상품  구매자 회원가입</b></td>
+				 </tr>	
+				  
+				 <tr> 
+					<td  align = "center" >
 					<button id = "enrollBtn1" type="button" onclick="sEnrollPage();">판매자가입</button>
 					</td>
-					
-					<td ><b>상품  구매자 회원가입</b></td>
-					<td >
-					<button id = "enrollBtn2" type="button" onclick="cEnrollPage();">구매자가입</button></td>	
-				 </tr>	  
+					<td  align = "center" >
+					<button id = "enrollBtn2" type="button" onclick="cEnrollPage();">구매자가입</button>
+					</td>	
+				 </tr>	 
 					
 				<tr>
 					
-					<td colspan = "4" align = "center"><button type="button" id="goMain" onclick="history.go(-1)">메인으로</button></td>
-				</td>	
+					<td colspan = "2" align = "center"><button type="button" id="goMain" onclick="history.go(-1)">메인으로</button></td>
+				</tr>	
 
 				</table>
 			</div>
