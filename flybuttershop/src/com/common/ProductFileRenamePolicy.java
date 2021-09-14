@@ -12,7 +12,7 @@ public class ProductFileRenamePolicy implements FileRenamePolicy{
 	public File rename(File originFile) {
 		
 		String originName = originFile.getName();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
 		String currentTime = sdf.format(new Date());
 		
 		

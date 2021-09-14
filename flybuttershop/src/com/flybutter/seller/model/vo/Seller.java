@@ -63,6 +63,35 @@ public class Seller extends Member{
 
 
 
+	public Seller(String store_Name, String store_Address, String seller_No, String store_Account,
+			String store_Exp, String storeCall, String ceo, String email) {
+		
+		this.store_Name = store_Name;
+		this.store_Address = store_Address;
+		this.seller_No = seller_No;
+		this.store_Account = store_Account;
+		this.store_Exp = store_Exp;
+		this.storeCall = storeCall;
+		this.ceo = ceo;
+		this.email = email;
+	}
+
+
+	public Seller(int store_No, String store_Name, String store_Address, String seller_No, String store_Account, String store_Exp, int store_Lev,
+			String storeCall, String ceo, String email) {
+		this.store_No = store_No;
+		this.store_Name = store_Name;
+		this.store_Address = store_Address;
+		this.seller_No = seller_No;
+		this.store_Account = store_Account;
+		this.store_Exp = store_Exp;
+		this.store_Lev = store_Lev;
+		this.storeCall = storeCall;
+		this.ceo = ceo;
+		this.email = email;
+	}
+
+
 	public int getStore_No() {
 		return store_No;
 	}
@@ -187,7 +216,7 @@ public class Seller extends Member{
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "store_No : " + store_No + ", user_No : " + user_No + ", store_Name : " + store_Name + ", store_Address : " + store_Address + ", seller_No : " + seller_No 
-				+ ", store_Account : " + store_Account + ", store_Exp : " + store_Exp;
+				+ ", store_Account : " + store_Account + ", store_Exp : " + store_Exp + "storeCall : " + storeCall + "ceo : " + ceo + "email : " + email;
 	}
 	
 }

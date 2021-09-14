@@ -24,17 +24,21 @@ public class SellerService {
 	}
 
 
-	public Seller updateSeller(Seller seller) {
+	public Seller updateStore(Seller seller) {
 		
 		Connection conn = getConnection();
 		
 		Seller updateStore = null;
 		
-		int result = new SellerDao().updateMember(conn, seller);
+		int result = new SellerDao().updateStore(conn, seller);
 		
 		if(result > 0) {
+			
 			commit(conn);
 			updateStore = new SellerDao().selectStore(conn, seller.getStore_Name());
+			
+			System.out.println("상점 업데이트         : " + updateStore);
+			
 		}else {
 			rollback(conn);
 		}
@@ -62,6 +66,16 @@ public class SellerService {
 		int listCount = new SellerDao().getProductListCount(conn, storeNo);
 		close(conn);
 		return listCount;
+	}
+
+
+	public Seller selectStore(String store_Name) {
+		
+		Connection conn = getConnection();
+		
+		Seller sel = new SellerDao().selectStore(conn, store_Name);
+		
+		return sel;
 	}
 
 

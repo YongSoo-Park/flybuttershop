@@ -14,13 +14,17 @@ public class Qna {
 	private String qna_Content;
 	private Date qna_Date;
 	private String qna_Status;
-	private String lock_Flag;
+	private int lock_Flag;
 	private String qna_Comment;
 	private Date qna_Comment_Date;
 	
+	public Qna() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 	public Qna(int qna_No, int user_No, String pCode, int store_no, int qna_Pwd, int qna_Category, String qna_Title,
-			String qna_Content, Date qna_Date, String qna_Status, String lock_Flag, String qna_Comment,
+			String qna_Content, Date qna_Date, String qna_Status, int lock_Flag, String qna_Comment,
 			Date qna_Comment_Date) {
 		super();
 		this.qna_No = qna_No;
@@ -37,6 +41,9 @@ public class Qna {
 		this.qna_Comment = qna_Comment;
 		this.qna_Comment_Date = qna_Comment_Date;
 	}
+
+
+
 
 
 	public int getQna_No() {
@@ -139,12 +146,12 @@ public class Qna {
 	}
 
 
-	public String getLock_Flag() {
+	public int getLock_Flag() {
 		return lock_Flag;
 	}
 
 
-	public void setLock_Flag(String lock_Flag) {
+	public void setLock_Flag(int lock_Flag) {
 		this.lock_Flag = lock_Flag;
 	}
 

@@ -3,10 +3,10 @@ package com.flybutter.product.model.service;
 import static com.common.JDBCTemplate.*;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 
 import com.flybutter.product.model.dao.ProductDao;
 import com.flybutter.product.model.vo.Product;
+import com.flybutter.seller.model.vo.Seller;
 
 public class ProductService {
 
@@ -60,6 +60,29 @@ public class ProductService {
 		close(conn);
 
 		return result;
+	}
+
+	public Product selectUpdateProduct(String pCode) {
+		Connection conn = getConnection();
+		
+		Product p = new ProductDao().selectUpdateProduct(conn, pCode);
+		
+		close(conn);
+		
+		System.out.println();
+		
+		return p;
+	}
+
+	public Seller selectProductStore(String pcode) {
+		
+		Connection conn = getConnection();
+		
+		Seller s = new ProductDao().selectProductStore(conn, pcode);
+		
+		close(conn);
+		
+		return s;
 	}
 
 }
