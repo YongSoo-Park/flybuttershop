@@ -31,7 +31,7 @@ public class FAQUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("fno"));
+		int no = Integer.parseInt(request.getParameter("no"));
 		int category = Integer.parseInt(request.getParameter("category"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
@@ -45,7 +45,7 @@ public class FAQUpdateServlet extends HttpServlet {
 		int result = new FAQService().updateFAQ(f);
 		if(result > 0 ) {
 			request.getSession().setAttribute("msg", "공지사항이 성공적으로 수정되었습니다.");
-			response.sendRedirect("detail.faq?fno="+no);
+			response.sendRedirect("detail.faq?no="+ no);
 		
 		}else {
 			request.setAttribute("msg", "공지사항 삭제에 실패했습니다.");

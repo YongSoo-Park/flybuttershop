@@ -1,4 +1,4 @@
-package com.flybutter.faq.controller;
+package com.flybutter.help.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.faq.model.service.FAQService;
-import com.flybutter.faq.model.vo.FAQ;
-
 /**
- * Servlet implementation class FAQDetailServlet
+ * Servlet implementation class HelpInsertFormServlet
  */
-@WebServlet("/detail.faq")
-public class FAQDetailServlet extends HttpServlet {
+@WebServlet("/insertForm.help")
+public class HelpInsertFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FAQDetailServlet() {
+    public HelpInsertFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +26,7 @@ public class FAQDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("no"));
-		
-		FAQ faq = new FAQService().selectFAQ(no);
-		
-		String view = "";
-		if(faq != null) {
-			request.setAttribute("f", faq);
-			view = "views/faq/faqDetailView.jsp";
-		
-		}else {
-			request.setAttribute("msg", "게시글을 볼수 없습니다.");
-			view = "views/common/errorPage.jsp";
-		
-		}
-		request.getRequestDispatcher(view).forward(request, response);
+		request.getRequestDispatcher("views/help/helpInsertForm.jsp").forward(request, response);
 	}
 
 	/**

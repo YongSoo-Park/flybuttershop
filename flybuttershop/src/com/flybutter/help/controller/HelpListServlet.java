@@ -1,26 +1,29 @@
-package com.flybutter.faq.controller;
+package com.flybutter.help.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.faq.model.service.FAQService;
-import com.flybutter.faq.model.vo.FAQ;
+import com.flybutter.help.model.service.HelpService;
+import com.flybutter.help.model.vo.Help;
+
 
 /**
- * Servlet implementation class FAQDetailServlet
+ * Servlet implementation class HelpListServlet
  */
-@WebServlet("/detail.faq")
-public class FAQDetailServlet extends HttpServlet {
+@WebServlet("/list.help")
+public class HelpListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FAQDetailServlet() {
+    public HelpListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +32,11 @@ public class FAQDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("no"));
+		ArrayList<Help> list = new HelpService().helpSelectList();
 		
-		FAQ faq = new FAQService().selectFAQ(no);
-		
-		String view = "";
-		if(faq != null) {
-			request.setAttribute("f", faq);
-			view = "views/faq/faqDetailView.jsp";
-		
-		}else {
-			request.setAttribute("msg", "게시글을 볼수 없습니다.");
-			view = "views/common/errorPage.jsp";
-		
-		}
-		request.getRequestDispatcher(view).forward(request, response);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/help/helpList.jsp").forward(request, response);
+	
 	}
 
 	/**
