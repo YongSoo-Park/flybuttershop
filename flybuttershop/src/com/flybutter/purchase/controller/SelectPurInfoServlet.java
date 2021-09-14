@@ -1,4 +1,4 @@
-package com.flybutter.basket.controller;
+package com.flybutter.purchase.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,22 +9,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.basket.model.service.BasketService;
-import com.flybutter.basket.model.vo.Basket;
 import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.purchase.model.service.PurchaseService;
+import com.flybutter.purchase.model.vo.Purchase;
+
+
+
 
 /**
- * Servlet implementation class basketListServlet
+ * Servlet implementation class SelectPurInfoServlet
  */
-@WebServlet("/basket.do")
-public class BasketListServlet extends HttpServlet {
+@WebServlet("/selectPurInfo.hy")
+public class SelectPurInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BasketListServlet() {
-        super(); 
+    public SelectPurInfoServlet() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -34,10 +37,12 @@ public class BasketListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
 		int no = loginM.getMEM_USER_NO();
-		ArrayList<Basket> list = new BasketService().selectBasketList(no);
+		int pNo = ((Integer)(request.getSession().getAttribute("pNo"))).intValue();
+		
+		ArrayList<Purchase> list = new PurchaseService().selectPurInfo(no, pNo);
         request.setAttribute("list", list);
         
-        request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
+//        request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
 	}
 
 	/**

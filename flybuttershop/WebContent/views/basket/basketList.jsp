@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.basket.model.vo.*, 
-    java.util.ArrayList, com.flybutter.dummy.model.vo.*"%>
+    com.flybutter.dummy.model.vo.*"%>
 <%
 ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list"); 
 Member loginMember = (Member)request.getSession().getAttribute("loginMember");
