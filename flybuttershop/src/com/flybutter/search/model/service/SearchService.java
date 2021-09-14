@@ -23,4 +23,18 @@ public class SearchService {
 		close(conn);
 		return searchSaleList;
 	}
+	public int searchListCount(String sWord) {
+		Connection conn = getConnection();
+		int count = new SearchDao().searchListCount(conn, sWord);
+		close(conn); 
+		return count;
+	}
+	
+	public ArrayList<Search> searchListNext(String sWord,int start, int end, int sKind) {
+		Connection conn = getConnection();
+		ArrayList<Search> searchList = new ArrayList<Search>();
+		searchList = new SearchDao().searchListNext(conn, sWord, start, end,sKind);
+		close(conn);
+		return searchList;
+	}
 }

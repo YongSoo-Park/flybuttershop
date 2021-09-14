@@ -41,11 +41,15 @@ public class SearchDao {
 		String sql = prop.getProperty("searchList");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+sWord+"%");
+			pstmt.setString(1, "%" + sWord + "%");
 			rset = pstmt.executeQuery();
+			System.out.println(sql);
 			while (true) {
 				if (rset.next()) {
-					searchList.add(new Search(rset.getString("PCODE"),rset.getString("PIMAGE_ORIGIN"),rset.getString("PNAME"),rset.getInt("PRICE"), rset.getString("SCORE_AVG"),rset.getInt("PSTOCK"),rset.getInt("STORE_NO"),rset.getString("STORE_NAME"),rset.getInt("STORE_LEV")));
+					searchList.add(new Search(rset.getString("PCODE"), rset.getString("PIMAGE_ORIGIN"),
+							rset.getString("PNAME"), rset.getInt("PRICE"), rset.getString("SCORE_AVG"),
+							rset.getInt("PSTOCK"), rset.getInt("STORE_NO"), rset.getString("STORE_NAME"),
+							rset.getInt("STORE_LEV")));
 					continue;
 				} else {
 					break;
@@ -63,7 +67,7 @@ public class SearchDao {
 		System.out.println(searchList);
 		return searchList;
 	}
-	
+
 	public ArrayList<Search> searchSaleList(Connection conn, String sWord) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -71,11 +75,12 @@ public class SearchDao {
 		String sql = prop.getProperty("searchSaleList");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+sWord+"%");
+			pstmt.setString(1, "%" + sWord + "%");
 			rset = pstmt.executeQuery();
 			while (true) {
 				if (rset.next()) {
-					searchSaleList.add(new Search(rset.getString("PCODE"),rset.getString("PIMAGE_ORIGIN"),rset.getString("PNAME"),rset.getInt("PRICE")));
+					searchSaleList.add(new Search(rset.getString("PCODE"), rset.getString("PIMAGE_ORIGIN"),
+							rset.getString("PNAME"), rset.getInt("PRICE")));
 					continue;
 				} else {
 					break;
@@ -93,4 +98,71 @@ public class SearchDao {
 		return searchSaleList;
 	}
 
+	public int searchListCount(Connection conn, String sWord) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchListCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + sWord + "%");
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				count = rset.getInt("TOTAL");
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+	public ArrayList<Search> searchListNext(Connection conn, String sWord, int start, int end, int sKind) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Search> searchList = new ArrayList<Search>();
+		String sql = prop.getProperty("searchListNext");
+		if (sKind == 2) {
+			sql = prop.getProperty("searchListNextHighPrice");
+		} else if (sKind == 3) {
+			sql = prop.getProperty("searchListNextRowPrice");
+		} else if (sKind == 4) {
+			sql = prop.getProperty("searchListNextNew");
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + sWord + "%");
+			pstmt.setInt(2, end);
+			pstmt.setInt(3, start);
+			rset = pstmt.executeQuery();
+			while (true) {
+				if (rset.next()) {
+					searchList.add(new Search(rset.getString("PCODE"), rset.getString("PIMAGE_ORIGIN"),
+							rset.getString("PNAME"), rset.getInt("PRICE"), rset.getString("SCORE_AVG"),
+							rset.getInt("PSTOCK"), rset.getInt("STORE_NO"), rset.getString("STORE_NAME"),
+							rset.getInt("STORE_LEV")));
+					continue;
+				} else {
+					break;
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println(searchList);
+		return searchList;
+	}
 }

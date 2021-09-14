@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 		
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("loginMember", loginUser);
 			//session.setAttribute("originPwd", originPwd);
 			
 			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$ CATEGOGY : "+ loginUser.getCategory());

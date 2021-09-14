@@ -11,8 +11,8 @@
 		window.onload = function() {
 			location.replace("main.ma");
 
-		}
+		} 
 	</script>
 	
-</body>
+</body> 
 </html> 
