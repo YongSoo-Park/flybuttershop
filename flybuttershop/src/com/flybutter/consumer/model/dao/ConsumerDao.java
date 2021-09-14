@@ -33,7 +33,7 @@ public class ConsumerDao {
 			
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("createconsumer");
+		String sql = prop.getProperty("insertconsumer");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

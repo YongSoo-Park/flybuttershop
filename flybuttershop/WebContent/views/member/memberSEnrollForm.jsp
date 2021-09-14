@@ -91,7 +91,7 @@
 </head>
 <body>
 
-	<h1 id = "userJoinText" align = "center" style="color:white; ">Seller</h1>
+	<h1 id = "userJoinText" align = "center" style="color:skyblue; ">Seller</h1>
 	<div class="outer">
 		<form id="enrollForm" action="<%=request.getContextPath() %>/sInsert.me" method="post" onsubmit="return joinValidate();">
 			<table align="center">
@@ -137,7 +137,7 @@
 			<br>
 			
 			<div class="btns" align="center">
-				<button type="button" id="joinBtn"onclick="regInfo()">가입완료</button>
+				<button type="submit" id="joinBtn">가입완료</button>
 				<button type="button" id="goMain" onclick="history.go(-1)">취소</button>
 				
 			</div>
@@ -194,10 +194,13 @@
 				console.log("서버통신실패");
 			}
 		})
-		
 	}
+	</script>
+
+</body>
+</html>
 	
-	function regInfo(){
+		<!-- 	function regInfo(){
 		console.log("regInfo");
 		console.log("userId : " + $("#userId").val());
 		var param = {
@@ -210,7 +213,7 @@
 				
 		}
 		console.log("param : " +JSON.stringify(param));
-/* 		var userId = $("#enrollForm input[name=userId]");
+	var userId = $("#enrollForm input[name=userId]");
 		if(userId.val()==""){
 			alert("아이디를 입력해주세요");
 			return false;
@@ -237,10 +240,8 @@
 			error:function(){
 				console.log("서버통신실패");
 			}
-		}) */
+		}) 
 		
 	}
-	</script>
+	</script> -->
 
-</body>
-</html>

@@ -45,12 +45,18 @@ public class MemberCInsertServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		
 		Member mem = new Member(userId, userPwd, userName, phone, email , address);
+		
 		System.out.println("mem : "+mem);
 		int result = new MemberService().insertCMember(mem);
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$ result : "+result);
 		if(result>0) {
+			Member memInfo = new Member(userName, phone,  email);
 			
-			cs.createConsumer(mem.getUserNo());
+
+			Member rtnMemInfo = new MemberService().selectMember(memInfo);
+			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$ rtnMemInfo : "+rtnMemInfo);
+
+			cs.createConsumer(rtnMemInfo.getUserNo());
 			
 			request.getSession().setAttribute("msg", "축하합니다 ! 회원가입에 성공하셨습니다!");
 			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$ result : "+result);

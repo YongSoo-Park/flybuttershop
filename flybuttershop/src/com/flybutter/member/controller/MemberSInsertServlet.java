@@ -44,7 +44,7 @@ public class MemberSInsertServlet extends HttpServlet {
 		Member mem = new Member(userId, userPwd, userName, phone, email , address);
 		System.out.println("mem : "+mem);
 		int result = new MemberService().insertSMember(mem);
-		
+		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&& Member "+mem);
 		if(result>0) {
 			
 			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%% MemberSInsertServlet result" +result);
