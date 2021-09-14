@@ -25,6 +25,8 @@ public class Purchase {
 	private String pur_Image;
 	private String pur_Pname;
 	private String pur_POption; 
+	private int pur_Amount;
+	private String pur_SName;
 	
 
 	
@@ -33,18 +35,22 @@ public class Purchase {
 	}
 
 	//주문창에 띄울 정보
-	public Purchase(String pCode, String pur_Image, String pur_Pname, String pur_POption, int pur_Price) {
+	public Purchase(int user_No, String pCode, int pur_No, String pur_Image, String pur_Pname, String pur_POption, int pur_Price, int pur_Amount , String pur_SName) {
 		super();
+		this.user_No = user_No;
 		this.pCode = pCode;
+		this.pur_No = pur_No;
 		this.pur_Image = pur_Image;
 		this.pur_Pname = pur_Pname;
 		this.pur_POption = pur_POption;
 		this.pur_Price = pur_Price;
+		this.pur_Amount = pur_Amount;
+		this.pur_SName = pur_SName;
 	}
 
 	//무통장입금
 	public Purchase(int user_No, String pCode, int pur_No, Date pur_Date, int pur_Price, String pur_Address,
-			int pur_Type, String pur_Bank, String pur_Account, int del_No, char cp_Use, char money_Use, String pur_Image, String pur_Pname, String pur_POption) {
+			int pur_Type, String pur_Bank, String pur_Account, int del_No, char cp_Use, char money_Use, String pur_Image, String pur_Pname, String pur_POption, int pur_Amount , String pur_SName) {
 		super();
 		this.user_No = user_No;
 		this.pCode = pCode;
@@ -61,12 +67,14 @@ public class Purchase {
 		this.pur_Image = pur_Image;
 		this.pur_Pname = pur_Pname;
 		this.pur_POption = pur_POption;
+		this.pur_Amount = pur_Amount;
+		this.pur_SName = pur_SName;
 	}
 
 	//카드결제
 	public Purchase(int user_No, String pCode, int pur_No, Date pur_Date, int pur_Price, String pur_Address,
 			int pur_Type, int card_No, String card_Agency, String card_Date, int card_Pw, int del_No, char cp_Use,
-			char money_Use, String pur_Image, String pur_Pname, String pur_POption) {
+			char money_Use, String pur_Image, String pur_Pname, String pur_POption, int pur_Amount , String pur_SName) {
 		super();
 		this.user_No = user_No;
 		this.pCode = pCode;
@@ -85,11 +93,13 @@ public class Purchase {
 		this.pur_Image = pur_Image;
 		this.pur_Pname = pur_Pname;
 		this.pur_POption = pur_POption;
+		this.pur_Amount = pur_Amount;
+		this.pur_SName = pur_SName;
 	}
 
 	//휴대폰결제
 	public Purchase(int user_No, String pCode, int pur_No, Date pur_Date, int pur_Price, String pur_Address,
-			int pur_Type, String phone_Agency, int user_Rno, int del_No, char cp_Use, char money_Use, String pur_Image, String pur_Pname, String pur_POption) {
+			int pur_Type, String phone_Agency, int user_Rno, int del_No, char cp_Use, char money_Use, String pur_Image, String pur_Pname, String pur_POption, int pur_Amount , String pur_SName) {
 		super();
 		this.user_No = user_No;
 		this.pCode = pCode;
@@ -106,6 +116,8 @@ public class Purchase {
 		this.pur_Image = pur_Image;
 		this.pur_Pname = pur_Pname;
 		this.pur_POption = pur_POption;
+		this.pur_Amount = pur_Amount;
+		this.pur_SName = pur_SName;
 	}
 
 	public int getUser_No() {
@@ -276,6 +288,22 @@ public class Purchase {
 		this.pur_POption = pur_POption;
 	}
 
+	public int getPur_Amount() {
+		return pur_Amount;
+	}
+
+	public void setPur_Amount(int pur_Amount) {
+		this.pur_Amount = pur_Amount;
+	}
+	
+	public String getPur_SName() {
+		return pur_SName;
+	}
+
+	public void setPur_SName(String pur_SName) {
+		this.pur_SName = pur_SName;
+	}
+
 	@Override
 	public String toString() {
 		return "Purchase [user_No=" + user_No + ", pCode=" + pCode + ", pur_No=" + pur_No + ", pur_Date=" + pur_Date
@@ -283,7 +311,8 @@ public class Purchase {
 				+ pur_Bank + ", pur_Account=" + pur_Account + ", card_No=" + card_No + ", card_Agency=" + card_Agency
 				+ ", card_Date=" + card_Date + ", card_Pw=" + card_Pw + ", phone_Agency=" + phone_Agency + ", user_Rno="
 				+ user_Rno + ", del_No=" + del_No + ", cp_Use=" + cp_Use + ", money_Use=" + money_Use + ", pur_Image="
-				+ pur_Image + ", pur_Pname=" + pur_Pname + ", pur_POption=" + pur_POption + "]";
+				+ pur_Image + ", pur_Pname=" + pur_Pname + ", pur_POption=" + pur_POption + ", pur_Amount=" + pur_Amount
+				+ ", pur_SName=" + pur_SName + "]";
 	}
 
 }

@@ -38,7 +38,11 @@ public class BasketService {
 		System.out.println("service");
 		int result = new BasketDao().deleteBasket(conn, ck);
 		
-		
+		if(result > 0) {
+			commit(conn);
+		}else {	
+			rollback(conn);
+		}
 		
 		close(conn);
 		return result;

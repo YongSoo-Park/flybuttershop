@@ -21,7 +21,7 @@ import com.flybutter.basket.model.service.BasketService;
 public class DeleteBasketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
+    /** 
      * @see HttpServlet#HttpServlet()
      */
     public DeleteBasketServlet() {
