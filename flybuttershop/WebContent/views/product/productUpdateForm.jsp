@@ -46,15 +46,15 @@
 <jsp:include page="../common/sellerMenuBar.jsp" flush="true"/>
 	<br><br>
 	
-	<h2>상품 등록</h2>
+	<h2>상품 정보 수정</h2>
 	
 	<div class="outer">
-	<form id="productUpdate" action="<%= request.getContextPath() %>/update.pr" method="post" onsubmit="return insertValidate();">
+	<form id="productUpdate" action="<%= request.getContextPath() %>/update.pr" method="post" enctype="multipart/form-data" onsubmit="return insertValidate();">
 		<table>
 			<tr>
 				<td>상품코드</td>
 				<td>
-					<label><%=p.getpCode() %></label>
+					<input type="text" name="pCode" value="<%=p.getpCode()%>" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
@@ -145,27 +145,27 @@
 			</tr>
 			<tr>
 				<td>상품옵션</td>
-				<td><input type="text" name="option" value="<%=p.getpOption()%>">
+				<td><input type="text" name="option" value="<%= p.getpOption()%>">
 				</td>
 			</tr>
 			<tr>
 				<td>상품세일여부</td>
 				<td>
-					<input type="radio" name="sale">세일안함
-					<input type="radio" name="sale">세일적용
+					<input type="radio" name="sale" value="2">세일안함
+					<input type="radio" name="sale" value="1">세일적용
 				</td>
 			</tr>
 			<tr>
 				<td>상품이미지</td>
 				<td>
-					<img id="pImg" width="150" height="120">
+					<img id="pImg" width="150" height="120" name="pImg">
 					
 				</td>
 			</tr>
 			<tr>
 				<td>상품설명이미지</td>
 				<td>
-					<img id="pExpImg" width="150" height="120">
+					<img id="pExpImg" width="150" height="120" name="pExpImg">
 					
 				</td>
 			</tr>
@@ -177,7 +177,7 @@
 		</div>
 		
 		<div class="btns" align="center">
-			<button type="submit">등록하기</button>
+			<button type="submit">수정하기</button>
 			<button type="reset" onclick="">취소</button>
 		</div>
 	</form>

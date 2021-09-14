@@ -78,23 +78,26 @@ public class SellerDao {
 		}
 		
 		
-		public int updateMember(Connection conn, Seller seller) {
+		public int updateStore(Connection conn, Seller seller) {
 			
 			int result = 0;
 			
 			PreparedStatement pstmt = null;
 			
 			String sql = prop.getProperty("updateStore");
-			//UPDATE SELLER SET SELLER_NO = ?, STORE_ADDRESS = ?, STORE_ACCOUNT = ?, STORE_EXP = ? WHERE STORE_NAME = ?   
+			//UPDATE SELLER SET SELLER_NO = ?, STORE_ADDRESS = ?, STORE_ACCOUNT = ?, STORE_EXP = ? STORECALL = ? CEO = ? EMAIL = ? WHERE STORE_NAME = ?   
 			
 				try {
 					pstmt = conn.prepareStatement(sql);
 					
-					pstmt.setString(1, seller.getStore_Address());
-					pstmt.setString(2, seller.getSeller_No());
+					pstmt.setString(1, seller.getSeller_No());
+					pstmt.setString(2, seller.getStore_Address());
 					pstmt.setString(3, seller.getStore_Account());
 					pstmt.setString(4, seller.getStore_Exp());
-					pstmt.setString(5, seller.getStore_Name());
+					pstmt.setString(5, seller.getStoreCall());
+					pstmt.setString(6, seller.getCeo());
+					pstmt.setString(7, seller.getEmail());
+					pstmt.setString(8, seller.getStore_Name());
 					
 					result = pstmt.executeUpdate();
 					
@@ -125,13 +128,17 @@ public class SellerDao {
 				
 				if(rset.next()) {
 					sel = new Seller(rset.getInt("STORE_NO"),
+									 rset.getInt("USER_NO"),
 									 rset.getString("STORE_NAME"),
 									 rset.getString("STORE_ADDRESS"),
 									 rset.getString("SELLER_NO"),
 									 rset.getString("STORE_ACCOUNT"),
 									 rset.getString("STORE_EXP"),
 									 rset.getInt("STORE_LEV"),
-									 rset.getInt("TOTALSALES")
+									 rset.getInt("TOTALSALES"),
+									 rset.getString("STORECALL"),
+									 rset.getString("CEO"),
+									 rset.getString("EMAIL")
 							  		 );
 					}
 				

@@ -39,9 +39,16 @@ public class productInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setCharacterEncoding("UTF-8");
+		
+		System.out.println("상품등록 서블릿 입장");
+		
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			//size
 			int maxSize = 10 * 1024 * 1024;
+			System.out.println("maxSize" + maxSize);
+			
 			//path
 			String resources1 = request.getSession().getServletContext().getRealPath("/resources");
 			String savePath1 = resources1 + "\\product\\";
@@ -53,7 +60,7 @@ public class productInsertServlet extends HttpServlet {
 			//rename
 			MultipartRequest multiRequest1 = new MultipartRequest(request, savePath1, maxSize, "UTF-8", new ProductFileRenamePolicy());
 			
-			MultipartRequest multiRequest2 = new MultipartRequest(request, savePath2, maxSize, "UTF-8", new ProductExpFileRenamePolicy());
+			//MultipartRequest multiRequest1 = new MultipartRequest(request, savePath2, maxSize, "UTF-8", new ProductExpFileRenamePolicy());
 
 			String pCode = multiRequest1.getParameter("pCode");
 			String pName = multiRequest1.getParameter("pName");
@@ -86,9 +93,9 @@ public class productInsertServlet extends HttpServlet {
 				p.setpImage_System(changePimg1);
 			}
 			
-			if(multiRequest2.getOriginalFileName("pExpImg") != null) {
-				String originPimg2 = multiRequest2.getOriginalFileName("pExpImg");
-				String changePimg2 = multiRequest2.getFilesystemName("pExpImg");
+			if(multiRequest1.getOriginalFileName("pExpImg") != null) {
+				String originPimg2 = multiRequest1.getOriginalFileName("pExpImg");
+				String changePimg2 = multiRequest1.getFilesystemName("pExpImg");
 				
 				p.setpExp_Image_Origin(originPimg2);
 				p.setpExp_Image_System(changePimg2);
@@ -101,7 +108,7 @@ public class productInsertServlet extends HttpServlet {
 				request.getSession().setAttribute("msg", "상품등록성공");
 				response.sendRedirect("productDetail.sl");
 			}else {
-				if(multiRequest1.getOriginalFileName("pImg") != null || multiRequest2.getOriginalFileName("pExpImg") != null) {
+				if(multiRequest1.getOriginalFileName("pImg") != null || multiRequest1.getOriginalFileName("pExpImg") != null) {
 					File failedFile = new File(p.getpExp_Image_Origin() + p.getpExp_Image_System()
 												+ p.getpImage_Origin() + p.getpImage_System());
 					failedFile.delete();

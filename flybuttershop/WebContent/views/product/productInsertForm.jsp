@@ -45,7 +45,7 @@
 	<h2>상품 등록</h2>
 	
 	<div class="outer">
-	<form id="productInsert" action="<%= request.getContextPath() %>/insert.pr" method="post" onsubmit="return insertValidate();">
+	<form id="productInsert" action="<%= request.getContextPath() %>/insert.pr" method="post" enctype="multipart/form-data" onsubmit="return insertValidate();">
 		<table>
 			<tr>
 				<td>상품코드</td>
@@ -169,8 +169,8 @@
 		</table>
 		
 		<div id="fileArea">
-			<input type="file" name="pImg" id="file1" onchange="loadImg(this, 1);">
-			<input type="file" name="pExpImg" id="file2" onchange="loadImg(this, 2);">
+			<input type="file" name="file1" id="file1" onchange="loadImg(this, 1);">
+			<input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
 		</div>
 		
 		<div class="btns" align="center">
@@ -181,6 +181,18 @@
 	</div>
 	
 	<script>
+	
+	$(function(){
+		$("#fileArea").hide();
+		
+		$("#pImg").click(function(){
+			$("#file1").click();
+		});
+		
+		$("#pExpImg").click(function(){
+			$("#file2").click();
+		});
+	});
 	
 	function checkCode(){
 		var pCode = $("#productInsert input[name=pCode]");
@@ -211,7 +223,7 @@
 	}
 	
 	function insertValidate(){
-		if(!(/^[a-z][a-z\d]{3,20}$/i.test($("#productInsert input[name=pName]").val()))){
+		if(!(/^[a-z][a-z\d]{3,50}$/i.test($("#productInsert input[name=pName]").val()))){
 			alert("상품명에는 영어, 한글, 숫자만 입력가능합니다.");
 			$("#productInsert input[name=pName]").focus();
 	        return false;
@@ -236,17 +248,7 @@
 		 
 		 return true;
 	}
-	$(function(){
-		$("#fileArea").hide();
-		
-		$("#pImg").click(function(){
-			$("#file1").click();
-		});
-		
-		$("#pExpImg").click(function(){
-			$("#file2").click();
-		});
-	});
+	
 	
 	function loadImg(inputFile, num){//이미지 미리보기
 		

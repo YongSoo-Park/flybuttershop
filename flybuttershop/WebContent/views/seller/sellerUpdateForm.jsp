@@ -38,7 +38,7 @@
             </tr>
             <tr>
                 <td>대표자</td>
-                <td><input type="text" name="address" value="${requestScope.seller.ceo}"></td>
+                <td><input type="text" name="ceo" value="${requestScope.seller.ceo}"></td>
             </tr>
             <tr>
                 <td>소재지</td>
@@ -46,11 +46,11 @@
             </tr>
             <tr>
                 <td>연락처</td>
-                <td><input type="text" name="address" value="${requestScope.seller.storeCall}"></td>
+                <td><input type="text" name="phone" value="${requestScope.seller.storeCall}"></td>
             </tr>
             <tr>
                 <td>이메일</td>
-                <td><input type="text" name="address" value="${requestScope.seller.email}"></td>
+                <td><input type="text" name="email" value="${requestScope.seller.email}"></td>
             </tr>
             <tr>
                 <td>사업자등록번호</td>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.product.model.service.ProductService;
 import com.flybutter.product.model.vo.Product;
+import com.flybutter.seller.model.vo.Seller;
 
 /**
  * Servlet implementation class productDetailServlet
@@ -37,12 +38,16 @@ public class productDetailServlet extends HttpServlet {
 		
 		Product p = new ProductService().selectProductDetail(pcode);
 		
+		Seller s = new ProductService().selectProductStore(pcode);
+		
 		System.out.println("프로덕트 디테일"+p);
+		System.out.println("프로덕트 디테일"+s);
 		
 		RequestDispatcher view = null;
 	
 		if(p != null) {
 			request.setAttribute("p", p);
+			request.setAttribute("s", s);
 			request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);;
 		}else {
 			request.setAttribute("msg", "상품정보를 불러올 수 없습니다.");

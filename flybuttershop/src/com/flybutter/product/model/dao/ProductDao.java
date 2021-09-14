@@ -13,6 +13,7 @@ import static com.common.JDBCTemplate.*;
 
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.seller.model.dao.SellerDao;
+import com.flybutter.seller.model.vo.Seller;
 
 public class ProductDao {
 	
@@ -183,4 +184,97 @@ public class ProductDao {
 		
 		return result;
 	}
+
+	public Product selectUpdateProduct(Connection conn, String pCode) {
+		
+		Product p = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectUpdateProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pCode);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new Product(rset.getString("PCODE"),
+								rset.getInt("STORE_NO"),
+								rset.getInt("PCATEGORY"),
+								rset.getInt("PCATEGORY2"),
+								rset.getString("PNAME"),
+								rset.getString("POPTION"),
+								rset.getInt("PSTOCK"),
+								rset.getString("PIMAGE_ORIGIN"),
+								rset.getString("PIMAGE_SYSTEM"),
+								rset.getString("PEXP_IMAGE_ORIGIN"),
+								rset.getString("PEXP_IMAGE_SYSTEM"),
+								rset.getInt("PRICE"),
+								rset.getString("PSTATUS"),
+								rset.getDate("PDATE"),
+								rset.getInt("SALE_FLAG"),
+								rset.getString("SCORE_AVG"),
+								rset.getInt("SCORE_COUNT")
+								);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("야기라구 멍청아");
+		
+		return p;
+	}
+
+	public Seller selectProductStore(Connection conn, String pcode) {
+		
+		Seller s = null;
+		
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectProductStore");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pcode);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				s = new Seller(rset.getInt("STORE_NO"),
+								 rset.getString("STORE_NAME"),
+								 rset.getString("STORE_ADDRESS"),
+								 rset.getString("SELLER_NO"),
+								 rset.getString("STORE_ACCOUNT"),
+								 rset.getString("STORE_EXP"),
+								 rset.getInt("STORE_LEV"),
+								 rset.getString("STORECALL"),
+								 rset.getString("CEO"),
+								 rset.getString("EMAIL")
+						  		 );
+				}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return s;
+	}
+
+	
 }

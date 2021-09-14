@@ -35,15 +35,18 @@ public class sellerUpdateServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String store_Name = request.getParameter("storeName");
+		String ceo = request.getParameter("ceo");
 		String store_Address = request.getParameter("address");
+		String phone = request.getParameter("phone");
+		String email = request.getParameter("email");
 		String seller_No = request.getParameter("sellerNo");
 		String store_Account = request.getParameter("account");
 		String store_Exp = request.getParameter("storeExp");
 		
-		Seller updateStore = new SellerService().updateSeller(new Seller(store_Name, store_Address, seller_No, store_Account, store_Exp));
+		Seller updateStore = new SellerService().updateStore(new Seller(store_Name, store_Address, seller_No, store_Account, store_Exp, phone, ceo, email));
 		
 		if(updateStore != null) {
-			request.getSession().setAttribute("msg", "");
+			request.getSession().setAttribute("msg", "상점 정보 수정 완료");
 			request.getSession().setAttribute("seller", updateStore);
 			response.sendRedirect("sellerMyPage.sl");
 			
