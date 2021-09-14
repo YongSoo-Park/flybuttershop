@@ -84,7 +84,7 @@ width: 180px;
 
 border : solid 1px blue;
 
-font-size: 13px;
+font-size: 12px;
 display: inline-block;
 text-align: center;
 }
@@ -196,7 +196,7 @@ $(function() {
 	})
 	
 	$('#searBtn').click(function() {
-		if($('#userSearch').val().length == 0 ){
+		if($('#userSearch').val().length == -1 ){
 			alert("검색할 단어를 입력해주세요");
 		}else{
 			$('#searchForm').submit();
@@ -351,10 +351,10 @@ $(function() {
 <div id="recentlyViewedItems">
  <c:if test="${!empty sessionScope.RVItemsList}">
  <div class="RVItemsView" id="RVItemsView1">
- <b style="font-size: 25px"><br>최근 본 상품<br><br></b><hr>
+ <b style="font-size: 20px"><br>최근 본 상품<br><br></b><hr>
  <c:forEach items="${sessionScope.RVItemsList}" var="list" end="4">
  <c:forEach items="${list.key}" var="item">
- <img src="${pageContext.request.contextPath}${sessionScope.RVItemsList[item].pImage_Origin}" width="80px" height="80px" onclick="detailP('${list.key}')"><br>
+ <img src="${pageContext.request.contextPath}${sessionScope.RVItemsList[item].pImage_Origin}" width="60px" height="60px" onclick="detailP('${list.key}')" style="cursor: pointer;"><br>
  ${sessionScope.RVItemsList[item].pName}${list.key}<hr><br>
 </c:forEach>
 </c:forEach>
@@ -363,10 +363,10 @@ $(function() {
 </c:if>
 </div>
  <div class="RVItemsView" id="RVItemsView2">
- <b style="font-size: 25px"><br>최근 본 상품<br><br></b><hr>
+ <b style="font-size: 20px"><br>최근 본 상품<br><br></b><hr>
  <c:forEach items="${sessionScope.RVItemsList}" var="list" begin="5">
  <c:forEach items="${list.key}" var="item">
- <img src="${pageContext.request.contextPath}${sessionScope.RVItemsList[item].pImage_Origin}" width="80px" height="80px" onclick="detailP('${list.key}')"><br>
+ <img src="${pageContext.request.contextPath}${sessionScope.RVItemsList[item].pImage_Origin}" width="60px" height="60px" onclick="detailP('${list.key}')" style="cursor: pointer;"><br>
  ${sessionScope.RVItemsList[item].pName}${list.key}<hr><br>
 </c:forEach>
 </c:forEach>
