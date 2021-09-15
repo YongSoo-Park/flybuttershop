@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.flybutter.product.model.vo.*"
-	import="com.flybutter.seller.model.vo.*"%>
+	import="com.flybutter.seller.model.vo.*"
+	import="java.util.ArrayList, com.flybutter.qna.model.vo.*"%>
 
 <%
+ArrayList<Qna> qList = (ArrayList<Qna>)request.getAttribute("qList");
+String qCategory = null;
+
 	Product p = (Product)request.getAttribute("p");	
 	Seller s = (Seller)request.getAttribute("s");
 	String option = null;
@@ -92,6 +96,12 @@ function showDiv(element){
     }
 
 }
+$(function(){
+	$(".qnaList>tbody>tr").click(function(){
+		var qNo = $(this).children().eq(0).text();
+		location.href="<%= request.getContextPath() %>/qnaDetail.pr?qNo="+qNo;
+	})
+})
 
 </script>
 </head>
@@ -168,8 +178,14 @@ function showDiv(element){
 	</div>
 
 	<div id="reviewBox" class="bottom">
-	
-	
+		
+		<br> <br>
+		<table>
+			<td>id</td>
+			<td>내용</td>
+			<td>별점</td>
+		</table>
+		
 	</div>
 
 	<div id="qnaBox" class="bottom">
@@ -177,7 +193,8 @@ function showDiv(element){
 		<button type="button" class="btn btn-outline-dark"
 			onclick="qnaInsert();">상품 문의하기</button>
 		<br> <br>
-		<table>
+		
+		<table class="qnaList" align="center">
 			<thead>
 				<th>
 				<%--잠금 이미지--%>
@@ -189,10 +206,38 @@ function showDiv(element){
 				<th>답변여부</th>
 				<th>작성일</th>
 			</thead>
-
+			
 			<tbody>
-
-			</tbody>
+			<% if(qList.isEmpty()){ %>
+				<tr>
+					<td colspan="7">등록된 Q&A가 없습니다.</td>
+				</tr>
+			<% }else{ %>
+				<% for(Qna q : qList){  
+					if(q.getQna_Category()==1){
+						qCategory = "상품";
+					}else if(q.getQna_Category()==2){
+						qCategory = "배송";
+					}else if(q.getQna_Category()==2){
+						qCategory = "교환";
+					}else if(q.getQna_Category()==2){
+						qCategory = "반품";
+					}else {
+						qCategory = "기타";
+					}
+				%>
+				<tr>
+					<td></td>
+					<td><%=q.getQna_No() %></td>
+					<td><%=qCategory %></td>
+					<td><%=q.getUser_No()%></td>
+					<td><%=q.getQna_Title()%></td>
+					<td><%=q.getQna_Status()%></td>
+					<td><%=q.getQna_Date()%></td>
+				</tr>
+			 	<% } %>
+			 <% } %>	
+		</tbody>
 		</table>
 
 	</div>

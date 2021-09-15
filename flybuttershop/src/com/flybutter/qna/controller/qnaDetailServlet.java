@@ -1,7 +1,6 @@
-package com.flybutter.product.controller;
+package com.flybutter.qna.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.product.model.service.ProductService;
-import com.flybutter.product.model.vo.Product;
+import com.flybutter.qna.model.service.QnaService;
 import com.flybutter.qna.model.vo.Qna;
-import com.flybutter.seller.model.vo.Seller;
 
 /**
- * Servlet implementation class productDetailServlet
+ * Servlet implementation class qnaDetailServlet
  */
-@WebServlet("/detail.pr")
-public class productDetailServlet extends HttpServlet {
+@WebServlet("/qnaDetail.pr")
+public class qnaDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public productDetailServlet() {
+    public qnaDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,32 +32,23 @@ public class productDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String pcode = request.getParameter("pCode");
-		System.out.println("pCode" + pcode);
+		int qNo = Integer.parseInt(request.getParameter("qNo"));
+		System.out.println("상점qna 보는데다        " + qNo);
+
+		Qna q = new QnaService().selectQna(qNo);
 		
-		Product p = new ProductService().selectProductDetail(pcode);
-		
-		Seller s = new ProductService().selectProductStore(pcode);
-		
-		ArrayList<Qna> qList = new ProductService().productQnaList(pcode);
-		
-		System.out.println("프로덕트 디테일"+p);
-		System.out.println("프로덕트 디테일"+s);
-		System.out.println("프로덕트 디테일"+qList);
+		System.out.println("상점qna 보는데다        " + q);
 		
 		RequestDispatcher view = null;
-	
-		if(p != null || s != null || qList != null) {
-			request.setAttribute("p", p);
-			request.setAttribute("s", s);
-			request.setAttribute("qList", qList);
-			request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);;
+		
+		if(q != null) {
+			request.setAttribute("q", q);
+			request.getRequestDispatcher("views/seller/qnaDetailManager.jsp").forward(request, response);;
 		}else {
 			request.setAttribute("msg", "상품정보를 불러올 수 없습니다.");
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}
-		
 	}
 
 	/**

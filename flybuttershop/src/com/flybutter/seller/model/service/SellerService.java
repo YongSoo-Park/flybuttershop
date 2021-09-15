@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import static com.common.JDBCTemplate.*;
 
 import com.flybutter.product.model.vo.Product;
+import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.qna.model.vo.Qna;
 import com.flybutter.review.model.vo.Review;
 import com.flybutter.seller.model.dao.SellerDao;
@@ -101,6 +102,18 @@ public class SellerService {
 		
 		
 		return list;
+	}
+
+
+	public ArrayList<Purchase> soldList(int storeNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Purchase> pList = new SellerDao().soldList(conn, storeNo);
+		
+		close(conn);
+		
+		return pList;
 	}
 
 

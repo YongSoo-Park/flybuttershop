@@ -17,6 +17,7 @@ public class Qna {
 	private int lock_Flag;
 	private String qna_Comment;
 	private Date qna_Comment_Date;
+	private String qna_Writer;
 	
 	public Qna() {
 		// TODO Auto-generated constructor stub
@@ -25,7 +26,7 @@ public class Qna {
 	
 	public Qna(int qna_No, int user_No, String pCode, int store_no, int qna_Pwd, int qna_Category, String qna_Title,
 			String qna_Content, Date qna_Date, String qna_Status, int lock_Flag, String qna_Comment,
-			Date qna_Comment_Date) {
+			Date qna_Comment_Date, String qna_Writer) {
 		super();
 		this.qna_No = qna_No;
 		this.user_No = user_No;
@@ -40,6 +41,7 @@ public class Qna {
 		this.lock_Flag = lock_Flag;
 		this.qna_Comment = qna_Comment;
 		this.qna_Comment_Date = qna_Comment_Date;
+		this.qna_Writer = qna_Writer;
 	}
 
 
@@ -51,6 +53,49 @@ public class Qna {
 		this.qna_Content = qna_Content;
 		this.qna_Date = qna_Date;
 		this.qna_Status = qna_Status;
+	}
+
+
+	public Qna(int qna_No, int qna_Category, int user_No, String qna_Title, String qna_Content
+			, Date qna_Date, String qna_Status, int lock_Flag) {
+		this.qna_No = qna_No;
+		this.user_No = user_No;
+		this.qna_Category = qna_Category;
+		this.qna_Title = qna_Title;
+		this.qna_Content = qna_Content;
+		this.qna_Date = qna_Date;
+		this.qna_Status = qna_Status;
+		this.lock_Flag = lock_Flag;
+	}
+
+
+	public Qna(int qna_No, int qna_Category, int user_No, String qna_Title, String qna_Content, Date qna_Date, String qna_Status) {
+		this.qna_No = qna_No;
+		this.user_No = user_No;
+		this.qna_Category = qna_Category;
+		this.qna_Title = qna_Title;
+		this.qna_Content = qna_Content;
+		this.qna_Date = qna_Date;
+		this.qna_Status = qna_Status;
+	}
+
+
+	public Qna(int qna_No, int user_No, String pCode, int qna_Pwd, int qna_Category,
+			String qna_Title, String qna_Content, Date qna_Date, String qna_Status,
+			int lock_Flag, String qna_Comment, Date qna_Comment_Date, String qna_Writer) {
+		this.qna_No = qna_No;
+		this.user_No = user_No;
+		this.pCode = pCode;
+		this.qna_Pwd = qna_Pwd;
+		this.qna_Category = qna_Category;
+		this.qna_Title = qna_Title;
+		this.qna_Content = qna_Content;
+		this.qna_Date = qna_Date;
+		this.qna_Status = qna_Status;
+		this.lock_Flag = lock_Flag;
+		this.qna_Comment = qna_Comment;
+		this.qna_Comment_Date = qna_Comment_Date;
+		this.qna_Writer = qna_Writer;
 	}
 
 
@@ -181,6 +226,18 @@ public class Qna {
 
 	public void setQna_Comment_Date(Date qna_Comment_Date) {
 		this.qna_Comment_Date = qna_Comment_Date;
+	}
+	
+	
+
+
+	public String getQna_Writer() {
+		return qna_Writer;
+	}
+
+
+	public void setQna_Writer(String qna_Writer) {
+		this.qna_Writer = qna_Writer;
 	}
 
 

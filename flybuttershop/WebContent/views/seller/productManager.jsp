@@ -38,7 +38,7 @@
 <jsp:include page="../common/sellerMenuBar.jsp" flush="true"/>
 	<br><br>
 
-	<h2 align="center">판매 상품 목록</h2><br>
+	<h2 align="center">상품 목록</h2><br>
 	
 	<button type="button" class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath()%>/insertProduct.pr'">상품등록</button>
 	
