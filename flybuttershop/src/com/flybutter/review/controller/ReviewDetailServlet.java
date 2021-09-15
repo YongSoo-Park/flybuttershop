@@ -36,7 +36,10 @@ public class ReviewDetailServlet extends HttpServlet {
 		int no = Integer.parseInt(request.getParameter("no"));
 		Review review = new ReviewService().reviewDetail(no);
 		
+		
+		
 		if( review != null) {
+			
 			request.setAttribute("review", review);	
 			request.getRequestDispatcher("views/review/ReviewDetailView.jsp").forward(request, response);
 			

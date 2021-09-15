@@ -64,6 +64,8 @@ public class MemberUpdateServlet extends HttpServlet {
 			out.flush();
 
 			
+			
+			
 		}else {
 			
 			request.setAttribute("msg", "변경실패");

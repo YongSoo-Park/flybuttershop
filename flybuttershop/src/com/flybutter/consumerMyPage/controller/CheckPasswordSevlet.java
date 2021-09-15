@@ -31,6 +31,8 @@ public class CheckPasswordSevlet extends HttpServlet {
 		
 			request.getRequestDispatcher("views/consumerMypage/CheckPasswordView.jsp").forward(request, response);
 		
+			
+			
 		
 	}
 

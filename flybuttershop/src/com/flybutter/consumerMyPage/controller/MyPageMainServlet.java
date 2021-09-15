@@ -28,6 +28,8 @@ public class MyPageMainServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

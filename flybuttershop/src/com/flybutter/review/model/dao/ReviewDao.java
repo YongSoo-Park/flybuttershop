@@ -144,6 +144,7 @@ public class ReviewDao {
 				r.setRe_changeFile(rset.getString("RE_CHANGEFILE"));
 				r.setUserName(rset.getString("MEM_USER_NAME"));
 				
+				
 			}
 		} catch (SQLException e) {
 			System.out.println("REVIEW 테이블  reviewDetail : " + e.getMessage());
