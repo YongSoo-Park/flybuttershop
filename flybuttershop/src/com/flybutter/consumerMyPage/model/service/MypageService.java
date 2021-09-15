@@ -32,4 +32,24 @@ public class MypageService {
 		return m;
 	}
 
+	public int updateMember(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().updateMember(conn, m);
+		
+		
+		if(result == 1) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+			
+		}
+		
+		
+		return result;
+	}
+
 }
