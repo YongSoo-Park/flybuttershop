@@ -1,5 +1,5 @@
 package com.flybutter.purchase.model.dao;
-
+ 
 import static com.common.JDBCTemplate.close;
 
 import java.io.FileNotFoundException;
@@ -82,21 +82,21 @@ public class PurchaseDao {
 			
 //			selectPurInfo=SELECT USER_NO, PCODE, PUR_NO, PUR_IMAGE, PUR_PNAME, PUR_POPTION, PUR_PRICE, PUR_AMOUNT, PUR_SNAME FROM PURCHASE WHERE USER_NO = ? AND PUR_NO = ?
 					
-			while(rset.next()) {
-				list.add(new Purchase(
-								
-								rset.getInt("USER_NO"),
-								rset.getString("PCODE"),
-								rset.getInt("PUR_NO"),
-								rset.getString("PUR_IMAGE"),
-								rset.getString("PUR_PNAME"),
-								rset.getString("PUR_POPTION"),
-								rset.getInt("PUR_PRICE"),
-								rset.getInt("PUR_AMOUNT"),	
-								rset.getString("PUR_SNAME")
-								
-						));
-			}
+//			while(rset.next()) {
+//				list.add(new Purchase(
+//								
+//								rset.getInt("USER_NO"),
+//								rset.getString("PCODE"),
+//								rset.getInt("PUR_NO"),
+//								rset.getString("PUR_IMAGE"),
+//								rset.getString("PUR_PNAME"),
+//								rset.getString("PUR_POPTION"),
+//								rset.getInt("PUR_PRICE"),
+//								rset.getInt("PUR_AMOUNT"),	
+//								rset.getString("PUR_SNAME")
+//								
+//						));
+//			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
