@@ -41,6 +41,7 @@ public class InsertPurPageServlet extends HttpServlet {
 		
 //		String pCode, String pur_Image, String pur_Pname, String pur_POption, int pur_Price, int pur_Amount
 		
+//		System.out.println("insurtPurPageServlet " + loginM);
 		String pCode = request.getParameter("pCode");
 		String pImg = request.getParameter("pImg");
 		String pName = request.getParameter("pName");

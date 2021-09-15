@@ -42,8 +42,9 @@ public class BasketDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
 			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
 			
 //			PCODE
 //			BASKET_NO
@@ -85,11 +86,10 @@ public class BasketDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("insertMember");
+		String sql = prop.getProperty("insertBasket");
 		
-//		insertBasket=INSERT INTO BASKET VALUES(?,BASKET_NO_SQ,?,?,?,SYSDATE,?)
+//		insertBasket=INSERT INTO BASKET VALUES(?,BASKET_NO_SQ,?,?,?,DEFAULT,?,?,?)
 		
-//		PCODE
 //		BASKET_NO
 //		BOPTION
 //		BAMOUNT
@@ -105,6 +105,8 @@ public class BasketDao {
 			pstmt.setInt(3, b.getbAmount());
 			pstmt.setInt(4, b.getPrice());
 			pstmt.setInt(5, b.getUser_No());
+			pstmt.setString(6, b.getBasket_PImg());
+			pstmt.setString(7, b.getBasket_Pname());
 			
 			result = pstmt.executeUpdate();
 			
