@@ -63,7 +63,7 @@ left: -40px;
 opacity: 0;
   visibility: hidden;
 background-color: white;
-display: block;
+display: flex;
 z-index: 5;
 }
 
@@ -82,7 +82,7 @@ top : 0px;
 left : 0px;
 width: 180px;
 
-border : solid 1px blue;
+border : solid 1px #48BAE4;
 
 font-size: 12px;
 display: inline-block;
@@ -94,6 +94,7 @@ opacity : 0;
 }
 #mainCategory{
 margin-top: 0;
+width: 160px;
 }
 #mainCategory > li{
  margin: 0; list-style: none;
@@ -111,27 +112,48 @@ margin-top: 0;
   border: solid black 2px;
   z-index: 5;
 }
-
+#categoryBack{
+  position: absolute;
+  background-color: #48BAE4;
+  width : 440px;
+  height : 350px;
+  top : 0px;
+  left: 200px;
+}
 .subCategoty {
   position: absolute;
-  background-color: oldlace;
+  background-color: #48BAE4;
   opacity: 0;
   visibility: hidden;
   transition: all 0.15s ease-in;
-  width : 1040px;
+  width : 440px;
   height : 350px;
   top : 0px;
   left: 200px;
   z-index: 5;
+  font-family : 맑은 명조;
+  font-size: 25px;
+
 }
 
 #mainCategory > li:hover > a{
-  background-color : oldlace;
+  background-color : #48BAE4;
   color: black;
 }
 #mainCategory > li:hover .subCategoty {
   opacity: 1;
   visibility: visible;
+}
+.subCategotyItems{
+
+ display: flex;
+ align-items: center;
+ height: 350px; 
+ padding-left: 30px;
+}
+.subCategotyItems a{
+  text-decoration: none;
+  color: black;
 }
 </style>
 
@@ -209,6 +231,24 @@ $(function() {
 	
 	
 })
+
+function categoryChoce(mCategory, sCategory) {
+	var form = document.createElement('form');
+	form.setAttribute('method','post');  
+	form.setAttribute('action', 'categoryList.ca');
+	var hInput = document.createElement('input');
+	var hInput2 = document.createElement('input');
+	hInput.setAttribute('type','hidden');
+	hInput.setAttribute('name', 'mCategory');
+	hInput.setAttribute('value', mCategory);
+	hInput2.setAttribute('type','hidden');
+	hInput2.setAttribute('name', 'sCategory');
+	hInput2.setAttribute('value', sCategory);
+	form.appendChild(hInput);
+	form.appendChild(hInput2);
+	document.body.appendChild(form);
+	form.submit();
+}
 </script>
 </head>
 <body>
@@ -271,81 +311,104 @@ $(function() {
 </header>
 <hr>
 <div id="mainCategoryDiv">
+<div id="categoryBack">
+</div>
 <ul id="mainCategory" >
-<li><a href="#">의류</a>
+<li><a href="#" onclick="categoryChoce(1,0)">의류</a>
 
 	<div class="subCategoty">
-	의류 서브카테고리<br>
-	의류 서브카테고리<br>
-	의류 서브카테고리<br>
-	의류 서브카테고리<br>
-	의류 서브카테고리
+	<div class="subCategotyItems">
+<p>
+	<a href="#" onclick="categoryChoce(1,1)">여성상의</a><br><br>
+	<a href="#" onclick="categoryChoce(1,2)">원피스</a><br><br>
+	<a href="#" onclick="categoryChoce(1,3)">여성하의</a><br><br>
+	<a href="#" onclick="categoryChoce(1,4)">남성상의</a><br><br>
+	<a href="#" onclick="categoryChoce(1,5)">남성하의</a>
+	</p></div>
 	</div>
 </li>
-<li><a href="#">잡화</a>
+<li><a href="#" onclick="categoryChoce(2,0)">잡화</a>
 <div class="subCategoty">
-	잡화 서브카테고리<br>
-	잡화 서브카테고리<br>
-	잡화 서브카테고리<br>
-	잡화 서브카테고리<br>
-	잡화 서브카테고리
+<div class="subCategotyItems">
+<p>
+	<a href="#" onclick="categoryChoce(2,1)">모자</a><br><br>
+	<a href="#" onclick="categoryChoce(2,2)">가방</a><br><br>
+	<a href="#" onclick="categoryChoce(2,3)">시계</a><br><br>
+	<a href="#" onclick="categoryChoce(2,4)">신발</a><br><br>
+	<a href="#" onclick="categoryChoce(2,5)">벨트</a></p></div>
 	</div>
 </li>
-<li><a href="#">뷰티</a>
+<li><a href="#" onclick="categoryChoce(3,0)">뷰티</a>
 <div class="subCategoty">
-	뷰티 서브카테고리<br>
-	뷰티 서브카테고리<br>
-	뷰티 서브카테고리<br>
-	뷰티 서브카테고리<br>
-	뷰티 서브카테고리
+<div class="subCategotyItems">
+<p>
+	<a href="#" onclick="categoryChoce(3,1)">기초</a><br><br>
+	<a href="#" onclick="categoryChoce(3,2)">베이스메이크업</a><br><br>
+	<a href="#" onclick="categoryChoce(3,3)">아이메이크업</a><br><br>
+	<a href="#" onclick="categoryChoce(3,4)">립메이크업</a><br><br>
+	<a href="#" onclick="categoryChoce(3,5)">바디</a></p></div>
 	</div>
 </li>
-<li><a href="#">식품</a>
+<li><a href="#" onclick="categoryChoce(4,0)">식품</a>
 <div class="subCategoty">
-	식품 서브카테고리<br>
-	식품 서브카테고리<br>
-	식품 서브카테고리<br>
-	식품 서브카테고리<br>
-	식품 서브카테고리
+<div class="subCategotyItems">
+<p>
+	<a href="#" onclick="categoryChoce(4,1)">차/음료</a><br><br>
+	<a href="#" onclick="categoryChoce(4,2)">커피</a><br><br>
+	<a href="#" onclick="categoryChoce(4,3)">스낵</a><br><br>
+	<a href="#" onclick="categoryChoce(4,4)">운동보조식품</a><br><br>
+	<a href="#" onclick="categoryChoce(4,5)">영양제</a></p></div>
 	</div>
 </li>
-<li><a href="#">가구</a>
+<li><a href="#" onclick="categoryChoce(5,0)">가구</a>
 <div class="subCategoty">
-	가구 서브카테고리<br>
-	가구 서브카테고리<br>
-	가구 서브카테고리<br>
-	가구 서브카테고리<br>
-	가구 서브카테고리
-	</div>
+<div class="subCategotyItems">
+<p>
+	<a href="#" onclick="categoryChoce(5,1)">가구커버</a><br><br>
+	<a href="#" onclick="categoryChoce(5,2)">걸이용품</a><br><br>
+	<a href="#" onclick="categoryChoce(5,3)">악세서리</a></p>
+	</div></div>
 </li>
-<li><a href="#">전자기기</a>
+<li><a href="#" onclick="categoryChoce(6,0)">전자기기</a>
 <div class="subCategoty">
-	전자기기 서브카테고리<br>
-	전자기기 서브카테고리<br>
-	전자기기 서브카테고리<br>
-	전자기기 서브카테고리<br>
-	전자기기 서브카테고리
-	</div>
+<div class="subCategotyItems">	
+<p> <a href="#" onclick="categoryChoce(6,1)">주방기기</a><br><br>
+	<a href="#" onclick="categoryChoce(6,2)">활가전</a><br><br>
+	<a href="#" onclick="categoryChoce(6,3)">음향기기</a><br><br>
+	<a href="#" onclick="categoryChoce(6,4)">컴퓨터 주변기기</a><br><br>
+	<a href="#" onclick="categoryChoce(6,5)">웨어러블기기</a></p>
+	</div></div>
 </li>
-<li><a href="#">생필품</a>
+<li><a href="#" onclick="categoryChoce(7,0)">생필품</a>
 <div class="subCategoty">
-	생필품 서브카테고리<br>
-	생필품 서브카테고리<br>
-	생필품 서브카테고리<br>
-	생필품 서브카테고리<br>
-	생필품 서브카테고리
-	</div>
+<div class="subCategotyItems">
+	<p>	
+	<a href="#" onclick="categoryChoce(7,1)">세탁세제</a><br><br>
+	<a href="#" onclick="categoryChoce(7,2)">주방세제</a><br><br>
+	<a href="#" onclick="categoryChoce(7,3)">욕실용품</a><br><br>
+	<a href="#" onclick="categoryChoce(7,4)">구강/위생용품</a><br><br>
+	<a href="#" onclick="categoryChoce(7,5)">건강용품</a></p>
+	</div></div>
 </li>
-<li><a href="#">반려동물</a>
+<li><a href="#" onclick="categoryChoce(8,0)">반려동물</a>
 <div class="subCategoty">
-	반려동물 서브카테고리<br>
-	반려동물 서브카테고리<br>
-	반려동물 서브카테고리<br>
-	반려동물 서브카테고리<br>
-	반려동물 서브카테고리
+<div class="subCategotyItems">
+	<p>
+	<a href="#" onclick="categoryChoce(8,1)">사료</a><br><br>
+	<a href="#" onclick="categoryChoce(8,2)">장난감</a><br><br>
+	<a href="#" onclick="categoryChoce(8,3)">영양간식</a><br><br>
+	<a href="#" onclick="categoryChoce(8,4)">산책용품</a><br><br>
+	<a href="#" onclick="categoryChoce(8,5)">미용용품</a></p>
+	</div>
 	</div>
 </li>
+
 </ul>
+
+<div style="position: absolute; left: 640px;">
+<img src="${pageContext.request.contextPath}/resources/event/event1.png" style="cursor: pointer; width: 600px; height: 350px;"/>
+
+</div>
 </div>
 
 <div id="recentlyViewedItems">

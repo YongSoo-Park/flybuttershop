@@ -40,6 +40,7 @@ public class dummyLoginA extends HttpServlet {
 		Member loginMember=null;
 		HashMap<String,Product> RVItemsList = null;;
 		ArrayList<Mainpage> saleList = null;
+		ArrayList<ArrayList<Mainpage>> saleTotalList = null;
 		if(no==0) {
 			loginMember = new MemberService().loginAdmin(no);
 			loginMember.setREC_PNO("0");
@@ -50,14 +51,14 @@ public class dummyLoginA extends HttpServlet {
 		if(!loginMember.getREC_PNO().equals("0")) {
 			RVItemsList  = new MainPageService().RVItemsList(loginMember.getREC_PNO());			
 		}
-		
+		saleTotalList = new MainPageService().saleTotalList();
 		saleList = new MainPageService().saleList();
-		System.out.println(saleList);
-		System.out.println(RVItemsList);
+		System.out.println(saleTotalList);
 		HttpSession session = request.getSession();
 		session.setAttribute("loginMember", loginMember);
 		session.setAttribute("RVItemsList", RVItemsList);
 		session.setAttribute("saleList", saleList);
+		session.setAttribute("saleTotalList", saleTotalList);
 		response.setContentType("text/html;charset=UTF-8");
 		response.sendRedirect(request.getContextPath());
 	}

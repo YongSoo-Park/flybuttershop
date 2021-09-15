@@ -26,5 +26,12 @@ public class MainPageService {
 		close(conn);
 		return saleList;
 	}
+	
+	public ArrayList<ArrayList<Mainpage>> saleTotalList() {
+		Connection conn = getConnection();
+		ArrayList<ArrayList<Mainpage>> saleTotalList= new MainPageDao().saleTotalList(conn);
+		close(conn);
+		return saleTotalList;
+	}
 
 }
