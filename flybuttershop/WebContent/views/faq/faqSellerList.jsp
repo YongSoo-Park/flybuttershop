@@ -4,6 +4,13 @@
 
 <%
 ArrayList<FAQ> list = (ArrayList<FAQ>) request.getAttribute("list");
+PageInfo pi = (PageInfo)request.getAttribute("pi");
+
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
 %>
 
 
@@ -217,6 +224,51 @@ hr {
 		<%}%>
 		
 		</script>
+		<!-- 페이징바 만들기 -->
+		<div class="pagingArea" align="center">
+			<!-- 맨 처음으로 (<<) -->
+			<button onclick="location.href='<%=request.getContextPath()%>/sellerList.faq?currentPage=1'"> &lt;&lt; </button>
+		
+			<!-- 이전페이지로(<) -->
+			<%if(currentPage == 1){ %>
+			<button disabled> &lt; </button>
+			<%}else{ %>
+			<button onclick="location.href='<%= request.getContextPath() %>/sellerList.faq?currentPage=<%= currentPage-1 %>'"> &lt; </button>
+			<%} %>
+			
+			<!-- 페이지 목록 -->
+			<%for(int p=startPage; p<=endPage; p++){ %>
+				
+				<%if(p == currentPage){ %>
+				<button disabled> <%= p %> </button>
+				<%}else{ %>
+				<button onclick="location.href='<%=request.getContextPath() %>/sellerList.faq?currentPage=<%= p %>'"> <%= p %> </button>
+				<%} %>
+				
+			<%} %>
+			
+			<!-- 다음페이지로(>) -->
+			<%if(currentPage == maxPage){ %>
+			<button disabled> &gt; </button>
+			<%}else { %>
+			<button onclick="location.href='<%= request.getContextPath() %>/sellerList.faq?currentPage=<%= currentPage+1 %>'"> &gt; </button>
+			<%} %>
+		
+			<!-- 맨 끝으로 (>>) -->
+			<button onclick="location.href='<%=request.getContextPath()%>/sellerList.faq?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
+		</div> 
+		
+	
+	<script>
+		<%if(!list.isEmpty()){%>
+		$(function(){
+			$(".listArea>tbody>tr").click(function(){
+				var bno = $(this).children().eq(0).text();
+				location.href="<%= request.getContextPath()%>/detail.faq?bno="+bno;
+			})
+		})
+		<%}%>
+		
 	</section>
 
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>

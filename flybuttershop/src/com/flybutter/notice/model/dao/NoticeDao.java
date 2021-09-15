@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.flybutter.help.model.vo.PageInfo;
 import com.flybutter.notice.model.vo.Notice;
 
 
@@ -33,16 +34,19 @@ public class NoticeDao {
 	}
 	
 
-	public ArrayList<Notice> entireSelectList(Connection conn) {
+	public ArrayList<Notice> entireSelectList(Connection conn, PageInfo pi) {
 		ArrayList<Notice> list = new ArrayList<Notice>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("entireSelectList");
-		
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -197,16 +201,20 @@ System.out.println(sql);
 	}
 
 
-	public ArrayList<Notice> noticeSelectList(Connection conn) {
+	public ArrayList<Notice> noticeSelectList(Connection conn, PageInfo pi) {
 		ArrayList<Notice> list = new ArrayList<Notice>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("noticeSelectList");
-		
+
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -229,16 +237,21 @@ System.out.println(sql);
 	}
 
 
-	public ArrayList<Notice> eventSelectList(Connection conn) {
+	public ArrayList<Notice> eventSelectList(Connection conn, PageInfo pi) {
 		ArrayList<Notice> list = new ArrayList<Notice>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("eventSelectList");
-		
+
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

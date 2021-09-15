@@ -9,13 +9,15 @@ import java.util.ArrayList;
 
 import com.flybutter.faq.model.dao.FAQDao;
 import com.flybutter.faq.model.vo.FAQ;
+import com.flybutter.faq.model.vo.PageInfo;
+
 
 
 public class FAQService {
 
-	public ArrayList<FAQ> deliverySelectList() {
+	public ArrayList<FAQ> deliverySelectList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<FAQ> list = new FAQDao().deliverySelectList(conn);
+		ArrayList<FAQ> list = new FAQDao().deliverySelectList(conn, pi);
 		close(conn);
 		
 		System.out.println("service lsit : " + list);
@@ -84,32 +86,40 @@ public class FAQService {
 		return result;
 	}
 
-	public ArrayList<FAQ> refundSelectList() {
+	public ArrayList<FAQ> refundSelectList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<FAQ> list = new FAQDao().refundSelectList(conn);
+		ArrayList<FAQ> list = new FAQDao().refundSelectList(conn, pi);
 		close(conn);
 		return list;
 	}
 
-	public ArrayList<FAQ> orderSelectList() {
+	public ArrayList<FAQ> orderSelectList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<FAQ> list = new FAQDao().orderSelectList(conn);
+		ArrayList<FAQ> list = new FAQDao().orderSelectList(conn, pi);
 		close(conn);
 		return list;
 	}
 
-	public ArrayList<FAQ> sellerSelectList() {
+	public ArrayList<FAQ> sellerSelectList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<FAQ> list = new FAQDao().sellerSelectList(conn);
+		ArrayList<FAQ> list = new FAQDao().sellerSelectList(conn, pi);
 		close(conn);
 		return list;
 	}
 
-	public ArrayList<FAQ> memberSelectList() {
+	public ArrayList<FAQ> memberSelectList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<FAQ> list = new FAQDao().memberSelectList(conn);
+		ArrayList<FAQ> list = new FAQDao().memberSelectList(conn, pi);
 		close(conn);
 		return list;
+	}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new FAQDao().getListCount(conn);
+		close(conn);
+		return listCount;
 	}
 
 }

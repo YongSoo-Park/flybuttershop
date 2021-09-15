@@ -41,6 +41,12 @@
 		height:230px;
 		margin:0;
 	}
+	.replyArea{
+		width:800px;
+		color:white;
+		background:black;
+		margin:auto;
+	}
 </style>
 </head>
 <body style="margin: 0 auto">
@@ -91,9 +97,12 @@
 			
 			<a href="updateForm.help?no=<%=h.getHelp_No()%>">수정하기</a> &nbsp;&nbsp;
 			<a href="delete.help?no=<%=h.getHelp_No()%>">삭제하기</a>
-		
+			<a href="replyForm.help?no=<%=h.getHelp_No()%>">답글달기</a>
 		
 		</div>
+		
+		
+		
 		<form action="" id="postForm" method="post">
 			<input type="hidden" name="no" value="<%= h.getHelp_No() %>">
 		</form>
@@ -107,8 +116,17 @@
 				$("#postForm").attr("action", "<%=request.getContextPath()%>/deleteH.help");
 				$("#postForm").submit();
 			}
+			function replyForm(){
+				$("#postForm").attr("action", "<%=request.getContextPath()%>/replyForm.help");
+				$("#postForm").submit();
+			}
+			
 		</script>
 	</div>
+	
+	
+	
+	
 	</section>
 
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>

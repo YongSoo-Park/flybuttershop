@@ -39,7 +39,7 @@ public class HelpInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(ServletFileUpload.isMultipartContent(request)) {			
 			int maxSize = 10 * 1024 * 1024;						
-			String savePath = request.getServletContext().getRealPath("/resources/notice_file");
+			String savePath = request.getServletContext().getRealPath("/resources/help");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new NoticeFileRenamePolicy());
 	
 			int category = Integer.parseInt(multiRequest.getParameter("category"));
