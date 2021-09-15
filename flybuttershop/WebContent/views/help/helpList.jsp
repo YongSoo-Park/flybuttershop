@@ -132,6 +132,7 @@ hr {
 				 			<td ><%= h.getHelp_No()%></td>
 				 			<td><%= h.getHelp_Title() %></td>
 							<td><%= h.getHelp_Date() %></td>
+							<td style="visibility:hidden;" ><%= h.getUser_No() %></td>
 					
 				 		</tr>
 				 	<% } %>

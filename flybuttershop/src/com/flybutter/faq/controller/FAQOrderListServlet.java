@@ -31,7 +31,9 @@ public class FAQOrderListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	ArrayList<FAQ> list = new FAQService().orderSelectList();	
+		request.setCharacterEncoding("UTF-8");
+		
+		ArrayList<FAQ> list = new FAQService().orderSelectList();	
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/faq/faqOrderList.jsp").forward(request, response);
 		
