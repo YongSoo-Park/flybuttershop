@@ -6,9 +6,19 @@ public class Mainpage {
 	private String event_Img_Sys;
 	private int dISCOUNT_RATE;
 	private String pCODE;
-	private String pName;
 	private String pImage_Origin;
+	private String pName;
+	private int price;
 	
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
 	public Mainpage() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -33,6 +43,16 @@ public class Mainpage {
 		this.pCODE = pCODE;
 		this.pName = pName;
 		this.pImage_Origin = pImage_Origin;
+	}
+	
+	
+
+	public Mainpage(String pCODE, String pImage_Origin, String pName, int price) {
+		super();
+		this.pCODE = pCODE;
+		this.pImage_Origin = pImage_Origin;
+		this.pName = pName;
+		this.price = price;
 	}
 
 	public String getEvent_Img_Ori() {
