@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.flybutter.product.model.vo.Product;
+import com.flybutter.qna.model.vo.Qna;
+import com.flybutter.review.model.vo.Review;
 import com.flybutter.seller.model.vo.Seller;
 
 public class SellerDao {
@@ -216,6 +218,85 @@ public class SellerDao {
 			}
 			
 			return listCount;
+		}
+		public ArrayList<Qna> qnaList(Connection conn, int storeNo) {
+
+			ArrayList<Qna> list = new ArrayList<Qna>();
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("sellerQnaList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, storeNo);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Qna(rset.getInt("QNA_CATEGORY"),
+									 rset.getInt("USER_NO"),
+									 rset.getString("QNA_TITLE"),
+									 rset.getString("QNA_CONTENT"),
+									 rset.getDate("QNA_DATE"),
+									 rset.getString("QNA_STATUS")
+									));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
+		public ArrayList<Review> reviewList(Connection conn, int storeNo) {
+			ArrayList<Review> list = new ArrayList<Review>();
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("sellerReviewList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, storeNo);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Review(rset.getInt("RE_NO"),
+										rset.getString("PCODE"),
+										rset.getInt("USER_NO"),
+										rset.getString("RE_TITLE"),
+										rset.getString("RE_CONTENT"),
+										rset.getDate("RE_DATE"),
+										rset.getString("RE_ORIGINFILE"),
+										rset.getString("RE_CHANGEFILE"),
+										rset.getString("RE_STATUS").charAt(0),
+										rset.getString("RERE_TITLE"),
+										rset.getString("RERE_CONTENT"),
+										rset.getDate("RERE_DATE"),
+										rset.getInt("STORE_NO"),
+										rset.getInt("SCORE"),
+										rset.getInt("PUR_NO")
+										
+							));
+				}
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
 		}
 
 	}

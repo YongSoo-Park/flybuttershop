@@ -35,12 +35,17 @@ public class qnaEnrollFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
 
 		String pcode = request.getParameter("pCode");
 		String store_Name = request.getParameter("sName");
 		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
-
-		System.out.println("qna ------" + pcode + store_Name);
+		String pImg = request.getParameter("pImg");
+		int price = Integer.parseInt(request.getParameter("price"));
+		String pimg = request.getParameter("pImg");
+		
+		System.out.println("qna ------" + pcode + store_Name + pimg);
 
 		Product p = new ProductService().selectProductDetail(pcode);
 		Seller s = new SellerService().selectStore(store_Name);
