@@ -117,7 +117,6 @@ public class ReviewDao {
 
 
 
-
 	public Review reviewDetail(Connection conn, int no) {
 		Review r = new Review();
 		PreparedStatement pstmt = null;
@@ -132,6 +131,8 @@ public class ReviewDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
+				r.setRe_no(rset.getInt("RE_NO"));
+				r.setUser_no(rset.getInt("USER_NO"));
 				r.setRe_title(rset.getString("RE_TITLE"));
 				r.setRe_content(rset.getString("RE_CONTENT"));
 				r.setRe_date(rset.getDate("RE_DATE"));
@@ -139,7 +140,9 @@ public class ReviewDao {
 				r.setpName(rset.getString("PNAME"));
 				r.setpImage_origin(rset.getString("PIMAGE_ORIGIN"));
 				r.setpImage_system(rset.getString("PIMAGE_SYSTEM"));
-				
+				r.setRe_originFile(rset.getString("RE_ORIGINFILE"));
+				r.setRe_changeFile(rset.getString("RE_CHANGEFILE"));
+				r.setUserName(rset.getString("MEM_USER_NAME"));
 				
 			}
 		} catch (SQLException e) {

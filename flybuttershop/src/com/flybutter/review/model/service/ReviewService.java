@@ -49,7 +49,6 @@ public class ReviewService {
 		
 		Review r = new ReviewDao().reviewDetail(conn, no);
 		
-		
 		close(conn);
 		return r;
 	}

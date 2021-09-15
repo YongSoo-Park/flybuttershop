@@ -22,6 +22,7 @@ public class Review {
 	private String pName;
 	private String pImage_origin;
 	private String pImage_system;
+	private String userName;
 	
 
 	public Review() {
@@ -108,7 +109,30 @@ public class Review {
 	}
 
 	
-	
+	public Review(int re_no, String pCode, int user_no, String re_title, String re_content, Date re_date,
+			String re_originFile, String re_changeFile, char re_status, String rere_title, String rere_content,
+			Date rere_date, int store_no, int score, int pur_no, String pName, String pImage_origin,
+			String pImage_system) {
+		super();
+		this.re_no = re_no;
+		this.pCode = pCode;
+		this.user_no = user_no;
+		this.re_title = re_title;
+		this.re_content = re_content;
+		this.re_date = re_date;
+		this.re_originFile = re_originFile;
+		this.re_changeFile = re_changeFile;
+		this.re_status = re_status;
+		this.rere_title = rere_title;
+		this.rere_content = rere_content;
+		this.rere_date = rere_date;
+		this.store_no = store_no;
+		this.score = score;
+		this.pur_no = pur_no;
+		this.pName = pName;
+		this.pImage_origin = pImage_origin;
+		this.pImage_system = pImage_system;
+	}
 	
 	public Review(int re_no, String re_title, Date re_date, int score, String pName) {
 		super();
@@ -263,6 +287,16 @@ public class Review {
 
 	public void setpName(String pName) {
 		this.pName = pName;
+	}
+	
+	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	@Override
