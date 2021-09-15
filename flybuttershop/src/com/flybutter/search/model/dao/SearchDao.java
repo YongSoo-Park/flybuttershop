@@ -21,7 +21,6 @@ public class SearchDao {
 	public SearchDao() {
 
 		String fileName = SearchDao.class.getResource("/sql/search/search-query.properties").getPath();
-		System.out.println("fileName   " + fileName);
 
 		try {
 			prop.load(new FileReader(fileName));
@@ -43,7 +42,6 @@ public class SearchDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + sWord + "%");
 			rset = pstmt.executeQuery();
-			System.out.println(sql);
 			while (true) {
 				if (rset.next()) {
 					searchList.add(new Search(rset.getString("PCODE"), rset.getString("PIMAGE_ORIGIN"),
@@ -64,7 +62,6 @@ public class SearchDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(searchList);
 		return searchList;
 	}
 
@@ -162,7 +159,6 @@ public class SearchDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(searchList);
 		return searchList;
 	}
 }
