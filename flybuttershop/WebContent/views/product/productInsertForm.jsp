@@ -175,7 +175,7 @@
 		
 		<div class="btns" align="center">
 			<button type="submit">등록하기</button>
-			<button type="reset" onclick="">취소</button>
+			<button type="button" onclick="history.go(-1)">취소</button>
 		</div>
 	</form>
 	</div>

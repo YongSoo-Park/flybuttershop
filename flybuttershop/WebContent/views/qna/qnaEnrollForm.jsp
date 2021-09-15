@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.flybutter.product.model.vo.Product"
+    import="com.flybutter.seller.model.vo.*"%>
+
+<%
+Product p = (Product)request.getAttribute("p");		
+Seller s = (Seller)request.getAttribute("s");	
+%>    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +21,7 @@
 <style>
 	.outer {
 	width: 1200px;
-	height: 500px;
+	height: 1000px;
 	color: black;
 	margin: auto;
 	margin-top: 50px;
@@ -28,49 +35,66 @@
 }
 
 #qna>table input {
-	width: 70%;
+	width: 500px;
 	box-sizing: border-box;
+}
+#qnaForm>img{
+	height: 200px;
+	width: 200px;
+}
+#pInfo{
+	height: 70%;
 }
 
 </style>
 <script>
-function showDiv(element){
-    $("#qnaForm input[name=pwd]").attr("type", "password");
- 
-}
 
+function checkedChange(){
+
+    if($("#qnaForm input[name=lock]").prop("checked")){
+    	$("#qnaForm input[name=pwd]").attr("type", "password");
+    }else{
+    	$("#qnaForm input[name=pwd]").attr("type", "hidden");
+    }
+}
+function insertValidate(){
+	if(!(/^[0-9]{1,10}$/.test($("#qnaForm input[name=pwd]").val()))){
+		 alert("비밀번호에는 숫자만 입력가능합니다.")
+		 $("#qnaForm input[name=pwd]").focus();
+       return false;
+	 }
+}
 
 </script>
 </head>
 <body style="margin: 0 auto">
 <jsp:include page="../header_footer/header.jsp" flush="true"/>
-<br><br>
+
 
 	<div class="outer">
 	
 	<h2>상품 Q&A 작성</h2>
 	
-           <form id="qnaForm" action="<%= request.getContextPath() %>/insertQna.pr" method="post">
-            <table border="1">
-            	<tr>
-            		<td colspan="5" rowspan="5"><img src="${pageContext.request.contextPath}${requestScope.p.pImage_Origin}" width="200px" height="200px" name="pImg"></td>
-            		<td></td>
-            	</tr>
-            	<tr>
-            		<td></td>
-            	</tr>
-            	<tr>
-            		<td></td>
-            	</tr>
-            	<tr>
-            		<td></td>
-            	</tr>
-            	<tr>
-            		<td></td>
-            	</tr>
+           <form id="qnaForm" action="<%= request.getContextPath() %>/insertQna.pr" method="post" onsubmit="return insertValidate();">
+            <table id="pInfo" align="center">
+                <tr>
+                    <th colspan="2">문의 상품 정보</th>
+                </tr>
+                <tr>
+                    <td rowspan="3"><img src="${pageContext.request.contextPath}${requestScope.p.pImage_Origin}" width="200px" height="200px" align="top"></td>
+                    <td><%=p.getpName() %></td>
+                </tr>
+                <tr>
+                    
+                    <td><%=p.getPrice() %></td>
+                </tr>
+                <tr>
+                    
+                    <td><%=s.getStore_Name() %></td>
+                </tr>
+                
             </table>
-            
-            
+           	<br><br>
             <table align="center">
                 <tr>
                     <td>
@@ -91,7 +115,7 @@ function showDiv(element){
 
                 <tr>
                     <td>내용</td>
-                    <td ><input type="checkbox" id="lock" class="box" name="lock" value="2" onclick="showDiv(this);">비밀글</td>
+                    <td ><input type="checkbox" id="lock" class="box" name="lock" value="2" onclick="checkedChange()">비밀글</td>
                     <td colspan="8"><input type="hidden" class="pwdBox" name="pwd"></td>
             
                 </tr>
@@ -110,17 +134,6 @@ function showDiv(element){
             </div>
         </form>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 
 	
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>	
