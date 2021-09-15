@@ -10,10 +10,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 import com.flybutter.faq.model.vo.FAQ;
-
+import com.flybutter.faq.model.vo.PageInfo;
 
 
 public class FAQDao {
@@ -32,16 +33,20 @@ public class FAQDao {
 		}
 	}
 	
-	public ArrayList<FAQ> deliverySelectList(Connection conn) {
+	public ArrayList<FAQ> deliverySelectList(Connection conn, PageInfo pi) {
 		ArrayList<FAQ> list = new ArrayList<FAQ>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("deliverySelectList");
-		
+
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -173,16 +178,20 @@ public class FAQDao {
 		return result;
 	}
 
-	public ArrayList<FAQ> refundSelectList(Connection conn) {
+	public ArrayList<FAQ> refundSelectList(Connection conn, PageInfo pi) {
 		ArrayList<FAQ> list = new ArrayList<FAQ>();
 	
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("refundSelectList");
-		
+
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -204,16 +213,20 @@ public class FAQDao {
 		return list;
 	}
 
-	public ArrayList<FAQ> orderSelectList(Connection conn) {
+	public ArrayList<FAQ> orderSelectList(Connection conn, PageInfo pi) {
 		ArrayList<FAQ> list = new ArrayList<FAQ>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("orderSelectList");
-		
+
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -235,16 +248,20 @@ public class FAQDao {
 		return list;
 	}
 
-	public ArrayList<FAQ> sellerSelectList(Connection conn) {
+	public ArrayList<FAQ> sellerSelectList(Connection conn, PageInfo pi) {
 		ArrayList<FAQ> list = new ArrayList<FAQ>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("sellerSelectList");
-		
+
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -266,16 +283,20 @@ public class FAQDao {
 		return list;
 	}
 
-	public ArrayList<FAQ> memberSelectList(Connection conn) {
+	public ArrayList<FAQ> memberSelectList(Connection conn, PageInfo pi) {
 		ArrayList<FAQ> list = new ArrayList<FAQ>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("memberSelectList");
-		
+
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -295,5 +316,32 @@ public class FAQDao {
 		}
 	
 		return list;
+	}
+
+	public int getListCount(Connection conn) {
+		int listCount = 0;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);//count
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return listCount;
 	}
 }

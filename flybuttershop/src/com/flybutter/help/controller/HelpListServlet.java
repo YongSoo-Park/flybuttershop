@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.help.model.service.HelpService;
 import com.flybutter.help.model.vo.Help;
+import com.flybutter.help.model.vo.PageInfo;
 
 
 /**
@@ -32,9 +33,42 @@ public class HelpListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Help> list = new HelpService().helpSelectList();
+	
+				int listCount;			
+				int currentPage;		
+				int startPage;		
+				int endPage;			
+				int maxPage;			
+				int pageLimit;			
+				int boardLimit;			
+				
+				listCount = new HelpService().getListCount();
+				currentPage = 1;
+	
+				if(request.getParameter("currentPage") != null) {
+					currentPage = Integer.parseInt(request.getParameter("currentPage"));
+				}
+				
+				
+				pageLimit = 10;
+				boardLimit = 10;
+				
+				maxPage = (int)Math.ceil((double)listCount/boardLimit);
+				
+				startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+				endPage = startPage + pageLimit - 1;
+				
+				if(maxPage < endPage) {
+					endPage = maxPage;
+				}
+				
+				PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
+				
+				
+		ArrayList<Help> list = new HelpService().helpSelectList(pi);
 		
 		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
 		request.getRequestDispatcher("views/help/helpList.jsp").forward(request, response);
 	
 	}

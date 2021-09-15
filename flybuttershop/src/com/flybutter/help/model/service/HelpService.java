@@ -7,14 +7,16 @@ import static com.common.JDBCTemplate.*;
 
 import com.flybutter.help.model.dao.HelpDao;
 import com.flybutter.help.model.vo.Help;
-import com.flybutter.notice.model.dao.NoticeDao;
+import com.flybutter.help.model.vo.PageInfo;
+
+
 
 
 public class HelpService {
 
-	public ArrayList<Help> helpSelectList() {
+	public ArrayList<Help> helpSelectList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Help> list = new HelpDao().helpSelectList(conn);
+		ArrayList<Help> list = new HelpDao().helpSelectList(conn, pi);
 		close(conn);
 
 		return list;
@@ -38,5 +40,55 @@ public class HelpService {
 		close(conn);	
 		return result;
 	}
+
+	public Help selectUpdateHelp(int no) {
+		Connection conn = getConnection();
+		
+		Help h = new HelpDao().selectHelp(conn, no);
+		close(conn);
+		
+		return h;
+	}
+
+	public int updateHelp(Help h) {
+		Connection conn = getConnection();
+		int result = new HelpDao().updateHelp(conn, h);
+		System.out.println("service");
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);	
+	
+		return result;
+		
+	}
+
+	public int deleteHelp(int no) {
+		Connection conn = getConnection();
+		
+		int result = new HelpDao().deleteHelp(conn, no);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new HelpDao().getListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	
 
 }

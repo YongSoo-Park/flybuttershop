@@ -4,16 +4,17 @@ package com.flybutter.notice.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import static com.common.JDBCTemplate.close;
 import static com.common.JDBCTemplate.*;
 import com.flybutter.notice.model.vo.Notice;
+import com.flybutter.help.model.dao.HelpDao;
+import com.flybutter.help.model.vo.PageInfo;
 import com.flybutter.notice.model.dao.NoticeDao;
 
 public class NoticeService {
 
-	public ArrayList<Notice> entireSelectList() {
+	public ArrayList<Notice> entireSelectList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Notice> list = new NoticeDao().entireSelectList(conn);
+		ArrayList<Notice> list = new NoticeDao().entireSelectList(conn, pi);
 		close(conn);
 		
 		System.out.println("service lsit : " + list);
@@ -87,22 +88,30 @@ public class NoticeService {
 		return result;
 	}
 
-	public ArrayList<Notice> noticeSelectList() {
+	public ArrayList<Notice> noticeSelectList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Notice> list = new NoticeDao().noticeSelectList(conn);
+		ArrayList<Notice> list = new NoticeDao().noticeSelectList(conn, pi);
 		close(conn);
 		
 		System.out.println("service lsit : " + list);
 		return list;
 	}
 
-	public ArrayList<Notice> eventSelectList() {
+	public ArrayList<Notice> eventSelectList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Notice> list = new NoticeDao().eventSelectList(conn);
+		ArrayList<Notice> list = new NoticeDao().eventSelectList(conn, pi);
 		close(conn);
 		
 		System.out.println("service lsit : " + list);
 		return list;
+	}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new HelpDao().getListCount(conn);
+		close(conn);
+		return listCount;
 	}
 	
 
