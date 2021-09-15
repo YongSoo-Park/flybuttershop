@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import com.flybutter.consumerMyPage.model.service.MypageService;
-import com.flybutter.dummy.model.service.MemberService;
 import com.flybutter.dummy.model.vo.Member;
 
 /**

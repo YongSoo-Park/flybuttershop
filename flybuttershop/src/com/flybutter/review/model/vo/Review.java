@@ -19,8 +19,11 @@ public class Review {
 	private int store_no;
 	private int score;
 	private int pur_no;
+	private String pName;
+	private String pImage_origin;
+	private String pImage_system;
 	
-	
+
 	public Review() {
 		// TODO Auto-generated constructor stub
 	}
@@ -102,6 +105,18 @@ public class Review {
 		this.re_status = re_status;
 		this.score = score;
 		this.pur_no = pur_no;
+	}
+
+	
+	
+	
+	public Review(int re_no, String re_title, Date re_date, int score, String pName) {
+		super();
+		this.re_no = re_no;
+		this.re_title = re_title;
+		this.re_date = re_date;
+		this.score = score;
+		this.pName = pName;
 	}
 
 	public int getRe_no() {
@@ -223,6 +238,32 @@ public class Review {
 	public void setPur_no(int pur_no) {
 		this.pur_no = pur_no;
 	}
+	
+	
+	public String getpImage_origin() {
+		return pImage_origin;
+	}
+
+	public void setpImage_origin(String pImage_origin) {
+		this.pImage_origin = pImage_origin;
+	}
+
+	public String getpImage_system() {
+		return pImage_system;
+	}
+
+	public void setpImage_system(String pImage_system) {
+		this.pImage_system = pImage_system;
+	}
+	
+
+	public String getpName() {
+		return pName;
+	}
+
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
 
 	@Override
 	public String toString() {
@@ -230,8 +271,9 @@ public class Review {
 				+ ", re_content=" + re_content + ", re_date=" + re_date + ", re_originFile=" + re_originFile
 				+ ", re_changeFile=" + re_changeFile + ", re_status=" + re_status + ", rere_title=" + rere_title
 				+ ", rere_content=" + rere_content + ", rere_date=" + rere_date + ", store_no=" + store_no + ", score="
-				+ score + ", pur_no=" + pur_no + "]";
+				+ score + ", pur_no=" + pur_no + ", pName=" + pName + "]";
 	}
+
 
 	
 	

@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.flybutter.review.model.vo.*" %>  
 <%
-	Review r = (Review)request.getAttribute("r");
-
+	Review r = (Review)request.getAttribute("review");
+	String contextPath = request.getContextPath();
 %>  
     
 <!DOCTYPE html>
@@ -49,7 +49,7 @@
 	<div class="outer">
 		<br>
 		
-		<h2 align="center">내가 작성란 리뷰</h2>
+		<h2 align="center">내가 작성한 리뷰</h2>
 		<br>
 		
 		<table align="center">

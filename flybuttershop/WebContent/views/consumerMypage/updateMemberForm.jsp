@@ -67,7 +67,7 @@ function loginValidate() {
              <label>비밀번호</label>
             <input type="password" id ="pass1" name="user_PW1" required><label id="pwdResult"></label><br>
              <label>비밀번호 재확인 </label>
-            <input type="password" id ="pass2" name="user_PW2">
+            <input type="password" id ="pass2" name="user_PW2" required>
             <input type="button" name="user_PWcheck" value="비밀번호 확인" onclick="checkPass();">
             <br>
             <label>이름 </label>
@@ -77,7 +77,7 @@ function loginValidate() {
              <label>휴대전화 </label>
             <input type="text" name="phone" value=<%=m.getMEM_PHONE() %> required><br>
              <label>주소 </label>
-            <textarea id="address" required><%= m.getMEM_ADDRESS() %></textarea>
+            <textarea id="address" name = "address" required><%= m.getMEM_ADDRESS() %></textarea>
 
 
             <br><br>

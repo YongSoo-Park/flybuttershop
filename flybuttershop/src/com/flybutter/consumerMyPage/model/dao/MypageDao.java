@@ -10,11 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Properties;
 
 import com.flybutter.basket.model.dao.BasketDao;
-import com.flybutter.basket.model.vo.Basket;
 import com.flybutter.dummy.model.vo.Member;
 
 public class MypageDao {
@@ -90,8 +88,6 @@ public class MypageDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, userNo);
-			System.out.println(pstmt);
-			System.out.println(userNo);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -113,6 +109,39 @@ public class MypageDao {
 		}
 		return m;
 
+	}
+
+
+
+
+
+	public int updateMember(Connection conn, Member m) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String sql = prop.getProperty("updateMember");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1,m.getMEM_USER_PWD());
+			pstmt.setString(2, m.getMEM_PHONE());
+			pstmt.setString(3, m.getMEM_EMAIL());
+			pstmt.setString(4, m.getMEM_ADDRESS());
+			pstmt.setInt(5, m.getMEM_USER_NO());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("MEMBER 테이블  updateMember : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	
 	}
 
 }

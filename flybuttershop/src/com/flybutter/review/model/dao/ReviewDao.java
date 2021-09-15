@@ -13,10 +13,10 @@ import java.util.Properties;
 import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.review.model.vo.PageInfo;
 import com.flybutter.review.model.vo.Review;
-import com.kh.board.model.vo.Board;
+
 
 import static com.common.JDBCTemplate.*;
-import static com.kh.common.JDBCTemplate.close;
+
 
 public class ReviewDao {
 	
@@ -51,18 +51,13 @@ public class ReviewDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			System.out.println(sql);
+
 			
 			pstmt.setInt(1, userNo);
-			System.out.println(pstmt);
-			System.out.println(userNo);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				count = rset.getInt("COUNT(*)");
-				System.out.println(count);
-			
 						
 			}
 
@@ -80,7 +75,9 @@ public class ReviewDao {
 
 
 
-	public ArrayList<Review> seleteList(Connection conn, PageInfo pi) {
+
+
+	public ArrayList<Review> selectList(Connection conn, PageInfo pi, int userNo) {
 		ArrayList<Review> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -92,23 +89,22 @@ public class ReviewDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Review(rset.getInt("BOARD_NO"),
-									rset.getString("CATEGORY_NAME"),
-									rset.getString("BOARD_TITLE"),
-									rset.getString("USER_ID"),
-									rset.getInt("COUNT"),
-									rset.getDate("CREATE_DATE")
+				list.add(new Review(rset.getInt("RE_NO"),
+									rset.getString("RE_TITLE"),
+									rset.getDate("RE_DATE"),
+									rset.getInt("SCORE"),
+									rset.getString("PNAME")
 						));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("REVIEW 테이블  reviewList : " + e.getMessage());
 		}finally {
 			close(rset);
 			close(pstmt);
@@ -117,6 +113,45 @@ public class ReviewDao {
 		
 		
 		return list;
+	}
+
+
+
+
+	public Review reviewDetail(Connection conn, int no) {
+		Review r = new Review();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("reviewDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				r.setRe_title(rset.getString("RE_TITLE"));
+				r.setRe_content(rset.getString("RE_CONTENT"));
+				r.setRe_date(rset.getDate("RE_DATE"));
+				r.setScore(rset.getInt("SCORE"));
+				r.setpName(rset.getString("PNAME"));
+				r.setpImage_origin(rset.getString("PIMAGE_ORIGIN"));
+				r.setpImage_system(rset.getString("PIMAGE_SYSTEM"));
+				
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("REVIEW 테이블  reviewDetail : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return r;
 	}
 
 }

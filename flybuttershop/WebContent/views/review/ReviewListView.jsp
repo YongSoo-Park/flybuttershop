@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.ArrayList, com.flybutter.review.model.vo.*"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%
 	ArrayList<Review> list  = (ArrayList<Review>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
@@ -12,11 +12,13 @@
 	int endPage = pi.getEndPage();
 	
 	String contextPath = request.getContextPath();
+	
+	
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>내가 작성한 리뷰</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -34,7 +36,7 @@
 		text-align:center;
 	}
 	.listArea>tbody>tr:hover{
-		background:darkgrey;
+		background: #F5D042;
 		cursor:pointer
 	}
 </style>
@@ -52,10 +54,9 @@
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
-                    <th width="100">번호</th>
                     <th width="200">상품명</th>
 					<th width="300">제목</th>
-					<th width="100">작성자</th>
+					<th width="100">별점</th>
 					<th width="150">작성일</th>
 				</tr>
 			<thead>
@@ -67,10 +68,22 @@
 				<%}else{ %>
 					<% for(Review r : list){ %>
 					<tr>
-						<td><%= r.getRe_no() %></td>
-						<td><%= r.getpCode() %></td>
+						<td><%= r.getpName() %></td>
 						<td><%= r.getRe_title() %></td>
-						<td><%= r.getUser_no() %></td>
+						<td>
+							<% int score =  r.getScore(); 
+								pageContext.setAttribute("score", score);
+							%>
+							<c:choose>
+  							<c:when test="${score == '1'}">★</c:when>
+  							<c:when test="${score == '2'}">★★</c:when>
+  							<c:when test="${score == '3'}">★★★</c:when>
+  							<c:when test="${score == '4'}">★★★★</c:when>
+  							<c:when test="${score == '5'}">★★★★★</c:when>
+  							<c:otherwise>오류</c:otherwise>
+							</c:choose>
+						
+						</td>
 						<td><%= r.getRe_date() %></td>
 					</tr>
 					<%} %>
@@ -116,7 +129,7 @@
 		<br><br>
 		<div align="center">
 
-		<button onclick="location.href='enrollForm.rv'">작성하기</button>
+		<!-- <button onclick="location.href='enrollForm.rv'">작성하기</button> -->
 
 		</div>
 	</div>
@@ -124,11 +137,13 @@
 		<%if(!list.isEmpty()){%>
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){
-				var bno = $(this).children().eq(0).text();
-				location.href="<%= contextPath%>/reviewDetail.rv?rno="+rno;
+				var no = $(this).children().eq(0).text();
+				location.href="<%= request.getContextPath()%>/detail.rv?no="+no;
 			})
 		})
 		<%}%>
 	</script>
+	
+	<jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>
 </html>
