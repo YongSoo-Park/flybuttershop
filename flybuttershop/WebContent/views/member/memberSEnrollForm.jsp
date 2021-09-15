@@ -23,8 +23,8 @@
 	
 	#idCheckBtn{
 	width: 90px;
-    height: 40px;
-    font-size: 18px;
+    height: 35px;
+    font-size: 15px;
 	background-color:lavender;
     border-style: outset;
     border-radius: 10px;
@@ -65,23 +65,25 @@
 
 	#userJoinText{
 	font-family: 'Consolas', cursive;
-	font-size:70px;
-	padding :40px;
+	font-size:80px;
+	
 	}
 	
 	td{
 	text-align: center;
 	}
 	
-	#userId,#userPwd,#userName,#checkPwd,#phone,#email,#address{
+	#userId,#userPwd,#userName,#checkPwd,#phone,#email,
+	#address,#storeName,#storeAddress,#storeAccount,
+	#storeExp,#storeCall,#ceo,#storeEmail{
 	border-style: solid;
     border-radius: 8px;
 	width: 230px;
-	height: 30px;
-	margin :5px;
+	height: 25px;
+	margin :2px;
 	}
 	#joinId{
-	color:white;
+	color:black;
 	width: 150px;
 	height: 20px;
 	}
@@ -132,7 +134,47 @@
 					<td><input id ="address" type="text" name="address" placeholder="address"></td>
 					<td></td>
 				</tr>
-
+				
+				<tr>
+					<td id="joinId">* 스토어 이름</td>
+					<td><input id ="storeName" type="text" name="storeName" placeholder="스토어 이름"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td id="joinId">* 스토어 주소</td>
+					<td><input id ="storeAddress" type="text" name="storeAddress" placeholder="스토어 주소"></td>
+					<td></td>
+				</tr>
+				<!-- <tr>
+					<td id="joinId">* 판매자 번호</td>
+					<td><input id ="sellerNo" type="text" name="sellerNo" placeholder="판매자 번호"></td>
+					<td></td>
+				</tr> -->
+				<tr>
+					<td id="joinId">* 스토어 계좌</td>
+					<td><input id ="storeAccount" type="text" name="storeAccount" placeholder="스토어 계좌"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td id="joinId">* 스토어 설명</td>
+					<td><input id ="storeExp" type="text" name="storeExp" placeholder="스토어 설명"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td id="joinId">* 스토어 전화번호</td>
+					<td><input id ="storeCall" type="text" name="storeCall" placeholder="스토어 전화번호"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td id="joinId">* 대표성명</td>
+					<td><input id ="ceo" type="text" name="ceo" placeholder="대표성명"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td id="joinId">* 스토어 이메일</td>
+					<td><input id ="storeEmail" type="text" name="storeEmail" placeholder="스토어 이메일"></td>
+					<td></td>
+				</tr>
 			</table>
 			<br>
 			

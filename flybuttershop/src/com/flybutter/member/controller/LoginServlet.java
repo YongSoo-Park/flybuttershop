@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.flybutter.member.model.service.MemberService;
 import com.flybutter.member.model.vo.Member;
+import com.flybutter.member.model.vo.MemberLogin;
 
 
 
@@ -38,61 +39,35 @@ public class LoginServlet extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-		//System.out.println("%%%%%%%%%%%%%%%%%%%%%% userId,userPwd: "+ userId+","+userPwd);
-		//String originPwd = request.getParameter("originPwd");
 		
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
 		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", loginUser);
-			//session.setAttribute("originPwd", originPwd);
+			int userNo = loginUser.getUserNo();
+			String userName = loginUser.getUserName();
+			int lev = loginUser.getLev();
+			int category = loginUser.getCategory();		
+			String recPno = "";
+			int money = 0;
 			
-			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$ CATEGOGY : "+ loginUser.getCategory());
-			int category = loginUser.getCategory();
+			HttpSession session = request.getSession();
+
 			if(category == 1) {
 				Member consumerInfo = new MemberService().selectCMember(loginUser);
-				
 				if(consumerInfo != null) {
-				
-					consumerInfo.setUserName(loginUser.getUserName());
-					consumerInfo.setLev(loginUser.getLev());
-					consumerInfo.setCategory(loginUser.getCategory());
-                //	consumerInfo.setUserId(loginUser.getUserId());
-				//	consumerInfo.setPhone(loginUser.getPhone());
-				//	consumerInfo.setEmail(loginUser.getEmail());
-				//	consumerInfo.setAddress(loginUser.getAddress());					
-				//	consumerInfo.setStatus(loginUser.getStatus());
-					
-
-					session.setAttribute("consumerInfo", consumerInfo);
-					System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$ consumerInfo : "+ consumerInfo);
+					 recPno= consumerInfo.getRecPno();
+					 money = consumerInfo.getMoney();
 				}
-
-			}
-			if(category == 2) {
-				Member sellerInfo = new MemberService().selectSMember(loginUser);
-				
-				if(sellerInfo != null) {
-					
-					sellerInfo.setUserName(loginUser.getUserName());
-					sellerInfo.setLev(loginUser.getLev());
-					sellerInfo.setCategory(loginUser.getCategory());
-		             //	consumerInfo.setUserId(loginUser.getUserId());
-					//	consumerInfo.setPhone(loginUser.getPhone());
-					//	consumerInfo.setEmail(loginUser.getEmail());
-					//	consumerInfo.setAddress(loginUser.getAddress());					
-					//	consumerInfo.setStatus(loginUser.getStatus());
-					
-					session.setAttribute("sellerInfo", sellerInfo);
-					System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$ sellerInfo : "+ sellerInfo);
-				}
-				
 			}
 
-			RequestDispatcher view = request.getRequestDispatcher("/main.ma");
+
+	
+			MemberLogin loginMember = new MemberLogin(userNo, userName, lev, category, recPno, money);
+
+			session.setAttribute("loginMember", loginMember);
+			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@  loginMember : "+loginMember);
+			RequestDispatcher view = request.getRequestDispatcher("views/main_search_category_page/mainPage.jsp");
 			view.forward(request, response);
-			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%% loginUser :"+loginUser);
 		}else {
 			request.setAttribute("msg", "로그인에 실패했습니다.");
 			

@@ -40,18 +40,24 @@ public class MemberSInsertServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
+		String storeName = request.getParameter("storeName");
+		String storeAddress = request.getParameter("storeAddress");
+		String storeAccount = request.getParameter("storeAccount");
+		String storeExp = request.getParameter("storeExp");
+		String storeCall = request.getParameter("storeCall");
+		String ceo = request.getParameter("ceo");
+		String storeEmail = request.getParameter("storeEmail");
 		
-		Member mem = new Member(userId, userPwd, userName, phone, email , address);
+		Member mem = new Member(userId, userPwd, userName, phone, email , address,storeName, storeAddress, storeAccount
+				,storeExp, storeCall, ceo, storeEmail);
 		System.out.println("mem : "+mem);
 		int result = new MemberService().insertSMember(mem);
-		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&& Member "+mem);
 		if(result>0) {
 			
-			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%% MemberSInsertServlet result" +result);
 			request.getSession().setAttribute("msg", "축하합니다 ! 회원가입에 성공하셨습니다!");
 			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%% MemberSInsertServlet MSG test : " +"[축하합니다]");
 			response.sendRedirect(request.getContextPath());
-		}else {
+		}else{
 			
 			request.setAttribute("msg", "회원가입에 실패했습니다.");
 			
