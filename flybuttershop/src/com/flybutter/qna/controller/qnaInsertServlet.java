@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.qna.model.service.QnaService;
 import com.flybutter.qna.model.vo.Qna;
 
@@ -31,8 +32,11 @@ public class qnaInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		request.setCharacterEncoding("UTF-8");
 		
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMEM_USER_NO();
+		String pCode = request.getParameter("pCode");
+		int stireNo = Integer.parseInt(request.getParameter("storeNo"));
 		String title = request.getParameter("title");
 		int category = Integer.parseInt(request.getParameter("category"));
 		int pwd = Integer.parseInt(request.getParameter("pwd"));
@@ -44,11 +48,16 @@ public class qnaInsertServlet extends HttpServlet {
 		}
 		
 		Qna q = new Qna();
+		q.setQna_Writer(String.valueOf(userNo));
+		q.setpCode(pCode);
+		q.setStore_no(stireNo);
 		q.setQna_Title(title);
 		q.setQna_Category(category);
+		
 		q.setQna_Pwd(pwd);
 		q.setLock_Flag(lock);
 		q.setQna_Content(content);
+		
 		
 		int result = new QnaService().insertQna(q);
 		

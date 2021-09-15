@@ -7,11 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.common.JDBCTemplate.*;
 
 import com.flybutter.product.model.vo.Product;
+import com.flybutter.qna.model.vo.Qna;
 import com.flybutter.seller.model.dao.SellerDao;
 import com.flybutter.seller.model.vo.Seller;
 
@@ -229,7 +231,6 @@ public class ProductDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("야기라구 멍청아");
 		
 		return p;
 	}
@@ -276,5 +277,41 @@ public class ProductDao {
 		return s;
 	}
 
-	
+	public ArrayList<Qna> productQnaList(Connection conn, String pcode) {
+		
+		ArrayList<Qna> qList = new ArrayList<Qna>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("productQnaList");
+		
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pcode);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				qList.add(new Qna(rset.getInt("QNA_NO"),
+								  rset.getInt("QNA_CATEGORY"),
+								  rset.getInt("USER_NO"),
+								  rset.getString("QNA_TITLE"),
+								  rset.getString("QNA_CONTENT"),
+								  rset.getDate("QNA_DATE"),
+								  rset.getString("QNA_STATUS"),
+								  rset.getInt("LOCK_FLAG")
+								  ));
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return qList;
+	}
 }

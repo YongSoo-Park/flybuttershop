@@ -26,4 +26,17 @@ public class QnaService {
 		return result;
 	}
 
+	public Qna selectQna(int qNo) {
+		
+		Connection conn = getConnection();
+		
+		Qna q = new QnaDao().selectQna(conn, qNo);
+		
+		System.out.println("다오다오다ㅗㅇ  " + q);
+		
+		close(conn);
+		
+		return q;
+	}
+
 }

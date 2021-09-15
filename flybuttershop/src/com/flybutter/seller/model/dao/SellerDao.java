@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.flybutter.product.model.vo.Product;
+import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.qna.model.vo.Qna;
 import com.flybutter.review.model.vo.Review;
 import com.flybutter.seller.model.vo.Seller;
@@ -235,7 +236,8 @@ public class SellerDao {
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
-					list.add(new Qna(rset.getInt("QNA_CATEGORY"),
+					list.add(new Qna(rset.getInt("QNA_NO"),
+									 rset.getInt("QNA_CATEGORY"),
 									 rset.getInt("USER_NO"),
 									 rset.getString("QNA_TITLE"),
 									 rset.getString("QNA_CONTENT"),
@@ -283,7 +285,6 @@ public class SellerDao {
 										rset.getInt("STORE_NO"),
 										rset.getInt("SCORE"),
 										rset.getInt("PUR_NO")
-										
 							));
 				}
 				
@@ -297,6 +298,36 @@ public class SellerDao {
 			}
 			
 			return list;
+		}
+		public ArrayList<Purchase> soldList(Connection conn, int storeNo) {
+			
+			ArrayList<Purchase> pList = null;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("soldList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, storeNo);
+				rset = pstmt.executeQuery();
+				
+//				while(rset.next()) {
+//					pList.add(new Purchase(rset.getInt("PUR_NO"),
+//										   rset.getDate("PUR_DATE"),
+//										   rset.getString("")
+//										   ));
+//					
+//				}
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return null;
 		}
 
 	}

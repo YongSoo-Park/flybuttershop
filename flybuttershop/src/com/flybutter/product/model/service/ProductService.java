@@ -3,9 +3,11 @@ package com.flybutter.product.model.service;
 import static com.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.flybutter.product.model.dao.ProductDao;
 import com.flybutter.product.model.vo.Product;
+import com.flybutter.qna.model.vo.Qna;
 import com.flybutter.seller.model.vo.Seller;
 
 public class ProductService {
@@ -85,4 +87,16 @@ public class ProductService {
 		return s;
 	}
 
+	public ArrayList<Qna> productQnaList(String pcode) {
+
+		Connection conn = getConnection();
+		
+		ArrayList<Qna> qList = new ProductDao().productQnaList(conn, pcode);
+		
+		close(conn);
+		
+		return qList;
+	}
+
+	
 }

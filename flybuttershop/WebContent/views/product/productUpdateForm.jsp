@@ -140,7 +140,7 @@
 			</tr>
 			<tr>
 				<td>상품가격</td>
-				<td><input type="text" name="price" value="<%=p.getpStatus()%>">
+				<td><input type="text" name="price" value="<%=p.getPrice()%>">
 				</td>
 			</tr>
 			<tr>
@@ -187,7 +187,7 @@
 	
 	
 	function insertValidate(){
-		if(!(/^[a-z][a-z\d]{3,11}$/i.test($("#productInsert input[name=pName]").val()))){
+		if(!(/^[a-z][a-z\d]{3,50}$/i.test($("#productInsert input[name=pName]").val()))){
 			alert("상품명에는 영어, 한글, 숫자만 입력가능합니다.");
 			$("#productInsert input[name=pName]").focus();
 	        return false;

@@ -28,6 +28,14 @@
 		text-align: center;
 	}
 </style>
+<script>
+	$(function(){
+		$(".qnaList>tbody>tr").click(function(){
+			var qNo = $(this).children().eq(0).text();
+			location.href="<%= request.getContextPath() %>/qnaDetail.pr?qNo="+qNo;
+		})
+	})
+</script>
 </head>
 <body style="margin: 0 auto">
 <jsp:include page="../header_footer/header.jsp" flush="true" />
@@ -39,6 +47,7 @@
 	<table class="qnaList" align="center">
 		<thead>
 			<tr>
+				<th>no</th>
 				<th>문의유형</th>
 				<th>작성자</th>
 				<th>제목</th>
@@ -66,6 +75,7 @@
 					}
 				%>
 					<tr>
+						<td><%=q.getQna_No() %></td>
 						<td><%=qCategory %></td>
 						<td><%=q.getUser_No()%></td>
 						<td><%=q.getQna_Title()%></td>
