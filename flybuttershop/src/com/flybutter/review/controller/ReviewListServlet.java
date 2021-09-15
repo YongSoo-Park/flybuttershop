@@ -87,6 +87,7 @@ public class ReviewListServlet extends HttpServlet {
 				request.getRequestDispatcher("views/review/ReviewListView.jsp").forward(request, response);;
 		
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

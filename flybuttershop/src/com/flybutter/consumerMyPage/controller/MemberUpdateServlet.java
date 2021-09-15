@@ -59,10 +59,12 @@ public class MemberUpdateServlet extends HttpServlet {
 			
 			response.setContentType("text/html; charset=utf-8"); 
 			PrintWriter out = response.getWriter();
-			out.println("<script> alert('변경이 완료 되었습니다'); location.href='main.mp';</script>");
+			out.println("<script charset='utf-8'> alert('변경이 완료 되었습니다'); location.href='main.mp';</script>");
 			
 			out.flush();
 
+			
+			
 			
 		}else {
 			

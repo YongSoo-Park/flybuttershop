@@ -10,6 +10,7 @@ import com.flybutter.dummy.model.vo.Member;
 
 public class MypageService {
 
+	
 	public int selectSumPrice(int userNo) {
 		
 		Connection conn = getConnection();

@@ -14,6 +14,7 @@
 	String contextPath = request.getContextPath();
 	
 	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -54,6 +55,7 @@
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
+					<th width="200">글 번호</th>
                     <th width="200">상품명</th>
 					<th width="300">제목</th>
 					<th width="100">별점</th>
@@ -68,6 +70,7 @@
 				<%}else{ %>
 					<% for(Review r : list){ %>
 					<tr>
+						<td><%= r.getRe_no() %></td>
 						<td><%= r.getpName() %></td>
 						<td><%= r.getRe_title() %></td>
 						<td>

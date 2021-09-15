@@ -61,6 +61,7 @@
 	
 <body>
 
+
  <jsp:include page="../header_footer/header.jsp" flush="true"/>
 
     <div id="wrap">
