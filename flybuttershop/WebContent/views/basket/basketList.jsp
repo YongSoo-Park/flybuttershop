@@ -8,7 +8,7 @@ int resultPrice = 0;
 int shipPrice = 0;
 //System.out.println(pList);
 %>
-
+ 
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,0 +1,289 @@
+#outer{
+  width: 1200px;
+  display: inline-block;
+}
+#purPTB{
+    height: 80px;
+    background-color: midnightblue;
+    position: relative;
+    top: 30px; 
+}
+#t1{
+    width: 490px;
+    color: white;
+    background-color: midnightblue;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+}
+#t2{
+    width: 130px;
+    color: white;
+    background-color: midnightblue;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+}
+#t3{
+    width: 100px;
+    color: white;
+     background-color: midnightblue;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+}
+#t4{
+    width: 100px;
+    color: white;
+     background-color: midnightblue;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+}
+#t5{
+    width: 150px;
+    color: white;
+     background-color: midnightblue;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+}
+#t6{
+    width: 200px;
+    color: white;
+     background-color: midnightblue;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+}
+#pt1{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#pt2{
+	weith: 10px;
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+}
+#pt3{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#pt4{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#pt5{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#pt6{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#pt7{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#pImg{
+	 width: 100px;
+	 height: 100px;
+}
+#ship{
+	 width: 1200px;
+	 height: 1200px;	
+	 float: left;
+	 text-align: left;
+}
+#ptb{
+	height:auto;	
+}
+#mtb{
+	 width: 1200px;
+	 height: 900px;
+	 
+}
+#d1{
+	background-color: lightgray;
+	width: 700px;	
+}
+#d2{
+	background-color: rgb(169, 169, 170);
+}
+#purInfo{
+	text-align: left;
+}
+#consent{
+	text-align: center;
+}
+#ck{
+	position: relative;
+    top: 8px;
+	 width: 25px;
+    height: 25px;
+}
+#purBtn{
+ 	padding: 27px;
+      font-size: 20px;
+      border-radius: 5px;
+    border: unset;
+    color: white;
+    background-color: rgb(37, 37, 37);
+}
+.text1{
+	position: relative;
+    top: -30px;
+    left: 20px;
+}
+.text2{
+	position: relative;
+    top: -30px;
+    left: 30px;
+}
+.text3{
+	position: relative;
+    top: -30px;
+    left: 40px;
+}
+#lb1{
+	position: relative;
+    top: -26px;
+	left: 35px;
+}
+#ct{
+	position: relative;
+    top: -55px;
+    left: 140px;
+    width: 500px;
+}
+#ctd1{
+	 width: 60px;
+}
+#ctd2{
+	width: 15px;
+}
+#ctd3{
+	width: 10px;
+	position: relative;
+    left: -16px;
+}
+#lb2{
+	position: relative;
+    top: -26px;
+	left: 35px;
+}
+#mt{
+	position: relative;
+    top: -55px;
+    left: 140px;
+    width: 500px;
+	
+}
+#mtd1{
+	 width: 68px;
+}
+#mtd2{
+	width: 20px;
+}
+#pType1{
+	 width: 20px;
+    height: 20px;
+}
+#pType2{
+	width: 20px;
+    height: 20px;
+}
+#pType3{
+	width: 20px;
+    height: 20px;
+}
+#sType1{
+	 width: 20px;
+    height: 20px;
+}
+#sType2{
+	width: 20px;
+    height: 20px;
+}
+#ptl1{
+	position: relative;
+    top: -32px;
+    left: 25px;
+}
+#ptl2{
+	position: relative;
+    top: -32px;
+    left: 25px;
+}
+#ptl3{
+	position: relative;
+    top: -32px;
+    left: 25px;
+}
+#ub{
+	padding:5px;
+}
+#tt1{
+	position: relative;
+    top: -20px;
+}
+#tt2{
+	position: relative;
+    top: -180px;
+}
+#tt3{
+	position: relative;
+    top: -100px;
+}
+#tt4{
+	position: relative;
+    top: -90px;
+}
+#tt5{
+	position: relative;
+    top: -80px;
+}
+#tt6{
+	position: relative;
+    top: -70px;
+}
+#b1{
+	position: relative;
+    left: 162px;
+    font-size: 20px;
+}
+#b2{
+	position: relative;
+    left: 150px;
+}
+#b3{
+	position: relative;
+    left: 165px;
+} 
+.li{
+	position: relative;
+	left: 30px;
+}
+.menu .hide{display:none;}

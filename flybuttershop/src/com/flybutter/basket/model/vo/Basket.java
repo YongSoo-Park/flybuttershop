@@ -1,5 +1,5 @@
 package com.flybutter.basket.model.vo;
-
+ 
 import java.sql.Date;
 
 public class Basket {

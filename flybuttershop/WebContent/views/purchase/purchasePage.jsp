@@ -15,186 +15,18 @@ int shipPrice = 0;
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="resources/css/PurchasePage.css?after">
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
-<style>
-#outer{
-  width: 1200px;
-  display: inline-block;
-}
-#purPTB{
-    height: 80px;
-    background-color: midnightblue;
-    position: relative;
-    top: 30px; 
-}
-#t1{
-    width: 490px;
-    color: white;
-    background-color: midnightblue;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-}
-#t2{
-    width: 130px;
-    color: white;
-    background-color: midnightblue;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-}
-#t3{
-    width: 100px;
-    color: white;
-     background-color: midnightblue;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-}
-#t4{
-    width: 100px;
-    color: white;
-     background-color: midnightblue;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-}
-#t5{
-    width: 150px;
-    color: white;
-     background-color: midnightblue;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-}
-#t6{
-    width: 200px;
-    color: white;
-     background-color: midnightblue;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-}
-#pt1{
-    height: 180px;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-    text-align: center;
-}
-#pt2{
-	weith: 10px;
-    height: 180px;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-    text-align: center;
-    padding: 10px;
-}
-#pt3{
-    height: 180px;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-    text-align: center;
-}
-#pt4{
-    height: 180px;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-    text-align: center;
-}
-#pt5{
-    height: 180px;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-    text-align: center;
-}
-#pt6{
-    height: 180px;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-    text-align: center;
-}
-#pt7{
-    height: 180px;
-    position: relative;
-    top: 20px;
-    font-size: 18px;
-    text-align: center;
-}
-#pImg{
-	 width: 100px;
-	 height: 100px;
-}
-#ship{
-	 width: 1200px;
-	 height: 1000px;	
-	 float: left;
-	 text-align: left;
-}
-#ptb{
-	height:auto;	
-}
-#mtb{
-	 width: 1200px;
-	 height: 700px;
-	 
-}
-#d1{
-	background-color: lightgray;
-	width: 700px;	
-}
-#d2{
-	background-color: rgb(169, 169, 170);
-}
-#purInfo{
-	text-align: left;
-}
-#consent{
-	text-align: center;
-}
-#ck{
-	 width: 25px;
-    height: 25px;
-}
-#purBtn{
- 	padding: 27px;
-      font-size: 20px;
-      border-radius: 5px;
-    border: unset;
-    color: white;
-    background-color: rgb(37, 37, 37);
-}
-.text1{
-	position: relative;
-    top: -30px;
-    left: 20px;
-}
-.text2{
-	position: relative;
-    top: -30px;
-    left: 30px;
-}
-.text3{
-	position: relative;
-    top: -30px;
-    left: 40px;
-}
-</style>
 <body style="margin: 0 auto">
 <jsp:include page="../header_footer/header.jsp" flush="true"/>
 <div id="outer">
-    <%--로그인한 상태인지만 검사 --%>
-    <%--  <%if(loginM == null){ %>
+     <%if(loginM == null){ %>
      	<script>
     		alert("로그인 후 이용하시기 바랍니다.");
     		document.location.href="main.ma";
     	</script>
-      <%}else{ %>--%>
+      <%}else{ %>
      
      <div id="purPTB">
      <div id="ptb">
@@ -224,52 +56,113 @@ int shipPrice = 0;
   	<tr>
   		<th></th>
   		<th id="d1">
-  		<h3 class="text1">배송지 정보</h3>
+  		<h3 class="text1" id="tt1">배송지 정보</h3>
   		<label class="text2">배송지 선택
-  		<input type="radio">기본배송지
-  		<input type="radio">신규배송지</label>
+  		<label><input type="radio" id="sType1" name="ship" style="cursor:pointer;">기본배송지</label>
+  		<label><input type="radio" id="sType2" name="ship" style="cursor:pointer;">신규배송지</label></label>
   		<h4 class="text3"><%=loginM.getMEM_USER_NAME() %></h4>
   		<h4 class="text3"><%=loginM.getMEM_PHONE() %></h4>
-  		<h4 class="text3"><%=loginM.getMEM_ADDRESS() %></h4>
+  		<h4 class="text3"><%=loginM.getMEM_ADDRESS() %></h4><br>
   		<h3 class="text1">할인 정보</h3>
   		<h4 class="text2">쿠폰 할인</h4>
-  		<label>보유 쿠폰</label>	
-  		<table>		
+  		<label id="lb1">보유 쿠폰</label>	
+  		<table id="ct">		
   			<tr>
-  				<td>쿠폰이름</td>
-  				<td>n장</td>
-  				<td><button>사용</button></td>
+  				<td id="ctd1">쿠폰이름</td>
+  				<td id="ctd2">n장</td>
+  				<td id="ctd3"><button id="ub" style="cursor:pointer;">사용</button></td>
   			</tr>
   		</table>
   		<h4 class="text2">적립금</h4>
-  		<label>보유 적립금</label>
-  		<table>	
+  		<label id="lb2">보유 적립금</label>
+  		<table id="mt">	
   			<tr>
-  				<td>n원</td>
-  				<td><button>사용</button></td>
+  				<td id="mtd1">n원</td>
+  				<td id="mtd2"><button id="ub" style="cursor:pointer;">사용</button></td>
   			</tr>
   		</table>
   		<h3 class="text1">결제수단</h3>
-  		<input class="text2" type="radio">무통장 입금
-  		<input class="text2" type="radio">신용카드 결제
-  		<input class="text2" type="radio">휴대폰 결제
+  		<ul type="none">
+  		<li class="menu"> <input class="text2" id="pType1" type="radio" name="purType" style="cursor:pointer;">
+  		<label id="ptl1">무통장 입금</label></li>
+  		 <ul class="hide" type="none"><li>
+  		 <label>은행선택&nbsp;&nbsp;
+  		 <select name="job">
+    		<option selected>선택해주세요</option>
+    		<option value="하나">하나</option>
+    		<option value="신한">신한</option>
+    		<option value="국민">국민</option>
+    		<option value="우리">우리</option>
+    		<option value="농협">농협</option>
+    		<option value="기업">기업</option>
+		</select></label>
+		</li>
+		</ul>
+  		</ul> <br>
+  		<ul type="none">
+  		<li class="menu">
+  		<input class="text2" id="pType2" type="radio" name="purType" style="cursor:pointer;">
+  		<label id="ptl2">신용카드 결제</label></li>
+  		<ul class="hide" type="none">
+  		<li><label>카드 구분</label>&nbsp;&nbsp;
+  		<input id="cType1" type="radio" name="cardType" style="cursor:pointer;">
+  		<label for="cType1">개인카드</label>
+  		<input id="cType2" type="radio" name="cardType" style="cursor:pointer;">
+  		<label for="cType2">법인카드</label>
+  		</li>
+  		<li>
+  		<label>카드선택</label>&nbsp;&nbsp;
+  		<select name="job">
+    		<option selected>선택해주세요</option>
+    		<option value="하나">하나</option>
+    		<option value="신한">신한</option>
+    		<option value="국민">국민</option>
+    		<option value="우리">우리</option>
+    		<option value="농협">농협</option>
+    		<option value="기업">기업</option>
+		</select>
+  		</li>
+  		<li>
+  		<label>할부기간</label>&nbsp;&nbsp;
+  		<select name="job">
+    		<option selected>선택해주세요</option>
+    		<option value="일시불">일시불</option>
+    		<option value="2개월">2개월</option>
+    		<option value="4개월">4개월</option>
+    		<option value="6개월">6개월</option>
+    		<option value="12개월">12개월</option>
+		</select>
+  		</li>
+  		</ul>
+  		</ul><br>
+  		<ul type="none">
+  		<li class="menu"><input class="text2" id="pType3" type="radio" name="purType" style="cursor:pointer;">
+  		<label id="ptl3">휴대폰 결제</label></li>
+  		<ul class="hide" type="none">
+  		<li>
+  		<label>휴대폰 번호</label>&nbsp;&nbsp;
+  		<input type="tel" name="phone" placeholder="(-제외)  " pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
+		
+  		</li>
+  		</ul>
+  		</ul>
   		</th>
   		<th id="d2">
-  		<h3 class="text1">주문자 정보</h3>
-  		<h4 class="text3"><%=loginM.getMEM_USER_NAME() %></h4>
-  		<h4 class="text3"><%=loginM.getMEM_PHONE() %></h4>
-  		<h4 class="text3"><%=loginM.getMEM_EMAIL() %></h4>
-  		<h3 class="text1">결제 상세</h3>
-  		<label class="text2">주문금액</label><br>
-  		<label class="text3">상품금액    n원</label><br>
-  		<label class="text3">배송비    n원</label><br>
-  		<label class="text3">쿠폰할인    n원</label>
+  		<h3 class="text1" id="tt2">주문자 정보</h3>
+  		<h4 class="text3" id="tt2"><%=loginM.getMEM_USER_NAME() %></h4>
+  		<h4 class="text3" id="tt2"><%=loginM.getMEM_PHONE() %></h4>
+  		<h4 class="text3" id="tt2"><%=loginM.getMEM_EMAIL() %></h4>
+  		<h3 class="text1" id="tt3">결제 상세</h3>
+  		<label class="text2" id="tt3">주문금액<b id="b1">n원</b></label><br>
+  		<label class="text3" id="tt4">상품금액<b id="b2">n원</b></label><br>
+  		<label class="text3" id="tt5">배송비<b id="b3">n원</b></label><br>
+  		<label class="text3" id="tt6">쿠폰할인<b id="b2">n원</b></label>
   		</th>
   	</tr>
   </table>
   <div id="consent">
   <br><br>
-  <input type="checkbox" id="ck">주문 내용을 확인하였으며, 정보 제공등에 동의합니다.
+  <label><input type="checkbox" id="ck" style="cursor:pointer;">주문 내용을 확인하였으며, 정보 제공등에 동의합니다.</label>
   <br><br><br>
   <button id="purBtn">결제하기</button>
   </div>
@@ -277,6 +170,21 @@ int shipPrice = 0;
   </div>
  </div>
  <br><br>
+ <%} %>
 </body>
+<script>
+    $(document).ready(function(){
+        $(".menu").click(function(){
+            var submenu = $(this).next("ul");
+ 
+            if( submenu.is(":visible") ){
+                submenu.slideUp();
+            }else{
+                submenu.slideDown();
+            }
+        });
+    });
+</script>
+
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </html>
