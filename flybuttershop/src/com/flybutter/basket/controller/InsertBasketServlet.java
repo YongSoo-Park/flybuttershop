@@ -67,6 +67,8 @@ public class InsertBasketServlet extends HttpServlet {
 		
 		int result = new BasketService().insertBasket(b);
 		
+        request.getRequestDispatcher("/basket.do").forward(request, response);
+		
 		
 	}
 

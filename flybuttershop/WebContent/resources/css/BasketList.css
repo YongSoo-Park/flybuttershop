@@ -122,6 +122,20 @@
     font-size: 18px;
     text-align: center;
 }
+#bt5{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+#bt6{
+    height: 180px;
+    position: relative;
+    top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
 #e1{
        text-align: center;
   }
@@ -197,3 +211,7 @@
     border: unset;
     background-color: skyblue;
   }
+  #pImg{
+	 width: 100px;
+	 height: 100px;
+}
