@@ -30,6 +30,8 @@ public class FAQUpdateFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		int no = Integer.parseInt(request.getParameter("no"));
 		
 		FAQ f = new FAQService().selectUpdateFAQ(no);

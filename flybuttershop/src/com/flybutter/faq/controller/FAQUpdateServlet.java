@@ -31,6 +31,9 @@ public class FAQUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
 		int no = Integer.parseInt(request.getParameter("no"));
 		int category = Integer.parseInt(request.getParameter("category"));
 		String title = request.getParameter("title");

@@ -106,8 +106,8 @@ public class HelpDao {
 	public int insertHelp(Connection conn, Help h) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		//insertHelp=INSERT INTO HELP VALUES(HELP_NO.NEXTVAL, USER_NO, ?, ?, ?, ?, ?, SYSDATE, 'Y', )
-				
+		//insertHelp=INSERT INTO HELP VALUES(HELP_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE, 'Y', ?, SYSDATE)
+/*				
 		HELP_NO
 		USER_NO
 		HELP_CATEGORY
@@ -119,16 +119,19 @@ public class HelpDao {
 		HELP_STATUS
 		HELP_ANSWER_CONTENT
 		HELP_ANSWER_DATE
-		
+*/		
 		String sql = prop.getProperty("insertHelp");
 		
 			try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, n.getNotice_Category());
-				pstmt.setString(2, n.getNotice_Title());
-				pstmt.setString(3, n.getNotice_Content() );
-				pstmt.setString(4, n.getNotice_File_Origin());
-				pstmt.setString(5, n.getNotice_File_System());
+				pstmt.setInt(1, h.getUser_No());
+				pstmt.setInt(2, h.getHelp_Category());
+				pstmt.setString(3, h.getHelp_Title());
+				pstmt.setString(4, h.getHelp_Content());
+				pstmt.setString(5, h.getHelp_File_Origin());
+				pstmt.setString(6, h.getHelp_File_System());
+				pstmt.setString(7, h.getHelp_Answer_Content());
+			
 				
 				result = pstmt.executeUpdate();
 				
