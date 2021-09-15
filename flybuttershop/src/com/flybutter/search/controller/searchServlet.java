@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.pasing.model.vo.Paging;
+import com.flybutter.paging.model.vo.Paging;
 import com.flybutter.search.model.service.SearchService;
 import com.flybutter.search.model.vo.Search;
 
@@ -42,14 +42,12 @@ public class searchServlet extends HttpServlet {
 		searchSaleList = new SearchService().searchSaleList(sWord);
 		if(searchList.size()!= 0) {
 			paging = new Paging(new SearchService().searchListCount(sWord), 1, 10, 10);
-			System.out.println(paging);
 			request.setAttribute("paging", paging);
 			request.setAttribute("searchList", searchList);
 			request.setAttribute("searchSaleList", searchSaleList);
 			request.setAttribute("searchListEmpty", 0);
 			request.setAttribute("sWord", sWord);
 			request.setAttribute("sKind", 1);
-			System.out.println(new SearchService().searchListCount(sWord));
 		}else {
 			request.setAttribute("searchListEmpty", 1);
 			request.setAttribute("sWord", sWord);

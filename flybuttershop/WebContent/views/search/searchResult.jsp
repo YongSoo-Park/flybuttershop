@@ -123,11 +123,6 @@ function listPageMove(movingPage,sWord,total,sKind) {
 	document.body.appendChild(form);
 	form.submit();
 }
-function selectSKind(sss) {
-	console.log("asfasf");
-	console.log(sss);
-	
-}
 
 </script>
 </head>
@@ -186,7 +181,12 @@ function selectSKind(sss) {
 
 <br>
 <div id="pageNumber">
-
+<c:if test="${requestScope.paging.prePage == 1}">
+<a href="#" onclick="listPageMove(${requestScope.paging.startPage - requestScope.paging.cntPage},'${requestScope.sWord}',${requestScope.paging.total},${requestScope.sKind})"><</a>
+&nbsp;
+<a href="#" onclick="listPageMove(1,'${requestScope.sWord}',${requestScope.paging.total},${requestScope.sKind})">1</a>
+&nbsp;···&nbsp;
+</c:if>
 <c:forEach varStatus="status" begin="${requestScope.paging.startPage}" end="${requestScope.paging.endPage}">
 
 <c:choose>
@@ -201,7 +201,13 @@ function selectSKind(sss) {
 </c:choose>
 &nbsp;
 </c:forEach>
-
+<c:if test="${requestScope.paging.nextPage == 1}">
+···&nbsp;
+<a href="#" onclick="listPageMove(${requestScope.paging.lastPage},'${requestScope.sWord}',${requestScope.paging.total},${requestScope.sKind})"><c:out value="${requestScope.paging.lastPage}"/></a>
+&nbsp;
+<a href="#" onclick="listPageMove(${requestScope.paging.startPage + requestScope.paging.cntPage},'${requestScope.sWord}',${requestScope.paging.total},${requestScope.sKind})">></a>
+&nbsp;
+</c:if>
 
 </div>
 

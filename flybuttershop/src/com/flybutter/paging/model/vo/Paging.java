@@ -1,4 +1,4 @@
-package com.flybutter.pasing.model.vo;
+package com.flybutter.paging.model.vo;
 
 public class Paging {
 	private int nowPage;
@@ -52,12 +52,13 @@ public class Paging {
 	}
 	public void calcStartEndPage(int nowPage, int cntPage) {
 		setEndPage(((int)Math.ceil((double)nowPage / (double)cntPage)) * cntPage);
-		if (getLastPage() < getEndPage()) {
-			setEndPage(getLastPage());
-		}
+		
 		setStartPage(getEndPage() - cntPage + 1);
 		if (getStartPage() < 1) {
 			setStartPage(1);
+		}
+		if (getLastPage() < getEndPage()) {
+			setEndPage(getLastPage());
 		}
 	}
 	public void calcStartEnd(int nowPage, int cntPerPage) {
