@@ -28,6 +28,9 @@ public class Member {
 	private String storeAccount;
 	private String storeExp;
 	private int storeStatus;
+	private String storeCall;
+	private String ceo;
+	private String storeEmail;
 
 	
 
@@ -96,6 +99,16 @@ public class Member {
 		this.money = money;
 	//	this.sumPrice = sumPrice;
 	}
+	
+	public Member(int userNo, String userName,  int lev, int category,String recPno, int money) {
+								
+				this.userNo = userNo;
+				this.userName = userName;
+				this.lev = lev;
+				this.category = category;	
+				this.recPno = recPno;
+				this.money = money;
+			}
 
 	
 	public Member(int userNo, int storeNo,  String storeName , String storeAddress, String sellerNo, String storeAccount
@@ -113,7 +126,27 @@ public class Member {
 	
 
 
-public int getUserNo() {
+	public Member(String userId, String userPwd, String userName, String phone, String email, String address,
+				String storeName, String storeAddress, String storeAccount, String storeExp, String storeCall, String ceo,
+				String storeEmail) {
+		
+				this.userId = userId;
+				this.userPwd = userPwd;
+				this.userName = userName;
+				this.phone = phone;
+				this.email = email;
+				this.address = address;
+				this.storeName = storeName;
+				this.storeAddress = storeAddress;
+				this.storeAccount = storeAccount;
+				this.storeExp =storeExp;
+				this.storeCall = storeCall;
+				this.ceo = ceo;
+				this.storeEmail = storeEmail;
+		}
+
+
+	public int getUserNo() {
 		return userNo;
 	}
 
@@ -333,16 +366,47 @@ public int getUserNo() {
 	}
 
 
+	public String getStoreCall() {
+		return storeCall;
+	}
+
+
+	public void setStoreCall(String storeCall) {
+		this.storeCall = storeCall;
+	}
+
+
+	public String getCeo() {
+		return ceo;
+	}
+
+
+	public void setCeo(String ceo) {
+		this.ceo = ceo;
+	}
+
+
+	public String getStoreEmail() {
+		return storeEmail;
+	}
+
+
+	public void setStoreEmail(String storeEmail) {
+		this.storeEmail = storeEmail;
+	}
+
+
 	@Override
 	public String toString() {
-	/*	return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
-				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", lev=" + lev + ", status=" + status +", category=" + category 
-		+ ", sumPrice=" + sumPrice + ", money=" + money + ", userCel=" + userCel + ", newAddress=" + newAddress + ", recPno=" + recPno + "]";    */
-		
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
-				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", lev=" + lev + ", status=" + status +", category=" + category 
-		+ ", sumPrice=" + sumPrice + ", money=" + money + ", userCel=" + userCel + ", newAddress=" + newAddress + ", recPno=" + recPno 
-		+ ", storeNo=" + storeNo + ", storeName=" + storeName + ", storeAddress=" + storeAddress + ", sellerNo=" + sellerNo + ", storeAccount=" + storeAccount 
-		+ ", storeExp=" + storeExp + ", storeStatus=" + storeStatus + "]";
+				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", lev=" + lev + ", status="
+				+ status + ", category=" + category + ", newAddress=" + newAddress + ", userCel=" + userCel
+				+ ", sumPrice=" + sumPrice + ", recPno=" + recPno + ", money=" + money + ", storeNo=" + storeNo
+				+ ", storeName=" + storeName + ", storeAddress=" + storeAddress + ", sellerNo=" + sellerNo
+				+ ", storeAccount=" + storeAccount + ", storeExp=" + storeExp + ", storeStatus=" + storeStatus
+				+ ", storeCall=" + storeCall + ", ceo=" + ceo + ", storeEmail=" + storeEmail + "]";
 	}
+
+
+
 }

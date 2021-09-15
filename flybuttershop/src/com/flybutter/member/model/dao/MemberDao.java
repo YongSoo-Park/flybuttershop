@@ -34,11 +34,48 @@ public class MemberDao {
 
 	}
 
+//	public Member loginMember(Connection conn, String userId, String userPwd) {
+//		Member loginUser = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		
+//		String sql = prop.getProperty("loginMember");
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			
+//			pstmt.setString(1, userId);
+//			pstmt.setString(2, userPwd);
+//			
+//			rset = pstmt.executeQuery();
+//
+//			if(rset.next()) {
+//				loginUser = new Member(
+//						rset.getInt("MEM_USER_NO"),
+//						rset.getString("MEM_USER_ID"),
+//						rset.getString("MEM_USER_PWD"),
+//						rset.getString("MEM_USER_NAME"),
+//						rset.getString("MEM_PHONE"),
+//						rset.getString("MEM_EMAIL"),
+//						rset.getString("MEM_ADDRESS"),
+//						rset.getInt("MEM_LEV"),
+//						rset.getString("MEM_STATUS"),
+//						rset.getInt("MEM_CATEGORY")
+//						);
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		return loginUser;
+//	}
 	public Member loginMember(Connection conn, String userId, String userPwd) {
 		Member loginUser = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+		System.out.println("ssssssssssssssssssss");
 		String sql = prop.getProperty("loginMember");
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -47,19 +84,15 @@ public class MemberDao {
 			pstmt.setString(2, userPwd);
 			
 			rset = pstmt.executeQuery();
-
+			
 			if(rset.next()) {
 				loginUser = new Member(
 						rset.getInt("MEM_USER_NO"),
-						rset.getString("MEM_USER_ID"),
-						rset.getString("MEM_USER_PWD"),
 						rset.getString("MEM_USER_NAME"),
-						rset.getString("MEM_PHONE"),
-						rset.getString("MEM_EMAIL"),
-						rset.getString("MEM_ADDRESS"),
 						rset.getInt("MEM_LEV"),
-						rset.getString("MEM_STATUS"),
-						rset.getInt("MEM_CATEGORY")
+						rset.getInt("MEM_CATEGORY"),
+						rset.getString("REC_PNO"),
+						rset.getInt("MONEY")
 						);
 			}
 		} catch (SQLException e) {
@@ -69,6 +102,7 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
+		
 		return loginUser;
 	}
 
@@ -113,6 +147,14 @@ public class MemberDao {
 			pstmt.setString(4, m.getPhone());
 			pstmt.setString(5, m.getEmail());
 			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getStoreName());
+			pstmt.setString(8, m.getStoreAddress());
+			pstmt.setString(9, m.getStoreAccount());
+			pstmt.setString(10, m.getStoreExp());
+			pstmt.setString(11, m.getStoreCall());
+			pstmt.setString(12, m.getCeo());
+			pstmt.setString(13, m.getStoreEmail());
+			
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
