@@ -4,6 +4,7 @@
     
 <%
 	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
+	
 	String qCategory = null;
 %>
 <!DOCTYPE html>
@@ -32,7 +33,7 @@
 	$(function(){
 		$(".qnaList>tbody>tr").click(function(){
 			var qNo = $(this).children().eq(0).text();
-			location.href="<%= request.getContextPath() %>/qnaDetail.pr?qNo="+qNo;
+			location.href="<%= request.getContextPath() %>/qnaDetail.sl?qNo="+qNo;
 		})
 	})
 </script>
@@ -79,7 +80,7 @@
 						<td><%=q.getQna_No() %></td>
 						<td><%=q.getpCode() %></td>
 						<td><%=qCategory %></td>
-						<td><%=q.getUser_No()%></td>
+						<td><%=q.getQna_Writer()%></td>
 						<td><%=q.getQna_Title()%></td>
 						<td><%=q.getQna_Date()%></td>
 						<td><%=q.getQna_Status()%></td>

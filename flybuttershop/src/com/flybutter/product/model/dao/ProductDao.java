@@ -14,6 +14,7 @@ import static com.common.JDBCTemplate.*;
 
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.qna.model.vo.Qna;
+import com.flybutter.review.model.vo.Review;
 import com.flybutter.seller.model.dao.SellerDao;
 import com.flybutter.seller.model.vo.Seller;
 
@@ -301,7 +302,9 @@ public class ProductDao {
 								  rset.getString("QNA_CONTENT"),
 								  rset.getDate("QNA_DATE"),
 								  rset.getString("QNA_STATUS"),
-								  rset.getInt("LOCK_FLAG")
+								  rset.getInt("LOCK_FLAG"),
+								  rset.getInt("QNA_PWD")
+								  
 								  ));
 			}
 			
@@ -313,5 +316,52 @@ public class ProductDao {
 		}
 		
 		return qList;
+	}
+
+	public ArrayList<Review> productReviewList(Connection conn, String pcode) {
+
+		ArrayList<Review> rList = new ArrayList<Review>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("productReviewList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pcode);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				rList.add(new Review(rset.getInt("RE_NO"),
+									 rset.getString("PCODE"),
+									 rset.getInt("USER_NO"),
+									 rset.getString("RE_TITLE"),
+									 rset.getString("RE_CONTENT"),
+									 rset.getDate("RE_DATE"),
+									 rset.getString("RE_ORIGINFILE"),
+									 rset.getString("RE_CHANGEFILE"),
+									 rset.getString("RE_STATUS").charAt(0),
+									 rset.getString("RERE_TITLE"),
+									 rset.getString("RERE_CONTENT"),
+									 rset.getDate("RERE_DATE"),
+									 rset.getInt("STORE_NO"),
+									 rset.getInt("PUR_NO"),
+									 rset.getInt("SCORE"),
+									 rset.getString("MEM_USER_ID")
+									));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return rList;
 	}
 }

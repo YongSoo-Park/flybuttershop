@@ -1,7 +1,6 @@
-package com.flybutter.seller.controller;
+package com.flybutter.qna.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.qna.model.service.QnaService;
 import com.flybutter.qna.model.vo.Qna;
-import com.flybutter.seller.model.service.SellerService;
-import com.flybutter.seller.model.vo.Seller;
 
 /**
- * Servlet implementation class qnaListManagerServlet
+ * Servlet implementation class qnaDetailServlet
  */
-@WebServlet("/qnaManager.sl")
-public class qnaListManagerServlet extends HttpServlet {
+@WebServlet("/qnaDetail.sl")
+public class sellerQnaDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public qnaListManagerServlet() {
+    public sellerQnaDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,20 +32,23 @@ public class qnaListManagerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getMEM_USER_NO();
-	    Seller seller = new SellerService().selectStore(userNo);
-		System.out.println("sel" + seller);
-		System.out.println("storeNo : "+seller.getStore_No());
-		int storeNo = seller.getStore_No();
+		int qNo = Integer.parseInt(request.getParameter("qNo"));
+		System.out.println("상점qna 보는데다        " + qNo);
+
+		Qna q = new QnaService().selectQna(qNo);
 		
-		ArrayList<Qna> list = new SellerService().qnaList(storeNo);
+		System.out.println("상점qna 보는데다        " + q);
 		
+		RequestDispatcher view = null;
 		
-		request.setAttribute("list", list);
-		
-		RequestDispatcher view = request.getRequestDispatcher("views/seller/qnaListManager.jsp");
-		view.forward(request, response);
-	
+		if(q != null) {
+			request.setAttribute("q", q);
+			request.getRequestDispatcher("views/seller/qnaDetailManager.jsp").forward(request, response);;
+		}else {
+			request.setAttribute("msg", "상품정보를 불러올 수 없습니다.");
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
+		}
 	}
 
 	/**

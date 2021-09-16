@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.flybutter.product.model.vo.*"
-	import="com.flybutter.seller.model.vo.*"
+	import="com.flybutter.seller.model.vo.*, com.flybutter.review.model.vo.*"
 	import="java.util.ArrayList, com.flybutter.qna.model.vo.*"%>
 
 <%
 	ArrayList<Qna> qList = (ArrayList<Qna>)request.getAttribute("qList");
+	ArrayList<Review> rList = (ArrayList<Review>)request.getAttribute("rList");
 	String qCategory = null;
-
 	Product p = (Product)request.getAttribute("p");	
 	Seller s = (Seller)request.getAttribute("s");
 	String option = null;
@@ -101,8 +101,17 @@ function showDiv(element){
 }
 $(function(){
 	$(".qnaList>tbody>tr").click(function(){
-		var qNo = $(this).children().eq(0).text();
-		location.href="<%= request.getContextPath() %>/qnaDetail.pr?qNo="+qNo;
+		var qLock = $(this).children().eq(0).text();
+		var qNo = $(this).children().eq(1).text();
+		
+		if(qLock == 2){
+			location.href="<%= request.getContextPath() %>/checkQnaPwd.pr?qNo="+qNo;
+		}else{
+			location.href="<%= request.getContextPath() %>/qnaDetail.pr?qNo="+qNo;
+		}
+		
+		
+		
 	})
 })
 
@@ -181,14 +190,8 @@ $(function(){
 	</div>
 
 	<div id="reviewBox" class="bottom none">
-		
-		<br> <br>
-		<table>
-			<td>id</td>
-			<td>내용</td>
-			<td>별점</td>
-		</table>
-		
+		<br><br>
+	
 	</div>
 
 	<div id="qnaBox" class="bottom none">
@@ -230,10 +233,10 @@ $(function(){
 					}
 				%>
 				<tr>
-					<td></td>
+					<td><%=q.getLock_Flag() %><input type="hidden" name="pwd" value="<%=q.getQna_Pwd()%>"></td>
 					<td><%=q.getQna_No() %></td>
 					<td><%=qCategory %></td>
-					<td><%=q.getUser_No()%></td>
+					<td><%=q.getQna_Writer()%></td>
 					<td><%=q.getQna_Title()%></td>
 					<td><%=q.getQna_Status()%></td>
 					<td><%=q.getQna_Date()%></td>
