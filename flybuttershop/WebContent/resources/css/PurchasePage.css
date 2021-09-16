@@ -251,7 +251,7 @@
 }
 #tt2{
 	position: relative;
-    top: -180px;
+    top: -200px;
 }
 #tt3{
 	position: relative;
@@ -286,4 +286,13 @@
 	position: relative;
 	left: 30px;
 }
-.menu .hide{display:none;}
+.hide{
+	display:none;
+}
+#new{
+	position: relative;
+	top: -60px;
+}
+#newi{
+	 width: 500px;
+}

@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.basket.model.vo.Basket;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.purchase.model.vo.Purchase;
 
 public class PurchaseDao {
@@ -107,6 +108,38 @@ public class PurchaseDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public Member selectMember(Connection conn, int no) {
+	
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+//		selectMember=SELECT MEM_USER_NAME, MEM_PHONE, MEM_ADDRESS, MEM_EMAIL FROM MEMBER WHERE MEM_USER_NO = ?
+		
+		String sql = prop.getProperty("selectMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			pstmt.setInt(1, no);
+			
+					
+			while(rset.next()) {
+				
+				Member m = new Member(rset.getString("MEM_USER_NAME"),
+						rset.getString("MEM_PHONE"), rset.getString("MEM_ADDRESS"), rset.getString("MEM_EMAIL"));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Basket 테이블  selectBasketList 오류메세지 : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
 	}
 
 }

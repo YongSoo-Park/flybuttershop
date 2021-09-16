@@ -33,6 +33,17 @@ public class Purchase {
 	public Purchase() {
 		
 	}
+	
+	//마이페이지
+	public Purchase(int pur_No, Date pur_Date, String pur_Image, String pur_Pname, int pur_Amount, int pur_State) {
+		super();
+		this.pur_No = pur_No;
+		this.pur_Date = pur_Date;
+		this.pur_Image = pur_Image;
+		this.pur_Pname = pur_Pname;
+		this.pur_Amount = pur_Amount;
+		this.pur_State = pur_State;
+	}
 
 	//무통장입금
 	public Purchase(int user_No, String pCode, int pur_No, Date pur_Date, int pur_Price, String pur_Address,
