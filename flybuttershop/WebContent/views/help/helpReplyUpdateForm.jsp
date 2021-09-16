@@ -75,7 +75,7 @@
 					<button type="submit">등록</button>
 					<button type="reset">취소</button>
 
-			<input type="hidden" name="rno" vlaue="<%= hr.getReply_No() %>">
+			<input type="hidden" name="no" value="<%= hr.getHelp_No() %>">
 				
 			</form>
 		</div>
