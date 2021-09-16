@@ -159,11 +159,11 @@ public class MainPageDao {
 				} else {
 					if (temp.size() >= 1) {
 						total.add(temp.get(0));
-					} 
+					}
 				}
 				saleTotalList.add(temp);
 			}
-			saleTotalList.add(0,total);
+			saleTotalList.add(0, total);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -175,6 +175,67 @@ public class MainPageDao {
 		}
 
 		return saleTotalList;
+	}
+
+	public ArrayList<Mainpage> newList(Connection conn) {
+		ArrayList<Mainpage> newList = new ArrayList<Mainpage>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("newList");
+		try {
+			for (int i = 1; i < 9; i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, i);
+				rset = pstmt.executeQuery();
+
+				if (rset.next()) {
+					newList.add(new Mainpage(rset.getString("PCODE"), rset.getString("PIMAGE_ORIGIN"),
+							rset.getString("PNAME"), rset.getInt("PRICE")));
+				}
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			close(rset);
+			close(pstmt);
+		}
+		return newList;
+	}
+
+	public ArrayList<Mainpage> bestList(Connection conn) {
+		ArrayList<Mainpage> bestList = new ArrayList<Mainpage>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("bestList");
+		try {
+			for (int i = 1; i < 9; i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, i);
+				rset = pstmt.executeQuery();
+				while (true) {
+					if (rset.next()) {
+						bestList.add(new Mainpage(rset.getString("PCODE"), rset.getString("PIMAGE_ORIGIN"),
+								rset.getString("PNAME"), rset.getInt("PRICE")));
+
+						continue;
+					} else {
+						break;
+					}
+				}
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			close(rset);
+			close(pstmt);
+		}
+		return bestList;
 	}
 
 }

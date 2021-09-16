@@ -37,7 +37,7 @@ public class dummyLogin extends HttpServlet {
 //		session.setAttribute("MEM_USER_NO", m.getMEM_USER_NO());
 //		session.setAttribute("MEM_USER_NAME", m.getMEM_USER_NAME());
 //		session.setAttribute("MEM_CATEGORY", m.getMEM_CATEGORY());
-		request.getRequestDispatcher("views/main_search_category_page/mainPage.jsp").forward(request, response);
+		request.getRequestDispatcher("views/mainpage/mainPage.jsp").forward(request, response);
 		
 	}
 

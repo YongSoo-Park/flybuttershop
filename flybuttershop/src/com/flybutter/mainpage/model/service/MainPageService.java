@@ -33,5 +33,18 @@ public class MainPageService {
 		close(conn);
 		return saleTotalList;
 	}
+	
+	public ArrayList<Mainpage> newList() {
+		Connection conn = getConnection();
+		ArrayList<Mainpage> newList= new MainPageDao().newList(conn);
+		close(conn);
+		return newList;
+	}
 
+	public ArrayList<Mainpage> bestList() {
+		Connection conn = getConnection();
+		ArrayList<Mainpage> bestList= new MainPageDao().bestList(conn);
+		close(conn);
+		return bestList;
+	}
 }
