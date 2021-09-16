@@ -19,6 +19,43 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>주문 목록 조회</title>
+
+<style>
+
+    #outer{
+
+        text-align: center;
+
+    }
+
+
+    #outer>table{
+
+        width: 850px;
+        padding: 20px;
+
+    }
+
+    th,td{
+
+        padding: 20px;
+           
+    }
+
+    .btn{
+
+        width: 100px;
+        height: 50px;
+
+    }
+
+
+
+   
+
+</style>
+
+
 </head>
 <body style="margin: 0 auto">
 	

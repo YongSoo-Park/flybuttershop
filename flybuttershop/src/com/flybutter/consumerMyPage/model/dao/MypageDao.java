@@ -17,7 +17,6 @@ import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.review.model.vo.PageInfo;
-import com.flybutter.review.model.vo.Review;
 
 public class MypageDao {
 	
