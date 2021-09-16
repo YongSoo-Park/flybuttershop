@@ -38,7 +38,7 @@ public class SellerDao {
 			}	
 			
 		}
-		public Seller selectStore(Connection conn) {
+		public Seller selectStore(Connection conn, int userNo) {
 			
 			Seller sel = null;
 			
@@ -46,9 +46,10 @@ public class SellerDao {
 			ResultSet rset = null;
 			
 			String sql = prop.getProperty("selectSeller");
-			
+			//selectSeller=SELECT * FROM SELLER WHERE USER_NO = ?
 			try {
 				pstmt = conn.prepareStatement(sql);		
+				pstmt.setInt(1, userNo);
 				rset = pstmt.executeQuery();
 				
 				if(rset.next()) {
@@ -237,6 +238,7 @@ public class SellerDao {
 				
 				while(rset.next()) {
 					list.add(new Qna(rset.getInt("QNA_NO"),
+									 rset.getString("PCODE"),
 									 rset.getInt("QNA_CATEGORY"),
 									 rset.getInt("USER_NO"),
 									 rset.getString("QNA_TITLE"),

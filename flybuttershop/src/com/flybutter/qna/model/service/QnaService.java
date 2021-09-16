@@ -39,4 +39,31 @@ public class QnaService {
 		return q;
 	}
 
+	public Qna replyQna(Qna q) {
+
+		Connection conn = getConnection();
+		
+		Qna reQna = null;
+		
+		System.out.println("댓글 서비스으으으으ㅡㅇ : " + q.getQna_Comment());
+		System.out.println("댓글 서비스으으으으ㅡㅇ : " + q.getQna_No());
+
+		int result = new QnaDao().replyQna(conn, q);
+		
+		if(result > 0) {
+			commit(conn);
+			
+			reQna = new QnaDao().selectQna(conn, q.getQna_No());
+			
+			System.out.println("qna답변~~~" + reQna);
+			
+		}else {
+			rollback(conn);
+		}
+	
+		close(conn);
+		
+		return reQna;
+	}
+
 }

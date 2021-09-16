@@ -23,7 +23,26 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+	.outer>table, .outer>table tr>*{
+		border:1px solid black;
+	}
+	
+	.outer>table{
+		width:600px;
+		height:300px;
+	}
+	
+	.outer>table p{
+		height:230px;
+		margin: 0;
+	}
+	.reply>table{
+		width:600px;
+		text-align:center;
+	}
 
+</style>
 
 </head>
 <body style="margin: 0 auto">
@@ -33,28 +52,50 @@
 	
 	<h2 align="center">상품 Q&A</h2><br>
 	
-	<table align="center">
-			<tr>
-				<th width="100">분야</th>
-				<td><%=q.getQna_Category()%></td>
-				<th>제목</th>
-				<td colspan="2"><%=q.getQna_Title()%></td>
-			</tr>
-			<tr>
-				<th>작성자</th>
-				<td><%=q.getQna_Writer()%></td>
-				<th>작성일</th>
-				<td><%=q.getQna_Date()%></td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td colspan="3">
-					<p><%=q.getQna_Content()%></p>
-				</td>
-			</tr>
+	<div class="outer">
+		<table align="center">
+				<tr>
+					<th width="100">분야</th>
+					<td><%=q.getQna_Category()%></td>
+					<th>제목</th>
+					<td colspan="2"><%=q.getQna_Title()%></td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td><%=q.getQna_Writer()%></td>
+					<th>작성일</th>
+					<td><%=q.getQna_Date()%></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td colspan="3">
+						<p><%=q.getQna_Content()%></p>
+					</td>
+				</tr>
 		</table>
-		
+	</div>	
+	<br><br>
+	
+	
+	<div class="reply">
+		<form id="reply" action="<%= request.getContextPath() %>/rInsert.na" method="post">
+			<table border="1" align="center">
+				<tr>
+					<th>댓글작성<input type="hidden" name="qNo" value="<%=q.getQna_No()%>"></th>
+					<td><textarea name="comment" rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
+					<td><button type="submit" id="addReply">댓글등록</button></td>
+				</tr>
+			</table>
+		</form>
+	<div id="replyListArea">
+			<table id="replyList" border="1" align="center">
+			</table>
+		</div>
+	</div>
 	
 
+
+
+<jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>
 </html>

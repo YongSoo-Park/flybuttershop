@@ -69,10 +69,11 @@ public class Qna {
 	}
 
 
-	public Qna(int qna_No, int qna_Category, int user_No, String qna_Title, String qna_Content, Date qna_Date, String qna_Status) {
+	public Qna(int qna_No, String pCode, int qna_Category, int user_No, String qna_Title, String qna_Content, Date qna_Date, String qna_Status) {
 		this.qna_No = qna_No;
-		this.user_No = user_No;
+		this.pCode = pCode;
 		this.qna_Category = qna_Category;
+		this.user_No = user_No;
 		this.qna_Title = qna_Title;
 		this.qna_Content = qna_Content;
 		this.qna_Date = qna_Date;
@@ -96,6 +97,12 @@ public class Qna {
 		this.qna_Comment = qna_Comment;
 		this.qna_Comment_Date = qna_Comment_Date;
 		this.qna_Writer = qna_Writer;
+	}
+
+
+	public Qna(int qna_No, String qna_Comment) {
+		this.qna_No = qna_No;
+		this.qna_Comment = qna_Comment;
 	}
 
 

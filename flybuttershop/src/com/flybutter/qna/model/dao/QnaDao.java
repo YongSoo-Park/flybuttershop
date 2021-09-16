@@ -31,7 +31,6 @@ public class QnaDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 	public int insertQna(Connection conn, Qna q) {
@@ -95,7 +94,6 @@ public class QnaDao {
 							rset.getDate("QNA_COMMENT_DATE"),
 							rset.getString("MEM_USER_ID")
 							);
-						
 			}
 			
 			System.out.println("serviceeeeeee " + q);
@@ -103,9 +101,39 @@ public class QnaDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return q;
+	}
+
+	public int replyQna(Connection conn, Qna q) {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("replyQna");
+		//replyQna=UPDATE QNA SET QNA_COMMENT = '?', QNA_COMMENT_DATE = SYSDATE, QNA_STATUS = 'Y' WHERE QNA_NO = ?
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			System.out.println("댓글 다오오오오오오 : " + q.getQna_Comment());
+			System.out.println("댓글 다오오오오오오 : " + q.getQna_No());
+			
+			pstmt.setString(1, q.getQna_Comment());
+			pstmt.setInt(2, q.getQna_No());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		
-		return q;
+		return result;
 	}
 
 }

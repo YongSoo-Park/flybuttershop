@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.product.model.vo.PageInfo;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.seller.model.service.SellerService;
@@ -36,10 +37,12 @@ public class productManagerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		Seller sel = new SellerService().selectStore();
-		System.out.println("sel" + sel);
-		System.out.println("storeNo : "+sel.getStore_No());
-		int storeNo = sel.getStore_No();
+		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getMEM_USER_NO();
+	    Seller seller = new SellerService().selectStore(userNo);
+	    
+		System.out.println("sel" + seller);
+		System.out.println("storeNo : "+seller.getStore_No());
+		int storeNo = seller.getStore_No();
 		
 		int listCount;			// 총 게시글 갯수
 		int currentPage;		// 현재 페이지 (즉, 요청한 페이지)
