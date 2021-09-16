@@ -4,8 +4,8 @@
 	import="java.util.ArrayList, com.flybutter.qna.model.vo.*"%>
 
 <%
-ArrayList<Qna> qList = (ArrayList<Qna>)request.getAttribute("qList");
-String qCategory = null;
+	ArrayList<Qna> qList = (ArrayList<Qna>)request.getAttribute("qList");
+	String qCategory = null;
 
 	Product p = (Product)request.getAttribute("p");	
 	Seller s = (Seller)request.getAttribute("s");
@@ -41,6 +41,9 @@ String qCategory = null;
 
 .bottom {
 	text-align: center;
+}
+.none{
+	display: none;
 }
 
 </style>
@@ -177,7 +180,7 @@ $(function(){
 		</div>
 	</div>
 
-	<div id="reviewBox" class="bottom">
+	<div id="reviewBox" class="bottom none">
 		
 		<br> <br>
 		<table>
@@ -188,7 +191,7 @@ $(function(){
 		
 	</div>
 
-	<div id="qnaBox" class="bottom">
+	<div id="qnaBox" class="bottom none">
 		<br> <br>
 		<button type="button" class="btn btn-outline-dark"
 			onclick="qnaInsert();">상품 문의하기</button>
@@ -242,7 +245,7 @@ $(function(){
 
 	</div>
 
-	<div id="storeBox" class="bottom">
+	<div id="storeBox" class="bottom none">
 		<br> <br>
 		<table border="1">
 			<tr>

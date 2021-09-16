@@ -48,6 +48,7 @@
 		<thead>
 			<tr>
 				<th>no</th>
+				<th>상품코드</th>
 				<th>문의유형</th>
 				<th>작성자</th>
 				<th>제목</th>
@@ -76,6 +77,7 @@
 				%>
 					<tr>
 						<td><%=q.getQna_No() %></td>
+						<td><%=q.getpCode() %></td>
 						<td><%=qCategory %></td>
 						<td><%=q.getUser_No()%></td>
 						<td><%=q.getQna_Title()%></td>

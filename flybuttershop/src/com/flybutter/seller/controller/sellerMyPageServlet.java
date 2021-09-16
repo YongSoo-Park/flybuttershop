@@ -33,10 +33,14 @@ public class sellerMyPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		//int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMEM_USER_NO();
-			
-	      Seller seller = new SellerService().selectStore();
+		  //Member m = (Member)request.getSession().getAttribute("loginMember");
+		  
+		  int userNo = ((Member)request.getSession().getAttribute("loginMember")).getMEM_USER_NO();
+		  
+		  System.out.println("새ㅔㄹ러 마이페이지지이이이이          "+userNo);
+		  //System.out.println("새ㅔㄹ러 마이페이지지이이이이          "+m);
+		  
+	      Seller seller = new SellerService().selectStore(userNo);
 	      
 	      RequestDispatcher view = null;
 	      

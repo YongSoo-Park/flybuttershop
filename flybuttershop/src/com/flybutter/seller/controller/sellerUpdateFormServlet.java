@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.seller.model.service.SellerService;
 import com.flybutter.seller.model.vo.Seller;
 
@@ -18,42 +19,48 @@ import com.flybutter.seller.model.vo.Seller;
 @WebServlet("/updateForm.sl")
 public class sellerUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public sellerUpdateFormServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
-		
-		Seller seller = new SellerService().selectStore();
-	      
-	      RequestDispatcher view = null;
-	      
-	      if(seller != null) {
-	         request.setAttribute("seller", seller);
-	         view = request.getRequestDispatcher("views/seller/sellerUpdateForm.jsp");
-	         
-	      }else {
-	    	  request.setAttribute("msg", "판매자 정보를 수정할 수 없습니다");
-	         view = request.getRequestDispatcher("views/error/errorPage.jsp");
-	      }
-	      view.forward(request, response);
-	
+	public sellerUpdateFormServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+
+		int userNo = ((Member) request.getSession().getAttribute("loginMember")).getMEM_USER_NO();
+		Seller seller = new SellerService().selectStore(userNo);
+		
+		System.out.println("셀러 정보 수정     " + seller);
+		
+		RequestDispatcher view = null;
+
+		if (seller != null) {
+			request.setAttribute("seller", seller);
+			view = request.getRequestDispatcher("views/seller/sellerUpdateForm.jsp");
+
+		} else {
+			request.setAttribute("msg", "판매자 정보를 수정할 수 없습니다");
+			view = request.getRequestDispatcher("views/error/errorPage.jsp");
+		}
+		view.forward(request, response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

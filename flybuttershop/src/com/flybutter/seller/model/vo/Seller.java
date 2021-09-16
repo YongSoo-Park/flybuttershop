@@ -4,18 +4,18 @@ import com.flybutter.member.model.vo.Member;
 
 public class Seller extends Member{
 	
-	private int store_No;
-	private int user_No;
-	private String store_Name;
-	private String store_Address;
-	private String seller_No;
-	private String store_Account;
-	private String store_Exp;
-	private int store_Lev;
-	private int totalSales;
-	private String storeCall;
-	private String ceo;
-	private String email;
+	private int store_No; //상점번호
+	private int user_No; //유저번호
+	private String store_Name; //상점이름
+	private String store_Address; //상점주소
+	private String seller_No; //사업자번호
+	private String store_Account; //상점계좌
+	private String store_Exp; //상점 소개
+	private int store_Lev; //default
+	private int totalSales; //총판매액
+	private String storeCall; //상점전화번호
+	private String ceo; //대표자
+	private String email; //상점이메일
 	
 	public Seller() {
 		// TODO Auto-generated constructor stub
