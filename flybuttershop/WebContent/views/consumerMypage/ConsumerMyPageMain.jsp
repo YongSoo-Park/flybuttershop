@@ -57,9 +57,8 @@
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 </head>
-<body>
+<body style="margin: 0 auto">
 	
-<body>
 
 
  <jsp:include page="../header_footer/header.jsp" flush="true"/>
@@ -151,7 +150,6 @@
     </div>
 
 <div>
-<!--<jsp:include page="../header_footer/footer.jsp" flush="true"/>-->
 
 </div>
 
@@ -161,3 +159,5 @@
 
 
 </html>
+
+<!--<jsp:include page="../header_footer/footer.jsp" flush="true"/>-->

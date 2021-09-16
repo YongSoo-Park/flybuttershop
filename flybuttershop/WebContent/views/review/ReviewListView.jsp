@@ -43,7 +43,7 @@
 </style>
 	
 </head>
-<body>
+<body style="margin: 0 auto">
 	 <jsp:include page="../header_footer/header.jsp" flush="true"/>
 	
 	     <div class="outer">
@@ -65,7 +65,9 @@
 			<tbody>
 				<%if(list.isEmpty()){ %>
 				<tr>
-					<td colspan="5">조회된 리스트가 없습니다.</td>
+					
+					<td colspan="5"><b>아직 작성 된 리뷰가 없습니다</b></td>
+					
 				</tr>
 				<%}else{ %>
 					<% for(Review r : list){ %>

@@ -11,6 +11,8 @@ public class Coupon {
 	private int cp_count;
 	private double cp_discount;
 	private Date cp_date;
+	private String cp_name;
+	private int minPrice;
 	
 	
 	public Coupon() {
@@ -98,13 +100,45 @@ public class Coupon {
 	public void setCp_date(Date cp_date) {
 		this.cp_date = cp_date;
 	}
+	
+	
 
 
-	@Override
-	public String toString() {
-		return "Coupon [user_no=" + user_no + ", order_no=" + order_no + ", pCode=" + pCode + ", cp_no=" + cp_no
-				+ ", cp_count=" + cp_count + ", cp_discount=" + cp_discount + ", cp_date=" + cp_date + "]";
+	public String getCp_name() {
+		return cp_name;
 	}
+
+
+	public void setCp_name(String cp_name) {
+		this.cp_name = cp_name;
+	}
+
+
+	public int getMinPrice() {
+		return minPrice;
+	}
+
+
+	public void setMinPrice(int minPrice) {
+		this.minPrice = minPrice;
+	}
+
+
+	public Coupon(int user_no, int order_no, String pCode, int cp_no, int cp_count, double cp_discount, Date cp_date,
+			String cp_name, int minPrice) {
+		super();
+		this.user_no = user_no;
+		this.order_no = order_no;
+		this.pCode = pCode;
+		this.cp_no = cp_no;
+		this.cp_count = cp_count;
+		this.cp_discount = cp_discount;
+		this.cp_date = cp_date;
+		this.cp_name = cp_name;
+		this.minPrice = minPrice;
+	}
+
+
 	
 	
 
