@@ -15,6 +15,7 @@ import static com.common.JDBCTemplate.*;
 
 
 import com.flybutter.help.model.vo.Help;
+import com.flybutter.help.model.vo.HelpReply;
 import com.flybutter.help.model.vo.PageInfo;
 import com.flybutter.notice.model.vo.Notice;
 
@@ -78,7 +79,7 @@ public class HelpDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectHelp");
-		//selectHelp=SELECT HELP_NO, USER_NO, HELP_CATEGORY, HELP_TITLE, HELP_CONTENT, HELP_FILE_ORIGIN, HELP_FILE_SYSTEM, HELP_DATE, HELP_STATUS, HELP_ANSWER_CONTENT, HELP_ANSWER_DATE FROM HELP WHERE HELP_NO=?
+		//selectHelp=SELECT HELP_NO, USER_NO, HELP_CATEGORY, HELP_TITLE, HELP_CONTENT, HELP_FILE_ORIGIN, HELP_FILE_SYSTEM, HELP_DATE, HELP_STATUS FROM HELP WHERE HELP_NO=?
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -95,9 +96,8 @@ public class HelpDao {
 						rset.getString("HELP_FILE_ORIGIN"),
 						rset.getString("HELP_FILE_SYSTEM"),
 						rset.getDate("HELP_DATE"),
-						rset.getString("HELP_STATUS"),
-						rset.getString("HELP_ANSWER_CONTENT"),
-						rset.getDate("HELP_ANSWER_DATE")
+						rset.getString("HELP_STATUS")
+						
 						);
 			}
 		} catch (SQLException e) {
@@ -114,7 +114,7 @@ public class HelpDao {
 	public int insertHelp(Connection conn, Help h) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		//insertHelp=INSERT INTO HELP VALUES(HELP_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE, 'Y', ?, SYSDATE)
+		//insertHelp=INSERT INTO HELP VALUES(HELP_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE, 'N')
 /*				
 		HELP_NO
 		USER_NO
@@ -125,8 +125,7 @@ public class HelpDao {
 		HELP_FILE_SYSTEM
 		HELP_DATE
 		HELP_STATUS
-		HELP_ANSWER_CONTENT
-		HELP_ANSWER_DATE
+	
 */		
 		String sql = prop.getProperty("insertHelp");
 		
@@ -138,7 +137,7 @@ public class HelpDao {
 				pstmt.setString(4, h.getHelp_Content());
 				pstmt.setString(5, h.getHelp_File_Origin());
 				pstmt.setString(6, h.getHelp_File_System());
-				pstmt.setString(7, h.getHelp_Answer_Content());
+				
 			
 				
 				result = pstmt.executeUpdate();
@@ -157,7 +156,7 @@ public class HelpDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateHelp");
-	//updateHelp=UPDATE HELP SET HELP_CATEGORY=?, HELP_TITLE=?, HELP_CONTENT=?, HELP_FILE_ORIGIN=?, HELP_FILE_SYSTEM=?, HELP_STATUS='Y' WHERE HELP_NO=?
+	//updateHelp=UPDATE HELP SET HELP_CATEGORY=?, HELP_TITLE=?, HELP_CONTENT=?, HELP_FILE_ORIGIN=?, HELP_FILE_SYSTEM=?, HELP_STATUS='N' WHERE HELP_NO=?
 /*		HELP_NO
 		USER_NO
 		HELP_CATEGORY
@@ -167,8 +166,7 @@ public class HelpDao {
 		HELP_FILE_SYSTEM
 		HELP_DATE
 		HELP_STATUS
-		HELP_ANSWER_CONTENT
-		HELP_ANSWER_DATE
+	
 */
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -243,6 +241,171 @@ public class HelpDao {
 		return listCount;
 	}
 
+	public int insertReplyHelp(Connection conn, HelpReply hr) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		//insertReplyHelp=INSERT INTO HELP_REPLY VALUES(REPLY_NO.NEXTVAL, ?, SYSDATE, ?)
+/*				
+		REPLY_NO
+		REPLY_CONTENT
+		REPLY_DATE
+		HELP_NO
+*/		
+		String sql = prop.getProperty("insertReplyHelp");
+		
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, hr.getReply_Content());
+				pstmt.setInt(2, hr.getHelp_No());
+				
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			System.out.println("result from dao : " + result);
+		return result;
+	}
+
+	public HelpReply selectReplyFormHelp(Connection conn, int no) {
+		HelpReply hr = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReplyFormHelp");
+		//selectReplyFormHelp=SELECT REPLY_NO, REPLY_CONTENT, REPLY_DATE, HELP_NO FROM HELPREPLY WHERE HELP_NO=?
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				hr= new HelpReply( rset.getInt("REPLY_NO"),
+						rset.getString("REPLY_CONTENT"),
+						rset.getDate("REPLY_DATE"),
+						rset.getInt("HELP_NO")
+						
+						
+						);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return hr;
+	}
+
+	public int changeStatusHelp(Connection conn, Help h) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("changeStatusHelp");
+	//changeStatusHelp=UPDATE HELP SET HELP_STATUS='Y' WHERE HELP_NO=?
+/*		HELP_NO
+		USER_NO
+		HELP_CATEGORY
+		HELP_TITLE
+		HELP_CONTENT
+		HELP_FILE_ORIGIN
+		HELP_FILE_SYSTEM
+		HELP_DATE
+		HELP_STATUS
+	
+*/
+		try {
+			pstmt = conn.prepareStatement(sql);
+				// 유저넘버 추가해야함
+			
+			
+			pstmt.setInt(1, h.getHelp_No());
+		
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public HelpReply selectReplyHelp(Connection conn, int no) {
+		HelpReply hr = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReplyHelp");
+		//selectReplyHelp=SELECT * FROM HELP_REPLY WHERE REPLY_NO=?
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				hr = new HelpReply( rset.getInt("REPLY_NO"),
+						rset.getString("REPLY_CONTENT"),
+						rset.getDate("REPLY_DATE"),
+						rset.getInt("HELP_NO")
+						
+						);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return hr;
+	}
+
+	public int updateReplyHelp(Connection conn, HelpReply hr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReplyHelp");
+	//updateReplyHelp=UPDATE HELP_REPLY SET REPLY_CONTENT=?  WHERE REPLY_NO=?
+/*		REPLY_NO
+		REPLY_CONTENT
+		REPLY_DATE
+		HELP_NO
+	
+*/
+		try {
+			pstmt = conn.prepareStatement(sql);
+				// 유저넘버 추가해야함
+			pstmt.setString(1, hr.getReply_Content());
+			pstmt.setInt(2, hr.getReply_No());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	 
 	
 
 	

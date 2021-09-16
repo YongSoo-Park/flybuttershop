@@ -42,7 +42,7 @@ public class FAQMemberListServlet extends HttpServlet {
 		int pageLimit;			
 		int boardLimit;			
 		
-		listCount = new FAQService().getListCount();
+		listCount = new FAQService().getMemberListCount();
 		currentPage = 1;
 
 		if(request.getParameter("currentPage") != null) {

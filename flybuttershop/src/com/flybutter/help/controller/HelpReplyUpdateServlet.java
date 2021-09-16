@@ -8,22 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.help.model.service.HelpService;
-import com.flybutter.help.model.vo.Help;
 import com.flybutter.help.model.vo.HelpReply;
 
-
-
 /**
- * Servlet implementation class HelpReplyFormServlet
+ * Servlet implementation class HelpReplyUpdateServlet
  */
-@WebServlet("/replyForm.help")
-public class HelpReplyFormServlet extends HttpServlet {
+@WebServlet("/updateReply.help")
+public class HelpReplyUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HelpReplyFormServlet() {
+    public HelpReplyUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,22 +29,25 @@ public class HelpReplyFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-			int no = Integer.parseInt(request.getParameter("no"));
-			
-			Help h = new HelpService().selectHelp(no);
-			
-			if(h != null) {
-				request.setAttribute("h", h);
-				
-				request.getRequestDispatcher("views/help/helpReplyForm.jsp").forward(request, response);
-				
-			}else { 
-				request.setAttribute("msg", "게시글을 수정할 수 없습니다.");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			}
+		int no = Integer.parseInt(request.getParameter("no"));
+		int rno = Integer.parseInt(request.getParameter("rno"));
+		String content = request.getParameter("content");
 		
+		
+		HelpReply hr = new HelpReply();
+		hr.setReply_No(rno);
+		hr.setReply_Content(content);
+		hr.setHelp_No(no);
+		
+		int result = new HelpService().updateReplyHelp(hr);
+		
+		if(result > 0) {
+			response.sendRedirect("detail.help?no=" + no);
+			
+		}else { 
+			request.setAttribute("msg", "답변이 수정되지 않았습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 		
 	}
 

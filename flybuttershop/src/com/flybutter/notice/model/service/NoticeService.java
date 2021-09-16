@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 import static com.common.JDBCTemplate.*;
 import com.flybutter.notice.model.vo.Notice;
-import com.flybutter.help.model.dao.HelpDao;
-import com.flybutter.help.model.vo.PageInfo;
+import com.flybutter.notice.model.vo.PageInfo;
 import com.flybutter.notice.model.dao.NoticeDao;
 
 public class NoticeService {
@@ -106,14 +105,30 @@ public class NoticeService {
 		return list;
 	}
 
-	public int getListCount() {
+	public int getEntireListCount() {
 		Connection conn = getConnection();
 		
-		int listCount = new HelpDao().getListCount(conn);
+		int listCount = new NoticeDao().getEntireListCount(conn);
 		close(conn);
 		return listCount;
 	}
-	
 
+	public int getNoticeListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new NoticeDao().getNoticeListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	public int getEventListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new NoticeDao().getEventListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	
 
 }

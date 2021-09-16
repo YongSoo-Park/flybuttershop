@@ -141,7 +141,7 @@ hr {
 			<thead>
 				<tr>
 					 <th style="visibility:hidden;" width="100">글번호</th>
-					<th width="100">카테고리</th>
+					<th width="150">카테고리</th>
 					<th width="300">글제목</th>
 			
 				</tr>
@@ -156,7 +156,7 @@ hr {
 				 	<% for(FAQ f : list){ %>
 				 		<tr>
 				 			<td style="visibility:hidden;" ><%= f.getFaq_No() %></td>
-				 			<td><%= f.getFaq_Category() %></td>
+				 				 <td>[반품/교환/환불]</td>
 							<td><%= f.getFaq_Title() %></td>
 					
 				 		</tr>

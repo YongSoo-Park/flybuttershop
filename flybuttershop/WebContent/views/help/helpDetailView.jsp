@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.flybutter.help.model.vo.Help" %>
+<%@ page import="com.flybutter.help.model.vo.*" %>
 <%
 	Help h = (Help)request.getAttribute("h");
+ HelpReply hr = (HelpReply)request.getAttribute("hr");
 %>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
 <style>
 	.outer {
 	width: 1200px;
-	height: 1500px;
+	height: 2300px;
 	color: black;
 	margin: auto;
 	margin-top: 50px;
@@ -46,6 +47,11 @@
 		color:white;
 		background:black;
 		margin:auto;
+	}
+	p{
+	width:1200px;
+	height:230px;
+		border:1px solid black;
 	}
 </style>
 </head>
@@ -88,6 +94,17 @@
 		</table>
 		
 		<br>
+	
+		<% if(h.getHelp_status().equals("Y")){ %>
+			<h3>답변</h3>
+					<p height="100px"><%= hr.getReply_Content() %></p>
+				
+				<input type="hidden" height="100px" name="rno" <%= hr.getReply_No() %>>
+			
+		
+		<% } %>
+		
+		<br>
 		
 		<div class="btns" align="center">
 		
@@ -96,15 +113,19 @@
 			
 			
 			<a href="updateForm.help?no=<%=h.getHelp_No()%>">수정하기</a> &nbsp;&nbsp;
-			<a href="delete.help?no=<%=h.getHelp_No()%>">삭제하기</a>
-			<a href="replyForm.help?no=<%=h.getHelp_No()%>">답글달기</a>
-		
+			<a href="delete.help?no=<%=h.getHelp_No()%>">삭제하기</a> &nbsp;&nbsp;
+			<br>
+			<a href="replyForm.help?no=<%=h.getHelp_No()%>">답글달기</a> 
+			<a href="replyUpdateForm.help?no=<%=hr.getHelp_No() %>">답글수정</a>
+			<a href="replyDelete.help?no=<%=hr.getHelp_No() %>">답글삭제</a>
+
 		</div>
 		
 		
 		
 		<form action="" id="postForm" method="post">
 			<input type="hidden" name="no" value="<%= h.getHelp_No() %>">
+			
 		</form>
 		<script>
 			function updateForm(){
@@ -120,6 +141,10 @@
 				$("#postForm").attr("action", "<%=request.getContextPath()%>/replyForm.help");
 				$("#postForm").submit();
 			}
+			
+		     
+
+
 			
 		</script>
 	</div>

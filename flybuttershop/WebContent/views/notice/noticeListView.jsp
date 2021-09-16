@@ -153,7 +153,11 @@ hr {
 				 		<tr>
 				 		
 				 			<td style="visibility:hidden;" ><%= n.getNotice_No() %></td>
-				 			<td><%= n.getNotice_Category() %></td>
+				 			<% if(n.getNotice_Category() == 1){ %>
+				 			<td>[공지]</td>
+				 			 <% }else if(n.getNotice_Category() == 2){  %>
+				 			 <td>[이벤트]</td>
+				 			 <% } %>
 							<td><%= n.getNotice_Title() %></td>
 							
 				 		</tr>
@@ -257,7 +261,7 @@ hr {
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){
 				var bno = $(this).children().eq(0).text();
-				location.href="<%= request.getContextPath()%>/detail.no?bno="+bno;
+				location.href="<%= request.getContextPath()%>/detail.no?no="+no;
 			})
 		})
 		<%}%>

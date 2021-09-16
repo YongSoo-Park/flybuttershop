@@ -234,8 +234,8 @@ hr {
 		<%if(!list.isEmpty()){%>
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){
-				var bno = $(this).children().eq(0).text();
-				location.href="<%= request.getContextPath()%>/detail.help?bno="+bno;
+				var no = $(this).children().eq(0).text();
+				location.href="<%= request.getContextPath()%>/detail.help?no="+no;
 			})
 		})
 		<%}%>
