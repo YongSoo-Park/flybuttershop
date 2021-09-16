@@ -5,6 +5,17 @@
 <%
 	Qna q = (Qna)request.getAttribute("q");
 	String qCategory = null;
+	if(q.getQna_Category()==1){
+		qCategory = "상품";
+	}else if(q.getQna_Category()==2){
+		qCategory = "배송";
+	}else if(q.getQna_Category()==2){
+		qCategory = "교환";
+	}else if(q.getQna_Category()==2){
+		qCategory = "반품";
+	}else {
+		qCategory = "기타";
+	}
 %>
 	
 <!DOCTYPE html>
@@ -24,6 +35,9 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
+	table{
+		width: 600px;
+	}
 	.outer>table, .outer>table tr>*{
 		border:1px solid black;
 	}
@@ -37,8 +51,14 @@
 		height:230px;
 		margin: 0;
 	}
-	.reply>table{
+	.reply>form>table{
 		width:600px;
+		height:200px;
+		text-align:center;
+	}
+	.reView>table{
+		width:600px;
+		height:150px;
 		text-align:center;
 	}
 
@@ -55,8 +75,8 @@
 	<div class="outer">
 		<table align="center">
 				<tr>
-					<th width="100">분야</th>
-					<td><%=q.getQna_Category()%></td>
+					<th width="100">문의유형</th>
+					<td><%=qCategory%></td>
 					<th>제목</th>
 					<td colspan="2"><%=q.getQna_Title()%></td>
 				</tr>
@@ -74,23 +94,40 @@
 				</tr>
 		</table>
 	</div>	
+	
+	<div class="reView">
+		<table border="1" align="center">
+			<% if(q.getQna_Comment() == null){ %>
+			<tr>
+				<td colspan="5">등록된 답변이 없습니다.</td>
+			</tr>
+			<%}else{ %>
+				<tr>
+					<td rowspan="2" width="100px">답변</td>
+					<td colspan="4"><%=q.getQna_Comment() %></td>
+				</tr>
+				<tr>
+					
+					<td colspan="3" align="right"><%=q.getQna_Comment_Date()%></td>
+				</tr>
+			<% } %>
+		</table>
+	
+	</div>
+	
 	<br><br>
 	
 	
 	<div class="reply">
 		<form id="reply" action="<%= request.getContextPath() %>/rInsert.na" method="post">
-			<table border="1" align="center">
+			<table  border="1" align="center">
 				<tr>
-					<th>댓글작성<input type="hidden" name="qNo" value="<%=q.getQna_No()%>"></th>
-					<td><textarea name="comment" rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
+					<th>답변작성<input type="hidden" name="qNo" value="<%=q.getQna_No()%>"></th>
+					<td><textarea name="comment" rows="10" cols="60" id="replyContent" style="resize:none;"></textarea></td>
 					<td><button type="submit" id="addReply">댓글등록</button></td>
 				</tr>
 			</table>
 		</form>
-	<div id="replyListArea">
-			<table id="replyList" border="1" align="center">
-			</table>
-		</div>
 	</div>
 	
 

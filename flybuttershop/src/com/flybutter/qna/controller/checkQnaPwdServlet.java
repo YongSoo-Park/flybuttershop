@@ -1,7 +1,6 @@
-package com.flybutter.seller.controller;
+package com.flybutter.qna.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.qna.model.service.QnaService;
 import com.flybutter.qna.model.vo.Qna;
-import com.flybutter.seller.model.service.SellerService;
-import com.flybutter.seller.model.vo.Seller;
 
 /**
- * Servlet implementation class qnaListManagerServlet
+ * Servlet implementation class qnaLockServlet
  */
-@WebServlet("/qnaManager.sl")
-public class qnaListManagerServlet extends HttpServlet {
+@WebServlet("/checkQnaPwd.pr")
+public class checkQnaPwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public qnaListManagerServlet() {
+    public checkQnaPwdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,20 +31,14 @@ public class qnaListManagerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		int qNo = Integer.parseInt(request.getParameter("qNo"));
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getMEM_USER_NO();
-	    Seller seller = new SellerService().selectStore(userNo);
-		System.out.println("sel" + seller);
-		System.out.println("storeNo : "+seller.getStore_No());
-		int storeNo = seller.getStore_No();
+		Qna q = new QnaService().selectQna(qNo);
 		
-		ArrayList<Qna> list = new SellerService().qnaList(storeNo);
+		request.setAttribute("q", q);
+		request.getRequestDispatcher("views/qna/checkQnaPwd.jsp").forward(request, response);
 		
-		
-		request.setAttribute("list", list);
-		
-		RequestDispatcher view = request.getRequestDispatcher("views/seller/qnaListManager.jsp");
-		view.forward(request, response);
 	
 	}
 

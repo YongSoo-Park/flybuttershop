@@ -35,11 +35,11 @@ public class HelpReplyUpdateFormServlet extends HttpServlet {
 			int no = Integer.parseInt(request.getParameter("no"));
 			
 			
-			Help h = new HelpService().selectHelp(no);
-			HelpReply hr = new HelpService().selectReplyHelp(rno);
+			//Help h = new HelpService().selectHelp(no);
+			HelpReply hr = new HelpService().selectReplyHelp(no);
 			
 			if(hr != null) {
-				request.setAttribute("hr", hr);
+				request.setAttribute("hr", hr); 
 				
 				request.getRequestDispatcher("views/help/helpReplyUpdateForm.jsp").forward(request, response);	
 				

@@ -29,13 +29,14 @@ public class HelpReplyUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("no 전: " + request.getParameter("no"));
 		int no = Integer.parseInt(request.getParameter("no"));
-		int rno = Integer.parseInt(request.getParameter("rno"));
+		System.out.println("no 후 : " + no);
 		String content = request.getParameter("content");
 		
 		
 		HelpReply hr = new HelpReply();
-		hr.setReply_No(rno);
+	
 		hr.setReply_Content(content);
 		hr.setHelp_No(no);
 		
@@ -43,7 +44,7 @@ public class HelpReplyUpdateServlet extends HttpServlet {
 		
 		if(result > 0) {
 			response.sendRedirect("detail.help?no=" + no);
-			
+			System.out.println("detail no" + no);
 		}else { 
 			request.setAttribute("msg", "답변이 수정되지 않았습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

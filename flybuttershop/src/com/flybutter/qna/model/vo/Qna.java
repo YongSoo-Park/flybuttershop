@@ -57,15 +57,16 @@ public class Qna {
 
 
 	public Qna(int qna_No, int qna_Category, int user_No, String qna_Title, String qna_Content
-			, Date qna_Date, String qna_Status, int lock_Flag) {
+			, Date qna_Date, String qna_Status, int lock_Flag, int qna_Pwd) {
 		this.qna_No = qna_No;
-		this.user_No = user_No;
 		this.qna_Category = qna_Category;
+		this.user_No = user_No;
 		this.qna_Title = qna_Title;
 		this.qna_Content = qna_Content;
 		this.qna_Date = qna_Date;
 		this.qna_Status = qna_Status;
 		this.lock_Flag = lock_Flag;
+		this.qna_Pwd = qna_Pwd;
 	}
 
 

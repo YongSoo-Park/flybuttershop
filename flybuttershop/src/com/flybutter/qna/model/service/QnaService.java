@@ -50,7 +50,10 @@ public class QnaService {
 
 		int result = new QnaDao().replyQna(conn, q);
 		
+		System.out.println("댓글 서비스으으으으ㅡㅇ : " + result);
+		
 		if(result > 0) {
+			
 			commit(conn);
 			
 			reQna = new QnaDao().selectQna(conn, q.getQna_No());

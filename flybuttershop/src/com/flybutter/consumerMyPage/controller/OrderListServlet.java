@@ -81,6 +81,10 @@ public class OrderListServlet extends HttpServlet {
 				
 				ArrayList<Purchase> list = new MypageService().selectOrderList(pi,userNo);
 				
+				
+				
+				
+				
 				System.out.println(list);
 				System.out.println(pi);
 				
@@ -88,7 +92,8 @@ public class OrderListServlet extends HttpServlet {
 				request.setAttribute("pi", pi);
 				request.getRequestDispatcher("views/consumerMypage/OrderListView.jsp").forward(request, response);;
 		
-		
+			
+				
 		
 	}
 

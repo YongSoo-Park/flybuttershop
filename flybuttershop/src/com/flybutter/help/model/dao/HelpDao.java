@@ -156,7 +156,7 @@ public class HelpDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateHelp");
-	//updateHelp=UPDATE HELP SET HELP_CATEGORY=?, HELP_TITLE=?, HELP_CONTENT=?, HELP_FILE_ORIGIN=?, HELP_FILE_SYSTEM=?, HELP_STATUS='N' WHERE HELP_NO=?
+	//updateHelp=UPDATE HELP SET HELP_CATEGORY=?, HELP_TITLE=?, HELP_CONTENT=?, HELP_FILE_ORIGIN=?, HELP_FILE_SYSTEM=?, WHERE HELP_NO=?
 /*		HELP_NO
 		USER_NO
 		HELP_CATEGORY
@@ -348,7 +348,7 @@ public class HelpDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectReplyHelp");
-		//selectReplyHelp=SELECT * FROM HELP_REPLY WHERE REPLY_NO=?
+		//selectReplyHelp=SELECT * FROM HELP_REPLY WHERE HELP_NO=?
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -379,7 +379,7 @@ public class HelpDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateReplyHelp");
-	//updateReplyHelp=UPDATE HELP_REPLY SET REPLY_CONTENT=?  WHERE REPLY_NO=?
+	//updateReplyHelp=UPDATE HELP_REPLY SET REPLY_CONTENT=?  WHERE HELP_NO=?
 /*		REPLY_NO
 		REPLY_CONTENT
 		REPLY_DATE
@@ -390,7 +390,7 @@ public class HelpDao {
 			pstmt = conn.prepareStatement(sql);
 				// 유저넘버 추가해야함
 			pstmt.setString(1, hr.getReply_Content());
-			pstmt.setInt(2, hr.getReply_No());
+			pstmt.setInt(2, hr.getHelp_No());
 			
 			result = pstmt.executeUpdate();
 			

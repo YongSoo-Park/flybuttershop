@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.flybutter.product.model.dao.ProductDao;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.qna.model.vo.Qna;
+import com.flybutter.review.model.vo.Review;
 import com.flybutter.seller.model.vo.Seller;
 
 public class ProductService {
@@ -96,6 +97,17 @@ public class ProductService {
 		close(conn);
 		
 		return qList;
+	}
+
+	public ArrayList<Review> productReviewList(String pcode) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Review> rList = new ProductDao().productReviewList(conn, pcode);
+		
+		close(conn);
+		
+		return rList;
 	}
 
 	

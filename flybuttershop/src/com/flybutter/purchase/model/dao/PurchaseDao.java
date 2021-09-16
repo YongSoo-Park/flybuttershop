@@ -112,6 +112,7 @@ public class PurchaseDao {
 
 	public Member selectMember(Connection conn, int no) {
 	
+		Member m = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -119,6 +120,7 @@ public class PurchaseDao {
 		
 		String sql = prop.getProperty("selectMember");
 		try {
+
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 			pstmt.setInt(1, no);
@@ -126,7 +128,7 @@ public class PurchaseDao {
 					
 			while(rset.next()) {
 				
-				Member m = new Member(rset.getString("MEM_USER_NAME"),
+				m = new Member(rset.getString("MEM_USER_NAME"),
 						rset.getString("MEM_PHONE"), rset.getString("MEM_ADDRESS"), rset.getString("MEM_EMAIL"));
 				
 			}
