@@ -43,7 +43,7 @@ public class FAQOrderListServlet extends HttpServlet {
 		int pageLimit;			
 		int boardLimit;			
 		
-		listCount = new FAQService().getListCount();
+		listCount = new FAQService().getOrderListCount();
 		currentPage = 1;
 
 		if(request.getParameter("currentPage") != null) {

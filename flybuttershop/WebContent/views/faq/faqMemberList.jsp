@@ -156,7 +156,7 @@ hr {
 				 	<% for(FAQ f : list){ %>
 				 		<tr>
 				 			<td style="visibility:hidden;" ><%= f.getFaq_No() %></td>
-				 			<td><%= f.getFaq_Category() %></td>
+				 				 <td>[회원서비스]</td>
 							<td><%= f.getFaq_Title() %></td>
 					
 				 		</tr>

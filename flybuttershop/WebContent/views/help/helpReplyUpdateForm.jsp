@@ -54,7 +54,8 @@
 		<div class="outer">
 
 			<!--  action=" <%--<%= contextPath %> --%> /insert.no" method="post" -->
-			<form id="enrollForm" action="<%= request.getContextPath() %>/reply.help" method="post" >
+			<form id="enrollForm" action="<%= request.getContextPath() %>/updateReply.help" method="post" >
+					
 				<table align="center">
 					
 
@@ -64,7 +65,7 @@
 					</tr>
 					<tr>
 						<td colspan="10"> <textarea name="content" cols="120" rows="15"
-								style="resize: none;"></textarea></td>
+								style="resize: none;"><%= hr.getReply_Content() %></textarea></td>
 					</tr>
 					
 				</table>
@@ -74,7 +75,7 @@
 					<button type="submit">등록</button>
 					<button type="reset">취소</button>
 
-				<input type="hidden" name="no" value="<%= h.getHelp_No() %>">
+			<input type="hidden" name="rno" vlaue="<%= hr.getReply_No() %>">
 				
 			</form>
 		</div>

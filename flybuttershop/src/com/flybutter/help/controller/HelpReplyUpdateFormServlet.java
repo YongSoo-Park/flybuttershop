@@ -11,19 +11,17 @@ import com.flybutter.help.model.service.HelpService;
 import com.flybutter.help.model.vo.Help;
 import com.flybutter.help.model.vo.HelpReply;
 
-
-
 /**
- * Servlet implementation class HelpReplyFormServlet
+ * Servlet implementation class HelpReplyUpdateFormServlet
  */
-@WebServlet("/replyForm.help")
-public class HelpReplyFormServlet extends HttpServlet {
+@WebServlet("/replyUpdateForm.help")
+public class HelpReplyUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HelpReplyFormServlet() {
+    public HelpReplyUpdateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,19 +34,20 @@ public class HelpReplyFormServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 			int no = Integer.parseInt(request.getParameter("no"));
 			
-			Help h = new HelpService().selectHelp(no);
 			
-			if(h != null) {
-				request.setAttribute("h", h);
+			Help h = new HelpService().selectHelp(no);
+			HelpReply hr = new HelpService().selectReplyHelp(rno);
+			
+			if(hr != null) {
+				request.setAttribute("hr", hr);
 				
-				request.getRequestDispatcher("views/help/helpReplyForm.jsp").forward(request, response);
+				request.getRequestDispatcher("views/help/helpReplyUpdateForm.jsp").forward(request, response);	
 				
 			}else { 
-				request.setAttribute("msg", "게시글을 수정할 수 없습니다.");
+				request.setAttribute("msg", "답변을 수정할 수 없습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
-		
-		
+	
 	}
 
 	/**

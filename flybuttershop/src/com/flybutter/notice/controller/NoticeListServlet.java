@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.help.model.service.HelpService;
-import com.flybutter.help.model.vo.PageInfo;
 import com.flybutter.notice.model.service.NoticeService;
 import com.flybutter.notice.model.vo.Notice;
+import com.flybutter.notice.model.vo.PageInfo;
 
 /**
  * Servlet implementation class NoticeListServlet
@@ -41,7 +40,7 @@ public class NoticeListServlet extends HttpServlet {
 		int pageLimit;			
 		int boardLimit;			
 		
-		listCount = new HelpService().getListCount();
+		listCount = new NoticeService().getNoticeListCount();
 		currentPage = 1;
 
 		if(request.getParameter("currentPage") != null) {

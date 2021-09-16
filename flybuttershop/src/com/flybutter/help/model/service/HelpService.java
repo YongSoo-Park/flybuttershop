@@ -7,6 +7,7 @@ import static com.common.JDBCTemplate.*;
 
 import com.flybutter.help.model.dao.HelpDao;
 import com.flybutter.help.model.vo.Help;
+import com.flybutter.help.model.vo.HelpReply;
 import com.flybutter.help.model.vo.PageInfo;
 
 
@@ -88,6 +89,68 @@ public class HelpService {
 		close(conn);
 		return listCount;
 	}
+
+	public HelpReply selectReplyFormHelp(int no) {
+		Connection conn = getConnection();
+		
+		HelpReply hr = new HelpDao().selectReplyFormHelp(conn, no);
+		close(conn);
+		
+		return hr;
+	}
+
+	
+
+	public int insertReplyHelp(HelpReply hr) {
+		Connection conn = getConnection();
+		int result = new HelpDao().insertReplyHelp(conn, hr);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);	
+		return result;
+	}
+
+	public int changeStatusHelp(Help h) {
+		Connection conn = getConnection();
+		int result = new HelpDao().changeStatusHelp(conn, h);
+		System.out.println("service");
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);	
+	
+		return result;
+	}
+
+	public HelpReply selectReplyHelp(int no) {
+		Connection conn = getConnection();
+		HelpReply hr = new HelpDao().selectReplyHelp(conn, no);
+		close(conn);
+		return hr;
+	}
+
+	public int updateReplyHelp(HelpReply hr) {
+		Connection conn = getConnection();
+		int result = new HelpDao().updateReplyHelp(conn, hr);
+		System.out.println("service");
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);	
+	
+		return result;
+	}
+
+	
 
 	
 

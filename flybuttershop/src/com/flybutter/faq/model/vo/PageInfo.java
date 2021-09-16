@@ -1,4 +1,4 @@
-package com.flybutter.help.model.vo;
+package com.flybutter.faq.model.vo;
 
 public class PageInfo {
 	

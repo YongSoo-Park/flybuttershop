@@ -114,12 +114,46 @@ public class FAQService {
 		return list;
 	}
 
-	public int getListCount() {
+	public int getDeliveryListCount() {
 		Connection conn = getConnection();
 		
-		int listCount = new FAQDao().getListCount(conn);
+		int listCount = new FAQDao().getDeliveryListCount(conn);
 		close(conn);
 		return listCount;
 	}
+
+	public int getMemberListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new FAQDao().getMemberListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	public int getOrderListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new FAQDao().getOrderListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	public int getRefundListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new FAQDao().getRefundListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	public int getSellerListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new FAQDao().getSellerListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	
 
 }

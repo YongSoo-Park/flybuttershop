@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.help.model.service.HelpService;
 import com.flybutter.help.model.vo.Help;
+import com.flybutter.help.model.vo.HelpReply;
 
 /**
  * Servlet implementation class HelpDetailServlet
@@ -31,11 +32,19 @@ public class HelpDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		int no = Integer.parseInt(request.getParameter("no"));
+		System.out.println("no : " + no);
 		Help h = new HelpService().selectHelp(no);
+		HelpReply hr = new HelpService().selectReplyHelp(no);
+		System.out.println("h : " + h);
 	
 		if( h != null) {
 			request.setAttribute("h", h);	
+			request.setAttribute("hr", hr);	
+			System.out.println("h in if : " + h);
+			System.out.println("hr in if : " + hr);
 			request.getRequestDispatcher("views/help/helpDetailView.jsp").forward(request, response);
 			
 		}else {
