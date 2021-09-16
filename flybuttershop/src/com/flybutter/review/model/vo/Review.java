@@ -167,6 +167,29 @@ public class Review {
 		this.score = score;
 		this.pName = pName;
 	}
+	
+	   public Review(int re_no, String pCode, int user_no, String re_title, 
+		         String re_content, Date re_date, String re_originFile,
+		         String re_changeFile, char re_status, String rere_title,
+		         String rere_content, Date rere_date, int store_no, 
+		          int score, int pur_no, String userName) {
+		      this.re_no = re_no;
+		      this.pCode = pCode;
+		      this.user_no = user_no;
+		      this.re_title = re_title;
+		      this.re_content = re_content;
+		      this.re_date = re_date;
+		      this.re_originFile = re_originFile;
+		      this.re_changeFile = re_changeFile;
+		      this.re_status = re_status;
+		      this.rere_title = rere_title;
+		      this.rere_content = rere_content;
+		      this.rere_date = rere_date;
+		      this.store_no = store_no;
+		      this.score = score;
+		      this.pur_no = pur_no;
+		      this.userName = userName;
+		   }
 
 	public int getRe_no() {
 		return re_no;

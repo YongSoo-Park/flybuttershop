@@ -20,6 +20,7 @@
             text-align: center;
             display: inline-block;
             line-height: 200px;
+           cursor: pointer; 
             
         }
 
@@ -153,7 +154,12 @@
 
 </div>
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br>
 
+
+<jsp:include page="../header_footer/footer.jsp" flush="true"/>
     
 </body>
 
