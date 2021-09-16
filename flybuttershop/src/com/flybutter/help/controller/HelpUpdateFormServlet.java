@@ -35,7 +35,7 @@ public class HelpUpdateFormServlet extends HttpServlet {
 			int no = Integer.parseInt(request.getParameter("no"));
 			
 			Help h = new HelpService().selectUpdateHelp(no);
-			
+			System.out.println("helpUpdateFormServlet no : " + no);
 			if(h != null) {
 				request.setAttribute("h", h);
 				

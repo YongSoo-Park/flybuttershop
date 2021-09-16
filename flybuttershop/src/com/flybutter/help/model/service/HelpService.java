@@ -27,6 +27,7 @@ public class HelpService {
 		Connection conn = getConnection();
 		Help h = new HelpDao().selectHelp(conn, no);
 		close(conn);
+		System.out.println("select Help h : " + h);
 		return h;
 	}
 
@@ -132,6 +133,7 @@ public class HelpService {
 		Connection conn = getConnection();
 		HelpReply hr = new HelpDao().selectReplyHelp(conn, no);
 		close(conn);
+		System.out.println("selectReplyHelp hr : " + hr);
 		return hr;
 	}
 

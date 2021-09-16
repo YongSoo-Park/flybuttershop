@@ -35,24 +35,30 @@ public class HelpDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		int no = Integer.parseInt(request.getParameter("no"));
+
+		
+		System.out.println("no : " + no);
 		System.out.println("no : " + no);
 		Help h = new HelpService().selectHelp(no);
 		HelpReply hr = new HelpService().selectReplyHelp(no);
 		System.out.println("h : " + h);
+		System.out.println("hr : " + hr);
 	
-		if( h != null) {
-			request.setAttribute("h", h);	
-			request.setAttribute("hr", hr);	
-			System.out.println("h in if : " + h);
-			System.out.println("hr in if : " + hr);
-			request.getRequestDispatcher("views/help/helpDetailView.jsp").forward(request, response);
 			
-		}else {
-			request.setAttribute("msg", "문의글을 볼 수 없습니다.");
+					if( h != null ) {
+						
+						request.setAttribute("h", h);	
+						request.setAttribute("hr", hr);	
+						request.getRequestDispatcher("views/help/helpDetailView.jsp").forward(request, response);
+						
+					}else {
+						request.setAttribute("msg", "문의글을 볼 수 없습니다.");
+						
+						RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+						view.forward(request, response);
+					}
 			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
-		}
+			
 
 	}
 

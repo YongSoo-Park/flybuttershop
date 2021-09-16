@@ -99,7 +99,7 @@
 			<h3>답변</h3>
 					<p height="100px"><%= hr.getReply_Content() %></p>
 				
-				<input type="hidden" height="100px" name="rno" <%= hr.getReply_No() %>>
+				<input type="hidden" height="100px" name="no" <%= hr.getHelp_No() %>>
 			
 		
 		<% } %>
@@ -116,9 +116,11 @@
 			<a href="delete.help?no=<%=h.getHelp_No()%>">삭제하기</a> &nbsp;&nbsp;
 			<br>
 			<a href="replyForm.help?no=<%=h.getHelp_No()%>">답글달기</a> 
+			
+			<% if(hr != null){ %>
 			<a href="replyUpdateForm.help?no=<%=hr.getHelp_No() %>">답글수정</a>
 			<a href="replyDelete.help?no=<%=hr.getHelp_No() %>">답글삭제</a>
-
+			<% } %>
 		</div>
 		
 		
