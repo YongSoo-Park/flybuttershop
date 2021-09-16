@@ -1,4 +1,4 @@
-package com.flybutter.qna.controller;
+package com.flybutter.product.controller;
 
 import java.io.IOException;
 
@@ -13,16 +13,16 @@ import com.flybutter.qna.model.service.QnaService;
 import com.flybutter.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class qnaDetailServlet
+ * Servlet implementation class productQnaDetailServlet
  */
 @WebServlet("/qnaDetail.pr")
-public class qnaDetailServlet extends HttpServlet {
+public class productQnaDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public qnaDetailServlet() {
+    public productQnaDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,22 +33,22 @@ public class qnaDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int qNo = Integer.parseInt(request.getParameter("qNo"));
-		System.out.println("상점qna 보는데다        " + qNo);
-
-		Qna q = new QnaService().selectQna(qNo);
 		
-		System.out.println("상점qna 보는데다        " + q);
+		Qna q = new QnaService().selectQna(qNo);
 		
 		RequestDispatcher view = null;
 		
 		if(q != null) {
 			request.setAttribute("q", q);
-			request.getRequestDispatcher("views/seller/qnaDetailManager.jsp").forward(request, response);;
+			request.getRequestDispatcher("views/product/productQnaView.jsp").forward(request, response);;
 		}else {
-			request.setAttribute("msg", "상품정보를 불러올 수 없습니다.");
+			request.setAttribute("msg", "Q&A를 불러올 수 없습니다.");
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}
+		
+	
+	
 	}
 
 	/**

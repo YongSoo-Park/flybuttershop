@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.flybutter.product.model.service.ProductService;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.qna.model.vo.Qna;
+import com.flybutter.review.model.vo.Review;
 import com.flybutter.seller.model.vo.Seller;
 
 /**
@@ -44,9 +45,14 @@ public class productDetailServlet extends HttpServlet {
 		
 		ArrayList<Qna> qList = new ProductService().productQnaList(pcode);
 		
+		ArrayList<Review> rList = new ProductService().productReviewList(pcode);
+		
+		System.out.println("상품상세페이지서블릿  : " + qList);
+		
 		System.out.println("프로덕트 디테일"+p);
 		System.out.println("프로덕트 디테일"+s);
 		System.out.println("프로덕트 디테일"+qList);
+		System.out.println("프로덕트 디테일"+rList);
 		
 		RequestDispatcher view = null;
 	
