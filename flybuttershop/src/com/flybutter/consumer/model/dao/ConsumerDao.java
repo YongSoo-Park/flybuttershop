@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.flybutter.consumer.model.vo.Consumer;
+
 public class ConsumerDao {
 	
 	private Properties prop = new Properties();
@@ -51,6 +53,32 @@ public class ConsumerDao {
 		}	
 			
 		return result;
+	}
+
+	public int updateAdd(Connection conn, int no, String newAddress) {
+		int addResult = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateAddress");
+		
+//		updateAddress=UPDATE CONSUMER SET NEW_ADDRESS = ? WHERE USER_NO = ?
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1,newAddress);
+			pstmt.setInt(2,no);
+			
+			addResult = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("CONSUMER 테이블  updateAddress : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return addResult;
+
 	}
 
 }

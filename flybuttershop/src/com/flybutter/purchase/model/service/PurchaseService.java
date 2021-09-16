@@ -8,6 +8,7 @@ import static com.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.purchase.model.dao.PurchaseDao;
 import com.flybutter.purchase.model.vo.Purchase;
 
@@ -35,6 +36,15 @@ public class PurchaseService {
 		close(conn);
 		
 		return list;
+	}
+
+	public Member selectMember(int no) {
+		Connection conn = getConnection();
+		
+		Member m = new PurchaseDao().selectMember(conn, no); 
+		close(conn);
+		
+		return m;
 	}
 
 	

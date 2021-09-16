@@ -5,7 +5,7 @@
 //ArrayList<Purchase> list = (ArrayList<Purchase>) request.getAttribute("list"); 
 Member loginM= (Member)request.getSession().getAttribute("loginMember");
 Purchase p = (Purchase)request.getAttribute("purInfo");
-//int pNo = ((Integer)(request.getSession().getAttribute("pNo"))).intValue();
+//Member m = (Member)request.getAttribute("m");
 int resultPrice = 0;
 int shipPrice = 0;
 //System.out.println(pList);
@@ -27,7 +27,7 @@ int shipPrice = 0;
     		document.location.href="main.ma";
     	</script>
       <%}else{ %>
-     
+     <form id="purForm" action="" method="post">
      <div id="purPTB">
      <div id="ptb">
     <table id="purInfoTB">
@@ -58,11 +58,15 @@ int shipPrice = 0;
   		<th id="d1">
   		<h3 class="text1" id="tt1">배송지 정보</h3>
   		<label class="text2">배송지 선택
-  		<label><input type="radio" id="sType1" name="ship" style="cursor:pointer;">기본배송지</label>
-  		<label><input type="radio" id="sType2" name="ship" style="cursor:pointer;">신규배송지</label></label>
-  		<h4 class="text3"><%=loginM.getMEM_USER_NAME() %></h4>
-  		<h4 class="text3"><%=loginM.getMEM_PHONE() %></h4>
-  		<h4 class="text3"><%=loginM.getMEM_ADDRESS() %></h4><br>
+  		<label><input type="radio" id="sType1" name="ship" style="cursor:pointer;" value="0" checked>기본배송지</label>
+  		<label><input type="radio" id="sType2" name="ship" style="cursor:pointer;" value="1" onclick="div_OnOff(this.value,'new');">신규배송지</label></label>
+  		
+  		<%-- <h4 class="text3"><%=m.getUserName() %></h4>
+  		<h4 class="text3"><%=m.getPhone() %></h4>
+  		<div id="origin"><h4 class="text3" style="display:block;"><%=m.getAddress() %></h4></div><br>--%>
+  		
+  		<div id="new" style="display:none;"><input class="text3" id="newi" name="newAdr" placeholder="새로운 주소를 입력하세요  " type="text" ></div>
+  		
   		<h3 class="text1">할인 정보</h3>
   		<h4 class="text2">쿠폰 할인</h4>
   		<label id="lb1">보유 쿠폰</label>	
@@ -83,11 +87,11 @@ int shipPrice = 0;
   		</table>
   		<h3 class="text1">결제수단</h3>
   		<ul type="none">
-  		<li class="menu"> <input class="text2" id="pType1" type="radio" name="purType" style="cursor:pointer;">
+  		<li class="menu"> <input class="text2" id="pType1" type="radio" name="purType" value="무통장" style="cursor:pointer;">
   		<label id="ptl1">무통장 입금</label></li>
   		 <ul class="hide" type="none"><li>
   		 <label>은행선택&nbsp;&nbsp;
-  		 <select name="job">
+  		 <select name="bank">
     		<option selected>선택해주세요</option>
     		<option value="하나">하나</option>
     		<option value="신한">신한</option>
@@ -101,9 +105,9 @@ int shipPrice = 0;
   		</ul> <br>
   		<ul type="none">
   		<li class="menu">
-  		<input class="text2" id="pType2" type="radio" name="purType" style="cursor:pointer;">
+  		<input class="text2" id="pType2" type="radio" name="purType" value="신용카드" style="cursor:pointer;">
   		<label id="ptl2">신용카드 결제</label></li>
-  		<ul class="hide" type="none">
+  		<ul class="hide" type="none" data-collapsed="true">
   		<li><label>카드 구분</label>&nbsp;&nbsp;
   		<input id="cType1" type="radio" name="cardType" style="cursor:pointer;">
   		<label for="cType1">개인카드</label>
@@ -112,7 +116,7 @@ int shipPrice = 0;
   		</li>
   		<li>
   		<label>카드선택</label>&nbsp;&nbsp;
-  		<select name="job">
+  		<select name="card">
     		<option selected>선택해주세요</option>
     		<option value="하나">하나</option>
     		<option value="신한">신한</option>
@@ -135,23 +139,12 @@ int shipPrice = 0;
   		</li>
   		</ul>
   		</ul><br>
-  		<ul type="none">
-  		<li class="menu"><input class="text2" id="pType3" type="radio" name="purType" style="cursor:pointer;">
-  		<label id="ptl3">휴대폰 결제</label></li>
-  		<ul class="hide" type="none">
-  		<li>
-  		<label>휴대폰 번호</label>&nbsp;&nbsp;
-  		<input type="tel" name="phone" placeholder="(-제외)  " pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
-		
-  		</li>
-  		</ul>
-  		</ul>
   		</th>
   		<th id="d2">
   		<h3 class="text1" id="tt2">주문자 정보</h3>
-  		<h4 class="text3" id="tt2"><%=loginM.getMEM_USER_NAME() %></h4>
-  		<h4 class="text3" id="tt2"><%=loginM.getMEM_PHONE() %></h4>
-  		<h4 class="text3" id="tt2"><%=loginM.getMEM_EMAIL() %></h4>
+  		<%-- <h4 class="text3" id="tt2"><%=m.getUserName() %></h4>
+  		<h4 class="text3" id="tt2"><%=m.getPhone() %></h4>
+  		<h4 class="text3" id="tt2"><%=m.getEmail() %></h4>--%>
   		<h3 class="text1" id="tt3">결제 상세</h3>
   		<label class="text2" id="tt3">주문금액<b id="b1">n원</b></label><br>
   		<label class="text3" id="tt4">상품금액<b id="b2">n원</b></label><br>
@@ -160,11 +153,12 @@ int shipPrice = 0;
   		</th>
   	</tr>
   </table>
+  </form>
   <div id="consent">
   <br><br>
   <label><input type="checkbox" id="ck" style="cursor:pointer;">주문 내용을 확인하였으며, 정보 제공등에 동의합니다.</label>
   <br><br><br>
-  <button id="purBtn">결제하기</button>
+  <button id="purBtn" onclick="purchase();">결제하기</button>
   </div>
   </div>
   </div>
@@ -175,8 +169,8 @@ int shipPrice = 0;
 <script>
     $(document).ready(function(){
         $(".menu").click(function(){
-            var submenu = $(this).next("ul");
- 
+        	var submenu = $(this).next("ul");
+        	
             if( submenu.is(":visible") ){
                 submenu.slideUp();
             }else{
@@ -184,6 +178,27 @@ int shipPrice = 0;
             }
         });
     });
+    
+    function div_OnOff(v,id){
+    	 if(v == "1"){
+    	  document.getElementById(id).style.display = ""; 
+    	 }else{
+    	  document.getElementById(id).style.display = "none"; 
+    	 }
+    };
+ 
+    function purchase(){
+    	if($(ck).is(":checked") == false){
+    		alert("약관에 동의해주세요.")
+    		document.location.href="/views/purchase/purchasePage.jsp"
+    		return false;
+    	}else{
+    	$("#purForm").attr("action", "<%=request.getContextPath()%>/insertPur.hy");
+    	$("#purForm").submit();
+    	
+    	return true;
+    	}
+    }
 </script>
 
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
