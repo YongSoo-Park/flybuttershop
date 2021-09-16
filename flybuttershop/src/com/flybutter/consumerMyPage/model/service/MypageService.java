@@ -3,9 +3,13 @@ package com.flybutter.consumerMyPage.model.service;
 import static com.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.flybutter.consumerMyPage.model.dao.MypageDao;
 import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.purchase.model.vo.Purchase;
+import com.flybutter.review.model.vo.PageInfo;
+
 
 
 public class MypageService {
@@ -51,6 +55,28 @@ public class MypageService {
 		
 		
 		return result;
+	}
+
+	public int getMyOrderListCount(int userNo) {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new MypageDao().orderListCount(conn, userNo);
+		
+		close(conn);
+		
+		
+		return listCount;
+	
+	}
+
+	public ArrayList<Purchase> selectOrderList(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Purchase> list = new MypageDao().selectOrderList(conn, pi, userNo);
+		
+		close(conn);
+		return list;
 	}
 
 }

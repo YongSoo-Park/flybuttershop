@@ -1,11 +1,20 @@
 package com.flybutter.consumerMyPage.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.flybutter.consumerMyPage.model.service.MypageService;
+import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.purchase.model.vo.Purchase;
+import com.flybutter.review.model.service.ReviewService;
+import com.flybutter.review.model.vo.PageInfo;
+import com.flybutter.review.model.vo.Review;
 
 /**
  * Servlet implementation class OrderListServlet
@@ -26,8 +35,61 @@ public class OrderListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		Member m = (Member) request.getSession().getAttribute("loginMember");
+		int userNo = m.getMEM_USER_NO();
+		
+	
+				int listCount;			
+				int currentPage;		
+				int startPage;			
+				int endPage;			
+				int maxPage;		
+				
+				int pageLimit;			
+				int boardLimit;			
+				
+				
+				listCount = new MypageService().getMyOrderListCount(userNo);
+				
+				
+				currentPage = 1;
+				
+				
+				if(request.getParameter("currentPage") != null) {
+					currentPage = Integer.parseInt(request.getParameter("currentPage"));
+				}
+				
+			
+				pageLimit = 10;
+				
+				boardLimit = 10;
+				
+				
+				maxPage = (int)Math.ceil((double)listCount/boardLimit);
+		
+				startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+				
+			
+				endPage = startPage + pageLimit - 1;
+			
+				if(maxPage < endPage) {
+					endPage = maxPage;
+				}
+				
+				PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
+				
+				ArrayList<Purchase> list = new MypageService().selectOrderList(pi,userNo);
+				
+				System.out.println(list);
+				System.out.println(pi);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("pi", pi);
+				request.getRequestDispatcher("views/consumerMypage/OrderListView.jsp").forward(request, response);;
+		
+		
+		
 	}
 
 	/**

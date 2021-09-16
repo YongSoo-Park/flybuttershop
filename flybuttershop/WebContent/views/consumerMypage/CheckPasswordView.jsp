@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>마이페이지</title>
     <style>
 
@@ -57,7 +57,7 @@ function loginValidate(){
 
 </script>
 </head>
-<body>
+<body style="margin: 0 auto">
 
  <jsp:include page="../header_footer/header.jsp" flush="true"/>
     <div id="wrap">

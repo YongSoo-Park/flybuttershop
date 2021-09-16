@@ -10,10 +10,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.purchase.model.vo.Purchase;
+import com.flybutter.review.model.vo.PageInfo;
+import com.flybutter.review.model.vo.Review;
 
 public class MypageDao {
 	
@@ -142,6 +146,85 @@ public class MypageDao {
 		return result;
 
 	
+	}
+
+
+
+
+
+	public int orderListCount(Connection conn, int userNo) {
+		int count = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("orderListCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				count = rset.getInt("COUNT(*)");
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("PURCHASE 테이블  orderListCount : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+
+	}
+
+
+
+
+
+	public ArrayList<Purchase> selectOrderList(Connection conn, PageInfo pi, int userNo) {
+		ArrayList<Purchase> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("orderList");
+		
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Purchase(rset.getInt("PUR_NO"),
+									rset.getDate("PUR_DATE"),
+									rset.getString("PIMAGE_ORIGIN"),
+									rset.getString("PNAME"),
+									rset.getInt("PUR_AMOUNT"),
+									rset.getInt("PUR_STATE")
+									
+						));
+			}
+		} catch (SQLException e) {
+			System.out.println("PURCHASE 테이블  orderList : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return list;
 	}
 
 }

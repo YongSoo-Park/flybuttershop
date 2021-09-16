@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>리뷰 조회</title>
 <style>
 	
@@ -48,7 +48,7 @@
 
 </style>
 </head>
-<body>
+<body style="margin: 0 auto">
 
  <jsp:include page="../header_footer/header.jsp" flush="true"/>
 
