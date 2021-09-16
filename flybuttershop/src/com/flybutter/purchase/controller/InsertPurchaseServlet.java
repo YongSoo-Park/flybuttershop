@@ -40,16 +40,23 @@ public class InsertPurchaseServlet extends HttpServlet {
 		String pCode = request.getParameter("pCode");
 		String newAddress = request.getParameter("newAdr");
 		String purType = request.getParameter("purType");
-//		String pImg = request.getParameter("pImg");
-//		String pName = request.getParameter("pName");
-//		String option = request.getParameter("pOption");
-//		int price = Integer.parseInt(request.getParameter("price"));
-//		int pAmount = Integer.parseInt(request.getParameter("pAmount"));
-//		String sName = request.getParameter("sName");
+		String pImg = request.getParameter("pImg");
+		String pName = request.getParameter("pName");
+		String option = request.getParameter("pOption");
+		int price = Integer.parseInt(request.getParameter("price"));
+		int pAmount = Integer.parseInt(request.getParameter("pAmount"));
+		
+		System.out.println("주문인서트서블릿 : " + pCode);
+		System.out.println("주문인서트서블릿 : " + newAddress);
+		System.out.println("주문인서트서블릿 : " + pImg);
+		System.out.println("주문인서트서블릿 : " + pName);
+		System.out.println("주문인서트서블릿 : " + option);
+		System.out.println("주문인서트서블릿 : " + price);
+		System.out.println("주문인서트서블릿 : " + pAmount);
 		
 		
-		p.setUser_No(loginM.getMEM_USER_NO());
-		p.setpCode(pCode);
+//		p.setUser_No(loginM.getMEM_USER_NO());
+//		p.setpCode(pCode);
 //		p.setPur_Image(pImg);
 //		p.setPur_Pname(pName);
 //		p.setPur_POption(option);
@@ -57,16 +64,18 @@ public class InsertPurchaseServlet extends HttpServlet {
 //		p.setPur_Amount(pAmount);
 //		p.setPur_SName(sName);
 		
+	
 		if(newAddress != null) {	
 			int addResult = new ConsumerService().updateAdd(no, newAddress);
 		}
 		
 		if(purType.equals("무통장")) {
 			String bank = request.getParameter("bank");
-			System.out.println("insertPurServlet : " + bank);
+			
 		}else if(purType.equals("신용카드")) {
 			String card = request.getParameter("card");
-			System.out.println("insertPurServlet : " + card);
+			String cDate = request.getParameter("cDate");
+			String cardNo = request.getParameter("cardNo");
 		}
 		
 		int result = new PurchaseService().insertPurInfo(p);

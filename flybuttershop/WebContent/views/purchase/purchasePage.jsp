@@ -6,9 +6,12 @@
 Member loginM= (Member)request.getSession().getAttribute("loginMember");
 Purchase p = (Purchase)request.getAttribute("purInfo");
 //Member m = (Member)request.getAttribute("m");
-int resultPrice = 0;
+int sumPrice = 0;
 int shipPrice = 0;
-//System.out.println(pList);
+
+if(p.getPur_Price() < 50000){
+	shipPrice = 2500;
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -72,9 +75,9 @@ int shipPrice = 0;
   		<label id="lb1">보유 쿠폰</label>	
   		<table id="ct">		
   			<tr>
-  				<td id="ctd1">쿠폰이름</td>
+  				<td id="ctd1">쿠폰이름<input type="hidden" value="" name="cpNo"></td>
   				<td id="ctd2">n장</td>
-  				<td id="ctd3"><button id="ub" style="cursor:pointer;">사용</button></td>
+  				<td id="ctd3"><button id="ub" style="cursor:pointer;" onclick="useCp();">사용</button></td>
   			</tr>
   		</table>
   		<h4 class="text2">적립금</h4>
@@ -82,7 +85,7 @@ int shipPrice = 0;
   		<table id="mt">	
   			<tr>
   				<td id="mtd1">n원</td>
-  				<td id="mtd2"><button id="ub" style="cursor:pointer;">사용</button></td>
+  				<td id="mtd2"><button id="ub" style="cursor:pointer;" onclick="useM();">사용</button></td>
   			</tr>
   		</table>
   		<h3 class="text1">결제수단</h3>
@@ -128,7 +131,7 @@ int shipPrice = 0;
   		</li>
   		<li>
   		<label>할부기간</label>&nbsp;&nbsp;
-  		<select name="job">
+  		<select name="cDate">
     		<option selected>선택해주세요</option>
     		<option value="일시불">일시불</option>
     		<option value="2개월">2개월</option>
@@ -137,6 +140,12 @@ int shipPrice = 0;
     		<option value="12개월">12개월</option>
 		</select>
   		</li>
+  		<label>카드번호</label>&nbsp;&nbsp;
+  		<input id="cn" name="cardNo" placeholder="입력해주세요.  " type="text" maxlength='16' onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"><br>
+  		<label>카드검증번호</label>&nbsp;&nbsp;
+  		<input id="cn" name="cardcvc" placeholder="서명란 3자리 숫자  " type="text" maxlength='3' onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"><br>
+  		<label>카드결제번호</label>&nbsp;&nbsp;
+  		<input id="cn" name="cardPw" placeholder="입력해주세요.  " type="text" maxlength='4' onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"><br>
   		</ul>
   		</ul><br>
   		</th>
@@ -147,12 +156,20 @@ int shipPrice = 0;
   		<h4 class="text3" id="tt2"><%=m.getEmail() %></h4>--%>
   		<h3 class="text1" id="tt3">결제 상세</h3>
   		<label class="text2" id="tt3">주문금액<b id="b1">n원</b></label><br>
-  		<label class="text3" id="tt4">상품금액<b id="b2">n원</b></label><br>
-  		<label class="text3" id="tt5">배송비<b id="b3">n원</b></label><br>
-  		<label class="text3" id="tt6">쿠폰할인<b id="b2">n원</b></label>
+  		<input type="hidden" name="sumPrice" value="<%=sumPrice%>">
+  		<label class="text3" id="tt4">상품금액<b id="b2"><%=p.getPur_Price() %>원</b></label><br>
+  		<label class="text3" id="tt5">배송비<b id="b3"><%=shipPrice%>원</b></label><br>
+  		<label class="text3" id="tt6">쿠폰할인<b id="b2">n원</b></label><br>
+  		<label class="text3" id="tt7">적립금사용<b id="b4">n원</b></label>
   		</th>
   	</tr>
   </table>
+  <input type="hidden" name="pCode" value="<%=p.getpCode()%>">
+  <input type="hidden" name="pName" value="<%=p.getPur_Pname()%>">
+  <input type="hidden" name="pImg" value="<%=p.getPur_Image()%>">
+  <input type="hidden" name="pAmount" value="<%=p.getPur_Amount()%>">
+  <input type="hidden" name="pOption" value="<%=p.getPur_POption()%>">
+  <input type="hidden" name="price" value="<%=p.getPur_Price()%>">
   </form>
   <div id="consent">
   <br><br>
@@ -167,6 +184,7 @@ int shipPrice = 0;
  <%} %>
 </body>
 <script>
+	
     $(document).ready(function(){
         $(".menu").click(function(){
         	var submenu = $(this).next("ul");
@@ -188,17 +206,23 @@ int shipPrice = 0;
     };
  
     function purchase(){
-    	if($(ck).is(":checked") == false){
-    		alert("약관에 동의해주세요.")
-    		document.location.href="/views/purchase/purchasePage.jsp"
-    		return false;
-    	}else{
-    	$("#purForm").attr("action", "<%=request.getContextPath()%>/insertPur.hy");
-    	$("#purForm").submit();
-    	
-    	return true;
-    	}
-    }
+    		
+    		if(! jQuery('input[name="purType"]:checked').val()){
+    			alert('결제수단을 선택해주세요.');
+        		return false;
+    		}else if ($(ck).is(":checked") == false){
+    			alert("약관에 동의해주세요.")
+    		
+    			return false;
+    		}else{
+    			$("#purForm").attr("action", "<%=request.getContextPath()%>/insertPur.hy");
+    			$("#purForm").submit();
+    			return true;
+    		}
+   			
+    };
+    
+    
 </script>
 
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>

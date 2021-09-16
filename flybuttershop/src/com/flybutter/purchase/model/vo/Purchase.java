@@ -16,9 +16,6 @@ public class Purchase {
 	private int card_No;
 	private String card_Agency;
 	private String card_Date;
-	private int card_Pw;
-	private String phone_Agency;
-	private int user_Rno;
 	private int del_No;
 	private char cp_Use;
 	private char money_Use;
@@ -84,31 +81,6 @@ public class Purchase {
 		this.card_No = card_No;
 		this.card_Agency = card_Agency;
 		this.card_Date = card_Date;
-		this.card_Pw = card_Pw;
-		this.del_No = del_No;
-		this.cp_Use = cp_Use;
-		this.money_Use = money_Use;
-		this.pur_Image = pur_Image;
-		this.pur_Pname = pur_Pname;
-		this.pur_POption = pur_POption;
-		this.pur_Amount = pur_Amount;
-		this.pur_SName = pur_SName;
-		this.pur_State = pur_State;
-	}
-
-	//휴대폰결제
-	public Purchase(int user_No, String pCode, int pur_No, Date pur_Date, int pur_Price, String pur_Address,
-			int pur_Type, String phone_Agency, int user_Rno, int del_No, char cp_Use, char money_Use, String pur_Image, String pur_Pname, String pur_POption, int pur_Amount , String pur_SName, int pur_State) {
-		super();
-		this.user_No = user_No;
-		this.pCode = pCode;
-		this.pur_No = pur_No;
-		this.pur_Date = pur_Date;
-		this.pur_Price = pur_Price;
-		this.pur_Address = pur_Address;
-		this.pur_Type = pur_Type;
-		this.phone_Agency = phone_Agency;
-		this.user_Rno = user_Rno;
 		this.del_No = del_No;
 		this.cp_Use = cp_Use;
 		this.money_Use = money_Use;
@@ -216,30 +188,6 @@ public class Purchase {
 		this.card_Date = card_Date;
 	}
 
-	public int getCard_Pw() {
-		return card_Pw;
-	}
-
-	public void setCard_Pw(int card_Pw) {
-		this.card_Pw = card_Pw;
-	}
-
-	public String getPhone_Agency() {
-		return phone_Agency;
-	}
-
-	public void setPhone_Agency(String phone_Agency) {
-		this.phone_Agency = phone_Agency;
-	}
-
-	public int getUser_Rno() {
-		return user_Rno;
-	}
-
-	public void setUser_Rno(int user_Rno) {
-		this.user_Rno = user_Rno;
-	}
-
 	public int getDel_No() {
 		return del_No;
 	}
@@ -317,10 +265,9 @@ public class Purchase {
 		return "Purchase [user_No=" + user_No + ", pCode=" + pCode + ", pur_No=" + pur_No + ", pur_Date=" + pur_Date
 				+ ", pur_Price=" + pur_Price + ", pur_Address=" + pur_Address + ", pur_Type=" + pur_Type + ", pur_Bank="
 				+ pur_Bank + ", pur_Account=" + pur_Account + ", card_No=" + card_No + ", card_Agency=" + card_Agency
-				+ ", card_Date=" + card_Date + ", card_Pw=" + card_Pw + ", phone_Agency=" + phone_Agency + ", user_Rno="
-				+ user_Rno + ", del_No=" + del_No + ", cp_Use=" + cp_Use + ", money_Use=" + money_Use + ", pur_Image="
-				+ pur_Image + ", pur_Pname=" + pur_Pname + ", pur_POption=" + pur_POption + ", pur_Amount=" + pur_Amount
-				+ ", pur_SName=" + pur_SName + ", pur_State=" + pur_State + "]";
+				+ ", card_Date=" + card_Date + ", del_No=" + del_No + ", cp_Use=" + cp_Use + ", money_Use=" + money_Use
+				+ ", pur_Image=" + pur_Image + ", pur_Pname=" + pur_Pname + ", pur_POption=" + pur_POption
+				+ ", pur_Amount=" + pur_Amount + ", pur_SName=" + pur_SName + ", pur_State=" + pur_State + "]";
 	}
 
 }
