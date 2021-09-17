@@ -405,6 +405,29 @@ public class HelpDao {
 		return result;
 	}
 
+	public int deleteReplyHelp(Connection conn, int no) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+	
+		String sql = prop.getProperty("deleteReplyHelp");
+	
+		//deleteReplyHelp=DELETE HELP_REPLY WHERE HELP_NO=?
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+	
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		} 
+		return result;
+	}
+
 	 
 	
 
