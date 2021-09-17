@@ -47,6 +47,7 @@ public class MemberSInsertServlet extends HttpServlet {
 		String sellerYn = request.getParameter("sellerYn");
 		String storeName = request.getParameter("storeName");
 		String storeAddress = request.getParameter("storeAddress");
+		String sellerNo = request.getParameter("sellerNo");
 		String storeAccount = request.getParameter("storeAccount");
 		String storeExp = request.getParameter("storeExp");
 		String storeCall = request.getParameter("storeCall");
@@ -82,7 +83,7 @@ public class MemberSInsertServlet extends HttpServlet {
 			}
 		}
 		if(sellerYn.equals("Y")) {
-			Member mem = new Member(userId, userPwd, userName, phone, email , address,storeName, storeAddress, storeAccount
+			Member mem = new Member(userId, userPwd, userName, phone, email , address,storeName, storeAddress, sellerNo, storeAccount
 					,storeExp, storeCall, ceo, storeEmail);
 
 			System.out.println("############### mem : "+mem);

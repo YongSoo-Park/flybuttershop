@@ -75,7 +75,7 @@ public class MemberDao {
 		Member loginUser = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		System.out.println("ssssssssssssssssssss");
+		
 		String sql = prop.getProperty("loginMember");
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -149,11 +149,12 @@ public class MemberDao {
 			pstmt.setString(6, m.getAddress());
 			pstmt.setString(7, m.getStoreName());
 			pstmt.setString(8, m.getStoreAddress());
-			pstmt.setString(9, m.getStoreAccount());
-			pstmt.setString(10, m.getStoreExp());
-			pstmt.setString(11, m.getStoreCall());
-			pstmt.setString(12, m.getCeo());
-			pstmt.setString(13, m.getStoreEmail());
+			pstmt.setString(9, m.getSellerNo());
+			pstmt.setString(10, m.getStoreAccount());
+			pstmt.setString(11, m.getStoreExp());
+			pstmt.setString(12, m.getStoreCall());
+			pstmt.setString(13, m.getCeo());
+			pstmt.setString(14, m.getStoreEmail());
 			
 			
 			result = pstmt.executeUpdate();
@@ -269,8 +270,6 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mem.getUserNo());
 			
-			System.out.println("################### selectCMember getUserNo :"+ mem.getUserNo());
-			
 			rset = pstmt.executeQuery();
 			if (rset.next()) {
 				member = new Member(
@@ -303,8 +302,6 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mem.getUserNo());
-			
-			System.out.println("################### selectSMember getUserNo :"+ mem.getUserNo());
 			
 			rset = pstmt.executeQuery();
 			if (rset.next()) {

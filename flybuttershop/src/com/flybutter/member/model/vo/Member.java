@@ -127,7 +127,7 @@ public class Member {
 
 
 	public Member(String userId, String userPwd, String userName, String phone, String email, String address,
-				String storeName, String storeAddress, String storeAccount, String storeExp, String storeCall, String ceo,
+				String storeName, String storeAddress, String sellerNo, String storeAccount, String storeExp, String storeCall, String ceo,
 				String storeEmail) {
 		
 				this.userId = userId;
@@ -138,6 +138,7 @@ public class Member {
 				this.address = address;
 				this.storeName = storeName;
 				this.storeAddress = storeAddress;
+				this.sellerNo = sellerNo;
 				this.storeAccount = storeAccount;
 				this.storeExp =storeExp;
 				this.storeCall = storeCall;
