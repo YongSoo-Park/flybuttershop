@@ -1,6 +1,7 @@
 package com.flybutter.purchase.controller;
  
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.flybutter.consumer.model.vo.Consumer;
+import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.money.model.vo.Money;
 import com.flybutter.purchase.model.service.PurchaseService;
 import com.flybutter.purchase.model.vo.Purchase;
 
@@ -36,7 +40,9 @@ public class InsertPurPageServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
-
+		int no = loginM.getMEM_USER_NO();
+		
+		//제품상세페이지에서 전달받는 값들
 		Purchase p = new Purchase();
 
 		String pCode = request.getParameter("pCode");
@@ -47,7 +53,7 @@ public class InsertPurPageServlet extends HttpServlet {
 		int pAmount = Integer.parseInt(request.getParameter("pAmount"));
 		String sName = request.getParameter("sName");
 		
-		p.setUser_No(loginM.getMEM_USER_NO());
+		p.setUser_No(no);
 		p.setpCode(pCode);
 		p.setPur_Image(pImg);
 		p.setPur_Pname(pName);
@@ -56,7 +62,20 @@ public class InsertPurPageServlet extends HttpServlet {
 		p.setPur_Amount(pAmount);
 		p.setPur_SName(sName);		
 		
+		System.out.println("주문서블릿 유저넘버 : " + no);
+		
+		//쿠폰에서 가져와 넘겨주기
+		ArrayList<Coupon> list = new PurchaseService().selectCoupon(no);
+		
+		//적립금 가져와 넘겨주기
+		Consumer c = new PurchaseService().selectMoney(no);
+		
+		System.out.println("주문서블릿 : " + list);
+		System.out.println("주문서블릿 : " + c);
+		
 		request.setAttribute("purInfo", p);
+		request.setAttribute("list", list);
+		request.setAttribute("consumer", c);
 		request.getRequestDispatcher("views/purchase/purchasePage.jsp").forward(request, response);
 	}
 
