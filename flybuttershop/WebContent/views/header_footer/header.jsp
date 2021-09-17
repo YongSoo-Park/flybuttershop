@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%String userName = String.valueOf(request.getSession().getAttribute("MEM_USER_NAME")); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -258,7 +257,7 @@ function categoryChoce(mCategory, sCategory) {
 <header id="header">
 
 <div id="header1Div"><img src="${pageContext.request.contextPath}/resources/icon/categoryPopIcon.png"  id="mainCategoryOpen" style="cursor: pointer;"/>
-<img src="${pageContext.request.contextPath}/resources/icon/flybutterLogo.png" alt="로고 이미지" id="imgLogo" onclick="movingPage('main.ma')" style="cursor: pointer;"/>
+<img src="${pageContext.request.contextPath}/resources/icon/flybutterLogo.png" alt="로고 이미지" id="imgLogo" onclick="movingPage('mainpage.ma')" style="cursor: pointer;"/>
 
 
 <form action="search.ma" id="searchForm" method="post"><input type="text" id="userSearch" name="sWord"/><img src="${pageContext.request.contextPath}/resources/icon/search1.png" alt="이미지파일" id="searBtn" style="cursor: pointer;"/></form></div>
@@ -269,7 +268,7 @@ function categoryChoce(mCategory, sCategory) {
 <img src="${pageContext.request.contextPath}/resources/icon/cart35.png" alt="이미지파일" class="header2DivItem35" onclick="movingPage('basket.do')"/>
 <img src="${pageContext.request.contextPath}/resources/icon/mypageicon35.png" alt="이미지파일" class="header2DivItem35" onclick="movingPage('main.mp')"/>
 <img src="${pageContext.request.contextPath}/resources/icon/cs35.png" alt="이미지파일" class="header2DivItem35"  onclick="movingPage('entireList.no')"/>
-<img src="${pageContext.request.contextPath}/resources/icon/admin35.png" alt="이미지파일" class="header2DivItem35" />
+<img src="${pageContext.request.contextPath}/resources/icon/admin35.png" alt="이미지파일" class="header2DivItem35" onclick="movingPage('adminpage.ad')"/>
 </c:when>
 <c:when test="${2==sessionScope.loginMember.MEM_CATEGORY}">
 <img src="${pageContext.request.contextPath}/resources/icon/cart35.png" alt="이미지파일" class="header2DivItem35" onclick="movingPage('basket.do')"/>

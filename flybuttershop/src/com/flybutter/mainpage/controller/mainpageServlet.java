@@ -50,11 +50,11 @@ public class mainpageServlet extends HttpServlet {
 		if (loginMember != null) {
 			no = loginMember.getMEM_USER_NO();
 			if (no == 0) {
-				loginMember = new MemberService().loginAdmin(no);
+//				loginMember = new MemberService().loginAdmin(no);
 				loginMember.setREC_PNO("0");
 				loginMember.setMONEY(999999);
 			} else {
-				loginMember = new MemberService().loginMember(no);
+//				loginMember = new MemberService().loginMember(no);
 			}
 			if (!loginMember.getREC_PNO().equals("0")) {
 				RVItemsList = new MainPageService().RVItemsList(loginMember.getREC_PNO());
