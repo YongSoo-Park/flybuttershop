@@ -1,30 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.seller.model.vo.Seller"
-	import="com.flybutter.qna.model.vo.*" %>
-
-<%
-	Qna q = (Qna)request.getAttribute("q");
-	String qCategory = null;
-	if(q.getQna_Category()==1){
-		qCategory = "상품";
-	}else if(q.getQna_Category()==2){
-		qCategory = "배송";
-	}else if(q.getQna_Category()==2){
-		qCategory = "교환";
-	}else if(q.getQna_Category()==2){
-		qCategory = "반품";
-	}else {
-		qCategory = "기타";
-	}
-%>
-	
+    pageEncoding="UTF-8" import="com.flybutter.review.model.vo.*" %>
+    
+    <%
+	Review r = (Review)request.getAttribute("r");
+%> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"
 	charset="UTF-8">
 <title>Insert title here</title>
-
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
@@ -63,33 +48,37 @@
 	}
 
 </style>
-
 </head>
 <body style="margin: 0 auto">
 <jsp:include page="../header_footer/header.jsp" flush="true" />
-<jsp:include page="../common/sellerMenuBar.jsp" flush="true"/>
-	<br><br>
-	
-	<h2 align="center">상품 Q&A</h2><br>
+<br><br>
+
+	<h2 align="center">상품 후기</h2><br>
 	
 	<div class="outer">
 		<table align="center">
 				<tr>
-					<th width="100">문의유형</th>
-					<td><%=qCategory%></td>
-					<th>제목</th>
-					<td colspan="2"><%=q.getQna_Title()%></td>
+					<th width="100">별점</th>
+					<td><%=r.getScore()%></td>
+					<th width="100">제목</th>
+					<td colspan="2"><%=r.getRe_title()%></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td><%=q.getQna_Writer()%></td>
+					<td><%=r.getUserName()%></td>
 					<th>작성일</th>
-					<td><%=q.getQna_Date()%></td>
+					<td><%=r.getRe_date()%></td>
 				</tr>
 				<tr>
 					<th>내용</th>
 					<td colspan="3">
-						<p><%=q.getQna_Content()%></p>
+						<p><%=r.getRe_content()%></p>
+					</td>
+				</tr>
+				<tr>
+					<th>사진</th>
+					<td colspan="3">
+						<p><%=r.getRe_originFile()%></p>
 					</td>
 				</tr>
 		</table>
@@ -97,18 +86,18 @@
 	
 	<div class="reView">
 		<table border="1" align="center">
-			<% if(q.getQna_Comment() == null){ %>
+			<% if(r.getRere_content() == null){ %>
 			<tr>
 				<td colspan="5">등록된 답변이 없습니다.</td>
 			</tr>
 			<%}else{ %>
 				<tr>
 					<td rowspan="2" width="100px">답변</td>
-					<td colspan="4"><%=q.getQna_Comment() %></td>
+					<td colspan="4"><%=r.getRere_content()%></td>
 				</tr>
 				<tr>
 					
-					<td colspan="3" align="right"><%=q.getQna_Comment_Date()%></td>
+					<td colspan="3" align="right"><%=r.getRere_date()%></td>
 				</tr>
 			<% } %>
 		</table>
@@ -117,26 +106,12 @@
 	
 	<br>
 		
-		<button id="btn" href="qnaManager.sl">목록으로</button>
+		<button id="btn" href="">목록으로</button>
 		
 	<br>
 	
 	
-	<div class="reply">
-		<form id="reply" action="<%= request.getContextPath() %>/rInsert.na" method="post">
-			<table  border="1" align="center">
-				<tr>
-					<th>답변작성<input type="hidden" name="qNo" value="<%=q.getQna_No()%>"></th>
-					<td><textarea name="comment" rows="10" cols="60" id="replyContent" style="resize:none;"></textarea></td>
-					<td><button type="submit" id="addReply">댓글등록</button></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-	
-
-
-
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
+
 </body>
 </html>

@@ -191,6 +191,13 @@ public class Review {
 		      this.userName = userName;
 		   }
 
+	public Review(int re_no, String rere_content) {
+		this.re_no = re_no;
+		this.rere_content = rere_content;
+	}
+
+
+
 	public int getRe_no() {
 		return re_no;
 	}

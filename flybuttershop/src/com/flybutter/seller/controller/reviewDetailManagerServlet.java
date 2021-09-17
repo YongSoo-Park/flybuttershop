@@ -1,7 +1,6 @@
 package com.flybutter.seller.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.review.model.vo.Review;
 import com.flybutter.seller.model.service.SellerService;
-import com.flybutter.seller.model.vo.Seller;
 
 /**
- * Servlet implementation class reviewListManagerServlet
+ * Servlet implementation class reviewDetailManagerServlet
  */
-@WebServlet("/reviewManager.sl")
-public class reviewListManagerServlet extends HttpServlet {
+@WebServlet("/reviewDetail.sl")
+public class reviewDetailManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public reviewListManagerServlet() {
+    public reviewDetailManagerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +31,24 @@ public class reviewListManagerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		int rNo = Integer.parseInt(request.getParameter("rNo"));
+		System.out.println("상점review 보는데다        " + rNo);
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getMEM_USER_NO();
+		Review r = new SellerService().selectReview(rNo);
+		System.out.println("상점review 보는데다        " + r);
 		
-		Seller sel = new SellerService().selectStore(userNo);
-		System.out.println("sel" + sel);
-		System.out.println("storeNo : "+sel.getStore_No());
-		int storeNo = sel.getStore_No();
+		RequestDispatcher view = null;
 		
-		ArrayList<Review> list = new SellerService().reviewList(storeNo);
+		if(r != null) {
+			request.setAttribute("r", r);
+			request.getRequestDispatcher("views/seller/reviewDetailManager.jsp").forward(request, response);;
+		}else {
+			request.setAttribute("msg", "후기를 불러올 수 없습니다.");
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
+		}
 		
-		request.setAttribute("list", list);
-		
-		RequestDispatcher view = request.getRequestDispatcher("views/seller/reviewListManager.jsp");
-		view.forward(request, response);
-	
 	}
 
 	/**

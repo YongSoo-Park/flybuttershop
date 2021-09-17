@@ -11,7 +11,14 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+<script>
+	$(function(){
+		$(".pList>tbody>tr").click(function(){
+			var pNo = $(this).children().eq(0).text();
+			location.href="<%= request.getContextPath() %>/soldDetail.sl?pNo="+pNo;
+		})
+	})
+</script>
 </head>
 <body style="margin: 0 auto">
 <jsp:include page="../header_footer/header.jsp" flush="true"/>
@@ -40,7 +47,6 @@
 					</tr>
 				 	<% } %>
 				 <% } %>	
-				
 		</tbody>
 	</table>
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>

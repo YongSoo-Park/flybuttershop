@@ -56,16 +56,18 @@ public class productDetailServlet extends HttpServlet {
 		
 		RequestDispatcher view = null;
 	
-		if(p != null || s != null || qList != null) {
+		if(p != null || s != null || qList != null || rList != null) {
 			request.setAttribute("p", p);
 			request.setAttribute("s", s);
 			request.setAttribute("qList", qList);
+			request.setAttribute("rList", rList);
 			request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);;
-		}else {
+		}else if(p == null) {
 			request.setAttribute("msg", "상품정보를 불러올 수 없습니다.");
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}
+		
 		
 	}
 

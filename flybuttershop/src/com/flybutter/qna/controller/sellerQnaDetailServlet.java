@@ -45,7 +45,7 @@ public class sellerQnaDetailServlet extends HttpServlet {
 			request.setAttribute("q", q);
 			request.getRequestDispatcher("views/seller/qnaDetailManager.jsp").forward(request, response);;
 		}else {
-			request.setAttribute("msg", "상품정보를 불러올 수 없습니다.");
+			request.setAttribute("msg", "Qna를 불러올 수 없습니다.");
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}
