@@ -84,6 +84,12 @@
 		<form id="findIdForm" action="<%=request.getContextPath() %>/findPwdForm.me" method="post" onsubmit="return joinValidate();">
 			<table align="center">
 			<div>
+			
+				<tr>
+					<td>* 아이디</td>
+					<td><input id ="inputbox" type="text" maxlength="15" name="userId" placeholder="ID" required></td>
+					<td></td>
+				</tr>
 				<tr>
 					<td>* 이름</td>
 					<td><input id ="inputbox" type="text" maxlength="5" name="userName" placeholder="name" required></td>
@@ -91,12 +97,17 @@
 				</tr>
 				<tr>
 					<td>* 전화번호</td>
-					<td><input id ="inputbox" type="tel" maxlength="11" name="phone" placeholder="(-없이)01012345678"></td>
+					<td><input id ="inputbox" type="text" maxlength="11" name="phone" placeholder="(-없이)01012345678"></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>* 이메일</td>
-					<td><input id ="inputbox" type="email" name="email" placeholder="....@...."></td>
+					<td><input id ="inputbox" type="text" name="email" placeholder="....@...."></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>* 주소</td>
+					<td><input id ="inputbox" type="text" name="address" placeholder="주소"></td>
 					<td></td>
 				</tr>
 			

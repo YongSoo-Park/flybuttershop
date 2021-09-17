@@ -122,12 +122,12 @@
 				</tr>
 				<tr>
 					<td id="joinId">* 연락처</td>
-					<td><input id ="phone" type="tel" maxlength="11" name="phone" placeholder="(-없이)01012345678"></td>
+					<td><input id ="phone" type="text" maxlength="11" name="phone" placeholder="(-없이)01012345678"></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td id="joinId">* 이메일</td>
-					<td><input id ="email" type="email" name="email" placeholder="....@...."></td>
+					<td><input id ="email" type="text" name="email" placeholder="....@...."></td>
 					<td></td>
 				</tr>
 				<tr>
