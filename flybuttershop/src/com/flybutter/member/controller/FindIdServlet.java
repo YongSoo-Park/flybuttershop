@@ -58,8 +58,36 @@ public class FindIdServlet extends HttpServlet {
 		Member mem = new Member(userName, phone, email);
 
 		Member member = new MemberService().selectMember(mem);
-
+		
 		if (member != null) {
+			
+		
+
+		String findedName = member.getUserId();
+		String maskedName = "";
+	
+		System.out.println("member.getUserId>>>>>>>>>>>>>>> : "+findedName);
+		
+		if(!"".contentEquals(findedName)|| findedName != null) {
+			if(findedName.length() > 3) {
+				maskedName = findedName.substring(0, 3);
+				for(int i = 3; i< findedName.length(); i++) {
+					maskedName += "*";
+				}
+	
+			}else {
+				maskedName = findedName.substring(0, 1);
+				for(int i = 1; i< findedName.length(); i++) {
+				maskedName = "*";
+			}
+			
+		}
+
+		//return maskedName;
+		member.setUserId(maskedName);
+		System.out.println("member>>>>>>>>>>>>>>> : "+member);
+		
+		
 			HttpSession session = request.getSession();
 			session.setAttribute("member", member);
 			RequestDispatcher view = request.getRequestDispatcher("views/member/memberIdFindResult.jsp");
@@ -73,4 +101,5 @@ public class FindIdServlet extends HttpServlet {
 		}
 
 	}
-}
+	}
+	}

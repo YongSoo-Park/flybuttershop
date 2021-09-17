@@ -75,7 +75,7 @@
 	
 	#userId,#userPwd,#userName,#checkPwd,#phone,#email,
 	#address,#storeName,#storeAddress,#storeAccount,
-	#storeExp,#storeCall,#ceo,#storeEmail{
+	#storeExp,#storeCall,#ceo,#storeEmail,#sellerNo{
 	border-style: solid;
     border-radius: 8px;
 	width: 230px;
@@ -99,14 +99,14 @@
 			<table align="center">
 				<tr>
 					<td  id="joinId">* 회원아이디</td>
-					<td><input id ="userId" type="text" maxlength="13" name="userId" placeholder="ID" required></td>
+					<td><input id ="userId" type="text" minlength="5" maxlength="15" name="userId" placeholder="(5자 이상 15자 이하)" required></td>
 					<td width="10px">
 						<button type="button" id="idCheckBtn" onclick="checkId();">중복확인</button>
 					</td>
 				</tr>
 				<tr>
 					<td id="joinId">* 회원비밀번호</td>
-					<td><input id ="userPwd" type="password" maxlength="15" name="userPwd" placeholder="(15이하)" required></td>
+					<td><input id ="userPwd" type="password" minlength="5" maxlength="15" name="userPwd" placeholder="(5자 이상 15자 이하)" required></td>
 					<td><label id="pwdinsert"></label></td>
 					
 				</tr>
@@ -153,14 +153,14 @@
 					<td><input id ="storeAddress" type="text" name="storeAddress" placeholder="스토어 주소"></td>
 					<td></td>
 				</tr>
-				<!-- <tr>
+				 <tr name="sellerInfo">
 					<td id="joinId">* 판매자 번호</td>
-					<td><input id ="sellerNo" type="text" name="sellerNo" placeholder="판매자 번호"></td>
+					<td><input id ="sellerNo" type="text" maxlength="10" name="sellerNo" placeholder="판매자(사업자) 번호"></td>
 					<td></td>
-				</tr> -->
+				</tr> 
 				<tr name="sellerInfo">
 					<td id="joinId">* 스토어 계좌</td>
-					<td><input id ="storeAccount" type="text" name="storeAccount" placeholder="스토어 계좌"></td>
+					<td><input id ="storeAccount" type="text" maxlength="15"  name="storeAccount" placeholder="스토어 계좌"></td>
 					<td></td>
 				</tr >
 				<tr name="sellerInfo">
@@ -170,7 +170,7 @@
 				</tr>
 				<tr name="sellerInfo">
 					<td id="joinId">* 스토어 전화번호</td>
-					<td><input id ="storeCall" type="text" name="storeCall" placeholder="스토어 전화번호"></td>
+					<td><input id ="storeCall" type="text"  maxlength="12"name="storeCall" placeholder="스토어 전화번호"></td>
 					<td></td>
 				</tr>
 				<tr name="sellerInfo">
@@ -294,6 +294,7 @@
 			"sellerYn":$("#sellerYn").val(),
 			"storeName":$("#storeName").val(),
 			"storeAddress":$("#storeAddress").val(),
+			"sellerNo":$("#sellerNo").val(),
 			"storeAccount":$("#storeAccount").val(),
 			"storeExp":$("#storeExp").val(),
 			"storeCall":$("#storeCall").val(),
