@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.ArrayList, com.flybutter.purchase.model.vo.*, com.flybutter.review.model.vo.*"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>     
 <% 
 	ArrayList<Purchase> list  = (ArrayList<Purchase>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
@@ -54,7 +54,8 @@
    
 
 </style>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 </head>
 <body style="margin: 0 auto">
@@ -63,34 +64,119 @@
 
 	   <div id="outer">
 
-
+		<br>
         <h2>주문 내역 확인</h2>
-
-
+		<br>
+	<%if(list.isEmpty()){ %>
       
+      <br><br>
+      <h3>주문 내역이 없습니다</h3>
+      <br><br>
+      <%} else{ %>
+      	<%for(Purchase p : list){ %>
         <table align="center" rules="none" border="1px">
 
             <tr>
-                <td rowspan="4" witdth="150px" height="150px">사진</td>
-                <td align="left">&nbsp;&nbsp; 주문번호</td>
-                <td align="right">배송상태&nbsp;&nbsp;</td>
+                <td rowspan="4" width="200px" height="200px"><img src="<%=p.getPur_Image() %>" border="1px"></td>
+                <td align="left" id="pNo">&nbsp;&nbsp; <b>주문번호</b><br>&nbsp;&nbsp; <%=p.getPur_No() %></td>
+                <td align="right"><b>
+                <% int state =  p.getPur_State(); 
+								pageContext.setAttribute("state", state);
+				%>	
+							<c:choose>
+  							<c:when test="${state == '1'}">결제완료</c:when>
+  							<c:when test="${state == '2'}">배송전</c:when>
+  							<c:when test="${state == '3'}">배송중</c:when>
+  							<c:when test="${state == '4'}">배송완료</c:when>
+  							<c:when test="${state == '5'}">소비자 취소</c:when>
+  							<c:when test="${state == '6'}">판매자 취소</c:when>
+  							<c:otherwise>오류</c:otherwise>
+							</c:choose>
+                	&nbsp;&nbsp;
+                	</b>
+                </td>
             </tr>
             <tr>
-                <td colspan="2" align="left">&nbsp;&nbsp; 상품명</td>
+                <td colspan="2" align="left">&nbsp;&nbsp; <b>상품명</b><br>&nbsp;&nbsp; <%=p.getPur_Pname() %></td>
             </tr>
             <tr>
-                <td align="left">&nbsp;&nbsp; 주문일시</td>
-                <td align="right"><button class="btn">후기작성</button></td>
+                <td align="left">&nbsp;&nbsp; <b>주문일시</b><br>&nbsp;&nbsp; <%=p.getPur_Date() %></td>
+                <td align="right">
+                <% if(state == 4) {%>
+                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/insertForm.rv?pno=<%=p.getPur_No()%>'">후기작성</button>
+                <%} else if(state == 1 || state == 2){%>
+                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/cancelOrder?pno=<%=p.getPur_No()%>'">주문취소</button>
+                <%} %>
+                </td>
             </tr>
             <tr>
                 <td></td>
-                <td align="right"><button class="btn">상세조회</button></td>
+                <td align="right">
+                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/detailOrder.mp?pno=<%=p.getPur_No()%>'">상세조회</button>
+                </td>
             </tr>
+            
+            </table>
+            <br><br>
+			<%} %>
+		<%} %>	
+     
 
-        </table>
-
-
+	<div class="pagingArea" align="center">
+			<!-- 맨 처음으로 (<<) -->
+			<button onclick="location.href='<%=contextPath%>/orderList.mp?currentPage=1'"> &lt;&lt; </button>
+		
+			<!-- 이전페이지로(<) -->
+			<%if(currentPage == 1){ %>
+			<button disabled> &lt; </button>
+			<%}else{ %>
+			<button onclick="location.href='<%= contextPath %>/orderList.mp?currentPage=<%= currentPage-1 %>'"> &lt; </button>
+			<%} %>
+			
+			<!-- 페이지 목록 -->
+			<%for(int p=startPage; p<=endPage; p++){ %>
+				
+				<%if(p == currentPage){ %>
+				<button disabled> <%= p %> </button>
+				<%}else{ %>
+				<button onclick="location.href='<%=contextPath %>/orderList.mp?currentPage=<%= p %>'"> <%= p %> </button>
+				<%} %>
+				
+			<%} %>
+			
+			<!-- 다음페이지로(>) -->
+			<%if(currentPage == maxPage){ %>
+			<button disabled> &gt; </button>
+			<%}else { %>
+			<button onclick="location.href='<%= contextPath %>/orderList.mp?currentPage=<%= currentPage+1 %>'"> &gt; </button>
+			<%} %>
+		
+			<!-- 맨 끝으로 (>>) -->
+			<button onclick="location.href='<%=contextPath%>/orderList.mp?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
+		</div> 
+	
+	
+	
     </div>
+    
+    <script type="text/javascript">
+    
+    $("#detailOrder").click(function(){ 
+
+
+		var checkBtn = $(this);
+
+		var tr = checkBtn.parent().parent().parent();
+		var td = tr.children().children();
+		var pno = td.eq(1).text();
+		location.href="<%= request.getContextPath()%>/detailOrder.mp?pno="+pno;
+		
+})
+    
+    
+    </script>
+    
+    
 
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
 	

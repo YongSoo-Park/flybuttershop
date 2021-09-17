@@ -158,4 +158,37 @@ public class ReviewDao {
 		return r;
 	}
 
+
+
+
+	public String reviewInsertInfo(Connection conn, int pno) {
+		String pName = "";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("reviewInsertInfo");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.setInt(1, pno);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pName = rset.getString("PNAME");
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("reviewInsertInfo : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pName;
+	}
+
 }

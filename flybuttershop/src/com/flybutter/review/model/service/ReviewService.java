@@ -52,6 +52,20 @@ public class ReviewService {
 		close(conn);
 		return r;
 	}
+
+
+
+
+
+	public String reviewInsertInfo(int pno) {
+		Connection conn = getConnection();
+		
+		String pName = new ReviewDao().reviewInsertInfo(conn, pno);
+		
+		
+		close(conn);
+		return pName;
+	}
 	
 }
 
