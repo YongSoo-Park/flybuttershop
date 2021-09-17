@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.purchase.model.vo.*, 
-    com.flybutter.dummy.model.vo.*"%>
+    com.flybutter.dummy.model.vo.*, com.flybutter.consumer.model.vo.*, com.flybutter.coupon.model.vo.*"%>
 <%
 //ArrayList<Purchase> list = (ArrayList<Purchase>) request.getAttribute("list"); 
 Member loginM= (Member)request.getSession().getAttribute("loginMember");
 Purchase p = (Purchase)request.getAttribute("purInfo");
+Consumer c = (Consumer)request.getAttribute("consumer");
+ArrayList<Coupon> list = (ArrayList<Coupon>) request.getAttribute("list");
 //Member m = (Member)request.getAttribute("m");
-int sumPrice = 0;
+int resultPrice = 0;
 int shipPrice = 0;
 
 if(p.getPur_Price() < 50000){
@@ -74,17 +76,19 @@ if(p.getPur_Price() < 50000){
   		<h4 class="text2">쿠폰 할인</h4>
   		<label id="lb1">보유 쿠폰</label>	
   		<table id="ct">		
+  		<%for(Coupon cu : list) {%>
   			<tr>
-  				<td id="ctd1">쿠폰이름<input type="hidden" value="" name="cpNo"></td>
-  				<td id="ctd2">n장</td>
+  				<td id="ctd1"><%=cu.getCp_name() %><input type="hidden" value="" name="cpNo"></td>
+  				<td id="ctd2"><%=cu.getCp_count() %>장</td>
   				<td id="ctd3"><button id="ub" style="cursor:pointer;" onclick="useCp();">사용</button></td>
   			</tr>
+  			<%} %>
   		</table>
   		<h4 class="text2">적립금</h4>
   		<label id="lb2">보유 적립금</label>
   		<table id="mt">	
   			<tr>
-  				<td id="mtd1">n원</td>
+  				<td id="mtd1"><%=c.getMoney() %>원</td>
   				<td id="mtd2"><button id="ub" style="cursor:pointer;" onclick="useM();">사용</button></td>
   			</tr>
   		</table>
@@ -156,7 +160,7 @@ if(p.getPur_Price() < 50000){
   		<h4 class="text3" id="tt2"><%=m.getEmail() %></h4>--%>
   		<h3 class="text1" id="tt3">결제 상세</h3>
   		<label class="text2" id="tt3">주문금액<b id="b1">n원</b></label><br>
-  		<input type="hidden" name="sumPrice" value="<%=sumPrice%>">
+  		<input type="hidden" name="resultPrice" value="<%=resultPrice%>">
   		<label class="text3" id="tt4">상품금액<b id="b2"><%=p.getPur_Price() %>원</b></label><br>
   		<label class="text3" id="tt5">배송비<b id="b3"><%=shipPrice%>원</b></label><br>
   		<label class="text3" id="tt6">쿠폰할인<b id="b2">n원</b></label><br>
@@ -179,9 +183,9 @@ if(p.getPur_Price() < 50000){
   </div>
   </div>
   </div>
- </div>
+ </div> 
  <br><br>
- <%} %>
+<%} %>
 </body>
 <script>
 	

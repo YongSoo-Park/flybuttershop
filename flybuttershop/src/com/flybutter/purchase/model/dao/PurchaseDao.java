@@ -10,11 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 
 import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.basket.model.vo.Basket;
+import com.flybutter.consumer.model.vo.Consumer;
+import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.member.model.vo.Member;
+import com.flybutter.money.model.vo.Money;
 import com.flybutter.purchase.model.vo.Purchase;
 
 public class PurchaseDao {
@@ -67,52 +71,9 @@ public class PurchaseDao {
 		return result;
 	}
 
-	public ArrayList<Purchase> selectPurInfo(Connection conn, int no, int pNo) {
-
-		ArrayList<Purchase> list = new ArrayList<Purchase>();
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectPurInfo");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			pstmt.setInt(1, no);
-			pstmt.setInt(2, pNo);
-			
-//			selectPurInfo=SELECT USER_NO, PCODE, PUR_NO, PUR_IMAGE, PUR_PNAME, PUR_POPTION, PUR_PRICE, PUR_AMOUNT, PUR_SNAME FROM PURCHASE WHERE USER_NO = ? AND PUR_NO = ?
-					
-//			while(rset.next()) {
-//				list.add(new Purchase(
-//								
-//								rset.getInt("USER_NO"),
-//								rset.getString("PCODE"),
-//								rset.getInt("PUR_NO"),
-//								rset.getString("PUR_IMAGE"),
-//								rset.getString("PUR_PNAME"),
-//								rset.getString("PUR_POPTION"),
-//								rset.getInt("PUR_PRICE"),
-//								rset.getInt("PUR_AMOUNT"),	
-//								rset.getString("PUR_SNAME")
-//								
-//						));
-//			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			System.out.println("Basket 테이블  selectBasketList 오류메세지 : " + e.getMessage());
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-
 	public Member selectMember(Connection conn, int no) {
 	
-		Member m = null;
+		Member m = new Member();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -122,9 +83,9 @@ public class PurchaseDao {
 		try {
 
 			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
 			pstmt.setInt(1, no);
 			
+			rset = pstmt.executeQuery();
 					
 			while(rset.next()) {
 				
@@ -136,12 +97,104 @@ public class PurchaseDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("Basket 테이블  selectBasketList 오류메세지 : " + e.getMessage());
+			System.out.println("Member 테이블  selectMember 오류메세지 : " + e.getMessage());
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
 		return m;
+	}
+
+	public ArrayList<Coupon> selectCoupon(Connection conn, int no) {
+		ArrayList<Coupon> list = new ArrayList<Coupon>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCoupon");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+//			selectCoupon=SELECT * FROM COUPON WHERE USER_NO = ?
+					
+//			CP_NO	NUMBER
+//			USER_NO	NUMBER
+//			ORDER_NO	NUMBER
+//			PCODE	VARCHAR2(30 BYTE)
+//			CP_COUNT	NUMBER
+//			CP_DISCOUNT	NUMBER
+//			CP_DATE	DATE
+//			CP_NAME	VARCHAR2(50 BYTE)
+
+			while(rset.next()) {
+				list.add(new Coupon(
+								no,
+								rset.getInt("ORDER_NO"),
+								rset.getString("PCODE"),
+								rset.getInt("CP_NO"),
+								rset.getInt("CP_COUNT"),
+								rset.getInt("CP_DISCOUNT"),
+								rset.getDate("CP_DATE"),
+								rset.getString("CP_NAME"),	
+								rset.getInt("MINPRICE")		
+						));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Coupon 테이블  selectCoupon 오류메세지 : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public Consumer selectMoney(Connection conn, int no) {
+		Consumer c = new Consumer();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+//		USER_NO	NUMBER
+//		NEW_ADDRESS	VARCHAR2(100 BYTE)
+//		REC_PNO	VARCHAR2(100 BYTE)
+//		USER_CEL	string
+//		MONEY	NUMBER
+//		SUM_PRICE	NUMBER
+		
+		System.out.println("주문 다오 유저 넘버 : " + no);
+		
+		String sql = prop.getProperty("selectMoney");
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+//			selectMoney=SELECT * FROM CONSUMER WHERE USER_NO = ?	
+			while(rset.next()) {
+				
+				c = new Consumer(no,
+						rset.getString("NEW_ADDRESS"), rset.getString("REC_PNO"), rset.getString("USER_CEL"),
+						rset.getInt("MONEY"), rset.getInt("SUM_PRICE"));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Consumer 테이블  selectMoney 오류메세지 : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return c;
 	}
 
 }

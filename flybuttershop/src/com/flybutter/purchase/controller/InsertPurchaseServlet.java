@@ -1,6 +1,8 @@
 package com.flybutter.purchase.controller;
 
 import java.io.IOException;
+import java.util.Random;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,17 +45,8 @@ public class InsertPurchaseServlet extends HttpServlet {
 		String pImg = request.getParameter("pImg");
 		String pName = request.getParameter("pName");
 		String option = request.getParameter("pOption");
-		int price = Integer.parseInt(request.getParameter("price"));
 		int pAmount = Integer.parseInt(request.getParameter("pAmount"));
-		
-		System.out.println("주문인서트서블릿 : " + pCode);
-		System.out.println("주문인서트서블릿 : " + newAddress);
-		System.out.println("주문인서트서블릿 : " + pImg);
-		System.out.println("주문인서트서블릿 : " + pName);
-		System.out.println("주문인서트서블릿 : " + option);
-		System.out.println("주문인서트서블릿 : " + price);
-		System.out.println("주문인서트서블릿 : " + pAmount);
-		
+		int resultPrice = Integer.parseInt(request.getParameter("resultPrice"));
 		
 //		p.setUser_No(loginM.getMEM_USER_NO());
 //		p.setpCode(pCode);
@@ -64,13 +57,25 @@ public class InsertPurchaseServlet extends HttpServlet {
 //		p.setPur_Amount(pAmount);
 //		p.setPur_SName(sName);
 		
-	
+		//새로운 주소 입력
 		if(newAddress != null) {	
 			int addResult = new ConsumerService().updateAdd(no, newAddress);
 		}
 		
+		//결제수단
 		if(purType.equals("무통장")) {
 			String bank = request.getParameter("bank");
+			String accNo = ""; 
+	        
+	        for(int i=0;i<13;i++) {
+	        	Random rand = new Random();
+	            String ran = Integer.toString(rand.nextInt(10));
+	            
+	            if(i == 3 || i == 6) {
+	            	ran += "-";
+	            }
+	            accNo += ran;
+	        }
 			
 		}else if(purType.equals("신용카드")) {
 			String card = request.getParameter("card");
@@ -78,7 +83,17 @@ public class InsertPurchaseServlet extends HttpServlet {
 			String cardNo = request.getParameter("cardNo");
 		}
 		
+		//적립금
+		int plusMoney = (int) (resultPrice * 0.01);
+		
+		System.out.println("적립금 : " + plusMoney);
+		
 		int result = new PurchaseService().insertPurInfo(p);
+		
+		//사용한 쿠폰
+		
+		
+		//사용한 적립금
 	}
 
 	/**

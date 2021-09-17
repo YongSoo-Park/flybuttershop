@@ -5,7 +5,7 @@ public class Consumer {
 	private int user_No;
 	private String new_Address;
 	private String rec_Pno;
-	private char user_Cel;
+	private String user_Cel;
 	private int money;
 	private int sum_Price;
 	
@@ -13,7 +13,7 @@ public class Consumer {
 		
 	}
 	
-	public Consumer(int user_No, String new_Address, String rec_Pno, char user_Cel, int money, int sum_Price) {
+	public Consumer(int user_No, String new_Address, String rec_Pno, String user_Cel, int money, int sum_Price) {
 		super();
 		this.user_No = user_No;
 		this.new_Address = new_Address;
@@ -47,11 +47,11 @@ public class Consumer {
 		this.rec_Pno = rec_Pno;
 	}
 
-	public char getUser_Cel() {
+	public String getUser_Cel() {
 		return user_Cel;
 	}
 
-	public void setUser_Cel(char user_Cel) {
+	public void setUser_Cel(String user_Cel) {
 		this.user_Cel = user_Cel;
 	}
 
