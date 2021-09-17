@@ -314,7 +314,7 @@ public class SellerDao {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, storeNo);
 				rset = pstmt.executeQuery();
-				
+			 	
 				while(rset.next()) {
 					pList.add(new Purchase(rset.getInt("PUR_NO"),
 										   rset.getDate("PUR_DATE"),

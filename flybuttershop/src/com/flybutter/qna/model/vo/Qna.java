@@ -18,7 +18,7 @@ public class Qna {
 	private String qna_Comment;
 	private Date qna_Comment_Date;
 	private String qna_Writer;
-	
+	 
 	public Qna() {
 		// TODO Auto-generated constructor stub
 	}

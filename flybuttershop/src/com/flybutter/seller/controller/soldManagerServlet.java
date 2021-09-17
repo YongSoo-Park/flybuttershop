@@ -47,7 +47,7 @@ public class soldManagerServlet extends HttpServlet {
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/seller/soldManager.jsp");
 		view.forward(request, response);
-		
+		 
 	
 	}
 

@@ -18,7 +18,7 @@ function pwdValidate(){
 		 $("#qnaPwd input[name=pwd]").focus();
        return false;
 	 }
-	
+	 
 }
 </script>
 <style type="text/css">

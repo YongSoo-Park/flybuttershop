@@ -183,7 +183,7 @@ if(p.getSale_Flag()==1){
         <tr>
             <td colspan="2" rowspan="11" class="pimage"><img src="${pageContext.request.contextPath}${requestScope.p.pImage_Origin}"></td>
             <td class="index">상품코드</td>
-            <td class="info" name="pCode" value="<%=p.getpCode() %>"><%=p.getpCode() %></td>
+             <td class="info" name="pCode" value="<%=p.getpCode() %>"><%=p.getpCode() %></td>
         </tr>
         <tr>
             <td class="index">대분류</td>

@@ -22,7 +22,7 @@ public class QnaService {
 		}
 		
 		close(conn);
-		
+		 
 		return result;
 	}
 

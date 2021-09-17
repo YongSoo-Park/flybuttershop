@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<style>
+<style> 
 	.outer{
 		width:900px;
 		height:700px;

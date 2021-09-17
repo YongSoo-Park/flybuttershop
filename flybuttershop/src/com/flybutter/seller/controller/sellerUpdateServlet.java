@@ -25,7 +25,7 @@ public class sellerUpdateServlet extends HttpServlet {
     public sellerUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
-    }
+    } 
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

@@ -25,7 +25,7 @@ public class qnaReplyInsertServlet extends HttpServlet {
     public qnaReplyInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
-    }
+    } 
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

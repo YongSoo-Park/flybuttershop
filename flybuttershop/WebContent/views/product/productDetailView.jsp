@@ -113,7 +113,7 @@ $(function(){
 })
 	$(function(){
 		$(".reviewList>tbody>tr").click(function(){
-			var rNo = $(this).children().eq(0).text();
+	 		var rNo = $(this).children().eq(0).text();
 			location.href="<%= request.getContextPath() %>/reviewDetail.pr?rNo="+rNo;
 		})
 	})

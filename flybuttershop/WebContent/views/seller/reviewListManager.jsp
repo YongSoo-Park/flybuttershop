@@ -4,7 +4,7 @@
     
 <%
 	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
-%>
+%> 
 <!DOCTYPE html>
 <html>
 <head>

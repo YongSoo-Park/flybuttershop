@@ -16,7 +16,7 @@
 	}else {
 		qCategory = "기타";
 	}
-%>
+%> 
 	
 <!DOCTYPE html>
 <html>

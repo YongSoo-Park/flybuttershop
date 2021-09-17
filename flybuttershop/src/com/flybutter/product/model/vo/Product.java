@@ -3,7 +3,7 @@ package com.flybutter.product.model.vo;
 import java.sql.Date;
 
 public class Product {
-	
+	 
 	private String pCode;
 	private int store_No;
 	private int pCategory;

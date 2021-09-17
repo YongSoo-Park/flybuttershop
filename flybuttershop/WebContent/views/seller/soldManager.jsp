@@ -3,7 +3,7 @@
     
 <%
 	ArrayList<Purchase> pList = (ArrayList<Purchase>)request.getAttribute("pList");
-%>
+%> 
 
 <!DOCTYPE html>
 <html>

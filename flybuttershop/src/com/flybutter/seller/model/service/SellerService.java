@@ -29,7 +29,7 @@ public class SellerService {
 		return sel;
 	}
 
-
+ 
 	public Seller updateStore(Seller seller) {
 		
 		Connection conn = getConnection();

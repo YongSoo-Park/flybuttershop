@@ -413,7 +413,7 @@ public class ProductDao {
 
 		int result = 0;
 		PreparedStatement pstmt = null;
-		
+ 		
 		String sql = prop.getProperty("deleteProduct");
 		
 		try {

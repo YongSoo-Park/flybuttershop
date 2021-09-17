@@ -25,8 +25,8 @@ public class productUpdateFormServlet extends HttpServlet {
     public productUpdateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
-    }
-
+    } 
+ 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

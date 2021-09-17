@@ -25,7 +25,7 @@ public class reviewDetailManagerServlet extends HttpServlet {
     public reviewDetailManagerServlet() {
         super();
         // TODO Auto-generated constructor stub
-    }
+    } 
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

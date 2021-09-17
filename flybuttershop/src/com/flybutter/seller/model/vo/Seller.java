@@ -16,7 +16,7 @@ public class Seller extends Member{
 	private String storeCall; //상점전화번호
 	private String ceo; //대표자
 	private String email; //상점이메일
-	
+	 
 	public Seller() {
 		// TODO Auto-generated constructor stub
 	}

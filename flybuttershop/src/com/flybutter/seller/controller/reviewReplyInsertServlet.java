@@ -25,7 +25,7 @@ public class reviewReplyInsertServlet extends HttpServlet {
     public reviewReplyInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
-    }
+    } 
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

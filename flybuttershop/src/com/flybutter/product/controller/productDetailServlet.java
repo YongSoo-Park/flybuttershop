@@ -66,7 +66,7 @@ public class productDetailServlet extends HttpServlet {
 			request.setAttribute("msg", "상품정보를 불러올 수 없습니다.");
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
-		}
+	 	}
 		
 		
 	}

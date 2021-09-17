@@ -21,7 +21,7 @@ public class ProductService {
 		Product p = new ProductDao().selectProduct(conn, pCode);
 		
 		close(conn);
-	
+	 
 		
 		return p;
 	}

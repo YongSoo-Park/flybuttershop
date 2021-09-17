@@ -35,7 +35,7 @@
 				  </li>
 				  <li class="nav-item">
 				    <a class="nav-link" href="<%=request.getContextPath()%>/qnaManager.sl">Q&A관리</a>
-				  </li>
+		 		  </li>
 				  <li class="nav-item" >
 				    <a class="nav-link" href="<%=request.getContextPath()%>/reviewManager.sl">후기관리</a>
 				  </li>

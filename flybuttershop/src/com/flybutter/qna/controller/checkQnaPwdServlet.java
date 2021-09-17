@@ -25,7 +25,7 @@ public class checkQnaPwdServlet extends HttpServlet {
     public checkQnaPwdServlet() {
         super();
         // TODO Auto-generated constructor stub
-    }
+    } 
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
