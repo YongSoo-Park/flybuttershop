@@ -152,6 +152,21 @@ public class HelpService {
 		return result;
 	}
 
+	public int deleteReplyHelp(int no) {
+		Connection conn = getConnection();
+		
+		int result = new HelpDao().deleteReplyHelp(conn, no);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 	
 
 	
