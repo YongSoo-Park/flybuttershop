@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.flybutter.consumerMyPage.model.dao.MypageDao;
+import com.flybutter.consumerMyPage.model.vo.OrderList;
 import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.review.model.vo.PageInfo;
@@ -70,10 +71,37 @@ public class MypageService {
 	
 	}
 
-	public ArrayList<Purchase> selectOrderList(PageInfo pi, int userNo) {
+	public ArrayList<OrderList> selectOrderList(PageInfo pi, int userNo) {
 		Connection conn = getConnection();
 		
-		ArrayList<Purchase> list = new MypageDao().selectOrderList(conn, pi, userNo);
+		ArrayList<OrderList> list = new MypageDao().selectOrderList(conn, pi, userNo);
+		
+		close(conn);
+		return list;
+	}
+
+	public String getpImage(String pNo) {
+		Connection conn = getConnection();
+		
+		String pImage = new MypageDao().getpImage(conn, pNo);
+		
+		close(conn);
+		return pImage;
+	}
+
+	public String getpName(String pNo) {
+		Connection conn = getConnection();
+		
+		String pName = new MypageDao().getpName(conn, pNo);
+		
+		close(conn);
+		return pName;
+	}
+
+	public OrderList selectOrderDetail(int purNo) {
+		Connection conn = getConnection();
+		
+		OrderList list = new MypageDao().selectOrderDetail(conn, purNo);
 		
 		close(conn);
 		return list;

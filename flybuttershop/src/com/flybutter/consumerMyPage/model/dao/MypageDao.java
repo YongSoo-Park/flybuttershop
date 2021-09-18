@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.flybutter.basket.model.dao.BasketDao;
+import com.flybutter.consumerMyPage.model.vo.OrderList;
 import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.review.model.vo.PageInfo;
@@ -186,8 +187,8 @@ public class MypageDao {
 
 
 
-	public ArrayList<Purchase> selectOrderList(Connection conn, PageInfo pi, int userNo) {
-		ArrayList<Purchase> list = new ArrayList<>();
+	public ArrayList<OrderList> selectOrderList(Connection conn, PageInfo pi, int userNo) {
+		ArrayList<OrderList> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -205,17 +206,118 @@ public class MypageDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Purchase(rset.getInt("PUR_NO"),
-									rset.getDate("PUR_DATE"),
-									rset.getString("PIMAGE_ORIGIN"),
-									rset.getString("PNAME"),
-									rset.getInt("PUR_AMOUNT"),
-									rset.getInt("PUR_STATE")
+				list.add(new OrderList(rset.getInt("PUR_NO"),
+									rset.getString("PUR_INFO"),
+									rset.getDate("PUR_DATE")
 									
 						));
 			}
 		} catch (SQLException e) {
 			System.out.println("PURCHASE 테이블  orderList : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return list;
+	}
+
+
+
+
+
+	public String getpImage(Connection conn, String pNo) {
+		String pImage = "";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getpImage");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pImage = rset.getString("PIMAGE_ORIGIN");
+			
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("PRODUCT 테이블  getpImage : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pImage;
+	}
+
+
+
+
+
+	public String getpName(Connection conn, String pNo) {
+		String pName = "";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getpName");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pName = rset.getString("PNAME");
+			
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("PRODUCT 테이블  getpImage : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pName;
+	}
+
+
+
+
+
+	public OrderList selectOrderDetail(Connection conn, int purNo) {
+		OrderList list = new OrderList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOrderDetail");
+		
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, purNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				list.setPurNo(purNo);				
+				list.setPurDate(rset.getDate("PUR_DATE"));
+				list.setOrderInfo(rset.getString("PUR_INFO"));
+			}
+		} catch (SQLException e) {
+			System.out.println("PURCHASE 테이블  selectOrderDetail : " + e.getMessage());
 		}finally {
 			close(rset);
 			close(pstmt);
