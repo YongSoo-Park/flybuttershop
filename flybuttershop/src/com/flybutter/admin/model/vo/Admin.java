@@ -17,6 +17,7 @@ public class Admin {
 	private String ceo;
 	private String storeEmail;
 	private int totalSales;
+	private String store_Exp;
 	
 	public Admin() {
 		super();
@@ -24,7 +25,16 @@ public class Admin {
 	}
 	
 	
-	
+	public Admin(String sellerNo,String storeName, String store_Exp,  String ceo, String storeEmail, int storeNo, int userNo) {
+		super();
+		this.storeNo = storeNo;
+		this.storeName = storeName;
+		this.sellerNo = sellerNo;
+		this.ceo = ceo;
+		this.storeEmail = storeEmail;
+		this.store_Exp = store_Exp;
+		this.userNo = userNo;
+	}
 	public Admin(int lev, String userId, String userName, String email, String userCel, int userNo, int category ) {
 		super();
 		this.userNo = userNo;
@@ -97,6 +107,18 @@ public class Admin {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+
+
+	public String getStore_Exp() {
+		return store_Exp;
+	}
+
+
+
+	public void setStore_Exp(String store_Exp) {
+		this.store_Exp = store_Exp;
 	}
 
 

@@ -43,7 +43,6 @@ public class MainPageDao {
 		ResultSet rset = null;
 		temp = rec_PNO.split("/");
 
-		System.out.println(temp.length);
 		String sql = prop.getProperty("itemsListSelect");
 		try {
 			for (int i = 0; i < temp.length; i++) {
