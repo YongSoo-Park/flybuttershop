@@ -9,7 +9,7 @@ public class Coupon {
 	private String pCode;
 	private int cp_no;
 	private int cp_count;
-	private double cp_discount;
+	private int cp_discount;
 	private Date cp_date;
 	private String cp_name;
 	private int minPrice;
@@ -20,7 +20,7 @@ public class Coupon {
 	}
 
 
-	public Coupon(int user_no, int order_no, String pCode, int cp_no, int cp_count, double cp_discount, Date cp_date) {
+	public Coupon(int user_no, int order_no, String pCode, int cp_no, int cp_count, int cp_discount, Date cp_date) {
 		super();
 		this.user_no = user_no;
 		this.order_no = order_no;
@@ -87,7 +87,7 @@ public class Coupon {
 	}
 
 
-	public void setCp_discount(double cp_discount) {
+	public void setCp_discount(int cp_discount) {
 		this.cp_discount = cp_discount;
 	}
 
@@ -124,7 +124,7 @@ public class Coupon {
 	}
 
 
-	public Coupon(int user_no, int order_no, String pCode, int cp_no, int cp_count, double cp_discount, Date cp_date,
+	public Coupon(int user_no, int order_no, String pCode, int cp_no, int cp_count, int cp_discount, Date cp_date,
 			String cp_name, int minPrice) {
 		super();
 		this.user_no = user_no;

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.ArrayList, com.flybutter.purchase.model.vo.*, com.flybutter.review.model.vo.*"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, com.flybutter.purchase.model.vo.*, com.flybutter.review.model.vo.*, com.flybutter.consumerMyPage.model.vo.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>     
 <% 
-	ArrayList<Purchase> list  = (ArrayList<Purchase>)request.getAttribute("list");
+	ArrayList<ArrayList<OrderInfo>>  list  = (ArrayList<ArrayList<OrderInfo>>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 
 	int listCount = pi.getListCount();
@@ -73,14 +73,15 @@
       <h3>주문 내역이 없습니다</h3>
       <br><br>
       <%} else{ %>
-      	<%for(Purchase p : list){ %>
+      		<% for( ArrayList<OrderInfo> o : list) {%>
+				
         <table align="center" rules="none" border="1px">
 
             <tr>
-                <td rowspan="4" width="200px" height="200px"><img src="<%=p.getPur_Image() %>" border="1px"></td>
-                <td align="left" id="pNo">&nbsp;&nbsp; <b>주문번호</b><br>&nbsp;&nbsp; <%=p.getPur_No() %></td>
+                <td rowspan="4" width="200px" height="200px"><img src="<%=o.get(0).getpImage() %>" border="1px"></td>
+                <td align="left" id="pNo">&nbsp;&nbsp; <b>주문번호</b><br>&nbsp;&nbsp; <%=o.get(0).getPurNo() %></td>
                 <td align="right"><b>
-                <% int state =  p.getPur_State(); 
+                <% int state =  o.get(0).getState(); 
 								pageContext.setAttribute("state", state);
 				%>	
 							<c:choose>
@@ -97,29 +98,30 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2" align="left">&nbsp;&nbsp; <b>상품명</b><br>&nbsp;&nbsp; <%=p.getPur_Pname() %></td>
+                <td colspan="2" align="left">&nbsp;&nbsp; <b>상품명</b><br>&nbsp;&nbsp; <%=o.get(0).getpName() %></td>
             </tr>
             <tr>
-                <td align="left">&nbsp;&nbsp; <b>주문일시</b><br>&nbsp;&nbsp; <%=p.getPur_Date() %></td>
+                <td align="left">&nbsp;&nbsp; <b>주문일시</b><br>&nbsp;&nbsp; <%=o.get(0).getPurDate() %></td>
                 <td align="right">
                 <% if(state == 4) {%>
-                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/insertForm.rv?pno=<%=p.getPur_No()%>'">후기작성</button>
+                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/insertForm.rv?pno=<%=o.get(0).getPurNo()%>?pcode=<%=o.get(0).getpCode()%>'">후기작성</button>
                 <%} else if(state == 1 || state == 2){%>
-                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/cancelOrder?pno=<%=p.getPur_No()%>'">주문취소</button>
+                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/cancelOrder?pno=<%=o.get(0).getPurNo()%>'">주문취소</button>
                 <%} %>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td align="right">
-                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/detailOrder.mp?pno=<%=p.getPur_No()%>'">상세조회</button>
+                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/detailOrder.mp?pno=<%=o.get(0).getPurNo()%>'">상세조회</button>
                 </td>
             </tr>
             
             </table>
             <br><br>
+            <%} %>
 			<%} %>
-		<%} %>	
+		
      
 
 	<div class="pagingArea" align="center">
@@ -143,6 +145,7 @@
 				<%} %>
 				
 			<%} %>
+			
 			
 			<!-- 다음페이지로(>) -->
 			<%if(currentPage == maxPage){ %>
