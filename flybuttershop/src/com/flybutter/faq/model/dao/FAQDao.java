@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import com.flybutter.faq.model.vo.FAQ;
 import com.flybutter.faq.model.vo.PageInfo;
+import com.flybutter.search.model.vo.Search;
 
 
 public class FAQDao {
@@ -451,6 +452,166 @@ public class FAQDao {
 		
 		
 		return listCount;
+	}
+
+	public int getListCount(Connection conn) {
+		int listCount = 0;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);//count
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return listCount;
+	}
+
+	public ArrayList<FAQ> selectFAQList(Connection conn, PageInfo pi) {
+		ArrayList<FAQ> list = new ArrayList<FAQ>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectFAQList");
+//selectFAQList=
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new FAQ(rset.getInt("FAQ_NO"),
+									rset.getInt("FAQ_CATEGORY"),
+									rset.getString("FAQ_TITLE")));
+			}
+			System.out.println("dao list : " + list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt); 
+		
+		}
+	
+		return list;
+	}
+
+	public ArrayList<FAQ> searchList(Connection conn, String sWord) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<FAQ> searchList = new ArrayList<FAQ>();
+		String sql = prop.getProperty("searchList");
+		//searchList=SELECT * FROM(SELECT * FROM FAQ WHERE FAQ_CATEGORY LIKE ? OR FAQ_TITLE LIKE ? OR FAQ_CONTENT LIKE ? ORDER BY FAQ_NO DESC) WHERE ROWNUM < 11
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + sWord + "%");
+			rset = pstmt.executeQuery();
+			while (true) {
+				if (rset.next()) {
+					searchList.add(new FAQ(rset.getInt("FAQ_NO"),
+							rset.getInt("FAQ_CATEGORY"),
+							rset.getString("FAQ_TITLE"),
+							rset.getString("FAQ_CONTENT")		
+							));
+					continue;
+				} else {
+					break;
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(rset);
+			close(pstmt);
+		}
+		return searchList;
+	}
+
+	public int searchListCount(Connection conn, String sWord) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchListCount");
+		//searchListCount=SELECT COUNT(*) TOTAL FROM FAQ WHERE FAQ_CATEGORY LIKE ? OR FAQ_TITLE LIKE ? OR FAQ_CONTENT LIKE ?
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + sWord + "%");
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				count = rset.getInt("TOTAL");
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+	public ArrayList<FAQ> searchListNext(Connection conn, String sWord, int start, int end) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<FAQ> searchList = new ArrayList<FAQ>();
+		String sql = prop.getProperty("searchListNext");
+		//searchListNext=SELECT * FROM ( SELECT FIRST.*, ROWNUM RNUM FROM (SELECT * FROM FAQ WHERE FAQ_CATEGORY LIKE ? OR FAQ_TITLE LIKE ? OR FAQ_CONTENT LIKE ? ORDER BY FAQ_NO DESC) FIRST WHERE ROWNUM <= ?) SECOND WHERE RNUM >= ?
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + sWord + "%");
+			pstmt.setInt(2, end);
+			pstmt.setInt(3, start);
+			rset = pstmt.executeQuery();
+			while (true) {
+				if (rset.next()) {
+					searchList.add(new FAQ(rset.getInt("FAQ_NO"),
+							rset.getInt("FAQ_CATEGORY"),
+							rset.getString("FAQ_TITLE"),
+							rset.getString("FAQ_CONTENT")	
+							));
+					continue;
+				} else {
+					break;
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(rset);
+			close(pstmt);
+		}
+		return searchList;
 	}
 
 	

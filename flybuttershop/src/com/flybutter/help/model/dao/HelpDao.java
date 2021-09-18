@@ -425,6 +425,33 @@ public class HelpDao {
 		}finally {
 			close(pstmt);
 		} 
+		System.out.println("delete reply result in dao : " + result);
+		return result;
+	}
+
+	public int changeStatusDeleteHelp(Connection conn, Help h) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("changeStatusDeleteHelp");
+	//changeStatusDeleteHelp=UPDATE HELP SET HELP_STATUS='N' WHERE HELP_NO=?
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+				// 유저넘버 추가해야함
+			
+			
+			pstmt.setInt(1, h.getHelp_No());
+		
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 

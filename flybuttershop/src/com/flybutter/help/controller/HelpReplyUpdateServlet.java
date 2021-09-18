@@ -29,6 +29,9 @@ public class HelpReplyUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		System.out.println("no 전: " + request.getParameter("no"));
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println("no 후 : " + no);
