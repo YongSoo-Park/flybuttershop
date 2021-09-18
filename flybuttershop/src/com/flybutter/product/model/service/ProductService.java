@@ -9,6 +9,7 @@ import com.flybutter.product.model.dao.ProductDao;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.qna.model.vo.Qna;
 import com.flybutter.review.model.vo.Review;
+import com.flybutter.seller.model.dao.SellerDao;
 import com.flybutter.seller.model.vo.Seller;
 
 public class ProductService {
@@ -108,6 +109,32 @@ public class ProductService {
 		close(conn);
 		
 		return rList;
+	}
+
+	public Review selectReview(int rNo) {
+		Connection conn = getConnection();
+		
+		Review r = new ProductDao().selectReview(conn, rNo);
+		
+		close(conn);
+		
+		return r;
+	}
+
+	public int deleteProduct(String pcode) {
+		Connection conn = getConnection();
+		
+		int result = new ProductDao().deleteProduct(conn, pcode);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		
+		return result;
 	}
 
 	

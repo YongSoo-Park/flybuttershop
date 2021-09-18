@@ -109,11 +109,14 @@ $(function(){
 		}else{
 			location.href="<%= request.getContextPath() %>/qnaDetail.pr?qNo="+qNo;
 		}
-		
-		
-		
 	})
 })
+	$(function(){
+		$(".reviewList>tbody>tr").click(function(){
+	 		var rNo = $(this).children().eq(0).text();
+			location.href="<%= request.getContextPath() %>/reviewDetail.pr?rNo="+rNo;
+		})
+	})
 
 </script>
 </head>
@@ -191,6 +194,40 @@ $(function(){
 
 	<div id="reviewBox" class="bottom none">
 		<br><br>
+		<table class="reviewList" align="center">
+		<thead>
+			<tr>
+				<th>글번호</th>
+				<th>상품코드</th>
+				<th>작성자</th>
+				<th>제목</th>
+				<th>별점</th>
+				<th>등록일</th>
+				<th>답변여부</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if(rList.isEmpty()){ %>
+				<tr>
+					<td colspan="5">등록된 후기가 없습니다.</td>
+				</tr>
+			<% }else{ %>
+				<% for(Review r : rList){  %>
+					<tr>
+						<td><%= r.getRe_no() %></td>
+						<td><%= r.getpCode() %></td>
+						<td><%= r.getUserName()%></td>
+						<td><%=r.getRe_title()%></td>
+						<td><%=r.getScore()%></td>
+						<td><%=r.getRe_date()%></td>
+						<td><%=r.getRe_status()%></td>
+					</tr>
+				 	<% } %>
+				 <% } %>	
+		</tbody>
+		
+	</table>
+		
 	
 	</div>
 

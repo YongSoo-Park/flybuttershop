@@ -1,9 +1,12 @@
 package com.flybutter.seller.model.service;
 
+import static com.common.JDBCTemplate.close;
+import static com.common.JDBCTemplate.commit;
+import static com.common.JDBCTemplate.getConnection;
+import static com.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
-
-import static com.common.JDBCTemplate.*;
 
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.purchase.model.vo.Purchase;
@@ -114,6 +117,41 @@ public class SellerService {
 		close(conn);
 		
 		return pList;
+	}
+
+
+	public Review selectReview(int rNo) {
+
+		Connection conn = getConnection();
+		
+		Review r = new SellerDao().selectReview(conn, rNo);
+		
+		close(conn);
+		
+		return r;
+	}
+
+
+	public Review replyReview(Review review) {
+
+		Connection conn = getConnection();
+		
+		Review reReview = null;
+		
+		int result = new SellerDao().replyReview(conn, review);
+		
+		if(result > 0) {
+			commit(conn);
+			
+			reReview = new SellerDao().selectReview(conn, review.getRe_no());
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		
+		return reReview;
 	}
 
 
