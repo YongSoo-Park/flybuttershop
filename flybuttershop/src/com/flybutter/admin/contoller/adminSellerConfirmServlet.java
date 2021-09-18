@@ -14,16 +14,16 @@ import com.flybutter.admin.model.vo.Admin;
 import com.flybutter.paging.model.vo.Paging;
 
 /**
- * Servlet implementation class adminPageServlet
+ * Servlet implementation class adminSellerConfirmServlet
  */
-@WebServlet("/adminpage.ad")
-public class adminPageServlet extends HttpServlet {
+@WebServlet("/adminconfirm.ad")
+public class adminSellerConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminPageServlet() {
+    public adminSellerConfirmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +32,22 @@ public class adminPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memberListCount;
-		int sellerListCount;
-		ArrayList<Admin> memberList = null;
-		ArrayList<Admin> sellerList = null;
-		Paging memberListPaging = null;
-		Paging sellerListPaging = null;
-		memberListCount = new AdminService().memberListCount();
-		sellerListCount = new AdminService().sellerListCount();
-		memberList = new AdminService().memberList();
-		sellerList = new AdminService().sellerList();
-		memberListPaging = new Paging(memberListCount, 1, 10, 10);
-		sellerListPaging = new Paging(sellerListCount, 1, 10, 10);
+		int sellerFListCount;
+		int sKind = 0;
+		String sWord = "";
+		ArrayList<Admin> sellerFList = null;
+		Paging sellerFListPaging = null;
+		sellerFListCount = new AdminService().sellerFListCount();
+		sellerFList = new AdminService().sellerFList();
+		sellerFListPaging = new Paging(sellerFListCount, 1, 5, 5);
 		
-		request.setAttribute("memberList", memberList);
-		request.setAttribute("sellerList", sellerList);
-		request.setAttribute("memberListPaging", memberListPaging);
-		request.setAttribute("sellerListPaging", sellerListPaging);
+		request.setAttribute("sellerFList", sellerFList);;
+		request.setAttribute("sellerFListPaging", sellerFListPaging);
+		request.setAttribute("sKind", sKind);
+		request.setAttribute("sWord", sWord);
 		
-		request.getRequestDispatcher("views/admin/adminPage.jsp").forward(request, response);
 		
+		request.getRequestDispatcher("views/admin/adminPageSellerConfirm.jsp").forward(request, response);
 	}
 
 	/**

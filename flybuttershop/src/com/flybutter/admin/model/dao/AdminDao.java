@@ -148,4 +148,420 @@ public class AdminDao {
 		return sellerListCount;
 	}
 
+	public int memberListNextCount(Connection conn, String sWord, int sKind) {
+		int memberListCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("memberListSearchCount");
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			if(sKind == 1) {
+				pstmt.setString(1, "%"+sWord+"%");
+				pstmt.setString(2, "%%");
+			}else if(sKind == 2) {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%"+sWord+"%");
+			}else {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%%");
+			}
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				memberListCount = rset.getInt("COUNT");
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return memberListCount;
+	}
+
+	public ArrayList<Admin> memberListNext(Connection conn, String sWord, int sKind, int start, int end) {
+		ArrayList<Admin> memberListNext = new ArrayList<Admin>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("memberListNext");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(sKind == 1) {
+				pstmt.setString(1, "%"+sWord+"%");
+				pstmt.setString(2, "%%");
+				pstmt.setInt(3, end);
+				pstmt.setInt(4, start);
+			}else if(sKind == 2) {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%"+sWord+"%");
+				pstmt.setInt(3, end);
+				pstmt.setInt(4, start);
+			}else {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%%");
+				pstmt.setInt(3, end);
+				pstmt.setInt(4, start);
+			}
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				memberListNext.add(new Admin(rset.getInt("MEM_LEV"), rset.getString("MEM_USER_ID"),
+						rset.getString("MEM_USER_NAME"), rset.getString("MEM_EMAIL"), rset.getString("USER_CEL"),
+						rset.getInt("MEM_USER_NO"), rset.getInt("MEM_CATEGORY")));
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return memberListNext;
+	}
+
+	public int sellerListNextCount(Connection conn, String sWord, int sKind) {
+		int sellerListCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("sellerListSearchCount");
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			if(sKind == 1) {
+				pstmt.setString(1, "%"+sWord+"%");
+				pstmt.setString(2, "%%");
+			}else if(sKind == 2) {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%"+sWord+"%");
+			}else {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%%");
+			}
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				sellerListCount = rset.getInt("COUNT");
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sellerListCount;
+	}
+
+	public ArrayList<Admin> sellerNextList(Connection conn, String sWord, int sKind, int start, int end) {
+		ArrayList<Admin> sellerNextList = new ArrayList<Admin>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("sellerListNext");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(sKind == 1) {
+				pstmt.setString(1, "%"+sWord+"%");
+				pstmt.setString(2, "%%");
+				pstmt.setInt(3, end);
+				pstmt.setInt(4, start);
+			}else if(sKind == 2) {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%"+sWord+"%");
+				pstmt.setInt(3, end);
+				pstmt.setInt(4, start);
+			}else {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%%");
+				pstmt.setInt(3, end);
+				pstmt.setInt(4, start);
+			}
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				sellerNextList.add(new Admin(rset.getInt("STORE_LEV"), rset.getString("SELLER_NO"),
+						rset.getString("STORE_NAME"), rset.getString("CEO"), rset.getString("EMAIL"),
+						rset.getInt("TOTALSALES"), rset.getInt("USER_NO"), rset.getInt("STORE_NO")));
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sellerNextList;
+	}
+
+	public int sellerFListCount(Connection conn) {
+		int sellerFListCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("sellerFListCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				sellerFListCount = rset.getInt("COUNT");
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sellerFListCount;
+	}
+
+	public ArrayList<Admin> sellerFList(Connection conn) {
+		ArrayList<Admin> sellerFList = new ArrayList<Admin>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("sellerFList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				sellerFList.add(new Admin(rset.getString("SELLER_NO"),
+						rset.getString("STORE_NAME"), rset.getString("STORE_EXP"), rset.getString("CEO"), rset.getString("EMAIL"),
+						rset.getInt("STORE_NO"),rset.getInt("MEM_USER_NO")));
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sellerFList;
+	}
+
+	public int sellerFListNextCount(Connection conn, int sKind, String sWord) {
+		int sellerFListNextCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("sellerFListSearchCount");
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			if(sKind == 1) {
+				pstmt.setString(1, "%"+sWord+"%");
+				pstmt.setString(2, "%%");
+			}else if(sKind == 2) {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%"+sWord+"%");
+			}else {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%%");
+			}
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				sellerFListNextCount = rset.getInt("COUNT");
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sellerFListNextCount;
+	}
+
+	public ArrayList<Admin> sellerFListNext(Connection conn, int sKind, String sWord, int start, int end) {
+		ArrayList<Admin> sellerFListNext = new ArrayList<Admin>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("sellerFListNext");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(sKind == 1) {
+				pstmt.setString(1, "%"+sWord+"%");
+				pstmt.setString(2, "%%");
+				pstmt.setInt(3, end);
+				pstmt.setInt(4, start);
+			}else if(sKind == 2) {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%"+sWord+"%");
+				pstmt.setInt(3, end);
+				pstmt.setInt(4, start);
+			}else {
+				pstmt.setString(1, "%%");
+				pstmt.setString(2, "%%");
+				pstmt.setInt(3, end);
+				pstmt.setInt(4, start);
+			}
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				sellerFListNext.add(new Admin(rset.getString("SELLER_NO"),
+						rset.getString("STORE_NAME"), rset.getString("STORE_EXP"), rset.getString("CEO"), rset.getString("EMAIL"),
+						rset.getInt("STORE_NO"),rset.getInt("MEM_USER_NO")));
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sellerFListNext;
+	}
+
+	public int memberDel(Connection conn, int userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("memberDel");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+
+			
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public int sellerMemberDel(Connection conn, int userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("sellerMemberDel");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+
+			
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int changeToNomalMember(Connection conn, int userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("changeToNomalMember");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+
+			
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int changeToSellerMember(Connection conn, int userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("changeToSellerMember");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+
+			
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int storeConfirm(Connection conn, int userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("storeConfirm");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+
+			
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }
