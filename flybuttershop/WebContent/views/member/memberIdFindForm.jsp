@@ -86,17 +86,17 @@
 			<div>
 				<tr>
 					<td>* 이름</td>
-					<td><input id ="inputbox" type="text" maxlength="5" name="userName" placeholder="name" required></td>
+					<td><input id ="inputbox" type="text" maxlength="15" name="userName" placeholder="name" required></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>* 전화번호</td>
-					<td><input id ="inputbox" type="tel" maxlength="11" name="phone" placeholder="(-없이)01012345678"></td>
+					<td><input id ="inputbox" type="text" maxlength="11" name="phone" placeholder="(-없이)01012345678"></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>* 이메일</td>
-					<td><input id ="inputbox" type="email" name="email" placeholder="....@...."></td>
+					<td><input id ="inputbox" type="text" name="email" placeholder="....@...."></td>
 					<td></td>
 				</tr>
 			
