@@ -78,9 +78,6 @@ int endPage = pi.getEndPage();
 	margin-left: 0px;
 }
 
-hr {
-	width: 1200px;
-}
 
 .outer {
 	width: 1200px;

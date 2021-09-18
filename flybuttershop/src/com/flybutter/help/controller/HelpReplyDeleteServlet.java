@@ -8,11 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.help.model.service.HelpService;
+import com.flybutter.help.model.vo.Help;
 
 /**
  * Servlet implementation class HelpReplyDeleteServlet
  */
-@WebServlet("/deleteReply.help")
+@WebServlet("/replyDelete.help")
 public class HelpReplyDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,13 +30,21 @@ public class HelpReplyDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no = Integer.parseInt(request.getParameter("no"));
-		
+		System.out.println("delete reply no : " + no);
 		int result = new HelpService().deleteReplyHelp(no);
+		System.out.println("delete reply result : " + result);
 		
-		if(result > 0) {  
 		
+		Help h = new Help();
+		h.setHelp_No(no);
+		int result1 = new HelpService().changeStatusDeleteHelp(h);
+		
+		
+		if(result > 0 && result1 > 0) {  
+			System.out.println("delete reply result in if : " + result);
+	
 			response.sendRedirect("list.help");
-			
+			System.out.println("delete reply result after response in if : " + result);
 		}else {
 			request.setAttribute("msg", "답변이 삭제되지 않았습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

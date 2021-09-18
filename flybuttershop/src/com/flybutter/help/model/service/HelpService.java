@@ -154,18 +154,35 @@ public class HelpService {
 
 	public int deleteReplyHelp(int no) {
 		Connection conn = getConnection();
-		
+		System.out.println("delete reply no in service : " + no);
 		int result = new HelpDao().deleteReplyHelp(conn, no);
-		
+		System.out.println("delete reply result in service : " + result);
 		if(result > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		close(conn);
-		
+		System.out.println("delete reply result in service 22222 : " + result);
 		return result;
 	}
+
+	public int changeStatusDeleteHelp(Help h) {
+		Connection conn = getConnection();
+		int result = new HelpDao().changeStatusDeleteHelp(conn, h);
+		System.out.println("service");
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);	
+	
+		return result;
+	}
+
+	
 
 	
 

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import com.flybutter.faq.model.dao.FAQDao;
 import com.flybutter.faq.model.vo.FAQ;
 import com.flybutter.faq.model.vo.PageInfo;
+import com.flybutter.search.model.dao.SearchDao;
+import com.flybutter.search.model.vo.Search;
 
 
 
@@ -152,6 +154,44 @@ public class FAQService {
 		int listCount = new FAQDao().getSellerListCount(conn);
 		close(conn);
 		return listCount;
+	}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new FAQDao().getListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	public ArrayList<FAQ> selectFAQList(PageInfo pi, String sWord) {
+		Connection conn = getConnection();
+		ArrayList<FAQ> list = new FAQDao().selectFAQList(conn, pi);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<FAQ> searchList(String sWord) {
+		Connection conn = getConnection();
+		ArrayList<FAQ> searchList = new ArrayList<FAQ>();
+		searchList = new FAQDao().searchList(conn, sWord);
+		close(conn);
+		return searchList;
+	}
+
+	public int searchListCount(String sWord) {
+		Connection conn = getConnection();
+		int count = new FAQDao().searchListCount(conn, sWord);
+		close(conn); 
+		return count;
+	}
+
+	public ArrayList<FAQ> searchListNext(String sWord, int start, int end) {
+		Connection conn = getConnection();
+		ArrayList<FAQ> searchList = new ArrayList<FAQ>();
+		searchList = new FAQDao().searchListNext(conn, sWord, start, end);
+		close(conn);
+		return searchList;
 	}
 
 	
