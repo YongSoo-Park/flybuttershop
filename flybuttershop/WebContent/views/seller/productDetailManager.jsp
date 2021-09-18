@@ -183,7 +183,7 @@ if(p.getSale_Flag()==1){
         <tr>
             <td colspan="2" rowspan="11" class="pimage"><img src="${pageContext.request.contextPath}${requestScope.p.pImage_Origin}"></td>
             <td class="index">상품코드</td>
-            <td class="info" name="pCode" value="<%=p.getpCode() %>"><%=p.getpCode() %></td>
+             <td class="info" name="pCode" value="<%=p.getpCode() %>"><%=p.getpCode() %></td>
         </tr>
         <tr>
             <td class="index">대분류</td>
@@ -237,6 +237,7 @@ if(p.getSale_Flag()==1){
 	
 		<form action="" id="postForm" method="post">
 			<input type="hidden" name="pCode" value="<%= p.getpCode() %>">
+			<input type="hidden" name="pName" value="<%= p.getpName() %>">
 		</form>
 	
 		<script>
@@ -247,6 +248,8 @@ if(p.getSale_Flag()==1){
 		}
 		
 		function deleteProduct(){
+			<%--var pname = $("#postForm input[name=pName]");
+			alter("[" + pname + "]을 정말 삭제하시겠습니까?");--%>
 			$("#postForm").attr("action", "<%=request.getContextPath()%>/deleteProduct.pr");
 			$("#postForm").submit();
 			

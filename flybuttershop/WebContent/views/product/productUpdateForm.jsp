@@ -18,7 +18,7 @@
 		margin-top:50px;
 		margin-left:auto;
 		margin-right:auto;
-	}
+	} 
     div.box{display: none;}
     #productUpdate td:nth-child(1){text-align:right;}
     #productUpdate input{margin:10px;}

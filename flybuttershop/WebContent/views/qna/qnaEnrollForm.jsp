@@ -18,7 +18,7 @@ Seller s = (Seller)request.getAttribute("s");
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
-<style>
+<style> 
 	.outer {
 	width: 1200px;
 	height: 1000px;

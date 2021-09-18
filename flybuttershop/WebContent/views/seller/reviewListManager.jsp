@@ -4,7 +4,9 @@
     
 <%
 	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
-%>
+
+
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +29,14 @@
 		text-align: center;
 	}
 </style>
+<script>
+	$(function(){
+		$(".reviewList>tbody>tr").click(function(){
+			var rNo = $(this).children().eq(0).text();
+			location.href="<%= request.getContextPath() %>/reviewDetail.sl?rNo="+rNo;
+		})
+	})
+</script>
 </head>
 <body style="margin: 0 auto">
 <jsp:include page="../header_footer/header.jsp" flush="true" />
@@ -38,8 +48,8 @@
 	<table class="reviewList" align="center">
 		<thead>
 			<tr>
+				<th>글번호</th>
 				<th>상품코드</th>
-				<th>상품명</th>
 				<th>작성자</th>
 				<th>제목</th>
 				<th>별점</th>
@@ -53,15 +63,15 @@
 					<td colspan="5">등록된 후기가 없습니다.</td>
 				</tr>
 			<% }else{ %>
-				<% for(Review r : list){  
-					
-				%>
+				<% for(Review r : list){  %>
 					<tr>
+						<td><%= r.getRe_no() %></td>
 						<td><%= r.getpCode() %></td>
-						<td><%= r.getUser_no()%></td>
-						<td><%=%></td>
-						<td><%=%></td>
-						<td><%=%></td>
+						<td><%= r.getUserName()%></td>
+						<td><%=r.getRe_title()%></td>
+						<td><%=r.getScore()%></td>
+						<td><%=r.getRe_date()%></td>
+						<td><%=r.getRe_status()%></td>
 					</tr>
 				 	<% } %>
 				 <% } %>	

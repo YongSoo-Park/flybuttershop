@@ -11,7 +11,7 @@
 	.outer{
 		width:900px;
 		height:700px;
-		margin-top:50px;
+		margin-top:50px; 
 		margin-left:auto;
 		margin-right:auto;
 	}

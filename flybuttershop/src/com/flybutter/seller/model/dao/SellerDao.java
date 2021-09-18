@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -273,21 +272,22 @@ public class SellerDao {
 				
 				while(rset.next()) {
 					list.add(new Review(rset.getInt("RE_NO"),
-										rset.getString("PCODE"),
-										rset.getInt("USER_NO"),
-										rset.getString("RE_TITLE"),
-										rset.getString("RE_CONTENT"),
-										rset.getDate("RE_DATE"),
-										rset.getString("RE_ORIGINFILE"),
-										rset.getString("RE_CHANGEFILE"),
-										rset.getString("RE_STATUS").charAt(0),
-										rset.getString("RERE_TITLE"),
-										rset.getString("RERE_CONTENT"),
-										rset.getDate("RERE_DATE"),
-										rset.getInt("STORE_NO"),
-										rset.getInt("SCORE"),
-										rset.getInt("PUR_NO")
-							));
+										 rset.getString("PCODE"),
+										 rset.getInt("USER_NO"),
+										 rset.getString("RE_TITLE"),
+										 rset.getString("RE_CONTENT"),
+										 rset.getDate("RE_DATE"),
+										 rset.getString("RE_ORIGINFILE"),
+										 rset.getString("RE_CHANGEFILE"),
+										 rset.getString("RE_STATUS").charAt(0),
+										 rset.getString("RERE_TITLE"),
+										 rset.getString("RERE_CONTENT"),
+										 rset.getDate("RERE_DATE"),
+										 rset.getInt("STORE_NO"),
+										 rset.getInt("PUR_NO"),
+										 rset.getInt("SCORE"),
+										 rset.getString("MEM_USER_ID")
+										));
 				}
 				
 				
@@ -303,7 +303,7 @@ public class SellerDao {
 		}
 		public ArrayList<Purchase> soldList(Connection conn, int storeNo) {
 			
-			ArrayList<Purchase> pList = null;
+			ArrayList<Purchase> pList = new ArrayList<>();
 			
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
@@ -312,24 +312,94 @@ public class SellerDao {
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, storeNo);
+				pstmt.setString(1, "_____"+storeNo+"%");
 				rset = pstmt.executeQuery();
 				
-//				while(rset.next()) {
-//					pList.add(new Purchase(rset.getInt("PUR_NO"),
-//										   rset.getDate("PUR_DATE"),
-//										   rset.getString("")
-//										   ));
-//					
-//				}
-				
+				while(rset.next()) {
+					pList.add(new Purchase(rset.getInt("PUR_NO"),
+										   rset.getDate("PUR_DATE"),
+										   rset.getString("PUR_INFO")
+										   ));
+				}
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
+			}finally {
+				close(rset);
+				close(pstmt);
 			}
 			
-			return null;
+			return pList;
+		}
+		public Review selectReview(Connection conn, int rNo) {
+			
+			Review r = null;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectReviewDetail");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, rNo);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					r = new Review(rset.getInt("RE_NO"),
+									 rset.getString("PCODE"),
+									 rset.getInt("USER_NO"),
+									 rset.getString("RE_TITLE"),
+									 rset.getString("RE_CONTENT"),
+									 rset.getDate("RE_DATE"),
+									 rset.getString("RE_ORIGINFILE"),
+									 rset.getString("RE_CHANGEFILE"),
+									 rset.getString("RE_STATUS").charAt(0),
+									 rset.getString("RERE_TITLE"),
+									 rset.getString("RERE_CONTENT"),
+									 rset.getDate("RERE_DATE"),
+									 rset.getInt("STORE_NO"),
+									 rset.getInt("PUR_NO"),
+									 rset.getInt("SCORE"),
+									 rset.getString("MEM_USER_ID"));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return r;
+		}
+		public int replyReview(Connection conn, Review review) {
+			
+			int result = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("replyReview");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, review.getRere_content());
+				pstmt.setInt(2, review.getRe_no());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+			return result;
 		}
 
 	}

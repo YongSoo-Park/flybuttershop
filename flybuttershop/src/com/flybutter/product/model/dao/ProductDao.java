@@ -364,4 +364,71 @@ public class ProductDao {
 		
 		return rList;
 	}
+
+	public Review selectReview(Connection conn, int rNo) {
+		Review r = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReviewDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = new Review(rset.getInt("RE_NO"),
+								 rset.getString("PCODE"),
+								 rset.getInt("USER_NO"),
+								 rset.getString("RE_TITLE"),
+								 rset.getString("RE_CONTENT"),
+								 rset.getDate("RE_DATE"),
+								 rset.getString("RE_ORIGINFILE"),
+								 rset.getString("RE_CHANGEFILE"),
+								 rset.getString("RE_STATUS").charAt(0),
+								 rset.getString("RERE_TITLE"),
+								 rset.getString("RERE_CONTENT"),
+								 rset.getDate("RERE_DATE"),
+								 rset.getInt("STORE_NO"),
+								 rset.getInt("PUR_NO"),
+								 rset.getInt("SCORE"),
+								 rset.getString("MEM_USER_ID"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return r;
+	}
+
+	public int deleteProduct(Connection conn, String pcode) {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pcode);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		} 
+
+		return result;
+	}
 }

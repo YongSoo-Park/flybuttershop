@@ -17,22 +17,16 @@
 	}else {
 		qCategory = "기타";
 	}
-	
+	 
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <style>
 	table{
 		width: 600px;
@@ -59,6 +53,10 @@
 		width:600px;
 		height:150px;
 		text-align:center;
+	}
+	.reView>tbody>tr:hover{
+		background: #0A174E;
+		cursor:pointer
 	}
 
 </style>
@@ -109,9 +107,11 @@
 				</tr>
 			<% } %>
 		</table>
+		
+		<button type="button" class="btn" action="">목록으로</button>
 	
 	</div>
 		
-
+<jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>
 </html>
