@@ -6,7 +6,6 @@ ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list");
 Member loginM = (Member)request.getSession().getAttribute("loginMember");
 int resultPrice = 0;
 int shipPrice = 0;
-//System.out.println(pList);
 %>
  
 <!DOCTYPE html>
@@ -87,7 +86,7 @@ int shipPrice = 0;
                 	</table>
                 	<hr>
                 	<button type="button" id="continueBtn" onclick="location='main.ma'">쇼핑 계속하기</button>
-                	<button type="submit" id="purBtn">주문하기</button>
+                	<button type="submit" id="purBtn" onclick="purchase()">주문하기</button>
                 	</div>
                 	</div>
                 	</div>
@@ -132,6 +131,50 @@ int shipPrice = 0;
         }
          return false;
 	}	
+    
+    function purchase() {
+    		var isck=false;
+    		var cnt=0;
+	    	var checked = document.getElementsByName("ckPd");
+	   
+    		for(var i=0;i<checked.length;i++){	
+    			if(checked[i].checked==true){
+	    			isck=true;
+	    			cnt++;
+    			}
+    		}
+   			if(!isck){
+   				alert("주문하실 상품을 체크해주세요");
+   				return false;
+   			}
+   			
+   			var confirm_val = confirm(cnt+"개의 상품이 선택되었습니다. 주문하시겠습니까?");
+       	 
+   	        if (confirm_val) {
+   	        	
+   	        	var rowData = new Array();
+   	            var checkArr = new Array();
+   				var checkbox = $("input[class=ckPd]:checked");
+   	            
+   	            checkbox.each(function(i){
+   	            	
+   	            	var tr = checkbox.parent().parent().eq(i);
+   	            	var td = tr.children();
+   	            	
+   	            	rowData.push(tr.text());
+   	            	
+   	            	var pCode = td.eq(1).text();
+   	            	
+   	            	checkArr.push(pCode);
+   	            	
+   	            })
+   	            	location.href="<%=request.getContextPath()%>/basketPur.hy?checkArr="+checkArr;
+   	       
+   	        }
+   	         return false;
+			
+   			
+    }
    	</script>
 </body>
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>

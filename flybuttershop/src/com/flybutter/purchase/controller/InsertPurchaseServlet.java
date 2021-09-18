@@ -13,6 +13,8 @@ import com.flybutter.consumer.model.service.ConsumerService;
 import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.purchase.model.service.PurchaseService;
 import com.flybutter.purchase.model.vo.Purchase;
+import com.flybutter.seller.model.service.SellerService;
+import com.flybutter.seller.model.vo.Seller;
 
 /**
  * Servlet implementation class InsertPurchaseServlet
@@ -35,18 +37,43 @@ public class InsertPurchaseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+//		USER_NO	NUMBER o
+//		PUR_NO	NUMBER <시퀀스 o 
+//		PUR_DATE	DATE <디폴트 o
+//		PUR_PRICE	NUMBER < 결제금액 o
+//		PUR_ADDRESS	VARCHAR2(100 BYTE) <바뀐주소면 바뀐주소로 o
+//		PUR_TYPE	NUMBER <라디오 버튼에 따라 들어가게 o
+//		PUR_BANK	VARCHAR2(50 BYTE) <은행 o
+//		PUR_ACCOUNT	VARCHAR2(50 BYTE) <계좌번호 o
+//		CARD_NO	VARCHAR2(20 BYTE) <카드번호 o
+//		CARD_AGENCY	VARCHAR2(50 BYTE) <카드사 o
+//		CARD_DATE	VARCHAR2(10 BYTE) <할부개월 o
+//		DEL_NO	NUMBER <운송장번호 널값으로 
+//		CP_USE	CHAR(1 BYTE) <쿠폰사용하면 Y
+//		MONEY_USE	CHAR(1 BYTE) <적립금사용하면 Y
+//		PUR_INFO	VARCHAR2(1000 BYTE) <상품코드:상점번호:상품수량:옵션:1 o
+		
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
 		Purchase p = new Purchase();
 		
 		int no = loginM.getMEM_USER_NO();
 		String pCode = request.getParameter("pCode");
 		String newAddress = request.getParameter("newAdr");
-		String purType = request.getParameter("purType");
+		int purType = Integer.parseInt(request.getParameter("purType"));
 		String pImg = request.getParameter("pImg");
 		String pName = request.getParameter("pName");
 		String option = request.getParameter("pOption");
+		String sName = request.getParameter("sName");
 		int pAmount = Integer.parseInt(request.getParameter("pAmount"));
 		int resultPrice = Integer.parseInt(request.getParameter("resultPrice"));
+		
+		
+		//상점번호 찾기
+		SellerService ss = new SellerService();
+		Seller s = ss.selectStore(sName);
+		
+		//주문정보 생성
+		String purInfo = pCode + ":" + s.getStore_No() + ":" + pAmount + ":" + option + ":" + 1;
 		
 //		p.setUser_No(loginM.getMEM_USER_NO());
 //		p.setpCode(pCode);
@@ -63,7 +90,7 @@ public class InsertPurchaseServlet extends HttpServlet {
 		}
 		
 		//결제수단
-		if(purType.equals("무통장")) {
+		if(purType == 1) { //무통장결제
 			String bank = request.getParameter("bank");
 			String accNo = ""; 
 	        
@@ -77,7 +104,7 @@ public class InsertPurchaseServlet extends HttpServlet {
 	            accNo += ran;
 	        }
 			
-		}else if(purType.equals("신용카드")) {
+		}else if(purType == 2) { //카드결제
 			String card = request.getParameter("card");
 			String cDate = request.getParameter("cDate");
 			String cardNo = request.getParameter("cardNo");
@@ -86,9 +113,8 @@ public class InsertPurchaseServlet extends HttpServlet {
 		//적립금
 		int plusMoney = (int) (resultPrice * 0.01);
 		
-		System.out.println("적립금 : " + plusMoney);
 		
-		int result = new PurchaseService().insertPurInfo(p);
+		
 		
 		//사용한 쿠폰
 		

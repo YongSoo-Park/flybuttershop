@@ -17,21 +17,6 @@ import com.flybutter.purchase.model.vo.Purchase;
 
 public class PurchaseService {
 
-	public int insertPurInfo(Purchase p) {
-		Connection conn = getConnection();
-		
-		int result = new PurchaseDao().insertPurInfo(conn, p);
-		
-		if(result > 0) {
-			commit(conn);
-		}else {	
-			rollback(conn);
-		}
-		
-		close(conn);
-		return result;
-	}
-
 	public Member selectMember(int no) {
 		Connection conn = getConnection();
 		
@@ -58,6 +43,7 @@ public class PurchaseService {
 		
 		return c;
 	}
+
 
 	
 

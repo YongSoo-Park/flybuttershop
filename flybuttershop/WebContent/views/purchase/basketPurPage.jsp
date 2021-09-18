@@ -1,21 +1,25 @@
 <%@page import="com.sun.javafx.geom.CubicApproximator"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.purchase.model.vo.*, 
-    com.flybutter.dummy.model.vo.*, com.flybutter.consumer.model.vo.*, com.flybutter.coupon.model.vo.*"%>
+    com.flybutter.dummy.model.vo.*, com.flybutter.consumer.model.vo.*, com.flybutter.coupon.model.vo.*,
+    com.flybutter.product.model.vo.*"%>
 <%
-//ArrayList<Purchase> list = (ArrayList<Purchase>) request.getAttribute("list"); 
 Member loginM= (Member)request.getSession().getAttribute("loginMember");
-Purchase p = (Purchase)request.getAttribute("purInfo");
 Consumer c = (Consumer)request.getAttribute("consumer");
 ArrayList<Coupon> list = (ArrayList<Coupon>) request.getAttribute("list");
+ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList");
 //Member m = (Member)request.getAttribute("m");
 int resultPrice = 0;
 int shipPrice = 0;
 String empty = "";
 int couponDc = 0;
+int sumPpri = 0;
 
-if(p.getPur_Price() < 50000){
+for(Product p : pList){
+	sumPpri += p.getPrice(); 
+if(sumPpri < 50000){
 	shipPrice = 2500;
+}
 }
 %>
 <!DOCTYPE html>
@@ -23,7 +27,7 @@ if(p.getPur_Price() < 50000){
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/PurchasePage.css?afterw">
+<link rel="stylesheet" href="resources/css/BasketPur.css?afterw">
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body style="margin: 0 auto">
@@ -42,21 +46,21 @@ if(p.getPur_Price() < 50000){
       <tr>
      	<th></th>
           <th id="t1">상품정보</th>
-          <th id="t2">판매자</th>
           <th id="t3">배송비</th>
           <th id="t4">수량</th>
           <th id="t5">할인</th>
           <th id="t6">상품금액</th>
       </tr>
+      <%for(Product pro : pList){ %>
       <tr>
-        <td id="pt1"> <img id="pImg" src="${pageContext.request.contextPath}<%=p.getPur_Image() %>"/></td>
-        <td id="pt2"><%=p.getPur_Pname() %></td> 
-         <td id="pt3"><%=p.getPur_SName() %></td>
+        <td id="pt1"> <img id="pImg" src="${pageContext.request.contextPath}<%=pro.getpImage_Origin() %>"/></td>
+        <td id="pt2"><%=pro.getpName() %></td> 
          <td id="pt4"><%=shipPrice%>원</td>
-         <td id="pt5"><%=p.getPur_Amount()%>개</td>
+         <td id="pt5">개</td>
          <td id="pt6"></td>
-         <td id="pt7"><%=p.getPur_Price()%>원</td>
+         <td id="pt7"><%=pro.getPrice()%>원</td>
      </tr>
+     <%} %>
   </table>
   </div>
   <div id="ship">
@@ -171,20 +175,19 @@ if(p.getPur_Price() < 50000){
   		<h3 class="text1" id="tt3">결제 상세</h3>
   		<label class="text2" id="tt3">주문금액<b id="b1">n원</b></label><br>
   		<input type="hidden" name="resultPrice" value="<%=resultPrice%>">
-  		<label class="text3" id="tt4">상품금액<b id="b2"><%=p.getPur_Price() %>원</b></label><br>
+  		<label class="text3" id="tt4">상품금액<b id="b2"><%=sumPpri %>원</b></label><br>
   		<label class="text3" id="tt5">배송비<b id="b3"><%=shipPrice%>원</b></label><br>
   		<label class="text3" id="tt6">쿠폰할인<b id="bcu">0원</b></label><br>
   		<label class="text3" id="tt7">적립금사용<b id="bmo">0원</b></label>
   		</th>
   	</tr>
   </table>
-  <input type="hidden" name="pCode" value="<%=p.getpCode()%>">
+  <%-- <input type="hidden" name="pCode" value="<%=p.getpCode()%>">
   <input type="hidden" name="pName" value="<%=p.getPur_Pname()%>">
   <input type="hidden" name="pImg" value="<%=p.getPur_Image()%>">
   <input type="hidden" name="pAmount" value="<%=p.getPur_Amount()%>">
   <input type="hidden" name="pOption" value="<%=p.getPur_POption()%>">
-  <input type="hidden" name="price" value="<%=p.getPur_Price()%>">
-  <input type="hidden" name="sName" value="<%=p.getPur_SName()%>">
+  <input type="hidden" name="price" value="<%=p.getPur_Price()%>">--%>
   </form>
   <div id="consent">
   <br><br>

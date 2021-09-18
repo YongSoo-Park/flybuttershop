@@ -5,7 +5,6 @@ import java.sql.Date;
 public class Purchase {
 
 	private int user_No;
-	private String pCode;
 	private int pur_No;
 	private Date pur_Date;
 	private int pur_Price;
@@ -17,37 +16,74 @@ public class Purchase {
 	private String card_Agency;
 	private String card_Date;
 	private int del_No;
-	private char cp_Use;
-	private char money_Use;
+	private String cp_Use;
+	private String money_Use;
+	private String pur_Info;
+	
+///////////////////////////
+	
+	private String pCode;
 	private String pur_Image;
 	private String pur_Pname;
-	private String pur_POption; 
+	private String pur_POption;
 	private int pur_Amount;
 	private String pur_SName;
-	private int pur_State;
-
+	
+////////////////////////////
+	
+//	USER_NO
+//	PUR_NO
+//	PUR_DATE
+//	PUR_PRICE
+//	PUR_ADDRESS
+//	PUR_TYPE
+//	PUR_BANK
+//	PUR_ACCOUNT
+//	CARD_NO
+//	CARD_AGENCY
+//	CARD_DATE
+//	DEL_NO
+//	CP_USE
+//	MONEY_USE
+//	PUR_INFO
 	 
 	public Purchase() {
 		
 	}
 	
-	//마이페이지
-	public Purchase(int pur_No, Date pur_Date, String pur_Image, String pur_Pname, int pur_Amount, int pur_State) {
-		super();
-		this.pur_No = pur_No;
-		this.pur_Date = pur_Date;
-		this.pur_Image = pur_Image;
-		this.pur_Pname = pur_Pname;
-		this.pur_Amount = pur_Amount;
-		this.pur_State = pur_State;
-	}
-
-	//무통장입금
-	public Purchase(int user_No, String pCode, int pur_No, Date pur_Date, int pur_Price, String pur_Address,
-			int pur_Type, String pur_Bank, String pur_Account, int del_No, char cp_Use, char money_Use, String pur_Image, String pur_Pname, String pur_POption, int pur_Amount , String pur_SName, int pur_State) {
+	//주문창
+//	p.setUser_No(no);
+//	p.setpCode(pCode);
+//	p.setPur_Image(pImg);
+//	p.setPur_Pname(pName);
+//	p.setPur_POption(option);
+//	p.setPur_Price(price);
+//	p.setPur_Amount(pAmount);
+//	p.setPur_SName(sName);	
+	public Purchase(int user_No, String pCode, String pur_Image, String pur_Pname, String pur_POption, int pur_Amount,
+			String pur_SName) {
 		super();
 		this.user_No = user_No;
 		this.pCode = pCode;
+		this.pur_Image = pur_Image;
+		this.pur_Pname = pur_Pname;
+		this.pur_POption = pur_POption;
+		this.pur_Amount = pur_Amount;
+		this.pur_SName = pur_SName;
+	}
+	
+	//판매자 판매 내역
+	   public Purchase(int pur_No, Date pur_Date, String pur_Info) {
+	      this.pur_No = pur_No;
+	      this.pur_Date = pur_Date;
+	      this.pur_Info = pur_Info;
+	   }
+	   
+	//무통장입금
+	public Purchase(int user_No, int pur_No, Date pur_Date, int pur_Price, String pur_Address, int pur_Type,
+			String pur_Bank, String pur_Account, int del_No, String cp_Use, String money_Use, String pur_Info) {
+		super();
+		this.user_No = user_No;
 		this.pur_No = pur_No;
 		this.pur_Date = pur_Date;
 		this.pur_Price = pur_Price;
@@ -58,21 +94,15 @@ public class Purchase {
 		this.del_No = del_No;
 		this.cp_Use = cp_Use;
 		this.money_Use = money_Use;
-		this.pur_Image = pur_Image;
-		this.pur_Pname = pur_Pname;
-		this.pur_POption = pur_POption;
-		this.pur_Amount = pur_Amount;
-		this.pur_SName = pur_SName;
-		this.pur_State = pur_State;
+		this.pur_Info = pur_Info;
 	}
 
 	//카드결제
-	public Purchase(int user_No, String pCode, int pur_No, Date pur_Date, int pur_Price, String pur_Address,
-			int pur_Type, int card_No, String card_Agency, String card_Date, int card_Pw, int del_No, char cp_Use,
-			char money_Use, String pur_Image, String pur_Pname, String pur_POption, int pur_Amount , String pur_SName, int pur_State) {
+	public Purchase(int user_No, int pur_No, Date pur_Date, int pur_Price, String pur_Address, int pur_Type,
+				int card_No, String card_Agency, String card_Date, int del_No, String cp_Use, String money_Use,
+				String pur_Info) {
 		super();
 		this.user_No = user_No;
-		this.pCode = pCode;
 		this.pur_No = pur_No;
 		this.pur_Date = pur_Date;
 		this.pur_Price = pur_Price;
@@ -84,12 +114,7 @@ public class Purchase {
 		this.del_No = del_No;
 		this.cp_Use = cp_Use;
 		this.money_Use = money_Use;
-		this.pur_Image = pur_Image;
-		this.pur_Pname = pur_Pname;
-		this.pur_POption = pur_POption;
-		this.pur_Amount = pur_Amount;
-		this.pur_SName = pur_SName;
-		this.pur_State = pur_State;
+		this.pur_Info = pur_Info;
 	}
 
 	public int getUser_No() {
@@ -98,14 +123,6 @@ public class Purchase {
 
 	public void setUser_No(int user_No) {
 		this.user_No = user_No;
-	}
-
-	public String getpCode() {
-		return pCode;
-	}
-
-	public void setpCode(String pCode) {
-		this.pCode = pCode;
 	}
 
 	public int getPur_No() {
@@ -196,20 +213,36 @@ public class Purchase {
 		this.del_No = del_No;
 	}
 
-	public char getCp_Use() {
+	public String getCp_Use() {
 		return cp_Use;
 	}
 
-	public void setCp_Use(char cp_Use) {
+	public void setCp_Use(String cp_Use) {
 		this.cp_Use = cp_Use;
 	}
 
-	public char getMoney_Use() {
+	public String getMoney_Use() {
 		return money_Use;
 	}
 
-	public void setMoney_Use(char money_Use) {
+	public void setMoney_Use(String money_Use) {
 		this.money_Use = money_Use;
+	}
+
+	public String getPur_Info() {
+		return pur_Info;
+	}
+
+	public void setPur_Info(String pur_Info) {
+		this.pur_Info = pur_Info;
+	}
+	
+	public String getpCode() {
+		return pCode;
+	}
+
+	public void setpCode(String pCode) {
+		this.pCode = pCode;
 	}
 
 	public String getPur_Image() {
@@ -243,7 +276,7 @@ public class Purchase {
 	public void setPur_Amount(int pur_Amount) {
 		this.pur_Amount = pur_Amount;
 	}
-	
+
 	public String getPur_SName() {
 		return pur_SName;
 	}
@@ -251,23 +284,16 @@ public class Purchase {
 	public void setPur_SName(String pur_SName) {
 		this.pur_SName = pur_SName;
 	}
-	
-	public int getPur_State() {
-		return pur_State;
-	}
-
-	public void setPur_State(int pur_State) {
-		this.pur_State = pur_State;
-	}
 
 	@Override
 	public String toString() {
-		return "Purchase [user_No=" + user_No + ", pCode=" + pCode + ", pur_No=" + pur_No + ", pur_Date=" + pur_Date
-				+ ", pur_Price=" + pur_Price + ", pur_Address=" + pur_Address + ", pur_Type=" + pur_Type + ", pur_Bank="
-				+ pur_Bank + ", pur_Account=" + pur_Account + ", card_No=" + card_No + ", card_Agency=" + card_Agency
+		return "Purchase [user_No=" + user_No + ", pur_No=" + pur_No + ", pur_Date=" + pur_Date + ", pur_Price="
+				+ pur_Price + ", pur_Address=" + pur_Address + ", pur_Type=" + pur_Type + ", pur_Bank=" + pur_Bank
+				+ ", pur_Account=" + pur_Account + ", card_No=" + card_No + ", card_Agency=" + card_Agency
 				+ ", card_Date=" + card_Date + ", del_No=" + del_No + ", cp_Use=" + cp_Use + ", money_Use=" + money_Use
-				+ ", pur_Image=" + pur_Image + ", pur_Pname=" + pur_Pname + ", pur_POption=" + pur_POption
-				+ ", pur_Amount=" + pur_Amount + ", pur_SName=" + pur_SName + ", pur_State=" + pur_State + "]";
+				+ ", pur_Info=" + pur_Info + ", pCode=" + pCode + ", pur_Image=" + pur_Image + ", pur_Pname="
+				+ pur_Pname + ", pur_POption=" + pur_POption + ", pur_Amount=" + pur_Amount + ", pur_SName=" + pur_SName
+				+ "]";
 	}
 
 }

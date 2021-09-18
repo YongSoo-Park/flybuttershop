@@ -38,38 +38,6 @@ public class PurchaseDao {
 			e.printStackTrace();
 		}
 	}
-	
-	public int insertPurInfo(Connection conn, Purchase p) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertMember");
-		
-//		insertPurInfo=INSERT INTO PURCHASE (USER_NO, PCODE, PUR_NO, PUR_IMAGE, PUR_PNAME, PUR_POPTION, PUR_PRICE, PUR_AMOUNT, PUR_SNAME) VALUES(?,?,PUR_NO_SQ,?,?,?,?,?,?)
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, p.getUser_No());
-			pstmt.setString(2, p.getpCode());
-			pstmt.setString(3, p.getPur_Image());
-			pstmt.setString(4, p.getPur_Pname());
-			pstmt.setString(5, p.getPur_POption());
-			pstmt.setInt(6, p.getPur_Price());
-			pstmt.setInt(7, p.getPur_Amount());
-			pstmt.setString(8, p.getPur_SName());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
 
 	public Member selectMember(Connection conn, int no) {
 	
@@ -118,7 +86,7 @@ public class PurchaseDao {
 			
 			rset = pstmt.executeQuery();
 			
-//			selectCoupon=SELECT * FROM COUPON WHERE USER_NO = ?
+//			selectCoupon=SELECT * FROM COUPON WHERE USER_NO = ? ORDER BY CP_DISCOUNT DESC;
 					
 //			CP_NO	NUMBER
 //			USER_NO	NUMBER
@@ -167,8 +135,6 @@ public class PurchaseDao {
 //		MONEY	NUMBER
 //		SUM_PRICE	NUMBER
 		
-		System.out.println("주문 다오 유저 넘버 : " + no);
-		
 		String sql = prop.getProperty("selectMoney");
 		try {
 
@@ -196,5 +162,6 @@ public class PurchaseDao {
 		}
 		return c;
 	}
+
 
 }

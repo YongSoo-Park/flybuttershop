@@ -1,40 +1,32 @@
 package com.flybutter.purchase.controller;
- 
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.flybutter.basket.model.service.BasketService;
 import com.flybutter.consumer.model.vo.Consumer;
 import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.dummy.model.vo.Member;
-import com.flybutter.money.model.vo.Money;
 import com.flybutter.product.model.service.ProductService;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.purchase.model.service.PurchaseService;
-import com.flybutter.purchase.model.vo.Purchase;
-import com.flybutter.seller.model.service.SellerService;
-import com.flybutter.seller.model.vo.Seller;
 
 /**
- * Servlet implementation class InsertPurchasePageServlet
+ * Servlet implementation class BasketPurchaseServlet
  */
-@WebServlet("/insertPurInfo.hy")
-public class InsertPurPageServlet extends HttpServlet {
+@WebServlet("/basketPur.hy")
+public class BasketPurchaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertPurPageServlet() {
+    public BasketPurchaseServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,41 +36,37 @@ public class InsertPurPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		//장바구니에서 전달받는 값
+		String ck = request.getParameter("checkArr");
+		String [] checkArr = ck.split(",");
+				
+		Product pro = new Product();
+		ArrayList<Product> pList = new ArrayList<Product>();
+			for(int i = 0; i < checkArr.length; i++) {
+				pro = new ProductService().selectUpdateProduct(checkArr[i]); 
+				pList.add(pro);
+			}
 		
+		//나머지
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
-		
+			
 		int no = loginM.getMEM_USER_NO();
-		
-		//제품상세페이지에서 전달받는 값들
-		Purchase p = new Purchase();
-
-		String pCode = request.getParameter("pCode");
-		String pImg = request.getParameter("pImg");
-		String pName = request.getParameter("pName");
-		String option = request.getParameter("pOption");
-		int price = Integer.parseInt(request.getParameter("price"));
-		int pAmount = Integer.parseInt(request.getParameter("pAmount"));
-		String sName = request.getParameter("sName");
-		
-		p.setUser_No(no);
-		p.setpCode(pCode);
-		p.setPur_Image(pImg);
-		p.setPur_Pname(pName);
-		p.setPur_POption(option);
-		p.setPur_Price(price);
-		p.setPur_Amount(pAmount);
-		p.setPur_SName(sName);		
-		
+			
 		//쿠폰에서 가져와 넘겨주기
 		ArrayList<Coupon> list = new PurchaseService().selectCoupon(no);
-		
+				
 		//적립금 가져와 넘겨주기
 		Consumer c = new PurchaseService().selectMoney(no);
+		System.out.println("장바구니 > 주문 서블릿 : " + pList);
+		System.out.println("장바구니 > 주문 서블릿 : " + list);
+		System.out.println("장바구니 > 주문 서블릿 : " + c);
 		
-		request.setAttribute("purInfo", p);
+		request.setAttribute("pList", pList);
 		request.setAttribute("list", list);
 		request.setAttribute("consumer", c);
-		request.getRequestDispatcher("views/purchase/purchasePage.jsp").forward(request, response);
+		request.getRequestDispatcher("views/purchase/basketPurPage.jsp").forward(request, response);
+		
+		
 	}
 
 	/**

@@ -36,19 +36,15 @@ public class DeleteBasketServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String ck = request.getParameter("checkArr");
 		String [] checkArr = ck.split(",");
-		String a = "";
 		
 		int result = 0;
 	      if(checkArr != null) {
 	         for(int i = 0; i < checkArr.length; i++) {
 	            if(1 == new BasketService().deleteBasket(checkArr[i]))
 	               result++;
-	            
 	         }
-	        
-	         //System.out.println(result);
 	      }
-		
+	      
 		if(result > 0) {  
 			response.sendRedirect("basket.do");
 			
