@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.basket.model.service.BasketService;
 import com.flybutter.basket.model.vo.Basket;
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
+
 
 /**
  * Servlet implementation class basketListServlet
@@ -33,7 +34,7 @@ public class BasketListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
-		int no = loginM.getMEM_USER_NO();
+		int no = loginM.getUserNo();
 		ArrayList<Basket> list = new BasketService().selectBasketList(no);
         request.setAttribute("list", list);
         

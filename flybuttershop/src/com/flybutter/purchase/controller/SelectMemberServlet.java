@@ -31,13 +31,18 @@ public class SelectMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member loginM = (Member)request.getSession().getAttribute("loginMember");
-		int no = loginM.getUserNo();
-		
-		Member m = new PurchaseService().selectMember(no);
-		request.setAttribute("m", m);
-        
-        request.getRequestDispatcher("views/purchase/purchasePage.jsp").forward(request, response);
+//		Member loginM = (Member)request.getSession().getAttribute("loginMember");
+//		
+//		int no = loginM.getUserNo();
+//		
+//		System.out.println("멤버셀렉트서블릿 : " + loginM);
+//		
+//		Member m = new PurchaseService().selectMember(no);
+//		
+//		System.out.println("멤버셀렉트서블릿 : " + m);
+//		request.setAttribute("m", m);
+//        
+//        request.getRequestDispatcher("views/purchase/purchasePage.jsp").forward(request, response);
 	}
 
 	/**

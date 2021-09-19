@@ -44,8 +44,9 @@ public class PurchaseDao {
 		Member m = new Member();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		System.out.println("멤버셀렉트다오 : " + no);
 		
-//		selectMember=SELECT MEM_USER_NAME, MEM_PHONE, MEM_ADDRESS, MEM_EMAIL FROM MEMBER WHERE MEM_USER_NO = ?
+//		selectMember=SELECT MEM_USER_ID, MEM_USER_NAME, MEM_PHONE, MEM_EMAIL, MEM_ADDRESS FROM MEMBER WHERE MEM_USER_NO = ?
 		
 		String sql = prop.getProperty("selectMember");
 		try {
@@ -57,8 +58,8 @@ public class PurchaseDao {
 					
 			while(rset.next()) {
 				
-				m = new Member(rset.getString("MEM_USER_NAME"),
-						rset.getString("MEM_PHONE"), rset.getString("MEM_ADDRESS"), rset.getString("MEM_EMAIL"));
+				m = new Member( rset.getString("MEM_USER_ID"), rset.getString("MEM_USER_NAME"),
+						rset.getString("MEM_PHONE"), rset.getString("MEM_EMAIL"), rset.getString("MEM_ADDRESS"));
 				
 			}
 			
@@ -70,6 +71,7 @@ public class PurchaseDao {
 			close(rset);
 			close(pstmt);
 		}
+		
 		return m;
 	}
 

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.consumer.model.service.ConsumerService;
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.purchase.model.service.PurchaseService;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.seller.model.service.SellerService;
@@ -56,7 +56,7 @@ public class InsertPurchaseServlet extends HttpServlet {
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
 		Purchase p = new Purchase();
 		
-		int no = loginM.getMEM_USER_NO();
+		int no = loginM.getUserNo();
 		String pCode = request.getParameter("pCode");
 		String newAddress = request.getParameter("newAdr");
 		int purType = Integer.parseInt(request.getParameter("purType"));

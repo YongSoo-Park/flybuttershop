@@ -1,5 +1,5 @@
 package com.flybutter.basket.controller;
- 
+  
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.basket.model.service.BasketService;
 import com.flybutter.basket.model.vo.Basket;
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.product.model.vo.Product;
 
 /**
@@ -41,7 +41,7 @@ public class InsertBasketServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
-		int no = loginM.getMEM_USER_NO();
+		int no = loginM.getUserNo();
 		Basket b = new Basket();
 		
 		String pCode = request.getParameter("pCode");
@@ -73,7 +73,7 @@ public class InsertBasketServlet extends HttpServlet {
 			b.setbOption(bOption);
 			b.setPrice(price);
 			b.setbAmount(bAmount);
-			b.setUser_No(loginM.getMEM_USER_NO());
+			b.setUser_No(loginM.getUserNo());
 			b.setBasket_PImg(basket_PImg);
 			b.setBasket_Pname(basket_Pname);
 		
