@@ -40,9 +40,9 @@ public class FAQSearchServlet extends HttpServlet {
 		Paging paging = null;
 		ArrayList<FAQ> searchList = new ArrayList<FAQ>();
 	
-		
+		System.out.println("servlet 1");
 		searchList = new FAQService().searchList(sWord);
-		
+		System.out.println("servlet 2");
 		if(searchList.size()!= 0) {
 			paging = new Paging(new FAQService().searchListCount(sWord), 1, 10, 10);
 			request.setAttribute("paging", paging);

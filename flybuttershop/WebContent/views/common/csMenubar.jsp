@@ -158,6 +158,11 @@
 		function goHelpList(){
 			location.href="<%=request.getContextPath()%>/list.help";
 		}
+		
+		$(function() {
+			
+			$('#mainCategory').css('box-sizing','unset');
+		})
 	</script>
 
 	<hr>
