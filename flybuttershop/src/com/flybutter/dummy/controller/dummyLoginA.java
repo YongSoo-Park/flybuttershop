@@ -2,9 +2,7 @@ package com.flybutter.dummy.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import com.flybutter.dummy.model.service.MemberService;
 import com.flybutter.dummy.model.vo.Member;
-import com.flybutter.mainpage.model.vo.Mainpage;
 import com.flybutter.mainpage.model.service.MainPageService;
+import com.flybutter.mainpage.model.vo.Mainpage;
 import com.flybutter.product.model.vo.Product;
 
 /**
