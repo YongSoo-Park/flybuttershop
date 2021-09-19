@@ -16,7 +16,6 @@ import java.util.Properties;
 import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.consumerMyPage.model.vo.OrderList;
 import com.flybutter.dummy.model.vo.Member;
-import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.review.model.vo.PageInfo;
 
 public class MypageDao {
@@ -326,6 +325,40 @@ public class MypageDao {
 		
 		
 		return list;
+	}
+
+
+
+
+
+	public int couponCount(Connection conn, int userNo) {
+		int count = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("couponCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				count = rset.getInt("COUNT(*)");
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("COUPON 테이블  couponCount : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
 	}
 
 }

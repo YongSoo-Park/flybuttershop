@@ -3,7 +3,8 @@
     
 <%
 	
-	int pNo = (int)request.getAttribute("pNo");
+	int purNo = Integer.parseInt(request.getParameter("purNo"));
+	String pCode = (String)request.getAttribute("pCode");
 	String pName = (String)request.getAttribute("pName");
 	String contextPath = request.getContextPath();
 
@@ -49,7 +50,7 @@
 		<h2 align="center">리뷰 작성</h2>
 		<br>
 		
-		<form id="insertForm" action="<%= contextPath %>/insert.rv" method="post" enctype="multipart/form-data">
+		<form id="insertForm" action="<%= contextPath %>/insert.rv?purNo=<%=purNo%>&&pCode=<%=pCode %>" method="post" enctype="multipart/form-data">
 			<table align="center" rules="none" border="1px">
                 <tr>
                     <th width="100">상품명</th>
@@ -58,12 +59,12 @@
 				<tr>
 					<th width="100">별점</th>
 					<td width="700">
-						<select name="category">
-							<option value="1">★★★★★</option>
-							<option value="2">★★★★☆</option>
+						<select name="score">
+							<option value="5">★★★★★</option>
+							<option value="4">★★★★☆</option>
 							<option value="3">★★★☆☆</option>
-							<option value="4">★★☆☆☆</option>
-							<option value="5">★☆☆☆☆</option>
+							<option value="2">★★☆☆☆</option>
+							<option value="1">★☆☆☆☆</option>
 						</select>
 					</td>
 				</tr>
@@ -88,10 +89,13 @@
 			<div class="btns" align="center">
 				<button type="submit">등록하기</button>
 			</div>
+
+			
 		</form>
 	</div>
 	
-	<div name="pNo" style="display:none">숨길 내용</div>
+
+
 	<jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>
 </html>
