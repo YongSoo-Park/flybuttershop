@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.flybutter.consumerMyPage.model.service.MypageService;
 import com.flybutter.consumerMyPage.model.vo.OrderInfo;
 import com.flybutter.consumerMyPage.model.vo.OrderList;
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.review.model.service.ReviewService;
 import com.flybutter.review.model.vo.PageInfo;
@@ -39,7 +39,7 @@ public class OrderListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member m = (Member) request.getSession().getAttribute("loginMember");
-		int userNo = m.getMEM_USER_NO();
+		int userNo = m.getUserNo();
 		
 	
 				int listCount;			

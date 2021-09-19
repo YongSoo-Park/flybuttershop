@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.flybutter.dummy.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.flybutter.member.model.vo.*"%>
 <% 
 	Member m = (Member)request.getAttribute("m");	
 	
@@ -61,7 +61,7 @@ function loginValidate() {
         <div id="loginForm">
         <form name="login" action="updateMem.mp" method="post" onsubmit="return loginValidate();">
             <label>아이디</label>
-            <input type="text" name="user_ID" value=<%= m.getMEM_USER_ID() %> readonly>
+            <input type="text" name="user_ID" value=<%= m.getUserId() %> readonly>
             
             <br>
              <label>비밀번호</label>
@@ -71,13 +71,13 @@ function loginValidate() {
             <input type="button" name="user_PWcheck" value="비밀번호 확인" onclick="checkPass();">
             <br>
             <label>이름 </label>
-            <input type="text" name="name" value=<%= m.getMEM_USER_NAME()%> required> <br>
+            <input type="text" name="name" value=<%= m.getUserName()%> required> <br>
              <label>이메일</label>
-            <input type="email" name="email" value=<%= m.getMEM_EMAIL()%> required><br>
+            <input type="email" name="email" value=<%= m.getEmail()%> required><br>
              <label>휴대전화 </label>
-            <input type="text" name="phone" value=<%=m.getMEM_PHONE() %> required><br>
+            <input type="text" name="phone" value=<%=m.getPhone()%> required><br>
              <label>주소 </label>
-            <textarea id="address" name = "address" required><%= m.getMEM_ADDRESS() %></textarea>
+            <textarea id="address" name = "address" required><%= m.getAddress() %></textarea>
 
 
             <br><br>

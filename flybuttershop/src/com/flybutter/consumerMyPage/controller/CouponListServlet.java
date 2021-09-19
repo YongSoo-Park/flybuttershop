@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.consumerMyPage.model.service.MypageService;
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 
 /**
  * Servlet implementation class CouponListServlet
@@ -32,11 +32,11 @@ public class CouponListServlet extends HttpServlet {
 		
 		Member member = (Member) request.getSession().getAttribute("loginMember");
 		
-		int userNo = member.getMEM_USER_NO();
+		int userNo = member.getUserNo();
 		
 		int cpCount = new MypageService().couponCount(userNo);
 		
-		int money = member.getMONEY();
+		int money = member.getMoney();
 		
 		request.setAttribute("cpCount", cpCount);
 		request.setAttribute("money", money);
