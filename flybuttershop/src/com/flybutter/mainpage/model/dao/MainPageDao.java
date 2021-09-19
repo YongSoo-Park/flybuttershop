@@ -36,9 +36,9 @@ public class MainPageDao {
 		}
 	}
 
-	public HashMap<String, Product> RVItemsList(Connection conn, String rec_PNO) {
+	public ArrayList<Product> RVItemsList(Connection conn, String rec_PNO) {
 		String[] temp = null;
-		HashMap<String, Product> list = new HashMap<String, Product>();
+		ArrayList<Product> list = new ArrayList<Product>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		temp = rec_PNO.split("/");
@@ -52,7 +52,9 @@ public class MainPageDao {
 				rset = pstmt.executeQuery();
 
 				if (rset.next()) {
-					list.put(temp[i], new Product(rset.getString("PNAME"), rset.getString("PIMAGE_ORIGIN")));
+					Product tempP = new Product(rset.getString("PNAME"), rset.getString("PIMAGE_ORIGIN"));
+					tempP.setpCode(temp[i]);
+					list.add(tempP);
 				}
 
 			}
@@ -67,37 +69,6 @@ public class MainPageDao {
 		}
 
 		return list;
-	}
-
-	public ArrayList<Mainpage> saleList(Connection conn) {
-		String temp = tempList(conn);
-		String[] arrTemp = temp.split("/");
-		ArrayList<Mainpage> saleList = new ArrayList<Mainpage>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("itemsListSelect");
-		try {
-			for (int i = 0; i < arrTemp.length; i++) {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, arrTemp[i]);
-
-				rset = pstmt.executeQuery();
-
-				if (rset.next()) {
-					saleList.add(
-							new Mainpage(30, arrTemp[i], rset.getString("PNAME"), rset.getString("PIMAGE_ORIGIN")));
-				}
-
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-
-			close(rset);
-			close(pstmt);
-		}
-		return saleList;
 	}
 
 	private String tempList(Connection conn) {
@@ -235,6 +206,30 @@ public class MainPageDao {
 			close(pstmt);
 		}
 		return bestList;
+	}
+
+	public int discountRate(Connection conn) {
+		int discountRate = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("discountRate");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				discountRate = rset.getInt("DISCOUNT_RATE");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			close(rset);
+			close(pstmt);
+		}
+
+		return discountRate;
 	}
 
 }
