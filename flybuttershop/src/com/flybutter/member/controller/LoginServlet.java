@@ -62,10 +62,10 @@ public class LoginServlet extends HttpServlet {
 
 
 	
-			com.flybutter.dummy.model.vo.Member loginMember = new com.flybutter.dummy.model.vo.Member(userNo, userName, lev, category, recPno, money);
+//			com.flybutter.dummy.model.vo.Member loginMember = new com.flybutter.dummy.model.vo.Member(userNo, userName, lev, category, recPno, money);
 
-			session.setAttribute("loginMember", loginMember);
-			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@  loginMember : "+loginMember);
+			session.setAttribute("loginMember", loginUser);
+//			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@  loginMember : "+loginMember);
 			response.sendRedirect("mainpage.ma");
 //			RequestDispatcher view = request.getRequestDispatcher("/mainpage.ma");
 //			view.forward(request, response);

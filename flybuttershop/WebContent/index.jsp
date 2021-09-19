@@ -14,7 +14,7 @@
 			$('#input').submit();
 
 		} 
-	</script>
+	</script> 
 	
 	<form action="mainpage.ma" method="get" id="input">
 	<!-- <input value=0 type="text" name="no"> -->

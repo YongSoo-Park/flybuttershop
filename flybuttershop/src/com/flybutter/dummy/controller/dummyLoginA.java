@@ -39,8 +39,7 @@ public class dummyLoginA extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no = Integer.parseInt(request.getParameter("no"));
 		Member loginMember=null;
-		HashMap<String,Product> RVItemsList = null;;
-		ArrayList<Mainpage> saleList = null;
+		ArrayList<Product> RVItemsList = null;;
 		ArrayList<Mainpage> newList = null;
 		ArrayList<Mainpage> bestList = null;
 		ArrayList<ArrayList<Mainpage>> saleTotalList = null;
@@ -54,14 +53,13 @@ public class dummyLoginA extends HttpServlet {
 		if(!loginMember.getREC_PNO().equals("0")) {
 			RVItemsList  = new MainPageService().RVItemsList(loginMember.getREC_PNO());			
 		}
+		com.flybutter.member.model.vo.Member loginUser = new com.flybutter.member.model.vo.Member(loginMember.getMEM_USER_NO(),loginMember.getMEM_USER_NAME(),loginMember.getMEM_LEV(),loginMember.getMEM_CATEGORY(),loginMember.getREC_PNO(),loginMember.getMONEY());
 		saleTotalList = new MainPageService().saleTotalList();
-		saleList = new MainPageService().saleList();
 		newList = new MainPageService().newList();
 		bestList = new MainPageService().bestList();
 		HttpSession session = request.getSession();
-		session.setAttribute("loginMember", loginMember);
+		session.setAttribute("loginMember", loginUser);
 		session.setAttribute("RVItemsList", RVItemsList);
-		request.setAttribute("saleList", saleList);
 		request.setAttribute("saleTotalList", saleTotalList);
 		request.setAttribute("newList", newList);
 		request.setAttribute("bestList", bestList);

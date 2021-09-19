@@ -170,7 +170,7 @@ function detailP(pCode) {
 	var form = document.createElement('form');
 	var hInput = document.createElement('input');
 	form.setAttribute('method','post');  
-	form.setAttribute('action', 'detail.pr');
+	form.setAttribute('action', 'rvitems.rv');
 	hInput.setAttribute('type','hidden');
 	hInput.setAttribute('name', 'pCode');
 	hInput.setAttribute('value', pCode);
@@ -251,7 +251,7 @@ function categoryChoce(mCategory, sCategory) {
 </script>
 </head>
 <body>
-<c:if test="${!empty sessionScope.loginMember.MEM_USER_NO}">
+<c:if test="${!empty sessionScope.loginMember.userNo}">
 <div style="float: right;"><a href="logout.ma" style="margin-right: 30px"><b>로그아웃</b></a></div>
 </c:if>
 <header id="header">
@@ -264,13 +264,13 @@ function categoryChoce(mCategory, sCategory) {
 
 <div id="header2Div">
 <c:choose>
-<c:when test="${0==sessionScope.loginMember.MEM_CATEGORY}">
+<c:when test="${0==sessionScope.loginMember.category}">
 <img src="${pageContext.request.contextPath}/resources/icon/cart35.png" alt="이미지파일" class="header2DivItem35" onclick="movingPage('basket.do')"/>
 <img src="${pageContext.request.contextPath}/resources/icon/mypageicon35.png" alt="이미지파일" class="header2DivItem35" onclick="movingPage('main.mp')"/>
 <img src="${pageContext.request.contextPath}/resources/icon/cs35.png" alt="이미지파일" class="header2DivItem35"  onclick="movingPage('entireList.no')"/>
 <img src="${pageContext.request.contextPath}/resources/icon/admin35.png" alt="이미지파일" class="header2DivItem35" onclick="movingPage('adminevent.ad')"/>
 </c:when>
-<c:when test="${2==sessionScope.loginMember.MEM_CATEGORY}">
+<c:when test="${2==sessionScope.loginMember.category}">
 <img src="${pageContext.request.contextPath}/resources/icon/cart35.png" alt="이미지파일" class="header2DivItem35" onclick="movingPage('basket.do')"/>
 <img src="${pageContext.request.contextPath}/resources/icon/mypageicon35.png" alt="이미지파일" class="header2DivItem35" onclick="movingPage('main.mp')"/>
 <img src="${pageContext.request.contextPath}/resources/icon/cs35.png" alt="이미지파일" class="header2DivItem35"  onclick="movingPage('entireList.no')"/>
@@ -285,18 +285,18 @@ function categoryChoce(mCategory, sCategory) {
 </div>
 <div>
 <c:choose>
-<c:when test="${!empty sessionScope.loginMember.MEM_USER_NO}">
+<c:when test="${!empty sessionScope.loginMember.userNo}">
 <c:choose>
-<c:when test="${2==sessionScope.loginMember.MEM_CATEGORY}">
+<c:when test="${2==sessionScope.loginMember.category}">
 <img src="${pageContext.request.contextPath}/resources/icon/sellericon25.png" style="margin-right: 10px"/>
 </c:when>
 <c:otherwise>
-<img src="${pageContext.request.contextPath}/resources/icon/grade${sessionScope.loginMember.MEM_LEV}.png" style="margin-right: 10px"/>
+<img src="${pageContext.request.contextPath}/resources/icon/grade${sessionScope.loginMember.lev}.png" style="margin-right: 10px"/>
 </c:otherwise>
 </c:choose>
-<c:out value="${sessionScope.loginMember.MEM_USER_NAME}님"/>
+<c:out value="${sessionScope.loginMember.userName}님"/>
 <br>
-<c:out value="${sessionScope.loginMember.MONEY}pt"/>
+<c:out value="${sessionScope.loginMember.money}pt"/>
 </c:when>
 <c:otherwise>
 <span style="line-height:180%;">
@@ -415,10 +415,9 @@ function categoryChoce(mCategory, sCategory) {
  <div class="RVItemsView" id="RVItemsView1">
  <b style="font-size: 20px"><br>최근 본 상품<br><br></b><hr>
  <c:forEach items="${sessionScope.RVItemsList}" var="list" end="4">
- <c:forEach items="${list.key}" var="item">
- <img src="${pageContext.request.contextPath}${sessionScope.RVItemsList[item].pImage_Origin}" width="60px" height="60px" onclick="detailP('${list.key}')" style="cursor: pointer;"><br>
- ${sessionScope.RVItemsList[item].pName}${list.key}<hr><br>
-</c:forEach>
+ <img src="${pageContext.request.contextPath}${list.pImage_Origin}" width="60px" height="60px" onclick="detailP('${list.pCode}')" style="cursor: pointer;"><br>
+ ${list.pName}<hr><br>
+
 </c:forEach>
 <c:if test="${sessionScope.RVItemsList.size() > 5}">
 <button id="rviNext" class="rivViewBtn">NEXT ></button><br><br>
@@ -427,11 +426,10 @@ function categoryChoce(mCategory, sCategory) {
  <div class="RVItemsView" id="RVItemsView2">
  <b style="font-size: 20px"><br>최근 본 상품<br><br></b><hr>
  <c:forEach items="${sessionScope.RVItemsList}" var="list" begin="5">
- <c:forEach items="${list.key}" var="item">
- <img src="${pageContext.request.contextPath}${sessionScope.RVItemsList[item].pImage_Origin}" width="60px" height="60px" onclick="detailP('${list.key}')" style="cursor: pointer;"><br>
- ${sessionScope.RVItemsList[item].pName}${list.key}<hr><br>
+ <img src="${pageContext.request.contextPath}${list.pImage_Origin}" width="60px" height="60px" onclick="detailP('${list.pCode}')" style="cursor: pointer;"><br>
+ ${list.pName}<hr><br>
 </c:forEach>
-</c:forEach>
+
 <button id="rviPrev" class="rivViewBtn">< PREV</button><br><br>
 </div>
  

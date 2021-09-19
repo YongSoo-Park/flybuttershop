@@ -178,12 +178,12 @@ $(function() {
 <c:forEach items="${requestScope.bestList}" var="list" end="5">
 	<div id="bestItems" class="bestItems">
 		<img alt="" src="${pageContext.request.contextPath}${list.pImage_Origin}" width="190px" height="190px" onclick="detailP('${list.pCODE}')" style="cursor: pointer;"><br>
-		<c:out value="${list.pName}"/>
+		<c:out value="${list.pName}"/><br><c:out value="${list.price}"/>원
 		</div>
 		
 </c:forEach>
 </div>
-<div id="saleTitle" class="titles"><b>FlyButterShop`s On Sale For 30% Off!!!</b><br></div>
+<div id="saleTitle" class="titles"><b>FlyButterShop`s On Sale For <c:out value="${requestScope.discountRate}"></c:out>% Off!!!</b><br></div>
 <div id="salePWrap">
 <button id="salePBtn0" class="salePBtn" value="0">통합</button><button id="salePBtn1" class="salePBtn" value="1">의류</button><button id="salePBtn2" class="salePBtn" value="2">잡화</button><button id="salePBtn3" class="salePBtn" value="3">뷰티</button><button id="salePBtn4" class="salePBtn" value="4">식품</button><button id="salePBtn5" class="salePBtn" value="5">가구</button><button id="salePBtn6" class="salePBtn" value="6">전자기기</button><button id="salePBtn7" class="salePBtn" value="7">생필품</button><button id="salePBtn8" class="salePBtn" value="8">반려동물</button>
 <div id="saleItems0" style="width: 1186px; height : 550px;  display: inline-block;" ></div>
@@ -263,7 +263,7 @@ $(function() {
 <div id="hiddenDiv">
 <c:forEach items="${requestScope.bestList}" var="list" varStatus="status"><div id="bestItems${status.index}" class="bestItems">
 	<img alt="" src="${pageContext.request.contextPath}${list.pImage_Origin}" width="190px" height="190px" onclick="detailP('${list.pCODE}')" style="cursor: pointer;"><br>
-	<c:out value="${list.pName}"/><c:out value="${status.index}"/></div></c:forEach>
+	<c:out value="${list.pName}"/><br><c:out value="${list.price}"/>원</div></c:forEach>
 </div>
 
 

@@ -13,20 +13,14 @@ import com.flybutter.product.model.vo.Product;
 
 public class MainPageService {
 
-	public HashMap<String,Product> RVItemsList(String rec_PNO) {
+	public ArrayList<Product> RVItemsList(String rec_PNO) {
 		Connection conn = getConnection();
-		HashMap<String,Product> RVItemsList = new MainPageDao().RVItemsList(conn, rec_PNO);
+		ArrayList<Product> RVItemsList = new MainPageDao().RVItemsList(conn, rec_PNO);
 		close(conn);
 		return RVItemsList;
 	}
 
-	public ArrayList<Mainpage> saleList() {
-		Connection conn = getConnection();
-		ArrayList<Mainpage> saleList= new MainPageDao().saleList(conn);
-		close(conn);
-		return saleList;
-	}
-	
+		
 	public ArrayList<ArrayList<Mainpage>> saleTotalList() {
 		Connection conn = getConnection();
 		ArrayList<ArrayList<Mainpage>> saleTotalList= new MainPageDao().saleTotalList(conn);
@@ -46,5 +40,13 @@ public class MainPageService {
 		ArrayList<Mainpage> bestList= new MainPageDao().bestList(conn);
 		close(conn);
 		return bestList;
+	}
+
+
+	public int discountRate() {
+		Connection conn = getConnection();
+		int discountRate= new MainPageDao().discountRate(conn);
+		close(conn);
+		return discountRate;
 	}
 }
