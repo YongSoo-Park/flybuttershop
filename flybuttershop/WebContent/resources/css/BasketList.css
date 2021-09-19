@@ -170,18 +170,15 @@
       float: left;
   }
   #th1{
-      width: 15%;
+      width: 30%;
       height: 80px;
   }
   #th2{
       width: 10%;
   }
   #th3{
-      width: 20%;
-  }
-  #th4{
-      position: relative;
-      left: -50px;
+       position: relative;
+      left: 20px;
   }
   #td1{
       text-align: center;
@@ -192,6 +189,7 @@
   }
   #td3{
       text-align: center;
+      
   }
   #continueBtn{
       position: relative;
@@ -214,4 +212,14 @@
   #pImg{
 	 width: 100px;
 	 height: 100px;
+}
+#sum{
+	 position: relative;
+	 left: -100px;
+	 top: -44px;
+	 font-size: 20px;
+}
+#free{
+	font-size: 15px;
+	color : rgb(97, 75, 179);
 }

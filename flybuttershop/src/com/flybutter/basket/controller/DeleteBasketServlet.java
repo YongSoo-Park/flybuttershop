@@ -37,6 +37,8 @@ public class DeleteBasketServlet extends HttpServlet {
 		String ck = request.getParameter("checkArr");
 		String [] checkArr = ck.split(",");
 		
+		
+		
 		int result = 0;
 	      if(checkArr != null) {
 	         for(int i = 0; i < checkArr.length; i++) {
@@ -46,7 +48,7 @@ public class DeleteBasketServlet extends HttpServlet {
 	      }
 	      
 		if(result > 0) {  
-			response.sendRedirect("basket.do");
+			request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
 			
 		}else {
 			request.setAttribute("msg", "장바구니 삭제에 실패하였습니다.");

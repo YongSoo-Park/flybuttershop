@@ -8,6 +8,7 @@ Member loginM= (Member)request.getSession().getAttribute("loginMember");
 Consumer c = (Consumer)request.getAttribute("consumer");
 ArrayList<Coupon> list = (ArrayList<Coupon>) request.getAttribute("list");
 ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList");
+
 //Member m = (Member)request.getAttribute("m");
 int resultPrice = 0;
 int shipPrice = 0;
@@ -39,7 +40,7 @@ if(sumPpri < 50000){
     		document.location.href="main.ma";
     	</script>
       <%}else{ %>
-     <form id="purForm" action="" method="post">
+     <form id="purForm" method="post">
      <div id="purPTB">
      <div id="ptb">
     <table id="purInfoTB">

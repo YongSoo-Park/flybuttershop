@@ -75,6 +75,9 @@ public class InsertPurPageServlet extends HttpServlet {
 		//적립금 가져와 넘겨주기
 		Consumer c = new PurchaseService().selectMoney(no);
 		
+		System.out.println("인서트주문페이지서블릿 : " + list);
+		System.out.println("인서트주문페이지서블릿 : " + c);
+		
 		request.setAttribute("purInfo", p);
 		request.setAttribute("list", list);
 		request.setAttribute("consumer", c);

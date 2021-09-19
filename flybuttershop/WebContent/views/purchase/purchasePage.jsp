@@ -1,7 +1,8 @@
 <%@page import="com.sun.javafx.geom.CubicApproximator"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.purchase.model.vo.*, 
-    com.flybutter.dummy.model.vo.*, com.flybutter.consumer.model.vo.*, com.flybutter.coupon.model.vo.*"%>
+    com.flybutter.dummy.model.vo.*, com.flybutter.consumer.model.vo.*, com.flybutter.coupon.model.vo.*,
+    com.flybutter.product.model.vo.*"%>
 <%
 //ArrayList<Purchase> list = (ArrayList<Purchase>) request.getAttribute("list"); 
 Member loginM= (Member)request.getSession().getAttribute("loginMember");
@@ -9,6 +10,9 @@ Purchase p = (Purchase)request.getAttribute("purInfo");
 Consumer c = (Consumer)request.getAttribute("consumer");
 ArrayList<Coupon> list = (ArrayList<Coupon>) request.getAttribute("list");
 //Member m = (Member)request.getAttribute("m");
+//ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList"); 
+//ArrayList<Purchase> sNameList = (ArrayList<Purchase>) request.getAttribute("sNameList"); 
+
 int resultPrice = 0;
 int shipPrice = 0;
 String empty = "";
@@ -80,17 +84,14 @@ if(p.getPur_Price() < 50000){
   		<label id="lb1">사용가능 쿠폰</label>	
   		<table id="ct">		
   		<%for(Coupon cu : list) {%>
-  			<%if(list == null) { %>
-  				<label>사용할 수 있는 쿠폰이 없습니다.</label>
-  		<% 	}else{%>
+  			
   			<tr>
   				<td id="ctd1"><%=cu.getCp_name() %></td>
   				<td id="ctd2"><%=cu.getCp_count() %>장</td>
   				<td id="ctd3"><button id="cub" value="<%=cu.getCp_no() %>" name="coupon" style="cursor:pointer;" 
-  				onclick="useCoupon()">사용</button></td>
-  				<%couponDc = (int)cu.getCp_discount(); %>
+  				onclick="useCoupon()">사용</button></td>  			
   			</tr>
-  			<%} %>
+  			
   		<%} %>
   		</table>
   		<h4 class="text2">적립금</h4>
@@ -239,17 +240,12 @@ if(p.getPur_Price() < 50000){
     
     function useCoupon(){
     	if(confirm('쿠폰을 사용하시겠습니까?')){
-    		// header라는 id를 가지고 있는 <h1> 태그를 찾아 변수에 저장합니다.
-            var dc = document.getElementById("bcu");
+            <%--var dc = document.getElementById("bcu");
 
-            // 요소의 콘텐츠를 변경합니다.
-            dc.innerText = "<%=couponDc%>";
-    		return true;
-    	}else{
-    		return false;
+            dc.innerText = "<%=couponDc%>";--%>
+ 
     	}
     };
-    
     
 </script>
 

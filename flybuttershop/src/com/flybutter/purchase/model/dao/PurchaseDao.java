@@ -163,5 +163,37 @@ public class PurchaseDao {
 		return c;
 	}
 
+	public ArrayList<Purchase> selectSName(Connection conn, int store_No) {
+		ArrayList<Purchase> sNameList = new ArrayList<Purchase>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectSName");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, store_No);
+			
+			rset = pstmt.executeQuery();
+			
+//			selectSName=SELECT STORE_NAME FROM SELLER WHERE STORE_NO = ?
+					
+			while(rset.next()) {
+				sNameList.add(new Purchase(
+								rset.getString("STORE_NAME")				
+						));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Seller 테이블  selectSName 오류메세지 : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sNameList;
+	}
+
 
 }

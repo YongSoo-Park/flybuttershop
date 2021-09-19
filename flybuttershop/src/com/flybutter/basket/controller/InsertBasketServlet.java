@@ -1,9 +1,13 @@
 package com.flybutter.basket.controller;
  
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +41,7 @@ public class InsertBasketServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
-		
+		int no = loginM.getMEM_USER_NO();
 		Basket b = new Basket();
 		
 		String pCode = request.getParameter("pCode");
@@ -47,27 +51,44 @@ public class InsertBasketServlet extends HttpServlet {
 		String basket_PImg = request.getParameter("pImg");
 		String basket_Pname = request.getParameter("pName");
 		
-//		private String pCode;
-//		private int basket_No;
-//		private String bOption;
-//		private int bAmount;
-//		private int price;
-//		private Date basket_Date;
-//		private int user_No;
-//		private String basket_PImg;
-//		private String basket_Pname;
 		
-		b.setpCode(pCode);
-		b.setbOption(bOption);
-		b.setPrice(price);
-		b.setbAmount(bAmount);
-		b.setUser_No(loginM.getMEM_USER_NO());
-		b.setBasket_PImg(basket_PImg);
-		b.setBasket_Pname(basket_Pname);
+		
+		
+		//중복상품체크
+		ArrayList<Basket> checkList = new BasketService().selectCheck(no, pCode);
+		
+		//중복이면 수량만 업데이트
+		if(checkList.size() > 0) {
+			int originAmount = 0;
+			ArrayList<Basket> list = new BasketService().selectBasketList(no);
+			for(Basket bb : list) {
+				originAmount = bb.getbAmount();
+			}
+			
+			originAmount += bAmount;
+			int result = new BasketService().updateAmount(originAmount, pCode);
+			response.sendRedirect("basket.do");
+		}else {
+			b.setpCode(pCode);
+			b.setbOption(bOption);
+			b.setPrice(price);
+			b.setbAmount(bAmount);
+			b.setUser_No(loginM.getMEM_USER_NO());
+			b.setBasket_PImg(basket_PImg);
+			b.setBasket_Pname(basket_Pname);
 		
 		int result = new BasketService().insertBasket(b);
-		
-        request.getRequestDispatcher("/basket.do").forward(request, response);
+			
+        if(result > 0) {
+			request.getSession().setAttribute("msg", "장바구니 담기 성공");
+			response.sendRedirect("basket.do");
+			}else {
+				request.setAttribute("msg", "상품등록실패");
+				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+				view.forward(request, response);	
+			}
+		}
+			
 		
 		
 	}
