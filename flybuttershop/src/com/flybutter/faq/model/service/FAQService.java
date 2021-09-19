@@ -173,9 +173,12 @@ public class FAQService {
 
 	public ArrayList<FAQ> searchList(String sWord) {
 		Connection conn = getConnection();
+		System.out.println("service 1");
 		ArrayList<FAQ> searchList = new ArrayList<FAQ>();
+		System.out.println("service 2");
 		searchList = new FAQDao().searchList(conn, sWord);
 		close(conn);
+		System.out.println("service 3");
 		return searchList;
 	}
 
