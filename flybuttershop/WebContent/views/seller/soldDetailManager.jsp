@@ -70,7 +70,6 @@ if(s.getPurType()==1){
             
             <td colspan="3">
             	<%=s.getDelNo()%>
-            	
             	<button type="button" onclick="updateDel();">배송정보입력</button>
             </td>
            

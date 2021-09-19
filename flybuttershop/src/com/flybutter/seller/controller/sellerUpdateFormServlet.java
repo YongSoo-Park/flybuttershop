@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.seller.model.service.SellerService;
 import com.flybutter.seller.model.vo.Seller;
 
@@ -36,7 +36,7 @@ public class sellerUpdateFormServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
-		int userNo = ((Member) request.getSession().getAttribute("loginMember")).getMEM_USER_NO();
+		int userNo = ((Member) request.getSession().getAttribute("loginMember")).getUserNo();
 		Seller seller = new SellerService().selectStore(userNo);
 		
 		System.out.println("셀러 정보 수정     " + seller);
