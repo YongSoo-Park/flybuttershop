@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.qna.model.service.QnaService;
 import com.flybutter.qna.model.vo.Qna;
 
@@ -34,7 +34,7 @@ public class qnaInsertServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMEM_USER_NO();
+		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
 		String pCode = request.getParameter("pCode");
 		int stireNo = Integer.parseInt(request.getParameter("storeNo"));
 		String title = request.getParameter("title");

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.seller.model.service.SellerService;
 import com.flybutter.seller.model.vo.Seller;
@@ -38,7 +38,7 @@ public class soldManagerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getMEM_USER_NO();
+		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
 	    Seller seller = new SellerService().selectStore(userNo);
 		
 		System.out.println("sel" + seller);
