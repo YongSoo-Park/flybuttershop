@@ -136,11 +136,88 @@ public class BasketDao {
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			System.out.println("Basket 테이블  selectBasketList 오류메세지 : " + e.getMessage());
+			System.out.println("Basket 테이블  insertBasket 오류메세지 : " + e.getMessage());
 		}finally {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public ArrayList<Basket> selectCheck(Connection conn, int no, String pCode) {
+		ArrayList<Basket> list = new ArrayList<Basket>();
+		
+//		selectCheck=SELECT * FROM BASKET WHERE PCODE = ?
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCheck");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.setString(2, pCode);
+			
+			rset = pstmt.executeQuery();
+			
+//			PCODE
+//			BASKET_NO
+//			BOPTION
+//			BAMOUNT
+//			PRICE
+//			BASKET_DATE
+//			USER_NO
+//			BASKET_PIMAGE
+//			BASKET_PNAME
+			
+			while(rset.next()) {
+				list.add(new Basket(
+								rset.getString("PCODE"),
+								rset.getInt("BASKET_NO"),
+								rset.getString("BOPTION"),
+								rset.getInt("BAMOUNT"),
+								rset.getInt("PRICE"),
+								rset.getDate("BASKET_DATE"),
+								rset.getInt("USER_NO"),	
+								rset.getString("BASKET_PIMAGE"),
+								rset.getString("BASKET_PNAME")
+						));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Basket 테이블  selectCheck 오류메세지 : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int updateAmount(Connection conn, int plusAmount, String pCode) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateAmount");
+		
+//		updateAmount=UPDATE BASKET SET BAMOUNT = ? WHERE PCODE = ?
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1,plusAmount);
+			pstmt.setString(2,pCode);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("BASKET 테이블  updateAmount : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
 	}
 
 }

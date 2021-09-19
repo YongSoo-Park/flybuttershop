@@ -72,6 +72,11 @@ public class Purchase {
 		this.pur_SName = pur_SName;
 	}
 	
+	public Purchase(String pur_SName) {
+		super();
+		this.pur_SName = pur_SName;
+	}
+
 	//판매자 판매 내역
 	   public Purchase(int pur_No, Date pur_Date, String pur_Info) {
 	      this.pur_No = pur_No;
