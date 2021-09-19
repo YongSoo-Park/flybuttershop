@@ -165,30 +165,8 @@ int endPage = pi.getEndPage();
 			
 		</table>
 	
-		<form class="searchArea" align="center">
-			<select id="condition" name="condition">
-				<option value="number">글번호</option>
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-			</select>
-			<input type="search" name="search">
-			<button type="submit">검색하기</button>
-		</form>
-		<br><br>
-		<div align="center">
-			<%--<% if(loginUser != null && loginUser.getUserId().equals("admin")) { --%>
-			
-			<button onclick="goInsertForm();">작성하기</button> 
-	<%--<% } %> --%>	
-		</div>
-	
-						<div>
-							<a href=#none id="show"
-								onclick="if(hide.style.display=='none') {hide.style.display='';show.innerText='▲'} else {hide.style.display='none';show.innerText='▼'}">▼</a>
-							<div id="hide" style="display: none">
-								펼치면 보이는 내용을 적어줍니다. <br /> 아무 내용이나 적어주세요. <br />
-							</div>
-						</div>
+		
+		
 	<script>
 		
 
@@ -204,9 +182,7 @@ int endPage = pi.getEndPage();
 		function goEntireNoticeList(){
 			location.href="<%=request.getContextPath()%>/entireList.no";
 		}
-		function goInsertForm(){
-			location.href="<%=request.getContextPath()%>/insertFormForm.no";
-		}
+	
 		<%if(!list.isEmpty()){%>
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){

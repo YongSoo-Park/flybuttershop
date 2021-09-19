@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.flybutter.dummy.model.vo.Member" %>
+<%@ page import="com.flybutter.member.model.vo.Member" %>
  
  <%
- 	Member loginUser = (Member)session.getAttribute("loginUser");
+ 	Member loginUser = (Member)session.getAttribute("loginMember");
 	
 	String contextPath = request.getContextPath();
 	
@@ -110,14 +110,14 @@
 		<button type="button" class="btn btn-outline-dark" onclick="goFAQ();">자주
 			묻는 질문</button>
 			
-<%--	<% if(loginUser.getMEM_USER_ID().equals("admin")){ %>  --%>
+	<% if(loginUser.getUserNo() == 0){ %>  
 		<button type="button" class="btn btn-outline-dark"
 			onclick="goNoticeWrite();">글쓰기</button>
 		
-<%--	<%}else { %>  --%>
+	<%}else { %>  
 		<button type="button" class="btn btn-outline-dark"
 			onclick="goHelpWrite();">1대1문의</button>
-<%--	<%} %>  --%>
+	<%} %> 
 		<button type="button" class="btn btn-outline-dark"
 			onclick="goHelpList();">문의내역</button>
 	</div>
@@ -153,7 +153,7 @@
 			location.href="<%=request.getContextPath()%>/write.help";
 		}
 		function goNoticeWrite(){
-			location.href="<%=request.getContextPath()%>/enrollForm.no";
+			location.href="<%=request.getContextPath()%>/insertForm.no";
 		}
 		function goHelpList(){
 			location.href="<%=request.getContextPath()%>/list.help";
@@ -163,6 +163,10 @@
 			
 			$('#mainCategory').css('box-sizing','unset');
 		})
+		      $(function() {
+         
+         $('#userSearch').css('box-sizing','unset');
+      })
 	</script>
 
 	<hr>
