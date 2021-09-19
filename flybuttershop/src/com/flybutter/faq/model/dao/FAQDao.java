@@ -519,15 +519,21 @@ public class FAQDao {
 	public ArrayList<FAQ> searchList(Connection conn, String sWord) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		System.out.println("searchList dao 1");
 		ArrayList<FAQ> searchList = new ArrayList<FAQ>();
 		String sql = prop.getProperty("searchList");
 		//searchList=SELECT * FROM(SELECT * FROM FAQ WHERE FAQ_CATEGORY LIKE ? OR FAQ_TITLE LIKE ? OR FAQ_CONTENT LIKE ? ORDER BY FAQ_NO DESC) WHERE ROWNUM < 11
+		System.out.println("searchList dao 2 sql : " + sql);
+		System.out.println("searchList sWord  : " + sWord);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + sWord + "%");
+			pstmt.setString(2, "%" + sWord + "%");
+			pstmt.setString(3, "%" + sWord + "%");
 			rset = pstmt.executeQuery();
 			while (true) {
 				if (rset.next()) {
+					System.out.println("searchList dao if 안");
 					searchList.add(new FAQ(rset.getInt("FAQ_NO"),
 							rset.getInt("FAQ_CATEGORY"),
 							rset.getString("FAQ_TITLE"),
@@ -535,6 +541,7 @@ public class FAQDao {
 							));
 					continue;
 				} else {
+					System.out.println("searchList dao in else");
 					break;
 				}
 			}
@@ -578,31 +585,38 @@ public class FAQDao {
 	}
 
 	public ArrayList<FAQ> searchListNext(Connection conn, String sWord, int start, int end) {
+		
+		System.out.println("faq @@@@@@@@ 1");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<FAQ> searchList = new ArrayList<FAQ>();
 		String sql = prop.getProperty("searchListNext");
 		//searchListNext=SELECT * FROM ( SELECT FIRST.*, ROWNUM RNUM FROM (SELECT * FROM FAQ WHERE FAQ_CATEGORY LIKE ? OR FAQ_TITLE LIKE ? OR FAQ_CONTENT LIKE ? ORDER BY FAQ_NO DESC) FIRST WHERE ROWNUM <= ?) SECOND WHERE RNUM >= ?
-		
+		System.out.println("faq @@@@@@@@ 2");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + sWord + "%");
-			pstmt.setInt(2, end);
-			pstmt.setInt(3, start);
+//			pstmt.setString(1, "%" + sWord + "%");
+			pstmt.setInt(1, end);
+			pstmt.setInt(2, start);
 			rset = pstmt.executeQuery();
+			System.out.println("faq @@@@@@@@ 3");
 			while (true) {
 				if (rset.next()) {
-					searchList.add(new FAQ(rset.getInt("FAQ_NO"),
+					FAQ faq = new FAQ(rset.getInt("FAQ_NO"),
 							rset.getInt("FAQ_CATEGORY"),
 							rset.getString("FAQ_TITLE"),
 							rset.getString("FAQ_CONTENT")	
-							));
+							);
+					System.out.println(faq.toString());
+					searchList.add(faq);
 					continue;
 				} else {
+					System.out.println("faq @@@@@@@@ 4");
 					break;
 				}
 			}
-
+			
+			System.out.println("faq @@@@@@@@ 5");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

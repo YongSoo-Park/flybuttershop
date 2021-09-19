@@ -53,6 +53,9 @@ public class ReviewInsertServlet extends HttpServlet {
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 			
+			int purNo = Integer.parseInt(request.getParameter("purNo"));
+			String pCode =  request.getParameter("pCode");
+			
 			
 			int score = Integer.parseInt(multiRequest.getParameter("score"));
 			String title = multiRequest.getParameter("title");
@@ -66,6 +69,9 @@ public class ReviewInsertServlet extends HttpServlet {
 			r.setRe_title(title);
 			r.setRe_content(content);
 			r.setUser_no(m.getMEM_USER_NO());
+			r.setpCode(pCode);
+			r.setPur_no(purNo);
+			r.setUser_no(m.getMEM_USER_NO());
 			
 			
 			if(multiRequest.getOriginalFileName("upfile") != null) {
@@ -73,15 +79,20 @@ public class ReviewInsertServlet extends HttpServlet {
 				String changeName = multiRequest.getFilesystemName("upfile");
 				
 				r.setRe_originFile(originName);
+				System.out.println(originName);
 				r.setRe_changeFile(changeName);
-				
+				System.out.println(changeName);
 				
 			}
 			
-			//int result = new ReviewService().insertReview(r);
-			/*if(result > 0) {
+			int result = new ReviewService().insertReview(r);
+			
+			
+			if(result > 0) {
 				request.getSession().setAttribute("msg", "리뷰 등록 성공");
 				response.sendRedirect("reviewList.rv");
+				
+				System.out.println(r.getRe_originFile());
 			}else {
 				if(multiRequest.getOriginalFileName("upfile") != null) {
 					File failedFile = new File(r.getRe_originFile() +r.getRe_changeFile());
@@ -92,7 +103,8 @@ public class ReviewInsertServlet extends HttpServlet {
 				
 				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 				view.forward(request, response);
-			}*/
+				
+			}
 			
 		}
 		

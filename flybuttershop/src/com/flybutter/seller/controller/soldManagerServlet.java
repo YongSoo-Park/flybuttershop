@@ -62,82 +62,33 @@ public class soldManagerServlet extends HttpServlet {
 		System.out.println(pno);
 		System.out.println(pDate);
 		System.out.println(pInfo);
+		
 		SoldList s = new SoldList();
 		
 		String[] temp1 = pInfo.split("/");
 		String[] temp2;
 		
-		ArrayList<SoldList[]> list = new ArrayList<SoldList[]>();
+		ArrayList<SoldList> soldList = new ArrayList<SoldList>();
 		for(int i = 0 ; i <temp1.length; i++) {
 	         
 	         if(temp1[i].contains(String.valueOf(storeNo))) {
 	            
 	            temp2=temp1[i].split(":");
 	            
-	            list.add(new SoldList(temp2[0],temp2[1],temp2[2],temp2[3], temp2[4]));
+	            soldList.add(new SoldList(pno, pDate, temp2[0],temp2[1],temp2[2],temp2[3], temp2[4]));
+	            
 	         }
+		}    
+		
+		System.out.println("soldList~~~~~~~   " + soldList);
 		
 		
+		request.setAttribute("soldList", soldList);
+		
+		request.getRequestDispatcher("views/seller/soldManager.jsp").forward(request, response);
 	
 		
-		StringTokenizer st1 = new StringTokenizer(pInfo, "/");
 		
-		for (int p = 0; p < 2; p++) {
-			s.setTotalPur(st1.nextToken());
-			System.out.println("st1.nextToken()~~" + st1.nextToken());
-
-			StringTokenizer st2 = new StringTokenizer(s.getTotalPur(), ":");
-				System.out.println("st1.countTokens()===" + st1.countTokens());
-				
-			for (int k = 0; k < 2; k++) {
-				s.setpCode(k + "--" + st2.nextToken());
-				s.setStoreNo(k + "--" + st2.nextToken());
-				s.setpAmount(k + "--" + st2.nextToken());
-				s.setpOption(k + "--" + st2.nextToken());
-				s.setpStatus(k + "--" + st2.nextToken());
-			
-				System.out.println("s.getpCode() --" + s.getpCode());
-				System.out.println("s.getStoreNo --" + s.getStoreNo());
-				System.out.println("s.getpAmount --" + s.getpAmount());
-				System.out.println("s.getpOption --" + s.getpOption());
-				System.out.println("s.getstatus() --" + s.getpStatus());
-				
-				
-				System.out.println("########" + s);
-				
-				ArrayList<SoldList> slist = new ArrayList<>();
-				list.add(s);
-				System.out.println("list---" + list);
-				
-			}
-		}
-
-		
-		
-//		while(st.hasMoreTokens()) {
-//			System.out.println(st.nextToken() +"    "+ i++);
-//			
-//			
-//		}
-//		
-//		for(int j = 0; j < st.countTokens(); j++) {
-//			
-//		}
-//		
-//		ResultSet rset = null;
-//		
-//		
-//		while(st.hasMoreTokens()) {
-//			sList.add(new SoldList());
-//		}
-	
-		
-		request.setAttribute("pList", pList);
-		
-		RequestDispatcher view = request.getRequestDispatcher("views/seller/soldManager.jsp");
-		view.forward(request, response);
-		
-	
 	}
 
 	/**

@@ -14,6 +14,7 @@ import com.flybutter.qna.model.vo.Qna;
 import com.flybutter.review.model.vo.Review;
 import com.flybutter.seller.model.dao.SellerDao;
 import com.flybutter.seller.model.vo.Seller;
+import com.flybutter.seller.model.vo.SoldList;
 
 public class SellerService {
 	
@@ -152,6 +153,54 @@ public class SellerService {
 		
 		
 		return reReview;
+	}
+
+
+	public ArrayList<SoldList> selectSold(int pno) {
+
+		Connection conn = getConnection();
+		
+		ArrayList<SoldList> list = new SellerDao().selectSold(conn, pno);
+		
+		close(conn);
+		
+		return list;
+	}
+
+
+	public SoldList selectSoldInfo(int pno) {
+		
+		Connection conn = getConnection();
+		
+		SoldList s = new SellerDao().selectSoldInfo(conn, pno);
+		
+		close(conn);
+		
+		return s;
+	}
+
+
+	public SoldList updateDel(int pno, int delNo) {
+		
+		Connection conn = getConnection();
+		
+		SoldList updateDel = null;
+		
+		int result = new SellerDao().updateDel(conn, pno, delNo);
+		
+		if(result > 0) {
+			
+			commit(conn);
+			updateDel = new SellerDao().selectSoldInfo(conn, pno);
+			
+			System.out.println("송장 업데이트         : " + updateDel);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);	
+		
+		return updateDel;
 	}
 
 

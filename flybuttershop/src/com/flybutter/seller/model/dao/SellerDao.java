@@ -17,6 +17,7 @@ import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.qna.model.vo.Qna;
 import com.flybutter.review.model.vo.Review;
 import com.flybutter.seller.model.vo.Seller;
+import com.flybutter.seller.model.vo.SoldList;
 
 public class SellerDao {
 	
@@ -398,6 +399,112 @@ public class SellerDao {
 			}finally {
 				close(pstmt);
 			}
+			
+			return result;
+		}
+		public ArrayList<SoldList> selectSold(Connection conn, int pno) {
+
+			ArrayList<SoldList> list = new ArrayList<>();
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectSold");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, pno);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new SoldList(rset.getInt("USER_NO"),
+										  rset.getInt("PUR_NO"),
+									      rset.getDate("PUR_DATE"),
+									      rset.getInt("PUR_PRICE"),
+									      rset.getString("PUR_ADDRESS"),
+									      rset.getInt("PUR_TYPE"),
+									      rset.getInt("DEL_NO"),
+									      rset.getString("PUR_INFO"),
+									      rset.getString("MEM_USER_ID"),
+									      rset.getString("MEM_USER_NAME"),
+									      rset.getString("MEM_PHONE")
+										  ));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
+		public SoldList selectSoldInfo(Connection conn, int pno) {
+
+			SoldList s = null;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectSoldInfo");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, pno);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					s = new SoldList(rset.getInt("USER_NO"),
+									  rset.getInt("PUR_NO"),
+								      rset.getDate("PUR_DATE"),
+								      rset.getInt("PUR_PRICE"),
+								      rset.getString("PUR_ADDRESS"),
+								      rset.getInt("PUR_TYPE"),
+								      rset.getInt("DEL_NO"),
+								      rset.getString("PUR_INFO"),
+								      rset.getString("MEM_USER_ID"),
+								      rset.getString("MEM_USER_NAME"),
+								      rset.getString("MEM_PHONE")
+									);				
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			
+			return s;
+		}
+		public int updateDel(Connection conn, int pno, int delNo) {
+			
+			int result = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("updateDel");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, delNo);
+				pstmt.setInt(2, pno);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
 			
 			return result;
 		}

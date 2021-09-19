@@ -15,6 +15,7 @@ import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.product.model.service.ProductService;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.purchase.model.service.PurchaseService;
+import com.flybutter.purchase.model.vo.Purchase;
 
 /**
  * Servlet implementation class BasketPurchaseServlet
@@ -40,13 +41,21 @@ public class BasketPurchaseServlet extends HttpServlet {
 		String ck = request.getParameter("checkArr");
 		String [] checkArr = ck.split(",");
 				
+		//장바구니 상품들 판매자 이름 찾기 
 		Product pro = new Product();
 		ArrayList<Product> pList = new ArrayList<Product>();
+		ArrayList<Purchase> sNameList = new ArrayList<Purchase>();
 			for(int i = 0; i < checkArr.length; i++) {
 				pro = new ProductService().selectUpdateProduct(checkArr[i]); 
 				pList.add(pro);
-			}
+				
+				for( Product pd : pList) {
+					sNameList = new PurchaseService().selectSName(pd.getStore_No());	
+				}
+			};
 		
+		
+			
 		//나머지
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
 			
@@ -57,13 +66,12 @@ public class BasketPurchaseServlet extends HttpServlet {
 				
 		//적립금 가져와 넘겨주기
 		Consumer c = new PurchaseService().selectMoney(no);
-		System.out.println("장바구니 > 주문 서블릿 : " + pList);
-		System.out.println("장바구니 > 주문 서블릿 : " + list);
-		System.out.println("장바구니 > 주문 서블릿 : " + c);
-		
+
 		request.setAttribute("pList", pList);
+		request.setAttribute("sNameList", sNameList);
 		request.setAttribute("list", list);
 		request.setAttribute("consumer", c);
+		
 		request.getRequestDispatcher("views/purchase/basketPurPage.jsp").forward(request, response);
 		
 		

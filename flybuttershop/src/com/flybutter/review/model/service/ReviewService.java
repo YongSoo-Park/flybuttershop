@@ -57,14 +57,36 @@ public class ReviewService {
 
 
 
-	public String reviewInsertInfo(int pno) {
+	public String reviewInsertInfo(String pCode) {
 		Connection conn = getConnection();
 		
-		String pName = new ReviewDao().reviewInsertInfo(conn, pno);
+		String pName = new ReviewDao().reviewInsertInfo(conn, pCode);
 		
 		
 		close(conn);
 		return pName;
+	}
+
+
+
+
+
+	public int insertReview(Review r) {
+		
+		Connection conn = getConnection();
+		
+		int result = new ReviewDao().reviewInsert(conn, r);
+		
+		if(result > 0) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+		}
+		
+	
+		return result;
 	}
 	
 }

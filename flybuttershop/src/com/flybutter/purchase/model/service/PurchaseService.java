@@ -44,6 +44,15 @@ public class PurchaseService {
 		return c;
 	}
 
+	public ArrayList<Purchase> selectSName(int store_No) {
+		Connection conn = getConnection();
+		
+		ArrayList<Purchase> sNameList = new PurchaseDao().selectSName(conn, store_No); 
+		close(conn);
+		
+		return sNameList;
+	}
+
 
 	
 

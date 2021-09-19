@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.purchase.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.seller.model.vo.*, com.flybutter.purchase.model.vo.*"%>
     
 <%
+	ArrayList<SoldList> soldList = (ArrayList<SoldList>)request.getAttribute("soldList");
 	ArrayList<Purchase> pList = (ArrayList<Purchase>)request.getAttribute("pList");
 	
-
-
 %> 
 
 <!DOCTYPE html>
@@ -21,6 +20,10 @@
 			location.href="<%= request.getContextPath() %>/soldDetail.sl?pNo="+pNo;
 		})
 	})
+$(function(){
+	
+})	
+
 </script>
 </head>
 <body style="margin: 0 auto">
@@ -37,16 +40,32 @@
 			<th>상태</th>
 		</thead>
 		<tbody>
-			<% if(pList.isEmpty()){ %>
+			<% if(soldList.isEmpty()){ %>
 				<tr>
 					<td colspan="3">접수된 주문내역이 없습니다.</td>
 				</tr>
 			<% }else{ %>
-				<% for(Purchase p : pList){ %>
+				<% for(SoldList s : soldList){ 
+					String satatus = null;
+					if(s.getpStatus().equals("1")){
+						satatus = "결제완료";
+					}else if(s.getpStatus().equals("2")){
+						satatus = "배송전";
+					}else if(s.getpStatus().equals("3")){
+						satatus = "배송중";
+					}else if(s.getpStatus().equals("4")){
+						satatus = "배송완료";
+					}else if(s.getpStatus().equals("5")){
+						satatus = "소비자취소";
+					}else{
+						satatus = "판매자취소";
+					}
+					
+				%>
 				<tr>
-						<td><%= p.getPur_No() %></td>
-						<td><%= p.getPur_Date()  %></td>
-						<td><%--<%= p.getPur_State() %>--%></td>
+						<td><%=s.getPno()%></td>
+						<td><%=s.getpDate()%></td>
+						<td><%=satatus%></td>
 					</tr>
 				 	<% } %>
 				 <% } %>	

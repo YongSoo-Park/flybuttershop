@@ -164,7 +164,24 @@ if(p.getSale_Flag()==1){
         	 text-align: center;
         }
        
-    </style>
+  </style>
+<script>
+function updateProduct(){
+	$("#postForm").attr("action", "<%=request.getContextPath()%>/updateForm.pr")
+	$("#postForm").submit();
+			
+}
+
+function deleteProduct(){
+	const result = confirm("상품을 정말 삭제하시겠습니까?");
+	
+	if(result){
+		$("#postForm").attr("action", "<%=request.getContextPath()%>/deleteProduct.pr");
+		$("#postForm").submit();
+	}
+}
+
+</script>
 </head>
 <body style="margin: 0 auto">
 <jsp:include page="../header_footer/header.jsp" flush="true"/>
@@ -240,22 +257,7 @@ if(p.getSale_Flag()==1){
 			<input type="hidden" name="pName" value="<%= p.getpName() %>">
 		</form>
 	
-		<script>
-		function updateProduct(){
-			$("#postForm").attr("action", "<%=request.getContextPath()%>/updateForm.pr")
-			$("#postForm").submit();
-					
-		}
-		
-		function deleteProduct(){
-			<%--var pname = $("#postForm input[name=pName]");
-			alter("[" + pname + "]을 정말 삭제하시겠습니까?");--%>
-			$("#postForm").attr("action", "<%=request.getContextPath()%>/deleteProduct.pr");
-			$("#postForm").submit();
-			
-		}
-		
-		</script>
+
 
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>

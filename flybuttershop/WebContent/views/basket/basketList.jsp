@@ -4,8 +4,12 @@
 <%
 ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list"); 
 Member loginM = (Member)request.getSession().getAttribute("loginMember");
+int lastPrice = 0;
+int sumPrice = 0;
+int productPrice = 0;
 int resultPrice = 0;
 int shipPrice = 0;
+int amount = 0;
 %>
  
 <!DOCTYPE html>
@@ -13,7 +17,7 @@ int shipPrice = 0;
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/BasketList.css?after">
+<link rel="stylesheet" href="resources/css/BasketList.css?afterw">
 </head>
 <body style="margin: 0 auto">
     
@@ -22,7 +26,7 @@ int shipPrice = 0;
     <div class="outer">
     <div class="logo">
 		<br>
-		<h2 id="basketlogo">장바구니</h2>
+		<h2 id="basketlogo">장바구니 <b id="free">5만원 이상 구입시 배송비 무료!</b></h2>
 	</div>
 	<br>
     <br clear="left">
@@ -31,7 +35,7 @@ int shipPrice = 0;
     <%if(loginM == null){ %>
     	<script>
     		alert("로그인 후 이용하시기 바랍니다.");
-    		document.location.href="main.ma";
+    		document.location.href="<%=request.getContextPath()%>/mainpage.ma";
     	</script>
     <%}else { %>
     	<%if(list.isEmpty()){%>
@@ -42,7 +46,7 @@ int shipPrice = 0;
         		<h4 id="e2">원하시는 상품을 장바구니에 담아보세요!</h4>
    			 </div>
 		<%}else{%>
-    	<form method="POST" action="<%=request.getContextPath()%>/basket.do">
+    	<form method="POST" name="basketInfo" id="basketInfo">
 		<div class="btn">
         <button type="submit" id="deleteProductBtn" onclick="deleteProduct();">선택상품 삭제</button>
    		 </div>
@@ -50,42 +54,58 @@ int shipPrice = 0;
 			<div class="basketTB">
 				 <table id="productlist">
                     <tr>
-                        <th id="tc"><input type="checkbox" id="allCk" name="allCk"></th>
+                        <th id="tc"><input type="checkbox" id="allCk" name="allCk" onclick="allCheck(event)"></th>
                         <th id="t1" colspan="3">상품정보</th>
                         <th id="t2">옵션</th>
                         <th id="t3">배송비</th>
                         <th id="t4">상품금액</th>
                     </tr>
                     
-				<% for(Basket b : list){ %>
-                    <tr>
-                     	<td id="btc"><input type="checkbox" class="ckPd" name="ckPd"></td>
+				<% if(list.size() > 0){%>
+				
+				
+					<%for(Basket b : list){ %>
+                    <tr><% productPrice = b.getPrice(); amount = b.getbAmount(); 
+                        				resultPrice = productPrice * amount;
+                        				
+                        	if(resultPrice < 50000){
+                        		shipPrice = 2500;
+                        	}else if(resultPrice >= 50000){
+                        		shipPrice = 0;
+                        	}%>
+                     	<td id="btc"><input type="checkbox" class="ckPd" name="ckPd" value="<%=resultPrice%>" onclick="checkAllList(event)"></td>
                      	<td id="bt1" style="visibility:hidden;"><%=b.getpCode()%></td> 
                      	<td id="bt2"><img id="pImg" src="${pageContext.request.contextPath}<%=b.getBasket_PImg() %>"/></td>
                      	<td id="bt3"><%=b.getBasket_Pname() %></td>
-                        <td id="bt4"><%=b.getbOption()%> / <%=b.getbAmount()%>개</td>
+                        <td id="bt4"><%=b.getbOption()%> / <%=b.getbAmount()%>개 <br> 
                         <td id="bt5"><%=shipPrice%>원</td>
-                        <td id="bt6"><%=b.getPrice()%>원</td>
+                        <td id="bt6"><%=resultPrice%>원</td>
+                        <%sumPrice += resultPrice; %>
                     </tr>
                 	<%}%>
+                	<%} %>
                 	</table>
+                	<%if (sumPrice >= 50000){
+                		shipPrice = 0;
+                	}%>
                 	<hr>
                 	<div id="resultDiv">
                 	<table id="resultTB">
                 		<tr>
                 			<th id="th1">총 상품금액</th>
                 			<th id="th2">배송비</th>
-                			<th id="th3">할인예상금액</th>
-                			<th rowspan = "2" id="th4">총 주문금액</th>
+                			<th rowspan = "2" id="th3">총 주문금액</th>
                 		</tr>
                 		<tr>
-                			<td id="td1">1</td>
-                			<td id="td2">2</td>
-                			<td id="td3">3</td>
+                			<td id="td1"><%=sumPrice %>원</td>
+                			<td id="td2"><%=shipPrice %>원</td>
+                			<%lastPrice = sumPrice + shipPrice; %>
+                			<td id="td3"><b id="sum"><%=lastPrice %>원</b></td>
                 		</tr>
                 	</table>
+                	<br>
                 	<hr>
-                	<button type="button" id="continueBtn" onclick="location='main.ma'">쇼핑 계속하기</button>
+                	<button type="button" id="continueBtn" onclick="location='<%=request.getContextPath()%>/mainpage.ma'">쇼핑 계속하기</button>
                 	<button type="submit" id="purBtn" onclick="purchase()">주문하기</button>
                 	</div>
                 	</div>
@@ -97,12 +117,40 @@ int shipPrice = 0;
 		<%} %> 
 
    <script>
-    $(function(){ $("#allCk").click(function(){ 
-    	 if($("#allCk").prop("checked")) { 
-    		  $("input[type=checkbox]").prop("checked",true); 
-		} else { $("input[type=checkbox]").prop("checked",false); } 
-    	 }); 
-    });
+   
+   let ckVal = [];
+   var i = <%=list.size()%>;
+   $("input:checkbox[name:ckPd]").each(function(i, iVal){
+	  ckVal[i].push(iVal);
+	  iVal += iVal;
+   });
+   
+   console.log(iVal);
+    
+   function allCheck(e) { 
+		if(e.target.checked) {
+			document.querySelectorAll(".ckPd").forEach(function(v, i) {
+				v.checked = true;
+			});
+		} else {
+			document.querySelectorAll(".ckPd").forEach(function(v, i) {
+				v.checked = false;
+			});
+		}
+	}
+	function checkAllList(e) {
+		let checkCount = 0;
+		document.querySelectorAll(".ckPd").forEach(function(v, i) {
+			if(v.checked === false){
+				checkCount++;
+			}
+		});
+		if(checkCount>0) {
+			document.getElementById("allCk").checked = false;
+		} else if(checkCount === 0) {
+			document.getElementById("allCk").checked = true;
+		}
+	}
 
     function deleteProduct() {
     	
@@ -128,16 +176,17 @@ int shipPrice = 0;
             })
             	location.href="<%=request.getContextPath()%>/deleteBasket.hy?checkArr="+checkArr;
             	alert("성공적으로 삭제되었습니다.");
+            	
         }
          return false;
 	}	
     
     function purchase() {
-    		var isck=false;
-    		var cnt=0;
+    		var isck = false;
+    		var cnt = 0;
 	    	var checked = document.getElementsByName("ckPd");
 	   
-    		for(var i=0;i<checked.length;i++){	
+    		for(var i= 0; i < checked.length; i++){	
     			if(checked[i].checked==true){
 	    			isck=true;
 	    			cnt++;
@@ -173,8 +222,9 @@ int shipPrice = 0;
    	        }
    	         return false;
 			
-   			
     }
+    
+    
    	</script>
 </body>
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
