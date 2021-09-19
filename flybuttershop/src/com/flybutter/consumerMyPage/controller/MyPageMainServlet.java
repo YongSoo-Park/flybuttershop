@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import com.flybutter.consumerMyPage.model.service.MypageService;
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 
 /**
  * Servlet implementation class MyPageMainServlet
@@ -47,14 +47,10 @@ public class MyPageMainServlet extends HttpServlet {
 		
 		if(m != null) {
 			
-			int userNo = m.getMEM_USER_NO();
-			String userName = m.getMEM_USER_NAME();
-			int level = m.getMEM_LEV();
+			int userNo = m.getUserNo();
+			String userName = m.getUserName();
+			int level = m.getLev();
 
-			System.out.println(userNo);
-			System.out.println(userName);
-			System.out.println(level);
-			
 			int sumPrice = new MypageService().selectSumPrice(userNo);
 			
 			//System.out.println("sumPrice = " + sumPrice);

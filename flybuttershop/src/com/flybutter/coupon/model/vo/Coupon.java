@@ -139,6 +139,14 @@ public class Coupon {
 	}
 
 
+	@Override
+	public String toString() {
+		return "Coupon [user_no=" + user_no + ", order_no=" + order_no + ", pCode=" + pCode + ", cp_no=" + cp_no
+				+ ", cp_count=" + cp_count + ", cp_discount=" + cp_discount + ", cp_date=" + cp_date + ", cp_name="
+				+ cp_name + ", minPrice=" + minPrice + "]";
+	}
+
+
 	
 	
 

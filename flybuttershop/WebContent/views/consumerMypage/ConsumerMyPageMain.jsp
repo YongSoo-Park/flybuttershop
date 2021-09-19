@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%String userName = String.valueOf(request.getSession().getAttribute("MEM_USER_NAME")); %>
+<%String userName = String.valueOf(request.getSession().getAttribute("userName")); %>
 <% int sumPrice = (int)request.getAttribute("sumPrice"); %>
 
 <!DOCTYPE html>
@@ -71,19 +71,19 @@
         <div id="infoWrap">
 
 
-                <c:out value="${sessionScope.loginMember.MEM_USER_NAME}"/> 님의 등급은 <b>
+                <c:out value="${sessionScope.loginMember.userName}"/> 님의 등급은 <b>
                 <c:choose>
-  				<c:when test="${sessionScope.loginMember.MEM_LEV == '1'}">애벌레</c:when>
-  				<c:when test="${sessionScope.loginMember.MEM_LEV == '2'}">번데기</c:when>
-  				<c:when test="${sessionScope.loginMember.MEM_LEV == '3'}">나비</c:when>
+  				<c:when test="${sessionScope.loginMember.lev == '1'}">애벌레</c:when>
+  				<c:when test="${sessionScope.loginMember.lev == '2'}">번데기</c:when>
+  				<c:when test="${sessionScope.loginMember.lev == '3'}">나비</c:when>
   				<c:otherwise>오류</c:otherwise>
 				</c:choose>
 				</b>입니다 <br>
                 <div id="upgradePrice">원을 더 구매하시면 
                 <c:choose>
-  				<c:when test="${sessionScope.loginMember.MEM_LEV == '1'}">번데기로 등급업</c:when>
-  				<c:when test="${sessionScope.loginMember.MEM_LEV == '2'}">나비로 등급업</c:when>
-  				<c:when test="${sessionScope.loginMember.MEM_LEV == '3'}">나비 등급이 유지됩니다</c:when>
+  				<c:when test="${sessionScope.loginMember.lev== '1'}">번데기로 등급업</c:when>
+  				<c:when test="${sessionScope.loginMember.lev == '2'}">나비로 등급업</c:when>
+  				<c:when test="${sessionScope.loginMember.lev == '3'}">나비 등급이 유지됩니다</c:when>
   				<c:otherwise>오류</c:otherwise>
 				</c:choose>
 				</div>

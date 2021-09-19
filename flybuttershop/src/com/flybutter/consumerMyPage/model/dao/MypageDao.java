@@ -15,7 +15,7 @@ import java.util.Properties;
 
 import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.consumerMyPage.model.vo.OrderList;
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.review.model.vo.PageInfo;
 
 public class MypageDao {
@@ -94,12 +94,12 @@ public class MypageDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				m.setMEM_USER_ID(rset.getString("MEM_USER_ID"));
-				m.setMEM_USER_PWD(rset.getString("MEM_USER_PWD"));
-				m.setMEM_USER_NAME(rset.getString("MEM_USER_NAME"));
-				m.setMEM_PHONE(rset.getString("MEM_PHONE"));
-				m.setMEM_EMAIL(rset.getString("MEM_EMAIL"));
-				m.setMEM_ADDRESS(rset.getString("MEM_ADDRESS"));
+				m.setUserId(rset.getString("MEM_USER_ID"));
+				m.setUserPwd(rset.getString("MEM_USER_PWD"));
+				m.setUserName(rset.getString("MEM_USER_NAME"));
+				m.setPhone(rset.getString("MEM_PHONE"));
+				m.setEmail(rset.getString("MEM_EMAIL"));
+				m.setAddress(rset.getString("MEM_ADDRESS"));
 				System.out.println(m);		
 			}
 
@@ -129,11 +129,11 @@ public class MypageDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1,m.getMEM_USER_PWD());
-			pstmt.setString(2, m.getMEM_PHONE());
-			pstmt.setString(3, m.getMEM_EMAIL());
-			pstmt.setString(4, m.getMEM_ADDRESS());
-			pstmt.setInt(5, m.getMEM_USER_NO());
+			pstmt.setString(1,m.getUserPwd());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getEmail());
+			pstmt.setString(4, m.getAddress());
+			pstmt.setInt(5, m.getUserNo());
 			
 			result = pstmt.executeUpdate();
 			

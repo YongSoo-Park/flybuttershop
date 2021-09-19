@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.review.model.service.ReviewService;
 import com.flybutter.review.model.vo.PageInfo;
 import com.flybutter.review.model.vo.Review;
@@ -35,7 +35,7 @@ public class ReviewListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member m = (Member) request.getSession().getAttribute("loginMember");
-		int userNo = m.getMEM_USER_NO();
+		int userNo = m.getUserNo();
 		
 	
 				int listCount;			

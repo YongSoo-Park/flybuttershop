@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.consumerMyPage.model.service.MypageService;
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 
 /**
  * Servlet implementation class CheckPasswordInvalidationServlet
@@ -39,15 +39,15 @@ public class CheckPasswordInvalidationServlet extends HttpServlet {
 		
 		Member member = (Member) request.getSession().getAttribute("loginMember");
 		
-		int userNo = member.getMEM_USER_NO();
+		int userNo = member.getUserNo();
 		
-		System.out.println(member.getMEM_USER_PWD());
+		System.out.println(member.getUserPwd());
 		
 		Member m = new MypageService().selectMember(userNo);
 		
-		String originPass = m.getMEM_USER_PWD();
+		String originPass = m.getUserPwd();
 		
-		System.out.println(m.getMEM_USER_PWD());
+		System.out.println(m.getUserPwd());
 		
 		if(password.equals(originPass)) {
 			

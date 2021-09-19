@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import com.flybutter.consumerMyPage.model.dao.MypageDao;
 import com.flybutter.consumerMyPage.model.vo.OrderList;
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.review.model.vo.PageInfo;
 
