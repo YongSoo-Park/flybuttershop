@@ -44,6 +44,7 @@ public class productInsertServlet extends HttpServlet {
 		System.out.println("상품등록 서블릿 입장");
 		
 		
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			//size
 			int maxSize = 10 * 1024 * 1024;
@@ -89,12 +90,12 @@ public class productInsertServlet extends HttpServlet {
 			for(int i = 1; i <= 2; i++) {
 				String name = "file"+i;
 				if(multiRequest.getOriginalFileName(name) != null) {
-					String originPimg1 = multiRequest.getOriginalFileName(name);
-					String changePimg1 = multiRequest.getFilesystemName(name);
+					String originPimg = multiRequest.getOriginalFileName(name);
+					String changePimg = multiRequest.getFilesystemName(name);
 					
 					Product pi = new Product();
-					pi.setpImage_Origin(savePath);
-					pi.setpImage_System(changePimg1);
+					pi.setpImage_Origin(savePath+originPimg);
+					pi.setpImage_System(savePath+changePimg);
 					
 					
 				}

@@ -50,7 +50,7 @@ public class checkQnaPwdInputServlet extends HttpServlet {
 			request.setAttribute("q", q);
 			request.getRequestDispatcher("views/product/productQnaView.jsp").forward(request, response);;
 		}else {
-			request.setAttribute("msg", "상품정보를 불러올 수 없습니다.");
+			request.setAttribute("msg", "비밀번호가 일치하지 않습니다.");
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}

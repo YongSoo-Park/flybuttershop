@@ -1,27 +1,28 @@
-package com.flybutter.product.controller;
+package com.flybutter.seller.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.product.model.service.ProductService;
+import com.flybutter.seller.model.service.SellerService;
+import com.flybutter.seller.model.vo.SoldList;
 
 /**
- * Servlet implementation class productDeleteServlet
+ * Servlet implementation class delInsertFormServlet
  */
-@WebServlet("/deleteProduct.pr")
-public class productDeleteServlet extends HttpServlet {
+@WebServlet("/insertDel.sl")
+public class delInsertFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public productDeleteServlet() {
+    public delInsertFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +32,16 @@ public class productDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String pcode = request.getParameter("pCode");
-		System.out.println("상품 삭제 서블릿  : " + pcode);
+		int pno = Integer.parseInt(request.getParameter("pNo"));
 		
-		int result = new ProductService().deleteProduct(pcode);
+		System.out.println("운송장번호 입력 ~~ " + pno);
 		
-		if(result > 0) {
-			response.sendRedirect("productManager.sl");
-		}else {
-			request.setAttribute("msg", "상품 삭제 실패.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		SoldList s = new SellerService().selectSoldInfo(pno);
 		
+		request.setAttribute("s", s);
+		request.getRequestDispatcher("views/seller/delNoInertForm.jsp").forward(request, response);
+	
+
 	}
 
 	/**
