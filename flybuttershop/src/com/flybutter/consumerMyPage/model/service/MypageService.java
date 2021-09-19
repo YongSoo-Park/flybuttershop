@@ -107,4 +107,17 @@ public class MypageService {
 		return list;
 	}
 
+	public int couponCount(int userNo) {
+
+		Connection conn = getConnection();
+		
+		int count = new MypageDao().couponCount(conn, userNo);
+		
+		close(conn);
+		
+		
+		return count;
+	
+	}
+
 }

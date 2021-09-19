@@ -98,13 +98,15 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2" align="left">&nbsp;&nbsp; <b>상품명</b><br>&nbsp;&nbsp; <%=o.get(0).getpName() %></td>
+                <td colspan="2" align="left">&nbsp;&nbsp; <b>상품명</b><br>&nbsp;&nbsp; <%=o.get(0).getpName() %>
+                <br>&nbsp;&nbsp; 외 <%=list.size()-1 %> 건
+                </td>
             </tr>
             <tr>
                 <td align="left">&nbsp;&nbsp; <b>주문일시</b><br>&nbsp;&nbsp; <%=o.get(0).getPurDate() %></td>
                 <td align="right">
                 <% if(state == 4) {%>
-                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/insertForm.rv?pno=<%=o.get(0).getPurNo()%>?pcode=<%=o.get(0).getpCode()%>'">후기작성</button>
+                <!--  <button class="btn" onclick="location.href='<%= request.getContextPath()%>/insertForm.rv?pno=<%=o.get(0).getPurNo()%>?pcode=<%=o.get(0).getpCode()%>'">후기작성</button>-->
                 <%} else if(state == 1 || state == 2){%>
                 <button class="btn" onclick="location.href='<%= request.getContextPath()%>/cancelOrder?pno=<%=o.get(0).getPurNo()%>'">주문취소</button>
                 <%} %>

@@ -29,14 +29,18 @@ public class ReviewInsertFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int pno = Integer.parseInt(request.getParameter("pno"));
+		int purNo = Integer.parseInt(request.getParameter("purNo"));
+		String pCode =  request.getParameter("pCode");
 		
-		 String pName = new ReviewService().reviewInsertInfo(pno);
+		 String pName = new ReviewService().reviewInsertInfo(pCode);
 		 
 		 System.out.println(pName);
+		 System.out.println(pCode);
 		
-		request.setAttribute("pno", pno);
+		request.setAttribute("pCode", pCode);
+		request.setAttribute("purNo", purNo);
 		request.setAttribute("pName", pName);
+		
 		
 		request.getRequestDispatcher("views/review/ReviewInsertForm.jsp").forward(request, response);
 		

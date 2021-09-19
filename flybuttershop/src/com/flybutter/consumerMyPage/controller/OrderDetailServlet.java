@@ -63,7 +63,7 @@ public class OrderDetailServlet extends HttpServlet {
 	         }
 	        
 		
-		request.setAttribute("list", list);
+		request.setAttribute("list", info);
 		
 		request.getRequestDispatcher("views/consumerMypage/OrderDetailView.jsp").forward(request, response);
 

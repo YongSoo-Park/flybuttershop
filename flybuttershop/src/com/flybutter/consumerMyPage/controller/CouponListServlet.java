@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flybutter.consumerMyPage.model.service.MypageService;
+import com.flybutter.dummy.model.vo.Member;
+
 /**
  * Servlet implementation class CouponListServlet
  */
@@ -26,8 +29,24 @@ public class CouponListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		Member member = (Member) request.getSession().getAttribute("loginMember");
+		
+		int userNo = member.getMEM_USER_NO();
+		
+		int cpCount = new MypageService().couponCount(userNo);
+		
+		int money = member.getMONEY();
+		
+		request.setAttribute("cpCount", cpCount);
+		request.setAttribute("money", money);
+		
+		request.getRequestDispatcher("views/consumerMypage/CouponListView.jsp").forward(request, response);
+		
+		
+		
+		
+		
 	}
 
 	/**

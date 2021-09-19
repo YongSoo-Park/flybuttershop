@@ -161,7 +161,7 @@ public class ReviewDao {
 
 
 
-	public String reviewInsertInfo(Connection conn, int pno) {
+	public String reviewInsertInfo(Connection conn, String pCode) {
 		String pName = "";
 		
 		PreparedStatement pstmt = null;
@@ -173,7 +173,7 @@ public class ReviewDao {
 			pstmt = conn.prepareStatement(sql);
 
 			
-			pstmt.setInt(1, pno);
+			pstmt.setString(1, pCode);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -189,6 +189,42 @@ public class ReviewDao {
 			close(pstmt);
 		}
 		return pName;
+	}
+
+
+	public int reviewInsert(Connection conn, Review r) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("reviewInsert");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			//RE_NO, PCODE, USER_NO, RE_TITLE, RE_CONTENT,RE_DATE,RE_ORIGINFILE,RE_CHANGEFILE,RE_STATUS, PUR_NO, SCORE)
+			//VALUES(REVIEW_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE, ?, ?, 'N', ?, ?)
+			
+			pstmt.setString(1, r.getpCode());
+			pstmt.setInt(2, r.getUser_no());
+			pstmt.setString(3, r.getRe_title());
+			pstmt.setString(4, r.getRe_content());
+			pstmt.setString(5, r.getRe_originFile());
+			pstmt.setString(6, r.getRe_changeFile());
+			pstmt.setInt(7, r.getPur_no());
+			pstmt.setInt(8, r.getScore());
+
+			result = pstmt.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			System.out.println("REVIEW 테이블  reviewInsert : " + e.getMessage());
+		}finally {
+
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

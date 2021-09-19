@@ -62,7 +62,10 @@
         <table align="center">
 
             <tr>
-                <th id="pImage" rowspan="3" width="150px" height="150px">사진자리</th>
+                <th id="pImage" rowspan="3" width="150px" height="150px">
+               	<img src="<%=contextPath%><%= r.getpImage_origin() %>" width="150px">
+             
+                </th>
                 <th id="title" colspan="2"><%= r.getRe_title()%></th>
             </tr>
             <tr>
@@ -78,9 +81,14 @@
            
            </table>
             <table id="content" align="center">
+            	<%if (r.getRe_originFile() != null){ %>
              <tr>
-                <td colspan="3">사진</td>
+             	
+                <td colspan="3">
+                <img src="<%=contextPath %><%= r.getRe_originFile()%>">
+                </td>
             </tr>
+            <%} %>
             <tr>
                 <td><%= r.getRe_content() %></td>
             </tr>
