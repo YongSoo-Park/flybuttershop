@@ -1,7 +1,7 @@
 <%@page import="com.sun.javafx.geom.CubicApproximator"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.purchase.model.vo.*, 
-    com.flybutter.dummy.model.vo.*, com.flybutter.consumer.model.vo.*, com.flybutter.coupon.model.vo.*,
+    com.flybutter.member.model.vo.*, com.flybutter.consumer.model.vo.*, com.flybutter.coupon.model.vo.*,
     com.flybutter.product.model.vo.*"%>
 <%
 //ArrayList<Purchase> list = (ArrayList<Purchase>) request.getAttribute("list"); 
@@ -9,7 +9,7 @@ Member loginM= (Member)request.getSession().getAttribute("loginMember");
 Purchase p = (Purchase)request.getAttribute("purInfo");
 Consumer c = (Consumer)request.getAttribute("consumer");
 ArrayList<Coupon> list = (ArrayList<Coupon>) request.getAttribute("list");
-//Member m = (Member)request.getAttribute("m");
+Member m = (Member)request.getAttribute("m");
 //ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList"); 
 //ArrayList<Purchase> sNameList = (ArrayList<Purchase>) request.getAttribute("sNameList"); 
 
@@ -73,9 +73,9 @@ if(p.getPur_Price() < 50000){
   		<label><input type="radio" id="sType1" name="ship" style="cursor:pointer;" value="0" checked>기본배송지</label>
   		<label><input type="radio" id="sType2" name="ship" style="cursor:pointer;" value="1" onclick="div_OnOff(this.value,'new');">신규배송지</label></label>
   		
-  		<%-- <h4 class="text3"><%=m.getUserName() %></h4>
+  		<h4 class="text3"><%=m.getUserName() %></h4>
   		<h4 class="text3"><%=m.getPhone() %></h4>
-  		<div id="origin"><h4 class="text3" style="display:block;"><%=m.getAddress() %></h4></div><br>--%>
+  		<div id="origin"><h4 class="text3" style="display:block;"><%=m.getAddress() %></h4></div><br>
   		
   		<div id="new" style="display:none;"><input class="text3" id="newi" name="newAdr" placeholder="새로운 주소를 입력하세요  " type="text" ></div>
   		

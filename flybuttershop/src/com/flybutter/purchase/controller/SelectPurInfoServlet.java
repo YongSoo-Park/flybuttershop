@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.purchase.model.service.PurchaseService;
 import com.flybutter.purchase.model.vo.Purchase;
 
@@ -36,11 +36,11 @@ public class SelectPurInfoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
-		int no = loginM.getMEM_USER_NO();
+		int no = loginM.getUserNo();
 		int pNo = ((Integer)(request.getSession().getAttribute("pNo"))).intValue();
 		
-		ArrayList<Purchase> list = new PurchaseService().selectPurInfo(no, pNo);
-        request.setAttribute("list", list);
+//		ArrayList<Purchase> list = new PurchaseService().selectPurInfo(no, pNo);
+//        request.setAttribute("list", list);
         
 //        request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
 	}

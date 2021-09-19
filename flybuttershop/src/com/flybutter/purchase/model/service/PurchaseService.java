@@ -22,6 +22,7 @@ public class PurchaseService {
 		
 		Member m = new PurchaseDao().selectMember(conn, no); 
 		close(conn);
+		System.out.println("셀렉트멤버서비스 : " + m);
 		
 		return m;
 	}

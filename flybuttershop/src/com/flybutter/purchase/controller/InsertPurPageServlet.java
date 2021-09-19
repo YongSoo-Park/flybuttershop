@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.flybutter.basket.model.service.BasketService;
 import com.flybutter.consumer.model.vo.Consumer;
 import com.flybutter.coupon.model.vo.Coupon;
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.money.model.vo.Money;
 import com.flybutter.product.model.service.ProductService;
 import com.flybutter.product.model.vo.Product;
@@ -47,7 +47,11 @@ public class InsertPurPageServlet extends HttpServlet {
 		
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
 		
-		int no = loginM.getMEM_USER_NO();
+		int no = loginM.getUserNo();
+		
+		Member m = new PurchaseService().selectMember(no);
+		
+		System.out.println("주문페이지서블릿 : " + m);
 		
 		//제품상세페이지에서 전달받는 값들
 		Purchase p = new Purchase();
@@ -81,6 +85,7 @@ public class InsertPurPageServlet extends HttpServlet {
 		request.setAttribute("purInfo", p);
 		request.setAttribute("list", list);
 		request.setAttribute("consumer", c);
+		request.setAttribute("m", m);
 		request.getRequestDispatcher("views/purchase/purchasePage.jsp").forward(request, response);
 	}
 
