@@ -1,19 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.flybutter.product.model.vo.*"
+	pageEncoding="UTF-8" import="com.flybutter.product.model.vo.Product, com.flybutter.product.model.vo.PageInfo"
 	import="com.flybutter.seller.model.vo.*, com.flybutter.review.model.vo.*"
 	import="java.util.ArrayList, com.flybutter.qna.model.vo.*"%>
 
 <%
+	Product pr = (Product)request.getAttribute("pr");	
+	Seller s = (Seller)request.getAttribute("s");
 	ArrayList<Qna> qList = (ArrayList<Qna>)request.getAttribute("qList");
 	ArrayList<Review> rList = (ArrayList<Review>)request.getAttribute("rList");
+	PageInfo piQna = (PageInfo) request.getAttribute("piQna");
+	PageInfo pire = (PageInfo) request.getAttribute("pire");
+	
+	int listCountQ = piQna.getListCount();
+	int currentPageQ = piQna.getCurrentPage();
+	int maxPageQ = piQna.getMaxPage();
+	int startPageQ = piQna.getStartPage();
+	int endPageQ = piQna.getEndPage();
+	
+	int listCountR = pire.getListCount();
+	int currentPageR = pire.getCurrentPage();
+	int maxPageR = pire.getMaxPage();
+	int startPageR = pire.getStartPage();
+	int endPageR = pire.getEndPage();
+
+	
 	String qCategory = null;
-	Product p = (Product)request.getAttribute("p");	
-	Seller s = (Seller)request.getAttribute("s");
+	
 	String option = null;
-	if(p.getpOption()==null){
+	if(pr.getpOption()==null){
 		option = "없음";
 	}else{
-		option = p.getpOption();
+		option = pr.getpOption();
 	}
 %>
 
@@ -48,6 +65,14 @@
 
 </style>
 <script>
+$(function() {
+   $('#mainCategory').css('box-sizing','unset');
+})
+$(function() {
+   
+   $('#userSearch').css('box-sizing','unset');
+})
+
 function orderValidate(){
 	if(!(/^[0-9]{1,10}$/.test($("#proOrder input[name=pAmount]").val()))){
 		 alert("주문수량에는 숫자만 입력가능합니다.")
@@ -119,6 +144,11 @@ $(function(){
 	})
 
 </script>
+<style type="text/css">
+.product{
+	text-align:center;		
+}
+</style>
 </head>
 <body style="margin: 0 auto">
 	<jsp:include page="../header_footer/header.jsp" flush="true" />
@@ -128,18 +158,15 @@ $(function(){
 	<div class="row justify-content-center" id="proInfo">
 
 		<form id="proOrder" action="" method="post">
-			<div class="productInfo" id="pImg">
-				<table>
+			<div class="productInfo justify-content-center" id="pImg">
+				<table class="product justify-content-center" align="center">
 					<tr>
-						<td rowspan="6"><img
-							src="${pageContext.request.contextPath}${requestScope.p.pImage_Origin}"
-							width="400px" height="400px" name="pImg"
-							value="${pageContext.request.contextPath}${requestScope.p.pImage_Origin}"></td>
-						<td><label id="pName" name="pName"
-							value="${requestScope.p.pName}"><%=p.getpName() %></label></td>
+						<td rowspan="6"><img class="rounded float-start" src="${pageContext.request.contextPath}${requestScope.pr.pImage_Origin}" width="400px" height="400px" name="pImg" value="${pageContext.request.contextPath}${requestScope.pr.pImage_Origin}"></td>
+						
+						<td><label id="pName" name="pName" value="${requestScope.pr.pName}"><%=pr.getpName() %></label></td>
 					</tr>
 					<tr>
-						<td><label id="price" name="price" value="<%=p.getPrice()%>"><%=p.getPrice() %></label></td>
+						<td><label id="price" name="price" value="<%=pr.getPrice()%>"><%=pr.getPrice() %></label></td>
 					</tr>
 					<tr>
 						<td><select class="form-select"
@@ -149,31 +176,33 @@ $(function(){
 						</select></td>
 					</tr>
 					<tr>
-						<td><label>수량 : </label><input type="text" name="pAmount"
+						<td><label>수량  </label><input type="text" name="pAmount"
 							id="pAmount" /></td>
 					</tr>
 					<tr>
 						<td>
-							<button type="button" class="btn btn-outline-primary"
-								onclick="basketProduct();">장바구니 담기</button>
-							<button type="button" class="btn btn-outline-danger">찜하기</button>
+							
+								<button type="button" class="btn btn-outline-primary"
+									onclick="basketProduct();">장바구니 담기</button>
+								<button type="button" class="btn btn-outline-danger mx-auto">찜하기</button>
+					
 						</td>
 					</tr>
 					<tr>
-						<td><button type="button" class="btn btn-primary"
+						<td><button type="button" class="btn btn-primary mx-auto"
 								onclick="orderProduct();">상품 주문</button></td>
 					</tr>
 				</table>
 			</div>
-			<input type="hidden" name="price" value="<%= p.getPrice() %>">
+			<input type="hidden" name="price" value="<%= pr.getPrice() %>">
 			<input type="hidden" name="storeNo" value="<%= s.getStore_No() %>">
-			<input type="hidden" name="pCode" value="<%= p.getpCode() %>">
+			<input type="hidden" name="pCode" value="<%= pr.getpCode() %>">
 			<input type="hidden" name="sName" value="<%= s.getStore_Name() %>">
-			<input type="hidden" name="pImg" value="<%= p.getpImage_Origin()%>">
-			<input type="hidden" name="pName" value="<%= p.getpName() %>">
+			<input type="hidden" name="pImg" value="<%= pr.getpImage_Origin()%>">
+			<input type="hidden" name="pName" value="<%= pr.getpName() %>">
 		</form>
 	</div>
-
+	<br><br>
 	<ul class="nav nav-tabs">
 		<li class="nav-item"><a class="nav-link" aria-current="page"
 			onclick="showDiv(this);" id="info">상품 설명</a></li>
@@ -186,9 +215,10 @@ $(function(){
 	</ul>
 
 	<div id="infoBox" class="bottom">
+	<br><br>
 		<div>
 			<img
-				src="${pageContext.request.contextPath}${requestScope.p.pExp_Image_Origin}">
+				src="${pageContext.request.contextPath}${requestScope.pr.pExp_Image_Origin}">
 		</div>
 	</div>
 
@@ -225,11 +255,46 @@ $(function(){
 				 	<% } %>
 				 <% } %>	
 		</tbody>
-		
 	</table>
+	<br><br>
 		
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/detail.pr?currentPage=<%=currentPageR - 1%>'" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+				<!-- 이전페이지로(<) -->
+				<%if (currentPageR == 1) {%>
+					<li class="page-item" disabled><a class="page-link" disabled>&lt;</a></li>
+				<%} else {%>
+					<li class="page-item" disabled><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/detail.pr?currentPage=<%=currentPageR - 1%>'">&lt;</a></li>
+
+				<%}%>
+
+
+				<%for (int p = startPageR; p <= endPageR; p++) {%>
+
+					<%if (p == currentPageR) {%>
+						<button disabled><%=p%></button>
+					<%} else {%>
+						<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/detail.pr?currentPage=<%=p%>'"><%=p%></a></li>
+					<%}%>
+
+				<%}%>
+				<!-- 다음페이지로(>) -->
+				<%if (currentPageR == maxPageR) {%>
+					<li class="page-item" disabled><a class="page-link" disabled>&gt; </a></li>
+				<%} else {%>
+					<li class="page-item" disabled><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/detail.pr?currentPage=<%=currentPageR + 1%>'">&gt; </a></li>
+
+				<%}%>
+					<a class="page-link" onclick="location.href='<%=request.getContextPath()%>/detail.pr?currentPage=<%=currentPageR + 1%>'" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
+			</ul>
+		</nav>
 	
 	</div>
+	
+	</div>
+
+
 
 	<div id="qnaBox" class="bottom none">
 		<br> <br>
@@ -282,6 +347,40 @@ $(function(){
 			 <% } %>	
 		</tbody>
 		</table>
+		<br><br>
+		
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/detail.pr?currentPage=<%=currentPageQ - 1%>'" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+				<!-- 이전페이지로(<) -->
+				<%if (currentPageQ == 1) {%>
+					<li class="page-item" disabled><a class="page-link" disabled>&lt;</a></li>
+				<%} else {%>
+					<li class="page-item" disabled><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/detail.pr?currentPage=<%=currentPageQ - 1%>'">&lt;</a></li>
+
+				<%}%>
+
+
+				<%for (int p = startPageQ; p <= endPageQ; p++) {%>
+
+					<%if (p == currentPageQ) {%>
+						<button disabled><%=p%></button>
+					<%} else {%>
+						<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/detail.pr?currentPage=<%=p%>'"><%=p%></a></li>
+					<%}%>
+
+				<%}%>
+				<!-- 다음페이지로(>) -->
+				<%if (currentPageQ == maxPageQ) {%>
+					<li class="page-item" disabled><a class="page-link" disabled>&gt; </a></li>
+				<%} else {%>
+					<li class="page-item" disabled><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/detail.pr?currentPage=<%=currentPageQ + 1%>'">&gt; </a></li>
+
+				<%}%>
+					<a class="page-link" onclick="location.href='<%=request.getContextPath()%>/detail.pr?currentPage=<%=currentPageQ + 1%>'" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
+			</ul>
+		</nav>
+		
 
 	</div>
 

@@ -63,7 +63,16 @@
 	}
 
 </style>
-
+<script type="text/javascript">
+function insertValidate(){
+	if(!(/^[a-z][a-z\d]{3,50}$/i.test($("#productInsert input[name=pName]").val()))){
+		alert("상품명에는 영어, 한글, 숫자만 입력가능합니다.");
+		$("#productInsert input[name=pName]").focus();
+        return false;
+	}
+	return true;
+}
+</script>
 </head>
 <body style="margin: 0 auto">
 <jsp:include page="../header_footer/header.jsp" flush="true" />
@@ -123,7 +132,7 @@
 	
 	
 	<div class="reply">
-		<form id="reply" action="<%= request.getContextPath() %>/rInsert.na" method="post">
+		<form id="reply" action="<%= request.getContextPath() %>/rInsert.na" method="post" onsubmit="return insertValidate();">
 			<table  border="1" align="center">
 				<tr>
 					<th>답변작성<input type="hidden" name="qNo" value="<%=q.getQna_No()%>"></th>

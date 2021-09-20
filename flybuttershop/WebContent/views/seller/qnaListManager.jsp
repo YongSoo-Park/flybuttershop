@@ -1,9 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.seller.model.vo.Seller"
-	import="com.flybutter.qna.model.vo.*"%>
+	import="com.flybutter.qna.model.vo.*, com.flybutter.product.model.vo.*"%>
     
 <%
 	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
+
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	
+	int listCountQ = pi.getListCount();
+	int currentPageQ = pi.getCurrentPage();
+	int maxPageQ = pi.getMaxPage();
+	int startPageQ = pi.getStartPage();
+	int endPageQ = pi.getEndPage();
+
 	
 	String qCategory = null;
 %>
@@ -45,8 +54,8 @@
 
 	<h2 align="center">판매 상품 Q&A 목록</h2><br>
 	
-	<table class="qnaList" align="center">
-		<thead>
+	<table class="qnaList table-hover" align="center">
+		<thead class="table-primary">
 			<tr>
 				<th>no</th>
 				<th>상품코드</th>
@@ -90,6 +99,40 @@
 		</tbody>
 		
 	</table>
+	
+	<br><br>
+	
+	<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/qnaManager.sl?currentPage=<%=currentPageQ - 1%>'" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+				<!-- 이전페이지로(<) -->
+				<%if (currentPageQ == 1) {%>
+					<li class="page-item" disabled><a class="page-link" disabled>&lt;</a></li>
+				<%} else {%>
+					<li class="page-item" disabled><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/qnaManager.sl?currentPage=<%=currentPageQ - 1%>'">&lt;</a></li>
+
+				<%}%>
+
+
+				<%for (int p = startPageQ; p <= endPageQ; p++) {%>
+
+					<%if (p == currentPageQ) {%>
+						<button disabled><%=p%></button>
+					<%} else {%>
+						<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/qnaManager.sl?currentPage=<%=p%>'"><%=p%></a></li>
+					<%}%>
+
+				<%}%>
+				<!-- 다음페이지로(>) -->
+				<%if (currentPageQ == maxPageQ) {%>
+					<li class="page-item" disabled><a class="page-link" disabled>&gt; </a></li>
+				<%} else {%>
+					<li class="page-item" disabled><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/qnaManager.sl?currentPage=<%=currentPageQ + 1%>'">&gt; </a></li>
+
+				<%}%>
+					<a class="page-link" onclick="location.href='<%=request.getContextPath()%>/qnaManager.sl?currentPage=<%=currentPageQ + 1%>'" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
+			</ul>
+		</nav>
 		
 	<jsp:include page="../header_footer/footer.jsp" flush="true" />
 	

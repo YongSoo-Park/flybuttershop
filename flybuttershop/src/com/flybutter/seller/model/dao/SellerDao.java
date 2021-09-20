@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.flybutter.product.model.vo.PageInfo;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.qna.model.vo.Qna;
@@ -156,7 +157,7 @@ public class SellerDao {
 			
 			return sel;
 		}
-		public ArrayList<Product> productList(Connection conn, int storeNo) {
+		public ArrayList<Product> productList(Connection conn, PageInfo pi, int storeNo) {
 			
 			ArrayList<Product> list = new ArrayList<Product>();
 			
@@ -165,9 +166,15 @@ public class SellerDao {
 			
 			String sql = prop.getProperty("productList");
 			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endRow = startRow + pi.getBoardLimit()-1;
+			
+			
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, storeNo);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
@@ -221,7 +228,7 @@ public class SellerDao {
 			
 			return listCount;
 		}
-		public ArrayList<Qna> qnaList(Connection conn, int storeNo) {
+		public ArrayList<Qna> qnaList(Connection conn, PageInfo pi, int storeNo) {
 
 			ArrayList<Qna> list = new ArrayList<Qna>();
 			
@@ -230,10 +237,16 @@ public class SellerDao {
 			
 			String sql = prop.getProperty("sellerQnaList");
 			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endRow = startRow + pi.getBoardLimit()-1;
+			
+			
 			try {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(1, storeNo);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
@@ -258,7 +271,7 @@ public class SellerDao {
 			
 			return list;
 		}
-		public ArrayList<Review> reviewList(Connection conn, int storeNo) {
+		public ArrayList<Review> reviewList(Connection conn, PageInfo pi, int storeNo) {
 			ArrayList<Review> list = new ArrayList<Review>();
 			
 			PreparedStatement pstmt = null;
@@ -266,9 +279,15 @@ public class SellerDao {
 			
 			String sql = prop.getProperty("sellerReviewList");
 			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endRow = startRow + pi.getBoardLimit()-1;
+			
+			
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, storeNo);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
@@ -507,6 +526,86 @@ public class SellerDao {
 			
 			
 			return result;
+		}
+		public int productQnaListCount(Connection conn, String pcode) {
+			
+			int qnaListCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("productQnaListCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, pcode);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					qnaListCount = rset.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return qnaListCount;
+		}
+		public int productReviewCount(Connection conn, String pcode) {
+			int reListCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("productReviewCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, pcode);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					reListCount = rset.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return reListCount;
+		}
+		public int storeReviewCount(Connection conn, int storeNo) {
+			
+			int listCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("storeReviewCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, storeNo);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return listCount;
 		}
 
 	}

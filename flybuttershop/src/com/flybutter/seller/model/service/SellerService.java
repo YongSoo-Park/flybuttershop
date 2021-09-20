@@ -8,6 +8,7 @@ import static com.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.flybutter.product.model.vo.PageInfo;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.qna.model.vo.Qna;
@@ -55,11 +56,11 @@ public class SellerService {
 	}
 	
 
-	public ArrayList<Product> productList(int storeNo) {
+	public ArrayList<Product> productList(PageInfo pi, int storeNo) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new SellerDao().productList(conn, storeNo);
+		ArrayList<Product> list = new SellerDao().productList(conn, pi, storeNo);
 		close(conn);
 		
 		
@@ -86,11 +87,11 @@ public class SellerService {
 	}
 
 
-	public ArrayList<Qna> qnaList(int storeNo) {
+	public ArrayList<Qna> qnaList(PageInfo pi, int storeNo) {
 
 		Connection conn = getConnection();
 		
-		ArrayList<Qna> list = new SellerDao().qnaList(conn, storeNo);
+		ArrayList<Qna> list = new SellerDao().qnaList(conn, pi, storeNo);
 		close(conn);
 		
 		
@@ -98,10 +99,10 @@ public class SellerService {
 	}
 
 
-	public ArrayList<Review> reviewList(int storeNo) {
+	public ArrayList<Review> reviewList(PageInfo pi, int storeNo) {
 		Connection conn = getConnection();
 		
-		ArrayList<Review> list = new SellerDao().reviewList(conn, storeNo);
+		ArrayList<Review> list = new SellerDao().reviewList(conn, pi, storeNo);
 		close(conn);
 		
 		
@@ -201,6 +202,42 @@ public class SellerService {
 		close(conn);	
 		
 		return updateDel;
+	}
+
+
+	public int productQnaListCount(String pcode) {
+		
+		Connection conn = getConnection();
+		
+		int qnaListCount = new SellerDao().productQnaListCount(conn, pcode);
+		
+		close(conn);
+		
+		return qnaListCount;
+	}
+
+
+	public int productReviewCount(String pcode) {
+		
+		Connection conn = getConnection();
+		
+		int reListCount = new SellerDao().productReviewCount(conn, pcode);
+		
+		close(conn);
+		
+		return reListCount;
+	}
+
+
+	public int storeReviewCount(int storeNo) {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new SellerDao().storeReviewCount(conn, storeNo);
+		
+		close(conn);
+		
+		return listCount;
 	}
 
 

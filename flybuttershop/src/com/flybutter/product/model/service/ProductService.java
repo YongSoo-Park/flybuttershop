@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.flybutter.product.model.dao.ProductDao;
+import com.flybutter.product.model.vo.PageInfo;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.qna.model.vo.Qna;
 import com.flybutter.review.model.vo.Review;
@@ -89,22 +90,22 @@ public class ProductService {
 		return s;
 	}
 
-	public ArrayList<Qna> productQnaList(String pcode) {
+	public ArrayList<Qna> productQnaList(PageInfo piQna, String pcode) {
 
 		Connection conn = getConnection();
 		
-		ArrayList<Qna> qList = new ProductDao().productQnaList(conn, pcode);
+		ArrayList<Qna> qList = new ProductDao().productQnaList(conn, piQna, pcode);
 		
 		close(conn);
 		
 		return qList;
 	}
 
-	public ArrayList<Review> productReviewList(String pcode) {
+	public ArrayList<Review> productReviewList(PageInfo pire, String pcode) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Review> rList = new ProductDao().productReviewList(conn, pcode);
+		ArrayList<Review> rList = new ProductDao().productReviewList(conn, pire, pcode);
 		
 		close(conn);
 		
