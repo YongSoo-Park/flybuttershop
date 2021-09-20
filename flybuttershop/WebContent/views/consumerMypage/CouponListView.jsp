@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+
+	int cpCount = (int)request.getAttribute("cpCount");
+	int money = (int)request.getAttribute("money");
+	String contextPath = request.getContextPath();
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +57,7 @@
             <tr>
                 <td width="800px" height="150px" align="left">
 
-                    <h3>사용가능한 적립금은 10000원입니다</h3>
+                    <h3>사용 가능한 적립금은 <b><%=money%>원</b> 입니다</h3>
 
                 </td>
             </tr>
@@ -75,13 +82,13 @@
             <tr>
                 <td width="800px" height="150px" align="left">
 
-                    <h3>사용가능한 가능한 쿠폰은 3개 입니다</h3>
+                    <h3>사용 가능한 가능한 쿠폰은 <b><%=cpCount%>개</b> 입니다</h3>
 
                 </td>
             </tr>
             <tr>
                 <td align="right">  
-                <input type="button" class="btn" value="쿠폰 등록">
+                <input type="button" class="btn" value="쿠폰 등록" onclick="location.href='<%=contextPath %>/couponLookup.mp'">
                     <input type="button" class="btn" value="쿠폰 조회">
   
                 </td>
