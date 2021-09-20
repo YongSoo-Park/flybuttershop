@@ -208,6 +208,8 @@ int delPrice = 0;
                     checkArr.push(pCode);
                     
                  })
+                 
+   	           
                  var form = document.getElementById("basketInfo");
   
               form.setAttribute('action', 'basketPur.hy');
@@ -216,6 +218,9 @@ int delPrice = 0;
               hInput.setAttribute('name', 'checkArr');
               hInput.setAttribute('value', checkArr);
               form.appendChild(hInput);
+              
+              
+            
    	        
    	        }
    	        
