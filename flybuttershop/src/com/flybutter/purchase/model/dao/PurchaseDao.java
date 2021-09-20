@@ -44,7 +44,6 @@ public class PurchaseDao {
 		Member m = new Member();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		System.out.println("멤버셀렉트다오 : " + no);
 		
 //		selectMember=SELECT MEM_USER_ID, MEM_USER_NAME, MEM_PHONE, MEM_EMAIL, MEM_ADDRESS FROM MEMBER WHERE MEM_USER_NO = ?
 		
@@ -163,38 +162,6 @@ public class PurchaseDao {
 			close(pstmt);
 		}
 		return c;
-	}
-
-	public ArrayList<Purchase> selectSName(Connection conn, int store_No) {
-		ArrayList<Purchase> sNameList = new ArrayList<Purchase>();
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectSName");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, store_No);
-			
-			rset = pstmt.executeQuery();
-			
-//			selectSName=SELECT STORE_NAME FROM SELLER WHERE STORE_NO = ?
-					
-			while(rset.next()) {
-				sNameList.add(new Purchase(
-								rset.getString("STORE_NAME")				
-						));
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			System.out.println("Seller 테이블  selectSName 오류메세지 : " + e.getMessage());
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return sNameList;
 	}
 
 

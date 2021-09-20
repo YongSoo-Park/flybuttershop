@@ -31,6 +31,8 @@ public class Purchase {
 	
 ////////////////////////////
 	
+	private int salePrice;
+	
 //	USER_NO
 //	PUR_NO
 //	PUR_DATE
@@ -60,8 +62,11 @@ public class Purchase {
 //	p.setPur_Price(price);
 //	p.setPur_Amount(pAmount);
 //	p.setPur_SName(sName);	
+	
+	
+	
 	public Purchase(int user_No, String pCode, String pur_Image, String pur_Pname, String pur_POption, int pur_Amount,
-			String pur_SName) {
+			String pur_SName, int salePrice) {
 		super();
 		this.user_No = user_No;
 		this.pCode = pCode;
@@ -70,11 +75,7 @@ public class Purchase {
 		this.pur_POption = pur_POption;
 		this.pur_Amount = pur_Amount;
 		this.pur_SName = pur_SName;
-	}
-	
-	public Purchase(String pur_SName) {
-		super();
-		this.pur_SName = pur_SName;
+		this.salePrice = salePrice;
 	}
 
 	//판매자 판매 내역
@@ -289,6 +290,14 @@ public class Purchase {
 	public void setPur_SName(String pur_SName) {
 		this.pur_SName = pur_SName;
 	}
+	
+	public int getSalePrice() {
+		return salePrice;
+	}
+
+	public void setSalePrice(int salePrice) {
+		this.salePrice = salePrice;
+	}
 
 	@Override
 	public String toString() {
@@ -298,7 +307,8 @@ public class Purchase {
 				+ ", card_Date=" + card_Date + ", del_No=" + del_No + ", cp_Use=" + cp_Use + ", money_Use=" + money_Use
 				+ ", pur_Info=" + pur_Info + ", pCode=" + pCode + ", pur_Image=" + pur_Image + ", pur_Pname="
 				+ pur_Pname + ", pur_POption=" + pur_POption + ", pur_Amount=" + pur_Amount + ", pur_SName=" + pur_SName
-				+ "]";
+				+ ", salePrice=" + salePrice + "]";
 	}
+
 
 }

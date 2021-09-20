@@ -49,9 +49,8 @@ public class InsertPurPageServlet extends HttpServlet {
 		
 		int no = loginM.getUserNo();
 		
+		//현재 로그인 유저의 정보가져오기
 		Member m = new PurchaseService().selectMember(no);
-		
-		System.out.println("주문페이지서블릿 : " + m);
 		
 		//제품상세페이지에서 전달받는 값들
 		Purchase p = new Purchase();
@@ -78,9 +77,6 @@ public class InsertPurPageServlet extends HttpServlet {
 		
 		//적립금 가져와 넘겨주기
 		Consumer c = new PurchaseService().selectMoney(no);
-		
-		System.out.println("인서트주문페이지서블릿 : " + list);
-		System.out.println("인서트주문페이지서블릿 : " + c);
 		
 		request.setAttribute("purInfo", p);
 		request.setAttribute("list", list);

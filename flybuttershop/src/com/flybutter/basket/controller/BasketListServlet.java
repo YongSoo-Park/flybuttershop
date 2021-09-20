@@ -38,7 +38,12 @@ public class BasketListServlet extends HttpServlet {
 		ArrayList<Basket> list = new BasketService().selectBasketList(no);
         request.setAttribute("list", list);
         
-        request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
+        if(list!= null) {
+        	request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
+        }else {
+			request.setAttribute("msg", "장바구니 로드에 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

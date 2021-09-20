@@ -7,6 +7,8 @@ import static com.common.JDBCTemplate.*;
 import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.basket.model.vo.Basket;
 import com.flybutter.consumer.model.dao.ConsumerDao;
+import com.flybutter.product.model.dao.ProductDao;
+import com.flybutter.product.model.vo.Product;
 
 public class BasketService {
 
@@ -62,6 +64,31 @@ public class BasketService {
 		Connection conn = getConnection();
 		
 		int result = new BasketDao().updateAmount(conn, plusAmount, pCode);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {	
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	public Basket selectInBasket(String pCode, int no) {
+		Connection conn = getConnection();
+		
+		Basket b = new BasketDao().selectInBasket(conn, pCode, no);
+		
+		close(conn);
+		
+		return b;
+	}
+
+	public int updatePrice(int newPrice, String pCode) {
+		Connection conn = getConnection();
+		
+		int result = new BasketDao().updatePrice(conn, newPrice, pCode);
 		
 		if(result > 0) {
 			commit(conn);
