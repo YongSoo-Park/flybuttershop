@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.consumerMyPage.model.service.MypageService;
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberUpdateServlet
@@ -43,13 +43,13 @@ public class MemberUpdateServlet extends HttpServlet {
 		
 		Member m = new Member();
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getMEM_USER_NO();
+		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
 		
-		m.setMEM_USER_NO(userNo);
-		m.setMEM_USER_PWD(pwd);
-		m.setMEM_PHONE(phone);
-		m.setMEM_EMAIL(email);
-		m.setMEM_ADDRESS(address);
+		m.setUserNo(userNo);
+		m.setUserPwd(pwd);
+		m.setPhone(phone);
+		m.setEmail(email);
+		m.setAddress(address);
 		
 		System.out.println(address);
 		

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.flybutter.consumerMyPage.model.dao.MypageDao;
 import com.flybutter.consumerMyPage.model.vo.OrderList;
+import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.member.model.vo.Member;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.review.model.vo.PageInfo;
@@ -118,6 +119,16 @@ public class MypageService {
 		
 		return count;
 	
+	}
+
+	public Coupon checkCoupon(int cpNum) {
+		Connection conn = getConnection();
+		
+		Coupon c = new MypageDao().checkCoupon(conn, cpNum);
+		
+		
+		close(conn);
+		return c;
 	}
 
 }

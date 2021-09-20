@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.consumerMyPage.model.vo.OrderList;
+import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.member.model.vo.Member;
 import com.flybutter.review.model.vo.PageInfo;
 
@@ -359,6 +360,44 @@ public class MypageDao {
 			close(pstmt);
 		}
 		return count;
+	}
+
+
+
+
+
+	public Coupon checkCoupon(Connection conn, int cpNum) {
+		Coupon c = new Coupon();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("checkCoupon");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.setInt(1, cpNum);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				c.setCp_no(cpNum);
+				c.setCp_name(rset.getString("CP_NAME"));
+				c.setCp_date(rset.getDate("CP_DATE"));
+				c.setCp_discount(rset.getInt("CP_DISCOUNT"));
+				c.setMinPrice(rset.getInt("MINPRICE"));
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("COUPON 테이블  checkCoupon : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return c;
 	}
 
 }
