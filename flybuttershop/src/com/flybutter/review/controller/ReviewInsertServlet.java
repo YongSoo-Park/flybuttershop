@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import com.flybutter.dummy.model.vo.Member;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.review.model.service.ReviewService;
 import com.flybutter.review.model.vo.Review;
 
@@ -68,10 +68,10 @@ public class ReviewInsertServlet extends HttpServlet {
 			r.setScore(score);
 			r.setRe_title(title);
 			r.setRe_content(content);
-			r.setUser_no(m.getMEM_USER_NO());
+			r.setUser_no(m.getUserNo());
 			r.setpCode(pCode);
 			r.setPur_no(purNo);
-			r.setUser_no(m.getMEM_USER_NO());
+			
 			
 			
 			if(multiRequest.getOriginalFileName("upfile") != null) {
