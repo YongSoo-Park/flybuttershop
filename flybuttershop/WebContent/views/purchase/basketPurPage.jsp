@@ -9,13 +9,14 @@ Consumer c = (Consumer)request.getAttribute("consumer");
 ArrayList<Coupon> list = (ArrayList<Coupon>) request.getAttribute("list");
 ArrayList<Basket> bList = (ArrayList<Basket>) request.getAttribute("bList");
 Member m = (Member)request.getAttribute("m");
+String[] sp = ((String)request.getAttribute("sp")).split("[\\[\\]]")[1].split(", ");
 int delPrice = (int)request.getAttribute("delPrice");
-//ArrayList<Integer> sp = (ArrayList<Integer>) request.getAttribute("salePrice");
 int sumPrice = 0;
 int shipPrice = 0;
 String empty = "";
 int couponDc = 0;
 int lastPrice = 0;
+String ck = (String)request.getAttribute("ck");
 %>
 <!DOCTYPE html>
 <html>
@@ -48,9 +49,10 @@ int lastPrice = 0;
           <th id="t6">상품금액</th>
       </tr>
       <%
+      int j = 0;
       for(Basket b : bList){ %>
       <tr>
-      <%  
+      <% 
           if(b.getPrice() < 50000){
              shipPrice = 2500;
           }else if(b.getPrice() >= 50000){
@@ -61,11 +63,10 @@ int lastPrice = 0;
         <td id="pt3"><%=b.getBasket_Sname()%></td>
          <td id="pt4"><%=shipPrice%>원</td>
          <td id="pt5"><%=b.getbAmount() %>개</td>
-         
-         <td id="pt6">원</td>
-         
+         <td id="pt6"><%=sp[j]%>원</td>
          <td id="pt7"><%=b.getPrice()%>원</td>
-         <%sumPrice += b.getPrice();%>
+         <%sumPrice += b.getPrice();
+         j++;%>
      </tr>
      <%} %>
 
@@ -90,6 +91,9 @@ int lastPrice = 0;
   		<h3 class="text1">할인 정보</h3>
   		<h4 class="text2">쿠폰 할인</h4>
   		<label id="lb1">사용가능 쿠폰</label>	
+  		
+  		<input type="hidden" name="checkArr" value="<%= ck %>">
+  		<input type="hidden" name="delPrice" value="<%= delPrice%>">
   		<table id="ct">		
   		<%for(Coupon cu : list) {%>
   			<%if(list == null) { %>
@@ -185,7 +189,7 @@ int lastPrice = 0;
   		<input type="hidden" name="resultPrice" value="<%=sumPrice%>">
   		<label class="text3" id="tt4">상품금액<b id="b2"><%=sumPrice %>원</b></label><br>
   		<label class="text3" id="tt5">배송비<b id="b3"><%=delPrice%>원</b></label><br>
-  		<label class="text3" id="tt6">쿠폰할인<b id="bcu">0원</b></label><br>
+  		<label class="text3" id="tt6">쿠폰할인<b id="b4"><%=couponDc %>원</b></label><br>
   		<label class="text3" id="tt7">적립금사용<b id="bmo">0원</b></label>
   		</th>
   	</tr>
@@ -250,17 +254,16 @@ int lastPrice = 0;
     
     function useCoupon(){
     	if(confirm('쿠폰을 사용하시겠습니까?')){
-    		// header라는 id를 가지고 있는 <h1> 태그를 찾아 변수에 저장합니다.
-            var dc = document.getElementById("bcu");
-
-            // 요소의 콘텐츠를 변경합니다.
-            dc.innerText = "<%=couponDc%>";
-    		return true;
+    		var cDC=<%=couponDc%>;
+    		
+    		
     	}else{
     		return false;
     	}
     };
-    
+	 
+   
+   
     
 </script>
 
