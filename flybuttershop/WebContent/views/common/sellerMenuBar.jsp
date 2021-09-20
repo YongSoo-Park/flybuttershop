@@ -14,6 +14,17 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	   
+   $('#mainCategory').css('box-sizing','unset');
+})
+$(function() {
+   
+   $('#userSearch').css('box-sizing','unset');
+})
+</script>
+
 	
 </head>
 <body>

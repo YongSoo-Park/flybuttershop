@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import static com.common.JDBCTemplate.*;
 
+import com.flybutter.product.model.vo.PageInfo;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.qna.model.vo.Qna;
 import com.flybutter.review.model.vo.Review;
@@ -278,7 +279,7 @@ public class ProductDao {
 		return s;
 	}
 
-	public ArrayList<Qna> productQnaList(Connection conn, String pcode) {
+	public ArrayList<Qna> productQnaList(Connection conn, PageInfo piQna, String pcode) {
 		
 		ArrayList<Qna> qList = new ArrayList<Qna>();
 		
@@ -287,11 +288,17 @@ public class ProductDao {
 		
 		String sql = prop.getProperty("productQnaList");
 		
+		int startRow = (piQna.getCurrentPage()-1)*piQna.getBoardLimit()+1;
+		int endRow = startRow + piQna.getBoardLimit()-1;
+		
+		
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, pcode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -318,7 +325,7 @@ public class ProductDao {
 		return qList;
 	}
 
-	public ArrayList<Review> productReviewList(Connection conn, String pcode) {
+	public ArrayList<Review> productReviewList(Connection conn, PageInfo pire, String pcode) {
 
 		ArrayList<Review> rList = new ArrayList<Review>();
 		
@@ -327,10 +334,16 @@ public class ProductDao {
 		
 		String sql = prop.getProperty("productReviewList");
 		
+		int startRow = (pire.getCurrentPage()-1)*pire.getBoardLimit()+1;
+		int endRow = startRow + pire.getBoardLimit()-1;
+		
+		
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, pcode);
-			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

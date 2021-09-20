@@ -80,9 +80,9 @@ public class productManagerServlet extends HttpServlet {
 		
 		//페이징처리 해서 list 가져오려면 dao랑 sql 고쳐야함
 		
-		ArrayList<Product> list = new SellerService().productList(storeNo);
+		ArrayList<Product> list = new SellerService().productList(pi, storeNo);
+		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
-		System.out.println("plist : "+list);
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/seller/productManager.jsp");
 		view.forward(request, response);
