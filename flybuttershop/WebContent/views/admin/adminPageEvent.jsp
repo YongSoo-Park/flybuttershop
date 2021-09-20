@@ -14,7 +14,6 @@ display: flex;
 }
 #adminPage{
 width: 200px;
-height: 1000px;
 border-right: solid 1px;
 display: table;
 }
@@ -29,13 +28,17 @@ display: table-cell;
 text-decoration: none;
 color: black;
 }
-#memberControlWrap{
- text-align: center;
+#MPEventWrap{
+
 width: 1000px;
-height: 1000px;
 border-left: solid 1px;
 }
-#memberControlTitle{
+#nowEventImgWrap{
+ text-align: center;
+width: 1000px;
+}
+
+.Img_Rate_Tile{
 margin-top : 50px;
 margin-left : 10px;
 margin-bottom : 20px;
@@ -53,44 +56,6 @@ height: 800px;
 border: solid 1px;
 border-top: none;
 }
-#hiddenBtn{
-border-top-color : white;
-border-right : none;
-width: 683px;
-height : 50px;
-margin-bottom: -2px;
-border-bottom: solid 1px;
-background-color: white;
-font-family: 맑은 명조;
-
-}
-.mcBtn{
-width: 150px;
-height : 50px;
-margin-bottom: -2px;
-border-bottom: solid 1px;
-background-color: white;
-font-family: 맑은 명조;
-font-weight: bold;
-}
-.memberList{
-position : absolute;
-top : 420px;
-left : 215px;
-width: 970px;
-}
-.memberList table{
-
-border: solid 1px #48BAE4;
-}
-.memberList th, td{
-height : 40px;
-border: solid 1px #48BAE4;
-}
-.memberList th{
-font-size: 18px;
-height : 50px;
-}
 
 </style>
 <script type="text/javascript">
@@ -101,6 +66,26 @@ $(function() {
 	}
 	
 })
+
+function checkRate() {
+	var saleRate = document.getElementById("saleRate").value;
+	if(saleRate>100){
+		document.getElementById("saleRate").value="";
+		alert("일괄 할인율 설정은 0% ~ 100% 까지만 가능합니다.");
+	}
+	 
+}
+
+
+
+function doNotReload(){
+    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
+        event.keyCode = 0;
+        event.cancelBubble = true;
+        event.returnValue = false;
+    } 
+}
+document.onkeydown = doNotReload;
 </script>
 </head>
 <body style="margin: 0 auto">
@@ -119,26 +104,47 @@ $(function() {
 <div id="MPEventWrap">
 
 <div id="nowEventImgWrap">
-<div id="nowEventImgTitle" style="width: 1000px; text-align: center; font-size: 35px; font-family: 맑은 명조; font-weight: bold;">메인페이지 이벤트 이미지 설정</div>
-현재 설정된 이벤트 이미지 입니다.
+<div id="nowEventImgTitle" class="Img_Rate_Tile">메인페이지 이벤트 이미지 설정</div>
+현재 설정된 이벤트 이미지 입니다.<br><br><br>
 <div id="nowEventImgView" style="display: flex;">
 <div id="nowEventImg1">1번 이벤트 이미지
-<img src="${pageContext.request.contextPath}/resources/event/event0.png" style="cursor: pointer; width: 500px; height: 290px;"/></div>
+<img src="${pageContext.request.contextPath}/resources/event/event0.png" style="cursor: pointer; width: 400px; height: 240px;"/></div>
 <div id="nowEventImg2">2번 이벤트 이미지
-<img src="${pageContext.request.contextPath}/resources/event/event1.png" style="cursor: pointer; width: 500px; height: 290px;"/></div>
+<img src="${pageContext.request.contextPath}/resources/event/event1.png" style="cursor: pointer; width: 400px; height: 240px;"/></div>
 </div>
+<br>
+<span style="font-weight: bold; font-family: 맑은 명조; font-size: 20px;">이벤트 이미지는 업로드는 png와 jpg 확장자, 파일 크기는 20메가 이하만 가능합니다. <br><br>이미지 해상도는 600px X 350px 이 가장 정확하게 표현됩니다</span><br><br><br>
+<form action="mainpageEventSet.ad" method="post" enctype="multipart/form-data" style="width: 980px;">
+<div id="nowEventImgForm" style="display: flex; text-align: center; width: 980px;">
+<div style="width: 490px; padding-left: 50px; ">1번 이벤트 이미지 파일 교체 : <input type="file" name="eventImg1"></div>
+<div style="width: 490px; padding-left: 50px; ">2번 이벤트 이미지 파일 교체 : <input type="file" name="eventImg2"></div>
 </div>
-<br><br>
-
-
-
-
-<form action="mainpageEventSet.ad" method="post" enctype="multipart/form-data">
-1번 이벤트 이미지 파일 : <input type="file" name="eventImg1"><br>
-2번 이벤트 이미지 파일 : <input type="file" name="eventImg2"><br>
-<input type="submit" value="이미지 업로드">
+<br><br><br><input type="submit" value="이미지 업로드">
 </form>
 </div>
+<br>
+<hr>
+
+<div id="discountRateWrap">
+
+<div id="discountRateTitle" class="Img_Rate_Tile">
+세일 상품 일괄 할인율 설정
+</div>
+
+<div style="text-align: center;">
+현재 설정된 일괄 할인율은 %입니다.<br><br><br>
+<form action="">
+일괄 할인율은 0% ~ 100% 까지 설정하실 수 있습니다.<br>
+<input type="text" id="saleRate" oninput="this.value=this.value.replace(/[^0-9]/g,'');" onkeyup="checkRate();" maxlength="3" >
+
+</form>
+
+</div>
+</div>
+</div>
+
+
+
 </div>
 <c:set var="upResultMsg" scope="request" value="1"/>
 </main>

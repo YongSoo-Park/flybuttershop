@@ -1,4 +1,4 @@
-package com.flybutter.consumerMyPage;
+package com.flybutter.consumerMyPage.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -39,19 +39,17 @@ public class CheckCouponServlet extends HttpServlet {
 		Coupon c = new MypageService().checkCoupon(cpNum);
 		
 		//c.setCp_no(cpNum);
-		
+
+		System.out.println(c);
 		if(c.getCp_name() != null) {
 			
 			request.setAttribute("coupon", c);
 			
-			//request.getRequestDispatcher("views/consumerMypage/CouponAddView.jsp").forward(request, response);
-			
-			response.sendRedirect("views/consumerMypage/CouponAddView.jsp");
 			
 		}else {
 		
 			request.setAttribute("msg", "조회되는 쿠폰이 없습니다.");
-			response.sendRedirect("views/consumerMypage/CouponAddView.jsp");
+			request.getRequestDispatcher("views/consumerMypage/CouponAddView.jsp").forward(request, response);
 		}
 		
 		
