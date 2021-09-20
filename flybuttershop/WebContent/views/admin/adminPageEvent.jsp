@@ -95,68 +95,12 @@ height : 50px;
 </style>
 <script type="text/javascript">
 $(function() {
-	var defaultMemInfo = "<c:out value='${requestScope.memkind}'/>";
-	if(defaultMemInfo == 1){
-		$('#nomalMemberBtn').css({"border-bottom": "none"});
-		$('#sellerMemberBtn').css({"border-bottom": "solid 1px"});
-		$('#nomalMember').css({"visibility": "visible", "opacity": "1"});
-		$('#sellerMember').css({"visibility": "hidden", "opacity": "0"});
-	}else{
-		$('#sellerMemberBtn').css({"border-bottom": "none"});
-		$('#nomalMemberBtn').css({"border-bottom": "solid 1px"});
-		$('#sellerMember').css({"visibility": "visible", "opacity": "1"});
-		$('#nomalMember').css({"visibility": "hidden", "opacity": "0"});
-		
+	var msg = "<c:out value='${requestScope.upResultMsg}'/>"
+	if(msg != ""){
+		alert(msg);
 	}
-
-	$('#nomalMemberBtn').click(function() {		
-		console.log("afasf")
-		$('#nomalMemberBtn').css({"border-bottom": "none"});
-		$('#sellerMemberBtn').css({"border-bottom": "solid 1px"});
-		$('#nomalMember').css({"visibility": "visible", "opacity": "1"});
-		$('#sellerMember').css({"visibility": "hidden", "opacity": "0"});
-	})
-	
-	$('#sellerMemberBtn').click(function() {		
-		console.log("afasf")
-		$('#sellerMemberBtn').css({"border-bottom": "none"});
-		$('#nomalMemberBtn').css({"border-bottom": "solid 1px"});
-		$('#sellerMember').css({"visibility": "visible", "opacity": "1"});
-		$('#nomalMember').css({"visibility": "hidden", "opacity": "0"});
-	})
-	
 	
 })
-
-function movingAdminSearchPage(nowPage,memkind,sKind,sWord) {
-	var form = document.createElement('form');
-	form.setAttribute('method','post');  
-	form.setAttribute('action', 'adminsearch.ad');
-	var hInput = document.createElement('input');
-	var hInput2 = document.createElement('input');
-	var hInput3 = document.createElement('input');
-	var hInput4 = document.createElement('input');
-	hInput.setAttribute('type','hidden');
-	hInput.setAttribute('name', 'nowPage');
-	hInput.setAttribute('value', nowPage);
-	hInput2.setAttribute('type','hidden');
-	hInput2.setAttribute('name', 'sWord');
-	hInput2.setAttribute('value', sWord);
-	hInput3.setAttribute('type','hidden');
-	hInput3.setAttribute('name', 'memkind');
-	hInput3.setAttribute('value', memkind);
-	hInput4.setAttribute('type','hidden');
-	hInput4.setAttribute('name', 'sKind');
-	hInput4.setAttribute('value', sKind);
-	form.appendChild(hInput);
-	form.appendChild(hInput2);
-	form.appendChild(hInput3);
-	form.appendChild(hInput4);
-	document.body.appendChild(form);
-	form.submit();
-}
-
-
 </script>
 </head>
 <body style="margin: 0 auto">
@@ -172,8 +116,31 @@ function movingAdminSearchPage(nowPage,memkind,sKind,sWord) {
 
 </div>
 </div>
+<div id="MPEventWrap">
 
+<div id="nowEventImgWrap">
+<div id="nowEventImgTitle" style="width: 1000px; text-align: center; font-size: 35px; font-family: 맑은 명조; font-weight: bold;">메인페이지 이벤트 이미지 설정</div>
+현재 설정된 이벤트 이미지 입니다.
+<div id="nowEventImgView" style="display: flex;">
+<div id="nowEventImg1">1번 이벤트 이미지
+<img src="${pageContext.request.contextPath}/resources/event/event0.png" style="cursor: pointer; width: 500px; height: 290px;"/></div>
+<div id="nowEventImg2">2번 이벤트 이미지
+<img src="${pageContext.request.contextPath}/resources/event/event1.png" style="cursor: pointer; width: 500px; height: 290px;"/></div>
 </div>
+</div>
+<br><br>
+
+
+
+
+<form action="mainpageEventSet.ad" method="post" enctype="multipart/form-data">
+1번 이벤트 이미지 파일 : <input type="file" name="eventImg1"><br>
+2번 이벤트 이미지 파일 : <input type="file" name="eventImg2"><br>
+<input type="submit" value="이미지 업로드">
+</form>
+</div>
+</div>
+<c:set var="upResultMsg" scope="request" value="1"/>
 </main>
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>
