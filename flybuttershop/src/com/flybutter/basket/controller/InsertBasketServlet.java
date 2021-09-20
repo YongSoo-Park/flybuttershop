@@ -50,15 +50,14 @@ public class InsertBasketServlet extends HttpServlet {
 		int bAmount = Integer.parseInt(request.getParameter("pAmount"));
 		String basket_PImg = request.getParameter("pImg");
 		String basket_Pname = request.getParameter("pName");
-		
-		
-		
+		String basket_Sname = request.getParameter("sName");
 		
 		//중복상품체크
 		ArrayList<Basket> checkList = new BasketService().selectCheck(no, pCode);
 		
-		//중복이면 수량만 업데이트
+		//중복이면 수량, 가격 업데이트
 		if(checkList.size() > 0) {
+			int newPrice = 0;
 			int originAmount = 0;
 			ArrayList<Basket> list = new BasketService().selectBasketList(no);
 			for(Basket bb : list) {
@@ -66,7 +65,12 @@ public class InsertBasketServlet extends HttpServlet {
 			}
 			
 			originAmount += bAmount;
+			System.out.println("인서트 서블릿 수량 : " + originAmount);
+			System.out.println("인서트 서블릿 가격 : " + price);
+			newPrice = originAmount * price;
+			System.out.println("인서트 서블릿 바뀐 가격 : " + newPrice);
 			int result = new BasketService().updateAmount(originAmount, pCode);
+			int pResult = new BasketService().updatePrice(newPrice, pCode);
 			response.sendRedirect("basket.do");
 		}else {
 			b.setpCode(pCode);
@@ -76,6 +80,7 @@ public class InsertBasketServlet extends HttpServlet {
 			b.setUser_No(loginM.getUserNo());
 			b.setBasket_PImg(basket_PImg);
 			b.setBasket_Pname(basket_Pname);
+			b.setBasket_Sname(basket_Sname);
 		
 		int result = new BasketService().insertBasket(b);
 			

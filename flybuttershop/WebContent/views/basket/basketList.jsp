@@ -6,10 +6,9 @@ ArrayList<Basket> list = (ArrayList<Basket>) request.getAttribute("list");
 Member loginM = (Member)request.getSession().getAttribute("loginMember");
 int lastPrice = 0;
 int sumPrice = 0;
-int productPrice = 0;
-int resultPrice = 0;
 int shipPrice = 0;
 int amount = 0;
+int delPrice = 0;
 %>
  
 <!DOCTYPE html>
@@ -46,7 +45,7 @@ int amount = 0;
         		<h4 id="e2">원하시는 상품을 장바구니에 담아보세요!</h4>
    			 </div>
 		<%}else{%>
-    	<form method="POST" name="basketInfo" id="basketInfo">
+    	<form method="POST" name="basketInfo" id="basketInfo" >
 		<div class="btn">
         <button type="submit" id="deleteProductBtn" onclick="deleteProduct();">선택상품 삭제</button>
    		 </div>
@@ -56,7 +55,7 @@ int amount = 0;
                     <tr>
                         <th id="tc"><input type="checkbox" id="allCk" name="allCk" onclick="allCheck(event)"></th>
                         <th id="t1" colspan="3">상품정보</th>
-                        <th id="t2">옵션</th>
+                        <th id="t2"colspan="2">옵션</th>
                         <th id="t3">배송비</th>
                         <th id="t4">상품금액</th>
                     </tr>
@@ -65,29 +64,29 @@ int amount = 0;
 				
 				
 					<%for(Basket b : list){ %>
-                    <tr><% productPrice = b.getPrice(); amount = b.getbAmount(); 
-                        				resultPrice = productPrice * amount;
-                        				
-                        	if(resultPrice < 50000){
+                    <tr><% 			
+                        	if(b.getPrice() < 50000){
                         		shipPrice = 2500;
-                        	}else if(resultPrice >= 50000){
+                        	}else if(b.getPrice() >= 50000){
                         		shipPrice = 0;
                         	}%>
-                     	<td id="btc"><input type="checkbox" class="ckPd" name="ckPd" value="<%=resultPrice%>" onclick="checkAllList(event)"></td>
+                     	<td id="btc"><input type="checkbox" class="ckPd" name="ckPd" onclick="checkAllList(event)"></td>
                      	<td id="bt1" style="visibility:hidden;"><%=b.getpCode()%></td> 
                      	<td id="bt2"><img id="pImg" src="${pageContext.request.contextPath}<%=b.getBasket_PImg() %>"/></td>
                      	<td id="bt3"><%=b.getBasket_Pname() %></td>
+                     	<td id="amount" style="visibility:hidden;"><%=b.getbAmount()%></td>
                         <td id="bt4"><%=b.getbOption()%> / <%=b.getbAmount()%>개 <br> 
                         <td id="bt5"><%=shipPrice%>원</td>
-                        <td id="bt6"><%=resultPrice%>원</td>
-                        <%sumPrice += resultPrice; %>
+                        <td id="bt6"><%=b.getPrice()%>원</td>
+                        <%sumPrice += b.getPrice(); delPrice += shipPrice; %>
                     </tr>
                 	<%}%>
                 	<%} %>
                 	</table>
                 	<%if (sumPrice >= 50000){
-                		shipPrice = 0;
+                		delPrice = 0;
                 	}%>
+                	<input type="hidden" name="delPrice" value="<%=delPrice%>">
                 	<hr>
                 	<div id="resultDiv">
                 	<table id="resultTB">
@@ -98,8 +97,8 @@ int amount = 0;
                 		</tr>
                 		<tr>
                 			<td id="td1"><%=sumPrice %>원</td>
-                			<td id="td2"><%=shipPrice %>원</td>
-                			<%lastPrice = sumPrice + shipPrice; %>
+                			<td id="td2"><%=delPrice %>원</td>
+                			<%lastPrice = sumPrice + delPrice; %>
                 			<td id="td3"><b id="sum"><%=lastPrice %>원</b></td>
                 		</tr>
                 	</table>
@@ -117,15 +116,6 @@ int amount = 0;
 		<%} %> 
 
    <script>
-   
-   let ckVal = [];
-   var i = <%=list.size()%>;
-   $("input:checkbox[name:ckPd]").each(function(i, iVal){
-	  ckVal[i].push(iVal);
-	  iVal += iVal;
-   });
-   
-   console.log(iVal);
     
    function allCheck(e) { 
 		if(e.target.checked) {
@@ -213,15 +203,22 @@ int amount = 0;
    	            	rowData.push(tr.text());
    	            	
    	            	var pCode = td.eq(1).text();
+   	            	var amount = td.eq(4).text();
    	            	
-   	            	checkArr.push(pCode);
-   	            	
-   	            })
-   	            	location.href="<%=request.getContextPath()%>/basketPur.hy?checkArr="+checkArr;
-   	       
+                    checkArr.push(pCode);
+                    
+                 })
+                 var form = document.getElementById("basketInfo");
+  
+              form.setAttribute('action', 'basketPur.hy');
+              var hInput = document.createElement('input');
+              hInput.setAttribute('type','hidden');
+              hInput.setAttribute('name', 'checkArr');
+              hInput.setAttribute('value', checkArr);
+              form.appendChild(hInput);
+   	        
    	        }
-   	         return false;
-			
+   	        
     }
     
     

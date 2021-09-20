@@ -166,9 +166,9 @@ if(p.getPur_Price() < 50000){
   		</th>
   		<th id="d2">
   		<h3 class="text1" id="tt2">주문자 정보</h3>
-  		<%-- <h4 class="text3" id="tt2"><%=m.getUserName() %></h4>
+  		<h4 class="text3" id="tt2"><%=m.getUserName() %></h4>
   		<h4 class="text3" id="tt2"><%=m.getPhone() %></h4>
-  		<h4 class="text3" id="tt2"><%=m.getEmail() %></h4>--%>
+  		<h4 class="text3" id="tt2"><%=m.getEmail() %></h4>
   		<h3 class="text1" id="tt3">결제 상세</h3>
   		<label class="text2" id="tt3">주문금액<b id="b1">n원</b></label><br>
   		<input type="hidden" name="resultPrice" value="<%=resultPrice%>">
@@ -240,9 +240,9 @@ if(p.getPur_Price() < 50000){
     
     function useCoupon(){
     	if(confirm('쿠폰을 사용하시겠습니까?')){
-            <%--var dc = document.getElementById("bcu");
+            var dc = document.getElementById("bcu");
 
-            dc.innerText = "<%=couponDc%>";--%>
+            dc.innerText = "<%=couponDc%>";
  
     	}
     };

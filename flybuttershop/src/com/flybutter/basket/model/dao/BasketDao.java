@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import static com.common.JDBCTemplate.*;
 import com.flybutter.basket.model.vo.Basket;
+import com.flybutter.product.model.vo.Product;
  
 public class BasketDao {
 
@@ -55,6 +56,7 @@ public class BasketDao {
 //			USER_NO
 //			BASKET_PIMAGE
 //			BASKET_PNAME
+//			BASKET_SNAME
 			
 			while(rset.next()) {
 				list.add(new Basket(
@@ -66,7 +68,8 @@ public class BasketDao {
 								rset.getDate("BASKET_DATE"),
 								rset.getInt("USER_NO"),	
 								rset.getString("BASKET_PIMAGE"),
-								rset.getString("BASKET_PNAME")
+								rset.getString("BASKET_PNAME"),
+								rset.getString("BASKET_SNAME")
 						));
 			}
 			
@@ -88,7 +91,7 @@ public class BasketDao {
 		
 		String sql = prop.getProperty("insertBasket");
 		
-//		insertBasket=INSERT INTO BASKET VALUES(?,BASKET_NO_SQ,?,?,?,DEFAULT,?,?,?)
+//		insertBasket=INSERT INTO BASKET VALUES(?,BASKET_NO_SQ,?,?,?,DEFAULT,?,?,?,?)
 		
 //		BASKET_NO
 //		BOPTION
@@ -96,6 +99,9 @@ public class BasketDao {
 //		PRICE
 //		BASKET_DATE
 //		USER_NO
+//		BASKET_PIMAGE
+//		BASKET_PNAME
+//		BASKET_SNAME
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -107,6 +113,7 @@ public class BasketDao {
 			pstmt.setInt(5, b.getUser_No());
 			pstmt.setString(6, b.getBasket_PImg());
 			pstmt.setString(7, b.getBasket_Pname());
+			pstmt.setString(8, b.getBasket_Sname());
 			
 			result = pstmt.executeUpdate();
 			
@@ -168,6 +175,7 @@ public class BasketDao {
 //			USER_NO
 //			BASKET_PIMAGE
 //			BASKET_PNAME
+//			BASKET_SNAME
 			
 			while(rset.next()) {
 				list.add(new Basket(
@@ -179,7 +187,8 @@ public class BasketDao {
 								rset.getDate("BASKET_DATE"),
 								rset.getInt("USER_NO"),	
 								rset.getString("BASKET_PIMAGE"),
-								rset.getString("BASKET_PNAME")
+								rset.getString("BASKET_PNAME"),
+								rset.getString("BASKET_SNAME")
 						));
 			}
 			
@@ -218,6 +227,83 @@ public class BasketDao {
 		}
 		return result;
 
+	}
+
+	public Basket selectInBasket(Connection conn, String pCode, int no) {
+		Basket b = new Basket();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+//		selectInBasket=SELECT * FROM BASKET WHERE USER_NO = ? AND PCODE = ?
+		String sql = prop.getProperty("selectInBasket");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.setString(2, pCode);
+			
+//			PCODE	VARCHAR2(50 BYTE)
+//			BASKET_NO	NUMBER
+//			BOPTION	VARCHAR2(100 BYTE)
+//			BAMOUNT	NUMBER
+//			PRICE	NUMBER
+//			BASKET_DATE	DATE
+//			USER_NO	NUMBER
+//			BASKET_PIMAGE	VARCHAR2(1000 BYTE)
+//			BASKET_PNAME	VARCHAR2(1000 BYTE)
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Basket(rset.getString("PCODE"),
+								rset.getInt("BASKET_NO"),
+								rset.getString("BOPTION"),
+								rset.getInt("BAMOUNT"),
+								rset.getInt("PRICE"),
+								rset.getDate("BASKET_DATE"),
+								rset.getInt("USER_NO"),
+								rset.getString("BASKET_PIMAGE"),
+								rset.getString("BASKET_PNAME"),
+								rset.getString("BASKET_SNAME")
+								);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return b;
+	}
+
+	public int updatePrice(Connection conn, int newPrice, String pCode) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updatePrice");
+		
+//		updatePrice=UPDATE BASKET SET PRICE = ? WHERE PCODE = ?
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1,newPrice);
+			pstmt.setString(2,pCode);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("BASKET 테이블  updatePrice : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }
