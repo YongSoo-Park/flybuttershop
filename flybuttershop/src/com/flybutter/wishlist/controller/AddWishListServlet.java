@@ -1,8 +1,6 @@
-package com.flybutter.consumerMyPage.controller;
+package com.flybutter.wishlist.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +11,16 @@ import com.flybutter.consumerMyPage.model.service.MypageService;
 import com.flybutter.member.model.vo.Member;
 
 /**
- * Servlet implementation class AddCouponServlet
+ * Servlet implementation class AddWishListServlet
  */
-@WebServlet("/addCoupon.mp")
-public class AddCouponServlet extends HttpServlet {
+@WebServlet("/addWish.mp")
+public class AddWishListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddCouponServlet() {
+    public AddWishListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,30 +31,39 @@ public class AddCouponServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		int cpNum = Integer.parseInt(request.getParameter("cpNum"));
+		int userNo = ((Member) request.getSession().getAttribute("loginMember")).getUserNo();
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
+		String pCode = request.getParameter("pCode");
 		
-		int result = new MypageService().addCoupon(cpNum, userNo);
 		
-
-				if(result == 1) {
-					
-					response.setContentType("text/html; charset=utf-8"); 
-					PrintWriter out = response.getWriter();
-					out.println("<script charset='utf-8'> alert('쿠폰이 등록되었습니다'); location.href='couponLookup.mp';</script>");
-					
-					out.flush();
-
-					
-					
-					
-				}else {
-					
-					request.setAttribute("msg", "쿠폰 등록 실패");
-					System.out.println("쿠폰등록실패");
-					
-				}
+		int check = new MypageService().checkWish(userNo, pCode);
+		
+		if(check > 0) {
+			
+			request.setAttribute("msg", "이미 등록된 상품입니다");
+			
+			
+		}else {
+			
+			int result = new MypageService().addWishList(userNo, pCode);
+			
+			if(result > 0) {
+				
+				request.setAttribute("msg", "위시리스트에 등록 되었습니다");
+				
+				
+			}else {
+				
+				request.setAttribute("msg", "위시리스트 등록 실패");
+				
+			}
+			
+		}
+		
+		
+		
+		
+		
 		
 	}
 

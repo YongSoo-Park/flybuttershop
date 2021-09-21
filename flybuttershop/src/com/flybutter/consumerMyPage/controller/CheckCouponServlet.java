@@ -32,27 +32,34 @@ public class CheckCouponServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		int cpNum = Integer.parseInt(request.getParameter("number"));
+    int cpNum = Integer.parseInt(request.getParameter("number"));
+		
+		System.out.println(cpNum);
 		
 		//int userNo = ((Member) request.getSession().getAttribute("loginMember")).getUserNo();
 		
 		Coupon c = new MypageService().checkCoupon(cpNum);
 		
 		//c.setCp_no(cpNum);
-
-		System.out.println(c);
-		if(c.getCp_name() != null) {
+		
+		if(c.getCp_count() > 0){
+		
+			request.setAttribute("msg", "이미 사용된 쿠폰입니다.");
+			request.getRequestDispatcher("views/consumerMypage/CouponAddView.jsp").forward(request, response);
+		
+		}else if(c.getCp_name() != null) {
 			
 			request.setAttribute("coupon", c);
 			
+			request.getRequestDispatcher("views/consumerMypage/CouponAddView.jsp").forward(request, response);
+			
+			//response.sendRedirect("views/consumerMypage/CouponAddView.jsp");
 			
 		}else {
 		
 			request.setAttribute("msg", "조회되는 쿠폰이 없습니다.");
 			request.getRequestDispatcher("views/consumerMypage/CouponAddView.jsp").forward(request, response);
 		}
-		
-		
 		
 		
 		

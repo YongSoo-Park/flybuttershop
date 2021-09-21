@@ -17,6 +17,7 @@ import com.flybutter.basket.model.dao.BasketDao;
 import com.flybutter.consumerMyPage.model.vo.OrderList;
 import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.member.model.vo.Member;
+import com.flybutter.money.model.vo.Money;
 import com.flybutter.review.model.vo.PageInfo;
 
 public class MypageDao {
@@ -387,6 +388,7 @@ public class MypageDao {
 				c.setCp_date(rset.getDate("CP_DATE"));
 				c.setCp_discount(rset.getInt("CP_DISCOUNT"));
 				c.setMinPrice(rset.getInt("MINPRICE"));
+				c.setCp_count(rset.getInt("CP_COUNT"));
 						
 			}
 
@@ -398,6 +400,181 @@ public class MypageDao {
 			close(pstmt);
 		}
 		return c;
+	}
+
+
+
+
+
+	public int addCoupon(Connection conn, int cpNum, int userNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String sql = prop.getProperty("addCoupon");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, cpNum);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("COUPON 테이블  addCoupon : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+
+
+
+
+
+	public ArrayList<Coupon> couponDetail(Connection conn, int userNo) {
+		ArrayList<Coupon> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("couponDetail");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Coupon(rset.getInt("CP_NO"),
+									rset.getInt("CP_COUNT"),
+									rset.getInt("CP_DISCOUNT"),
+									rset.getDate("CP_DATE"),
+									rset.getString("CP_NAME"),
+									rset.getInt("MINPRICE")
+									
+						));
+			}
+		} catch (SQLException e) {
+			System.out.println("COUPON 테이블  couponDetail : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return list;	
+	}
+
+
+
+
+
+	public ArrayList<Money> moneyDetail(Connection conn, int userNo) {
+		ArrayList<Money> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("moneyDetail");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Money(rset.getInt("USER_NO"),
+									rset.getInt("MONEY"),
+									rset.getDate("MONEY_DATE"),
+									rset.getInt("M_NO")
+									
+						));
+			}
+		} catch (SQLException e) {
+			System.out.println("COUPON 테이블  couponDetail : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return list;	
+	}
+
+
+
+
+
+	public int addWishList(Connection conn, String pCode, int userNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String sql = prop.getProperty("addWishList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setString(1, pCode);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("WISHLIST 테이블  addWishList : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+
+
+
+
+
+	public int checkWish(Connection conn, String pCode, int userNo) {
+		int count = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("checkWish");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, pCode);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				count = rset.getInt("COUNT(*)");
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("COUPON 테이블  checkWish : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
 	}
 
 }

@@ -9,6 +9,7 @@ import com.flybutter.consumerMyPage.model.dao.MypageDao;
 import com.flybutter.consumerMyPage.model.vo.OrderList;
 import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.member.model.vo.Member;
+import com.flybutter.money.model.vo.Money;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.review.model.vo.PageInfo;
 
@@ -129,6 +130,73 @@ public class MypageService {
 		
 		close(conn);
 		return c;
+	}
+
+	public int addCoupon(int cpNum, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().addCoupon(conn, cpNum, userNo);
+		
+		
+		if(result == 1) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+			
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<Coupon> couponDetail(int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Coupon> list = new MypageDao().couponDetail(conn, userNo);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Money> moneyDetail(int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Money> list = new MypageDao().moneyDetail(conn, userNo);
+		
+		close(conn);
+		return list;
+	}
+
+	public int addWishList(int userNo, String pCode) {
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().addWishList(conn, pCode, userNo);
+		
+		
+		if(result == 1) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+			
+		}
+		
+		
+		return result;
+	}
+
+	public int checkWish(int userNo, String pCode) {
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().checkWish(conn, pCode, userNo);
+		
+		
+		close(conn);
+		
+		return result;
 	}
 
 }

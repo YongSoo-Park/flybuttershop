@@ -63,7 +63,7 @@
             </tr>
             <tr>
                 <td align="right">
-                    <input type="button" class="btn" value="적립금 조회">
+                    <input type="button" class="btn" value="적립금 조회" onclick="location.href='<%=contextPath %>/moneyDetail.mp'">
           
                 </td>
             </tr>
@@ -89,7 +89,7 @@
             <tr>
                 <td align="right">  
                 <input type="button" class="btn" value="쿠폰 등록" onclick="location.href='<%=contextPath %>/couponLookup.mp'">
-                    <input type="button" class="btn" value="쿠폰 조회">
+                    <input type="button" class="btn" value="쿠폰 조회" onclick="location.href='<%=contextPath %>/couponDetail.mp'">
   
                 </td>
             </tr>

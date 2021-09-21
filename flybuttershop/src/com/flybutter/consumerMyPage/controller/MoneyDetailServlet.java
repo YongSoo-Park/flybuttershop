@@ -1,7 +1,7 @@
 package com.flybutter.consumerMyPage.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,19 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.consumerMyPage.model.service.MypageService;
+import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.member.model.vo.Member;
+import com.flybutter.money.model.vo.Money;
 
 /**
- * Servlet implementation class AddCouponServlet
+ * Servlet implementation class MoneyDetailServlet
  */
-@WebServlet("/addCoupon.mp")
-public class AddCouponServlet extends HttpServlet {
+@WebServlet("/moneyDetail.mp")
+public class MoneyDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddCouponServlet() {
+    public MoneyDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,32 +33,38 @@ public class AddCouponServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		
+		int userNo = ((Member) request.getSession().getAttribute("loginMember")).getUserNo();
 		
-		int cpNum = Integer.parseInt(request.getParameter("cpNum"));
+		ArrayList<Money> list = new MypageService().moneyDetail(userNo);
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
-		
-		int result = new MypageService().addCoupon(cpNum, userNo);
+		ArrayList<Money> plus = new ArrayList<Money>();
+		ArrayList<Money> minus = new ArrayList<Money>();
 		
 
-				if(result == 1) {
-					
-					response.setContentType("text/html; charset=utf-8"); 
-					PrintWriter out = response.getWriter();
-					out.println("<script charset='utf-8'> alert('쿠폰이 등록되었습니다'); location.href='couponLookup.mp';</script>");
-					
-					out.flush();
+		for(Money m : list) {
+			
+			System.out.println("확인");
+			
+			if (m.getMoney() > 0) {
+				plus.add(m);
+			}else {
+				
+				minus.add(m);
+				
+			}
+			
+			
+		}
 
-					
-					
-					
-				}else {
-					
-					request.setAttribute("msg", "쿠폰 등록 실패");
-					System.out.println("쿠폰등록실패");
-					
-				}
+		
+		request.setAttribute("plus", plus);
+		request.setAttribute("minus", minus);
+		
+		request.getRequestDispatcher("views/consumerMypage/MoneyDetailView.jsp").forward(request, response);
+		
+		
 		
 	}
 

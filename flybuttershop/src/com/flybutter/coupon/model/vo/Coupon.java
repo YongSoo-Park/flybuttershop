@@ -31,6 +31,20 @@ public class Coupon {
 		this.cp_date = cp_date;
 	}
 
+	
+	
+	
+
+	public Coupon(int cp_no, int cp_count, int cp_discount, Date cp_date, String cp_name, int minPrice) {
+		super();
+		this.cp_no = cp_no;
+		this.cp_count = cp_count;
+		this.cp_discount = cp_discount;
+		this.cp_date = cp_date;
+		this.cp_name = cp_name;
+		this.minPrice = minPrice;
+	}
+
 
 	public int getUser_no() {
 		return user_no;
@@ -137,6 +151,8 @@ public class Coupon {
 		this.cp_name = cp_name;
 		this.minPrice = minPrice;
 	}
+
+
 
 
 	@Override
