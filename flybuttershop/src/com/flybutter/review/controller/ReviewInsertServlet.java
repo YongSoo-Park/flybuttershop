@@ -40,7 +40,8 @@ public class ReviewInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
+		
+		Member m = (Member) request.getSession().getAttribute("loginMember");
 		if(ServletFileUpload.isMultipartContent(request)) { 
 			
 
@@ -53,15 +54,14 @@ public class ReviewInsertServlet extends HttpServlet {
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 			
-			int purNo = Integer.parseInt(request.getParameter("purNo"));
-			String pCode =  request.getParameter("pCode");
+			int purNo = Integer.parseInt(multiRequest.getParameter("purNo"));
+			String pCode =  multiRequest.getParameter("pCode");
 			
 			
 			int score = Integer.parseInt(multiRequest.getParameter("score"));
 			String title = multiRequest.getParameter("title");
 			String content = multiRequest.getParameter("content");
 			
-			Member m = (Member) request.getSession().getAttribute("loginMember");
 			
 			Review r = new Review();
 			
@@ -79,14 +79,15 @@ public class ReviewInsertServlet extends HttpServlet {
 				String changeName = multiRequest.getFilesystemName("upfile");
 				
 				r.setRe_originFile(originName);
-				System.out.println(originName);
+				
 				r.setRe_changeFile(changeName);
-				System.out.println(changeName);
+				
 				
 			}
 			
 			int result = new ReviewService().insertReview(r);
 			
+			System.out.println("servlet result" + result);
 			
 			if(result > 0) {
 				request.getSession().setAttribute("msg", "리뷰 등록 성공");

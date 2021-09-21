@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.flybutter.review.model.vo.*" %>  
-<%@ page import="com.flybutter.dummy.model.vo.*" %>  
+<%@ page import="com.flybutter.member.model.vo.*" %>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%
 	Member loginMember= (Member)request.getSession().getAttribute("loginMember");
@@ -76,7 +76,23 @@
                 <th colspan="2"><%= r.getpName() %></th>
             </tr>
             <tr>
-                <td colspan="3"><%= r.getScore()%></td>
+            	
+            
+                <td colspan="3">
+              
+                별점 <% int score = r.getScore();
+				pageContext.setAttribute("score", score);
+				%>	
+							<c:choose>
+  							<c:when test="${score == '1'}">★☆☆☆☆</c:when>
+  							<c:when test="${score == '2'}">★★☆☆☆</c:when>
+  							<c:when test="${score == '3'}">★★★☆☆</c:when>
+  							<c:when test="${score == '4'}">★★★★☆</c:when>
+  							<c:when test="${score == '5'}">★★★★★</c:when>
+  							<c:otherwise>오류</c:otherwise>
+							</c:choose>
+                
+                </td>
             </tr>
            
            </table>
@@ -85,7 +101,10 @@
              <tr>
              	
                 <td colspan="3">
-                <img src="<%=contextPath %><%= r.getRe_originFile()%>">
+                
+       
+					
+                <img src="<%=contextPath %>/resources/reviewUpfile/<%= r.getRe_originFile()%>" width="600px" height="450px">
                 </td>
             </tr>
             <%} %>
@@ -98,7 +117,7 @@
 
             <button type="button" onclick="location.href='<%=contextPath%>/reviewList.rv?currentPage=1';">목록으로</button>
 			
-			<% if(loginMember != null && loginMember.getMEM_USER_NO() == r.getUser_no()){ %>
+			<% if(loginMember != null && loginMember.getUserNo() == r.getUser_no()){ %>
 				
 				<button type="button" onclick="updateForm();">수정하기</button>
 				<button type="button" onclick="deleteBoard();">삭제하기</button>

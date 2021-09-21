@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>쿠폰 등록</title>
 
     <style>
 
@@ -51,7 +51,7 @@
         <h2>쿠폰 조회</h2>
 		
         쿠폰 번호 입력 &nbsp; &nbsp;
-        <input type="number" name="number">
+        <input type="number" name="number" required="required">
         <br><br>
         <input type="submit" value="확인하기">
         <br><br>
@@ -68,7 +68,7 @@
     		<br><br>
     		쿠폰명 : <%= c.getCp_name() %><br>
     		사용기한 : <%= c.getCp_date() %><br>
-    		쿠폰 금액 : <%= c.getCp_discount() %><br>
+    		쿠폰 금액 : <%= c.getCp_discount() %> 원<br>
     		최소 사용 가능 금액 : <%= c.getMinPrice() %>
     		
             <br><br>

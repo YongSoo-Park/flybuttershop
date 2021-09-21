@@ -1,7 +1,7 @@
 package com.flybutter.consumerMyPage.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,18 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.consumerMyPage.model.service.MypageService;
 import com.flybutter.member.model.vo.Member;
+import com.flybutter.coupon.model.vo.Coupon;
 
 /**
- * Servlet implementation class AddCouponServlet
+ * Servlet implementation class CouponDetailServlet
  */
-@WebServlet("/addCoupon.mp")
-public class AddCouponServlet extends HttpServlet {
+@WebServlet("/couponDetail.mp")
+public class CouponDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddCouponServlet() {
+    public CouponDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,31 +33,15 @@ public class AddCouponServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int userNo = ((Member) request.getSession().getAttribute("loginMember")).getUserNo();
 		
-		int cpNum = Integer.parseInt(request.getParameter("cpNum"));
+		ArrayList<Coupon> list = new MypageService().couponDetail(userNo);
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
+		request.setAttribute("list", list);
 		
-		int result = new MypageService().addCoupon(cpNum, userNo);
+		request.getRequestDispatcher("views/consumerMypage/CouponListDetailView.jsp").forward(request, response);
 		
-
-				if(result == 1) {
-					
-					response.setContentType("text/html; charset=utf-8"); 
-					PrintWriter out = response.getWriter();
-					out.println("<script charset='utf-8'> alert('쿠폰이 등록되었습니다'); location.href='couponLookup.mp';</script>");
-					
-					out.flush();
-
-					
-					
-					
-				}else {
-					
-					request.setAttribute("msg", "쿠폰 등록 실패");
-					System.out.println("쿠폰등록실패");
-					
-				}
+		
 		
 	}
 
