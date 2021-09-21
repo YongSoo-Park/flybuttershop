@@ -66,6 +66,7 @@ public class MemberSInsertServlet extends HttpServlet {
 				Member memInfo = new Member(userName, phone,  email);
 				
 				Member rtnMemInfo = new MemberService().selectMember(memInfo);
+				System.out.println("################### rtnMemInfo :"+rtnMemInfo);
 				
 				cs.createConsumer(rtnMemInfo.getUserNo());
 				
@@ -86,7 +87,6 @@ public class MemberSInsertServlet extends HttpServlet {
 			Member mem = new Member(userId, userPwd, userName, phone, email , address,storeName, storeAddress, sellerNo, storeAccount
 					,storeExp, storeCall, ceo, storeEmail);
 
-			System.out.println("############### mem : "+mem);
 			int result = new MemberService().insertSMember(mem);
 			if(result>0) {
 				Member memInfo = new Member(userName, phone,  email);

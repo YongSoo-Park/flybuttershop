@@ -117,7 +117,7 @@
 				</tr>
 				<tr>
 					<td id="joinId">* 이름</td>
-					<td><input id ="userName" type="text" maxlength="5" name="userName" placeholder="name" required></td>
+					<td><input id ="userName" type="text" minlength="2" maxlength="15" name="userName" placeholder="name" required></td>
 					<td></td>
 				</tr>
 				<tr>
@@ -268,13 +268,11 @@
 			console.log("체크 됨 : " + $('#sellerYn').val());
 			$('[name="sellerInfo"]').attr('style', "display:'';");
 
-			//$(this).parent().addClass("selected");  
 		}else { 
 			$('#sellerYn').val('N');
 			console.log("체크 해제 : " + $('#sellerYn').val());
 			$('[name="sellerInfo"]').attr('style', "display:none;");
 
-			//$(this).parent().removeClass("selected"); 
 			} 
 		}); 
 	});
@@ -313,11 +311,11 @@
 				if(result == "member"){
 					
 					alert("축하합니다 ! 회원가입에 성공하셨습니다!");
-					location.href="/flybuttershop/main.ma";
+					location.href="/flybuttershop/mainpage.ma";
 				}else if(result == "seller"){
 					
 					alert("축하합니다 !회원가입과 판매자 가입에 성공하셨습니다!");
-					location.href="/flybuttershop/main.ma";
+					location.href="/flybuttershop/mainpage.ma";
 					
 				} else {
 					alert("회원가입에 실패했습니다.잠시 후 다시 시도해주세요");
