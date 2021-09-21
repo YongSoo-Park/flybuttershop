@@ -14,7 +14,6 @@ display: flex;
 }
 #adminPage{
 width: 200px;
-height: 1000px;
 border-right: solid 1px;
 display: table;
 }
@@ -32,7 +31,6 @@ color: black;
 #memberControlWrap{
  text-align: center;
 width: 1000px;
-height: 1000px;
 border-left: solid 1px;
 }
 #memberControlTitle{

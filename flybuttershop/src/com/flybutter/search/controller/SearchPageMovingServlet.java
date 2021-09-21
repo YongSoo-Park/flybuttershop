@@ -14,16 +14,16 @@ import com.flybutter.search.model.service.SearchService;
 import com.flybutter.search.model.vo.Search;
 
 /**
- * Servlet implementation class searchServlet
+ * Servlet implementation class searchPageMovingServlet
  */
-@WebServlet("/search.ma")
-public class searchServlet extends HttpServlet {
+@WebServlet("/SListPageM.se")
+public class SearchPageMovingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public searchServlet() {
+    public SearchPageMovingServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,30 +33,30 @@ public class searchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		int nowPage = Integer.parseInt(request.getParameter("nowPage"));
 		String sWord = request.getParameter("sWord");
+		int total = Integer.parseInt(request.getParameter("total"));
+		int sKind = Integer.parseInt(request.getParameter("sKind"));
 		Paging paging = null;
 		ArrayList<Search> searchList = new ArrayList<Search>();
 		ArrayList<Search> searchSaleList = new ArrayList<Search>();
 		
-		searchList = new SearchService().searchList(sWord);
+		paging = new Paging(total, nowPage, 10, 10);
 		searchSaleList = new SearchService().searchSaleList(sWord);
-		if(searchList.size()!= 0) {
-			paging = new Paging(new SearchService().searchListCount(sWord), 1, 10, 10);
-			request.setAttribute("paging", paging);
-			request.setAttribute("searchList", searchList);
-			request.setAttribute("searchSaleList", searchSaleList);
-			request.setAttribute("searchListEmpty", 0);
-			request.setAttribute("sWord", sWord);
-			request.setAttribute("sKind", 1);
-		}else {
-			request.setAttribute("searchListEmpty", 1);
-			request.setAttribute("sWord", sWord);
-		}
+		
+		searchList = new SearchService().searchListNext(sWord,paging.getStart(),paging.getEnd(),sKind);
+		
+			
+		request.setAttribute("paging", paging);
+		request.setAttribute("searchList", searchList);
+		request.setAttribute("searchSaleList", searchSaleList);
+		request.setAttribute("searchListEmpty", 0);
+		request.setAttribute("sWord", sWord);
+		request.setAttribute("sKind", sKind);
 		
 		request.getRequestDispatcher("views/search/searchResult.jsp").forward(request, response);
+		
 	}
-
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

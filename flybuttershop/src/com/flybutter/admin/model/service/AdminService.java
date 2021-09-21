@@ -154,7 +154,7 @@ public class AdminService {
 	}
 
 	public int storeConfirm(int userNo) {
-		
+
 		Connection conn = getConnection();
 		int result1 = 0;
 		int result2 = 0;
@@ -162,6 +162,42 @@ public class AdminService {
 		result1 = new AdminDao().changeToSellerMember(conn, userNo);
 		result2 = new AdminDao().storeConfirm(conn, userNo);
 		result = result1 * result2;
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+		return result;
+	}
+
+	public Admin mainPageList() {
+		Connection conn = getConnection();
+		Admin mainPageList = null;
+		mainPageList = new AdminDao().mainPageList(conn);
+		close(conn);
+		return mainPageList;
+	}
+
+	public int eventImgSet(ArrayList<String> fileNameList, int judgeDBUpdate) {
+		Connection conn = getConnection();
+		int result = 0;
+		result = new AdminDao().eventImgSet(conn , fileNameList, judgeDBUpdate);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+		return result;
+	}
+
+	public int newSaleRate(int newSaleRate) {
+		Connection conn = getConnection();
+		int result = 0;
+		result = new AdminDao().newSaleRate(conn , newSaleRate);
 		if (result > 0) {
 			commit(conn);
 		} else {

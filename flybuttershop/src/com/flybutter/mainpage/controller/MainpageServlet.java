@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.flybutter.admin.model.service.AdminService;
+import com.flybutter.admin.model.vo.Admin;
 import com.flybutter.mainpage.model.service.MainPageService;
 import com.flybutter.mainpage.model.vo.Mainpage;
 import com.flybutter.member.model.vo.Member;
@@ -20,13 +22,13 @@ import com.flybutter.product.model.vo.Product;
  * Servlet implementation class mainpageServlet
  */
 @WebServlet("/mainpage.ma")
-public class mainpageServlet extends HttpServlet {
+public class MainpageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public mainpageServlet() {
+	public MainpageServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,8 +42,8 @@ public class mainpageServlet extends HttpServlet {
 		Member loginMember = null;
 //		HashMap<String, Product> RVItemsList = null;
 		ArrayList<Product> RVItemsList = null;
+		Admin mainPageList = null;
 		int no;
-		int discountRate;
 		ArrayList<Mainpage> newList = null;
 		ArrayList<Mainpage> bestList = null;
 		ArrayList<ArrayList<Mainpage>> saleTotalList = null;
@@ -63,13 +65,13 @@ public class mainpageServlet extends HttpServlet {
 				RVItemsList = new MainPageService().RVItemsList(loginMember.getRecPno());
 			}
 		}
-		discountRate = new MainPageService().discountRate();
+		mainPageList = new AdminService().mainPageList();
 		saleTotalList = new MainPageService().saleTotalList();
 		newList = new MainPageService().newList();
 		bestList = new MainPageService().bestList();
 		session.setAttribute("loginMember", loginMember);
 		session.setAttribute("RVItemsList", RVItemsList);
-		request.setAttribute("discountRate", discountRate);
+		request.setAttribute("mainPageList", mainPageList);
 		request.setAttribute("saleTotalList", saleTotalList);
 		request.setAttribute("newList", newList);
 		request.setAttribute("bestList", bestList);

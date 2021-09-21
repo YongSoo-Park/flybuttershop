@@ -17,13 +17,13 @@ import com.flybutter.paging.model.vo.Paging;
  * Servlet implementation class adminSellerConfirmServlet
  */
 @WebServlet("/adminconfirm.ad")
-public class adminSellerConfirmServlet extends HttpServlet {
+public class AdminSellerConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminSellerConfirmServlet() {
+    public AdminSellerConfirmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

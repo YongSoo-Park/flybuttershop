@@ -19,12 +19,41 @@ public class Admin {
 	private int totalSales;
 	private String store_Exp;
 	
+	
+	private String f_Event_Img_Ori; 
+	private String f_Event_Img_Sys; 
+	private String s_Event_Img_Ori; 
+	private String s_Event_Img_Sys; 
+	int discount_Rate;
+	
+
 	public Admin() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	
+	
+	
+
+
+
+	public Admin(String f_Event_Img_Ori, String f_Event_Img_Sys, String s_Event_Img_Ori, String s_Event_Img_Sys,
+			int discount_Rate) {
+		super();
+		this.f_Event_Img_Ori = f_Event_Img_Ori;
+		this.f_Event_Img_Sys = f_Event_Img_Sys;
+		this.s_Event_Img_Ori = s_Event_Img_Ori;
+		this.s_Event_Img_Sys = s_Event_Img_Sys;
+		this.discount_Rate = discount_Rate;
+	}
+
+
+
+
+
+
+
 	public Admin(String sellerNo,String storeName, String store_Exp,  String ceo, String storeEmail, int storeNo, int userNo) {
 		super();
 		this.storeNo = storeNo;
@@ -243,13 +272,123 @@ public class Admin {
 
 
 
+
+
+
+
+	public String getF_Event_Img_Ori() {
+		return f_Event_Img_Ori;
+	}
+
+
+
+
+
+
+
+	public void setF_Event_Img_Ori(String f_Event_Img_Ori) {
+		this.f_Event_Img_Ori = f_Event_Img_Ori;
+	}
+
+
+
+
+
+
+
+	public String getF_Event_Img_Sys() {
+		return f_Event_Img_Sys;
+	}
+
+
+
+
+
+
+
+	public void setF_Event_Img_Sys(String f_Event_Img_Sys) {
+		this.f_Event_Img_Sys = f_Event_Img_Sys;
+	}
+
+
+
+
+
+
+
+	public String getS_Event_Img_Ori() {
+		return s_Event_Img_Ori;
+	}
+
+
+
+
+
+
+
+	public void setS_Event_Img_Ori(String s_Event_Img_Ori) {
+		this.s_Event_Img_Ori = s_Event_Img_Ori;
+	}
+
+
+
+
+
+
+
+	public String getS_Event_Img_Sys() {
+		return s_Event_Img_Sys;
+	}
+
+
+
+
+
+
+
+	public void setS_Event_Img_Sys(String s_Event_Img_Sys) {
+		this.s_Event_Img_Sys = s_Event_Img_Sys;
+	}
+
+
+
+
+
+
+
+	public int getDiscount_Rate() {
+		return discount_Rate;
+	}
+
+
+
+
+
+
+
+	public void setDiscount_Rate(int discount_Rate) {
+		this.discount_Rate = discount_Rate;
+	}
+
+
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "Admin [userNo=" + userNo + ", userId=" + userId + ", userName=" + userName + ", email=" + email
 				+ ", lev=" + lev + ", category=" + category + ", userCel=" + userCel + ", storeLev=" + storeLev
 				+ ", storeNo=" + storeNo + ", storeName=" + storeName + ", sellerNo=" + sellerNo + ", ceo=" + ceo
-				+ ", storeEmail=" + storeEmail + ", totalSales=" + totalSales + "]";
+				+ ", storeEmail=" + storeEmail + ", totalSales=" + totalSales + ", store_Exp=" + store_Exp
+				+ ", f_Event_Img_Ori=" + f_Event_Img_Ori + ", f_Event_Img_Sys=" + f_Event_Img_Sys + ", s_Event_Img_Ori="
+				+ s_Event_Img_Ori + ", s_Event_Img_Sys=" + s_Event_Img_Sys + ", discount_Rate=" + discount_Rate + "]";
 	}
+
+
+	
+
 
 
 	

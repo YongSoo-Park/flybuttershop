@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flybutter.admin.model.service.AdminService;
+import com.flybutter.admin.model.vo.Admin;
+
 /**
  * Servlet implementation class adminEventServlet
  */
 @WebServlet("/adminevent.ad")
-public class adminEventServlet extends HttpServlet {
+public class AdminEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminEventServlet() {
+    public AdminEventServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +30,10 @@ public class adminEventServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+
+		Admin mainPageList = null;
+		mainPageList = new AdminService().mainPageList();
+		request.setAttribute("mainPageList", mainPageList);
 		request.getRequestDispatcher("views/admin/adminPageEvent.jsp").forward(request, response);
 	}
 

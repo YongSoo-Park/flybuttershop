@@ -14,16 +14,16 @@ import com.flybutter.admin.model.vo.Admin;
 import com.flybutter.paging.model.vo.Paging;
 
 /**
- * Servlet implementation class adminS_C_SearchServlet
+ * Servlet implementation class adminPageCommandServlet
  */
-@WebServlet("/adminS_C_Search.ad")
-public class adminS_C_SearchServlet extends HttpServlet {
+@WebServlet("/adminPageCommand.ad")
+public class AdminPageCommandServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminS_C_SearchServlet() {
+    public AdminPageCommandServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,22 +33,36 @@ public class adminS_C_SearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		int sellerFListCount;
-		int sKind = Integer.parseInt(request.getParameter("sKind"));
-		String sWord = request.getParameter("sWord");
-		int nowPage = Integer.parseInt(request.getParameter("nowPage"));
-		ArrayList<Admin> sellerFList = null;
-		Paging sellerFListPaging = null;
-		sellerFListCount = new AdminService().sellerFListNextCount(sKind,sWord);
-		sellerFListPaging = new Paging(sellerFListCount, nowPage, 5, 5);
-		sellerFList = new AdminService().sellerFListNext(sKind,sWord,sellerFListPaging.getStart(),sellerFListPaging.getEnd());
-		
-		request.setAttribute("sellerFList", sellerFList);;
-		request.setAttribute("sellerFListPaging", sellerFListPaging);
-		request.setAttribute("sKind", sKind);
-		request.setAttribute("sWord", sWord);
-		request.getRequestDispatcher("views/admin/adminPageSellerConfirm.jsp").forward(request, response);
+		int pKind = Integer.parseInt(request.getParameter("pKind"));
+		int memkind = Integer.parseInt(request.getParameter("memkind"));
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		int result = 0;
+		if(pKind == 2) {
+			
+			result = new AdminService().storeConfirm(userNo);
+			
+			if(result>0) {
+				request.getRequestDispatcher("adminconfirm.ad").forward(request, response);
+			}
+			
+		}else if(pKind == 3) {
+			if(memkind == 1) {
+				int category = Integer.parseInt(request.getParameter("category"));
+				result = new AdminService().memberDel(userNo,category);
+				
+				
+			}else if(memkind == 2){
+				
+				result = new AdminService().sellerMemberDel(userNo);
+				
+				
+			}
+			if(result>0) {
+				request.getRequestDispatcher("adminpage.ad").forward(request, response);
+			}
+		}
 	}
+		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

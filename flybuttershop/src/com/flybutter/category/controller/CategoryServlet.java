@@ -17,13 +17,13 @@ import com.flybutter.paging.model.vo.Paging;
  * Servlet implementation class categoryServlet
  */
 @WebServlet("/categoryList.ca")
-public class categoryServlet extends HttpServlet {
+public class CategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public categoryServlet() {
+    public CategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
