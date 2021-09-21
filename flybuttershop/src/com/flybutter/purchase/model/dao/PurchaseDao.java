@@ -164,5 +164,31 @@ public class PurchaseDao {
 		return c;
 	}
 
+	public int updateCoupon(Connection conn, int no, String cName, int use) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateCoupon");
+		
+//		updateCoupon=UPDATE COUPON SET CP_COUNT = ? WHERE USER_NO = ? AND CP_NAME = ?
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, use);
+			pstmt.setInt(2, no);
+			pstmt.setString(3, cName);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("COUPON 테이블  updateCoupon : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 
 }

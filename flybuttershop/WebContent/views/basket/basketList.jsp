@@ -116,7 +116,9 @@ int delPrice = 0;
 		<%} %> 
 
    <script>
-    
+    $(document).ready(function(){
+    	
+    });
    function allCheck(e) { 
 		if(e.target.checked) {
 			document.querySelectorAll(".ckPd").forEach(function(v, i) {

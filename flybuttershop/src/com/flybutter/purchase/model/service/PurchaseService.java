@@ -8,6 +8,7 @@ import static com.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.flybutter.consumer.model.dao.ConsumerDao;
 import com.flybutter.consumer.model.vo.Consumer;
 import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.member.model.vo.Member;
@@ -43,6 +44,23 @@ public class PurchaseService {
 		
 		return c;
 	}
+
+	public int updateCoupon(int no, String cName, int use) {
+		Connection conn = getConnection();
+		
+		int result = new PurchaseDao().updateCoupon(conn, no, cName, use);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {	
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	
 	
 
 }

@@ -1,6 +1,7 @@
 package com.flybutter.basket.controller;
  
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -33,17 +34,28 @@ public class BasketListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member loginM = (Member)request.getSession().getAttribute("loginMember");
-		int no = loginM.getUserNo();
-		ArrayList<Basket> list = new BasketService().selectBasketList(no);
-        request.setAttribute("list", list);
-        
-        if(list!= null) {
-        	request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
-        }else {
-			request.setAttribute("msg", "장바구니 로드에 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		response.setContentType("text/html; charset=utf-8"); 
+		try {
+			Member loginM = (Member)request.getSession().getAttribute("loginMember");
+			int no = loginM.getUserNo();
+			System.out.println("장바구니 유저 no : " + no);
+			ArrayList<Basket> list = new BasketService().selectBasketList(no);
+	        request.setAttribute("list", list);
+	        
+	        if(list!= null) {
+	        	request.getRequestDispatcher("views/basket/basketList.jsp").forward(request, response);
+	        }else {
+				request.setAttribute("msg", "장바구니 로드에 실패하였습니다.");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
+		}catch(NullPointerException e) {
+			
+			PrintWriter out = response.getWriter();
+			out.println("<script charset='utf-8'> alert('로그인 후 이용해주세요.'); location.href='mainpage.ma';</script>");
+			
+			out.flush();
 		}
+	
 	}
 
 	/**
