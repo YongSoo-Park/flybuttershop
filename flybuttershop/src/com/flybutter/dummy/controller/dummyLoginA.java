@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.flybutter.admin.model.service.AdminService;
+import com.flybutter.admin.model.vo.Admin;
 import com.flybutter.dummy.model.service.MemberService;
 import com.flybutter.dummy.model.vo.Member;
 import com.flybutter.mainpage.model.service.MainPageService;
@@ -40,6 +42,7 @@ public class dummyLoginA extends HttpServlet {
 		ArrayList<Product> RVItemsList = null;;
 		ArrayList<Mainpage> newList = null;
 		ArrayList<Mainpage> bestList = null;
+		Admin mainPageList = null;
 		ArrayList<ArrayList<Mainpage>> saleTotalList = null;
 		if(no==0) {
 			loginMember = new MemberService().loginAdmin(no);
@@ -53,12 +56,14 @@ public class dummyLoginA extends HttpServlet {
 		}
 		com.flybutter.member.model.vo.Member loginUser = new com.flybutter.member.model.vo.Member(loginMember.getMEM_USER_NO(),loginMember.getMEM_USER_NAME(),loginMember.getMEM_LEV(),loginMember.getMEM_CATEGORY(),loginMember.getREC_PNO(),loginMember.getMONEY());
 		saleTotalList = new MainPageService().saleTotalList();
+		mainPageList = new AdminService().mainPageList();
 		newList = new MainPageService().newList();
 		bestList = new MainPageService().bestList();
 		HttpSession session = request.getSession();
 		session.setAttribute("loginMember", loginUser);
 		session.setAttribute("RVItemsList", RVItemsList);
 		request.setAttribute("saleTotalList", saleTotalList);
+		request.setAttribute("mainPageList", mainPageList);
 		request.setAttribute("newList", newList);
 		request.setAttribute("bestList", bestList);
 		response.setContentType("text/html;charset=UTF-8");

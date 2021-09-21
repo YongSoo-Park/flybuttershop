@@ -72,10 +72,21 @@ function checkRate() {
 	if(saleRate>100){
 		document.getElementById("saleRate").value="";
 		alert("일괄 할인율 설정은 0% ~ 100% 까지만 가능합니다.");
+		document.getElementById("saleRate").focus();
 	}
 	 
 }
 
+function saleRateChange() {
+	var saleRate = document.getElementById("saleRate").value;
+	if(saleRate==""){
+		document.getElementById("saleRate").value="";
+		alert("일괄 할인율 설정은 0 ~ 100 숫자를 넣어주셔야합니다.");
+		document.getElementById("saleRate").focus();
+	}else if(confirm("일괄 할인율을 "+saleRate+"%로 변경하시겠습니까?")){
+		$('#saleRateChangeForm').submit();
+	}
+}
 
 
 function doNotReload(){
@@ -108,9 +119,9 @@ document.onkeydown = doNotReload;
 현재 설정된 이벤트 이미지 입니다.<br><br><br>
 <div id="nowEventImgView" style="display: flex;">
 <div id="nowEventImg1">1번 이벤트 이미지
-<img src="${pageContext.request.contextPath}/resources/event/event0.png" style="cursor: pointer; width: 400px; height: 240px;"/></div>
+<img src="${requestScope.mainPageList.f_Event_Img_Sys}" style="cursor: pointer; width: 400px; height: 240px;"/></div>
 <div id="nowEventImg2">2번 이벤트 이미지
-<img src="${pageContext.request.contextPath}/resources/event/event1.png" style="cursor: pointer; width: 400px; height: 240px;"/></div>
+<img src="${requestScope.mainPageList.s_Event_Img_Sys}" style="cursor: pointer; width: 400px; height: 240px;"/></div>
 </div>
 <br>
 <span style="font-weight: bold; font-family: 맑은 명조; font-size: 20px;">이벤트 이미지는 업로드는 png와 jpg 확장자, 파일 크기는 20메가 이하만 가능합니다. <br><br>이미지 해상도는 600px X 350px 이 가장 정확하게 표현됩니다</span><br><br><br>
@@ -132,11 +143,12 @@ document.onkeydown = doNotReload;
 </div>
 
 <div style="text-align: center;">
-현재 설정된 일괄 할인율은 %입니다.<br><br><br>
-<form action="">
-일괄 할인율은 0% ~ 100% 까지 설정하실 수 있습니다.<br>
-<input type="text" id="saleRate" oninput="this.value=this.value.replace(/[^0-9]/g,'');" onkeyup="checkRate();" maxlength="3" >
-
+현재 설정되어 있는 일괄 할인율은 <span style="font-size: 25px; font-weight: bold;"><c:out value="${requestScope.mainPageList.discount_Rate}"/>% </span> 입니다.<br><br><br>
+<form action="discountRate.ad" method="post" id="saleRateChangeForm">
+<span style="font-weight: bold; font-family: 맑은 명조; font-size: 20px;">일괄 할인율은 0% ~ 100% 까지 설정하실 수 있습니다.<br><br>
+새롭게 적용할 일괄 할인율 : 
+<input type="text" id="saleRate" name="newSaleRate" oninput="this.value=this.value.replace(/[^0-9]/g,'');" onkeyup="checkRate();" maxlength="3" style="width: 50px; height: 20px;">%</span> &nbsp;&nbsp;&nbsp;
+<input type="button" value="할인율 변경" onclick="saleRateChange()"><br><br><br><br><br>
 </form>
 
 </div>
@@ -145,8 +157,8 @@ document.onkeydown = doNotReload;
 
 
 
+
 </div>
-<c:set var="upResultMsg" scope="request" value="1"/>
 </main>
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>

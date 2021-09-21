@@ -19,13 +19,13 @@ import com.flybutter.search.model.vo.Search;
  * Servlet implementation class categoryPageMovingServlet
  */
 @WebServlet("/CListPageM.ca")
-public class categoryPageMovingServlet extends HttpServlet {
+public class CategoryPageMovingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public categoryPageMovingServlet() {
+    public CategoryPageMovingServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -165,8 +165,8 @@ $(function() {
 <main>
 
 <div style="display: flex; position: absolute; top : 180px;">
-<img src="${pageContext.request.contextPath}/resources/event/event0.png" style="cursor: pointer; width: 600px; height: 350px;"/>
-<img src="${pageContext.request.contextPath}/resources/event/event1.png" style="cursor: pointer; width: 600px; height: 350px;"/>
+<img src="${requestScope.mainPageList.f_Event_Img_Sys}" style="cursor: pointer; width: 600px; height: 350px;" onclick="location.href='noticeList.no'"/>
+<img src="${requestScope.mainPageList.s_Event_Img_Sys}" style="cursor: pointer; width: 600px; height: 350px;" onclick="location.href='noticeList.no'"/>
 
 </div>
 <br>
@@ -183,7 +183,7 @@ $(function() {
 		
 </c:forEach>
 </div>
-<div id="saleTitle" class="titles"><b>FlyButterShop`s On Sale For <c:out value="${requestScope.discountRate}"></c:out>% Off!!!</b><br></div>
+<div id="saleTitle" class="titles"><b>FlyButterShop`s On Sale For <c:out value="${requestScope.mainPageList.discount_Rate}"></c:out>% Off!!!</b><br></div>
 <div id="salePWrap">
 <button id="salePBtn0" class="salePBtn" value="0">통합</button><button id="salePBtn1" class="salePBtn" value="1">의류</button><button id="salePBtn2" class="salePBtn" value="2">잡화</button><button id="salePBtn3" class="salePBtn" value="3">뷰티</button><button id="salePBtn4" class="salePBtn" value="4">식품</button><button id="salePBtn5" class="salePBtn" value="5">가구</button><button id="salePBtn6" class="salePBtn" value="6">전자기기</button><button id="salePBtn7" class="salePBtn" value="7">생필품</button><button id="salePBtn8" class="salePBtn" value="8">반려동물</button>
 <div id="saleItems0" style="width: 1186px; height : 550px;  display: inline-block;" ></div>

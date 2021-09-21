@@ -14,16 +14,16 @@ import com.flybutter.admin.model.vo.Admin;
 import com.flybutter.paging.model.vo.Paging;
 
 /**
- * Servlet implementation class adminPageSearchServlet
+ * Servlet implementation class adminPageServlet
  */
-@WebServlet("/adminsearch.ad")
-public class adminPageSearchServlet extends HttpServlet {
+@WebServlet("/adminpage.ad")
+public class AdminPageMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminPageSearchServlet() {
+    public AdminPageMemberServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,45 +32,32 @@ public class adminPageSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		int memberListCount;
 		int sellerListCount;
-		String sWord = request.getParameter("sWord");
-		int sKind = Integer.parseInt(request.getParameter("sKind"));
-		int memkind = Integer.parseInt(request.getParameter("memkind"));
-		int nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		int sKind = 0;
+		int memkind = 1;
+		String sWord = "";
 		ArrayList<Admin> memberList = null;
 		ArrayList<Admin> sellerList = null;
 		Paging memberListPaging = null;
 		Paging sellerListPaging = null;
-		if(memkind == 1) {
-			memberListCount = new AdminService().memberListNextCount(sWord,sKind);
-			sellerListCount = new AdminService().sellerListCount();
-			sellerList = new AdminService().sellerList();
-			memberListPaging = new Paging(memberListCount, nowPage, 10, 10);
-			sellerListPaging = new Paging(sellerListCount, 1, 10, 10);
-			memberList = new AdminService().memberListNext(sWord,sKind,memberListPaging.getStart(),memberListPaging.getEnd());
-			System.out.println(memberListCount);
-		}else {
-			
-			memberListCount = new AdminService().memberListCount();
-			sellerListCount = new AdminService().sellerListNextCount(sWord,sKind);
-			memberList = new AdminService().memberList();
-			memberListPaging = new Paging(memberListCount, 1, 10, 10);
-			sellerListPaging = new Paging(sellerListCount, nowPage, 10, 10);
-			sellerList = new AdminService().sellerNextList(sWord,sKind,sellerListPaging.getStart(),sellerListPaging.getEnd());
-			
-		}
-		
+		memberListCount = new AdminService().memberListCount();
+		sellerListCount = new AdminService().sellerListCount();
+		memberList = new AdminService().memberList();
+		sellerList = new AdminService().sellerList();
+		memberListPaging = new Paging(memberListCount, 1, 10, 10);
+		sellerListPaging = new Paging(sellerListCount, 1, 10, 10);
+		System.out.println(sellerListPaging);
 		request.setAttribute("memberList", memberList);
 		request.setAttribute("sellerList", sellerList);
 		request.setAttribute("memberListPaging", memberListPaging);
 		request.setAttribute("sellerListPaging", sellerListPaging);
-		request.setAttribute("sWord", sWord);
 		request.setAttribute("sKind", sKind);
 		request.setAttribute("memkind", memkind);
+		request.setAttribute("sWord", sWord);
 		
 		request.getRequestDispatcher("views/admin/adminPageMember.jsp").forward(request, response);
+		
 	}
 
 	/**
