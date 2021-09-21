@@ -65,10 +65,8 @@ public class InsertBasketServlet extends HttpServlet {
 			}
 			
 			originAmount += bAmount;
-			System.out.println("인서트 서블릿 수량 : " + originAmount);
-			System.out.println("인서트 서블릿 가격 : " + price);
 			newPrice = originAmount * price;
-			System.out.println("인서트 서블릿 바뀐 가격 : " + newPrice);
+		
 			int result = new BasketService().updateAmount(originAmount, pCode);
 			int pResult = new BasketService().updatePrice(newPrice, pCode);
 			response.sendRedirect("basket.do");

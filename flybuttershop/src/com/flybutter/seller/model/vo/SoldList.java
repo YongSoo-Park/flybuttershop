@@ -10,7 +10,7 @@ public class SoldList {
 	private String storeNo;
 	private String pAmount;
 	private String pOption;
-	private String pStatus;
+	private int pStatus;
 	private String totalPur;
 	
 	private int userNo;
@@ -22,6 +22,8 @@ public class SoldList {
 	private String purInfo;
 	private String userName;
 	private String phone;
+	private String pImg;
+	private String pName;
 	
 	
 	
@@ -29,11 +31,10 @@ public class SoldList {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 
-	public SoldList(int pno, Date pDate, String pCode, String storeNo, String pAmount, String pOption, String pStatus,
+	public SoldList(int pno, Date pDate, String pCode, String storeNo, String pAmount, String pOption, int pStatus,
 			String totalPur, int userNo, String userId, int purPrice, String purAddress, int purType, int delNo,
-			String purInfo, String userName, String phone) {
+			String purInfo, String userName, String phone, String pImg, String pName) {
 		super();
 		this.pno = pno;
 		this.pDate = pDate;
@@ -52,17 +53,12 @@ public class SoldList {
 		this.purInfo = purInfo;
 		this.userName = userName;
 		this.phone = phone;
+		this.pImg = pImg;
+		this.pName = pName;
 	}
 
 
-
-
-
-
-
-
-
-	public SoldList(int pno, Date pDate, String pCode, String storeNo, String pAmount, String pOption, String pStatus,
+	public SoldList(int pno, Date pDate, String pCode, String storeNo, String pAmount, String pOption, int pStatus,
 			String totalPur) {
 		super();
 		this.pno = pno;
@@ -76,9 +72,7 @@ public class SoldList {
 	}
 
 
-
-
-	public SoldList(String pCode, String storeNo, String pAmount, String pOption, String pStatus, String totalPur) {
+	public SoldList(String pCode, String storeNo, String pAmount, String pOption, int pStatus, String totalPur) {
 		super();
 		this.pCode = pCode;
 		this.storeNo = storeNo;
@@ -88,12 +82,8 @@ public class SoldList {
 		this.totalPur = totalPur;
 	}
 
-	
-	
 
-
-
-	public SoldList(String pCode, String storeNo, String pAmount, String pOption, String pStatus) {
+	public SoldList(String pCode, String storeNo, String pAmount, String pOption, int pStatus) {
 		this.pCode = pCode;
 		this.storeNo = storeNo;
 		this.pAmount = pAmount;
@@ -104,7 +94,7 @@ public class SoldList {
 
 
 	public SoldList(int pno, Date pDate, String pCode, String storeNo, String pAmount, String pOption,
-			String pStatus) {
+			int pStatus) {
 		this.pno = pno;
 		this.pDate = pDate;
 		this.pCode = pCode;
@@ -136,7 +126,7 @@ public class SoldList {
 
 
 	public SoldList(int userNo, String userId, String userName, String phone, int pno, Date pDate, int purPrice, String purAddress, int delNo, int purType,
-			String pCode, String storeNo, String pAmount, String pOption, String pStatus) {
+			String pCode, String storeNo, String pAmount, String pOption, int pStatus) {
 		this.pno = pno;
 		this.pDate = pDate;
 		this.pCode = pCode;
@@ -156,7 +146,28 @@ public class SoldList {
 	}
 
 
+	public SoldList(int pno, Date pDate, String purInfo) {
+		this.pno = pno;
+		this.pDate = pDate;
+		this.purInfo = purInfo;
+	}
 
+	public SoldList(int pno, Date pDate, int pStatus) {
+		this.pno = pno;
+		this.pDate = pDate;
+		this.pStatus = pStatus;
+	}
+
+	public SoldList(String pImg, String pName, String pCode, String storeNo, String pAmount, String pOption,
+			int pStatus) {
+		this.pImg = pImg;
+		this.pName = pName;
+		this.pCode = pCode;
+		this.storeNo = storeNo;
+		this.pAmount = pAmount;
+		this.pOption = pOption;
+		this.pStatus = pStatus;
+	}
 
 	public int getPno() {
 		return pno;
@@ -242,14 +253,14 @@ public class SoldList {
 
 
 
-	public String getpStatus() {
+	public int getpStatus() {
 		return pStatus;
 	}
 
 
 
 
-	public void setpStatus(String pStatus) {
+	public void setpStatus(int pStatus) {
 		this.pStatus = pStatus;
 	}
 
@@ -388,7 +399,26 @@ public class SoldList {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
 
+	public String getpImg() {
+		return pImg;
+	}
+
+
+	public void setpImg(String pImg) {
+		this.pImg = pImg;
+	}
+
+
+	public String getpName() {
+		return pName;
+	}
+
+
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
 
 
 	@Override

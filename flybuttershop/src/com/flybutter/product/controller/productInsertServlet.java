@@ -2,7 +2,6 @@ package com.flybutter.product.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.common.ProductFileRenamePolicy;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.product.model.service.ProductService;
 import com.flybutter.product.model.vo.Product;
+import com.flybutter.seller.model.service.SellerService;
 import com.flybutter.seller.model.vo.Seller;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -44,7 +45,6 @@ public class productInsertServlet extends HttpServlet {
 		System.out.println("상품등록 서블릿 입장");
 		
 		
-		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			//size
 			int maxSize = 10 * 1024 * 1024;
@@ -54,14 +54,45 @@ public class productInsertServlet extends HttpServlet {
 			String resources = request.getSession().getServletContext().getRealPath("/resources");
 			String savePath = resources + "\\product\\";
 			System.out.println("savePath : " + savePath);
-//			
-//			String resources2 = request.getSession().getServletContext().getRealPath("/resources");
-//			String savePath2 = resources2 + "\\productExp\\";
-//			System.out.println("savePath : " + savePath2);
+			
+			String savePath2 = resources + "\\productExp\\";
+			System.out.println("savePath : " + savePath2);
 			//rename
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new ProductFileRenamePolicy());
+
+			Product pi = new Product();
 			
-			//MultipartRequest multiRequest1 = new MultipartRequest(request, savePath2, maxSize, "UTF-8", new ProductExpFileRenamePolicy());
+			File tempFile = null;
+			
+			int emptyCount = 0;
+			
+			for(int i = 1; i<=2; i++) {
+				String name = "file"+i;
+				if(multiRequest.getOriginalFileName(name) != null) {
+					String originPimg = multiRequest.getOriginalFileName(name);
+					String changePimg = multiRequest.getFilesystemName(name);
+					
+					pi.setpImage_Origin(savePath+originPimg);
+					pi.setpImage_System(savePath+changePimg);
+					
+					tempFile = new File(savePath+changePimg);
+					tempFile.delete();
+					
+					if(i==2) {
+						String originExpimg = multiRequest.getOriginalFileName(name);
+						String changeExpimg = multiRequest.getOriginalFileName(name);
+						
+						pi.setpExp_Image_Origin(savePath2+originExpimg);
+						pi.setpExp_Image_System(savePath2+changeExpimg);
+						
+						tempFile = new File(savePath2+changeExpimg);
+						tempFile.delete();
+					}
+				}else {
+					emptyCount++;
+				}
+			}
+			
 
 			String pCode = multiRequest.getParameter("pCode");
 			String pName = multiRequest.getParameter("pName");
@@ -72,74 +103,35 @@ public class productInsertServlet extends HttpServlet {
 			String option = multiRequest.getParameter("option");
 			int sale = Integer.parseInt(multiRequest.getParameter("sale"));
 			
-			int storeNo = ((Seller)request.getSession().getAttribute("seller")).getStore_No();
+			int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
+			Seller seller = new SellerService().selectStore(userNo);
+			int storeNo = seller.getStore_No();
 			
-			Product p = new Product();
-			p.setpCode(pCode);
-			p.setStore_No(storeNo);
-			p.setpCategory(category1);
-			p.setpCategory2(category2);
-			p.setpName(pName);
-			p.setpOption(option);
-			p.setpStock(pStock);
-			p.setPrice(price);
-			p.setSale_Flag(sale);
+			System.out.println("상품등록 ~~~~ " + storeNo);
 			
-			ArrayList<Product> fileList = new ArrayList<>();
+			pi.setpCode(pCode);
+			pi.setStore_No(storeNo);
+			pi.setpCategory(category1);
+			pi.setpCategory2(category2);
+			pi.setpName(pName);
+			pi.setpOption(option);
+			pi.setpStock(pStock);
+			pi.setPrice(price);
+			pi.setSale_Flag(sale);
 			
-			for(int i = 1; i <= 2; i++) {
-				String name = "file"+i;
-				if(multiRequest.getOriginalFileName(name) != null) {
-					String originPimg = multiRequest.getOriginalFileName(name);
-					String changePimg = multiRequest.getFilesystemName(name);
-					
-					Product pi = new Product();
-					pi.setpImage_Origin(savePath+originPimg);
-					pi.setpImage_System(savePath+changePimg);
-					
-					
-				}
-			}
-			
-			
-//			if(multiRequest.getOriginalFileName("pImg") != null) {
-//				String originPimg1 = multiRequest.getOriginalFileName("pImg");
-//				String changePimg1 = multiRequest.getFilesystemName("pImg");
-//				
-//				p.setpImage_Origin(originPimg1);
-//				p.setpImage_System(changePimg1);
-//			}
-//			
-//			if(multiRequest.getOriginalFileName("pExpImg") != null) {
-//				String originPimg2 = multiRequest.getOriginalFileName("pExpImg");
-//				String changePimg2 = multiRequest.getFilesystemName("pExpImg");
-//				
-//				p.setpExp_Image_Origin(originPimg2);
-//				p.setpExp_Image_System(changePimg2);
-//			}
-			
-			int result = new ProductService().insertProduct(p);
-			
-			
-			if(result > 0) {
-				request.getSession().setAttribute("msg", "상품등록성공");
-				response.sendRedirect("productDetail.sl");
-			}else {
-				if(multiRequest.getOriginalFileName("pImg") != null || multiRequest.getOriginalFileName("pExpImg") != null) {
-					File failedFile = new File(p.getpExp_Image_Origin() + p.getpExp_Image_System()
-												+ p.getpImage_Origin() + p.getpImage_System());
-					failedFile.delete();
-				}
-				
-				request.setAttribute("msg", "상품등록실패");
+
+			int result = new ProductService().insertProduct(pi);
+		
+			if(emptyCount==2) {
+				request.setAttribute("msg", "상품등록 실패");
 				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 				view.forward(request, response);
-				
+			}
+			
+			response.sendRedirect("productManager.sl");
 			}
 			
 		}
-	
-	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

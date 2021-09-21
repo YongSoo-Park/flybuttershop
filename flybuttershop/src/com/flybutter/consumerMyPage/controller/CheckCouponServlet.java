@@ -32,7 +32,7 @@ public class CheckCouponServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		int cpNum = Integer.parseInt(request.getParameter("number"));
+    int cpNum = Integer.parseInt(request.getParameter("number"));
 		
 		System.out.println(cpNum);
 		
@@ -60,8 +60,6 @@ public class CheckCouponServlet extends HttpServlet {
 			request.setAttribute("msg", "조회되는 쿠폰이 없습니다.");
 			request.getRequestDispatcher("views/consumerMypage/CouponAddView.jsp").forward(request, response);
 		}
-		
-		
 		
 		
 		

@@ -3,9 +3,7 @@ package com.flybutter.seller.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.StringTokenizer;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.member.model.vo.Member;
 import com.flybutter.purchase.model.vo.Purchase;
+import com.flybutter.product.model.vo.PageInfo;
 import com.flybutter.seller.model.service.SellerService;
 import com.flybutter.seller.model.vo.Seller;
 import com.flybutter.seller.model.vo.SoldList;
@@ -40,54 +39,86 @@ public class soldManagerServlet extends HttpServlet {
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
 	    Seller seller = new SellerService().selectStore(userNo);
-		
-		System.out.println("sel" + seller);
+	    System.out.println("sel" + seller);
 		System.out.println("storeNo : "+seller.getStore_No());
 		int storeNo = seller.getStore_No();
 		
-		ArrayList<Purchase> pList = new SellerService().soldList(storeNo);
 		
-		System.out.println("상점 판매내역 ~~~ pList" + pList);
+	    int soldListCount;			
+		int currentPage;		
+		int startPage;			
+		int endPage;			
+		int maxPage;		
 		
-		int pno = 0;
-		Date pDate = null;
-		String pInfo = null;
+		int pageLimit;			
+		int boardLimit;			
 		
-		for(Purchase p : pList) {
-			pno = p.getPur_No();
-			pDate = p.getPur_Date();
-			pInfo = p.getPur_Info();
+		soldListCount = new SellerService().soldListCount(storeNo);
+	    
+		currentPage = 1;
+		
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		System.out.println(pno);
-		System.out.println(pDate);
-		System.out.println(pInfo);
+	
+		pageLimit = 10;
 		
-		SoldList s = new SoldList();
-		
-		String[] temp1 = pInfo.split("/");
-		String[] temp2;
-		
-		ArrayList<SoldList> soldList = new ArrayList<SoldList>();
-		for(int i = 0 ; i <temp1.length; i++) {
-	         
-	         if(temp1[i].contains(String.valueOf(storeNo))) {
-	            
-	            temp2=temp1[i].split(":");
-	            
-	            soldList.add(new SoldList(pno, pDate, temp2[0],temp2[1],temp2[2],temp2[3], temp2[4]));
-	            
-	         }
-		}    
-		
-		System.out.println("soldList~~~~~~~   " + soldList);
+		boardLimit = 10;
 		
 		
-		request.setAttribute("soldList", soldList);
+		maxPage = (int)Math.ceil((double)soldListCount/boardLimit);
+
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		
+	
+		endPage = startPage + pageLimit - 1;
+	
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(soldListCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
+		
+	   
+		ArrayList<SoldList> pList = new SellerService().soldList(pi, storeNo);
+		
+		System.out.println("판매목록서블릿 ~~~" + pList);
+		
+		ArrayList<ArrayList<SoldList>> purList = new ArrayList<ArrayList<SoldList>>();
+		
+		for(int i = 0; i < pList.size(); i++) {
+			
+			String pInfo = pList.get(i).getPurInfo();
+			
+			String[] temp1 = pInfo.split("/");
+			String[] temp2;
+			
+			ArrayList<SoldList> sInfo = new ArrayList<SoldList>();
+			
+			for(int j = 0 ; j <temp1.length; j++) {
+		         
+		         if(temp1[j].contains(String.valueOf(storeNo))) {
+		            
+		            temp2=temp1[j].split(":");
+		            
+		            sInfo.add(new SoldList(pList.get(0).getPno(), pList.get(0).getpDate(), Integer.parseInt(temp2[4])));
+		            
+		         }
+			}    
+			purList.add(sInfo);
+		}
+		
+		
+		System.out.println("상점 판매내역 ~~~ pList" + pList);
+		System.out.println("purList~~~~~~~   " + purList);
+		
+		
+		request.setAttribute("purList", purList);
+		request.setAttribute("pi", pi);
 		request.getRequestDispatcher("views/seller/soldManager.jsp").forward(request, response);
 	
-		
 		
 	}
 

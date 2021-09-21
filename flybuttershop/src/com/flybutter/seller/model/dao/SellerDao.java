@@ -14,7 +14,6 @@ import java.util.Properties;
 
 import com.flybutter.product.model.vo.PageInfo;
 import com.flybutter.product.model.vo.Product;
-import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.qna.model.vo.Qna;
 import com.flybutter.review.model.vo.Review;
 import com.flybutter.seller.model.vo.Seller;
@@ -321,22 +320,28 @@ public class SellerDao {
 			
 			return list;
 		}
-		public ArrayList<Purchase> soldList(Connection conn, int storeNo) {
+		public ArrayList<SoldList> soldList(Connection conn, PageInfo pi, int storeNo) {
 			
-			ArrayList<Purchase> pList = new ArrayList<>();
+			ArrayList<SoldList> pList = new ArrayList<>();
 			
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
 			
 			String sql = prop.getProperty("soldList");
 			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endRow = startRow + pi.getBoardLimit()-1;
+			
+			
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, "_____"+storeNo+"%");
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
-					pList.add(new Purchase(rset.getInt("PUR_NO"),
+					pList.add(new SoldList(rset.getInt("PUR_NO"),
 										   rset.getDate("PUR_DATE"),
 										   rset.getString("PUR_INFO")
 										   ));
@@ -606,6 +611,90 @@ public class SellerDao {
 			}
 			
 			return listCount;
+		}
+		public int soldListCount(Connection conn, int storeNo) {
+			
+			int sListCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("soldListCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "%"+storeNo+"%");
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					sListCount = rset.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return sListCount;
+		}
+		public String getpImage(Connection conn, String pCode) {
+
+			String pImg = null;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("getpImage");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, pCode);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					pImg = rset.getString("PIMAGE_ORIGIN");
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return pImg;
+		}
+		public String getpName(Connection conn, String pCode) {
+			String pName = "";
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("getpName");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, pCode);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					pName = rset.getString("PNAME");
+				
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return pName;
 		}
 
 	}

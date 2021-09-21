@@ -154,7 +154,7 @@ public class ProductDao {
 		return result;
 	}
 
-	public int insertProduct(Connection conn, Product p) {
+	public int insertProduct(Connection conn, Product pi) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -163,19 +163,19 @@ public class ProductDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, p.getpCode());
-			pstmt.setInt(2, p.getStore_No());
-			pstmt.setInt(3, p.getpCategory());
-			pstmt.setInt(4, p.getpCategory2());
-			pstmt.setString(5, p.getpName());
-			pstmt.setString(6, p.getpOption());
-			pstmt.setInt(7, p.getpStock());
-			pstmt.setString(8, p.getpImage_Origin());
-			pstmt.setString(9, p.getpImage_System());
-			pstmt.setString(10, p.getpExp_Image_Origin());
-			pstmt.setString(11, p.getpExp_Image_System());
-			pstmt.setInt(12, p.getPrice());
-			pstmt.setInt(13, p.getSale_Flag());
+			pstmt.setString(1, pi.getpCode());
+			pstmt.setInt(2, pi.getStore_No());
+			pstmt.setInt(3, pi.getpCategory());
+			pstmt.setInt(4, pi.getpCategory2());
+			pstmt.setString(5, pi.getpName());
+			pstmt.setString(6, pi.getpOption());
+			pstmt.setInt(7, pi.getpStock());
+			pstmt.setString(8, pi.getpImage_Origin());
+			pstmt.setString(9, pi.getpImage_System());
+			pstmt.setString(10, pi.getpExp_Image_Origin());
+			pstmt.setString(11, pi.getpExp_Image_System());
+			pstmt.setInt(12, pi.getPrice());
+			pstmt.setInt(13, pi.getSale_Flag());
 			
 			result = pstmt.executeUpdate();
 			
@@ -442,6 +442,41 @@ public class ProductDao {
 			close(pstmt);
 		} 
 
+		return result;
+	}
+
+	public int updateProduct(Connection conn, Product pi) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pi.getpName());
+			pstmt.setInt(2, pi.getpCategory());
+			pstmt.setInt(3, pi.getpCategory2());
+			pstmt.setInt(4, pi.getpStock());
+			pstmt.setInt(5, pi.getPrice());
+			pstmt.setString(6, pi.getpOption());
+			pstmt.setInt(7, pi.getSale_Flag());
+			pstmt.setString(8, pi.getpImage_Origin());
+			pstmt.setString(9, pi.getpImage_System());
+			pstmt.setString(10, pi.getpExp_Image_Origin());
+			pstmt.setString(11, pi.getpExp_Image_System());
+			
+			pstmt.setString(12, pi.getpCode());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 }

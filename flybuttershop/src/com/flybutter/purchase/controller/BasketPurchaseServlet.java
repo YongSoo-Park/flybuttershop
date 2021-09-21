@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.flybutter.basket.model.service.BasketService;
 import com.flybutter.basket.model.vo.Basket;
@@ -20,6 +21,8 @@ import com.flybutter.product.model.service.ProductService;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.purchase.model.service.PurchaseService;
 import com.flybutter.purchase.model.vo.Purchase;
+import com.flybutter.seller.model.service.SellerService;
+import com.flybutter.seller.model.vo.Seller;
 
 /**
  * Servlet implementation class BasketPurchaseServlet
@@ -44,11 +47,12 @@ public class BasketPurchaseServlet extends HttpServlet {
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
 			
 		int no = loginM.getUserNo();
+		int delPrice = 0;
 		
 		//장바구니에서 전달받는 값
-		String ck = request.getParameter("checkArr");
+		String ck = request.getParameter("checkArr");	
 		String [] checkArr = ck.split(",");
-				
+		
 		//장바구니 정보 가져오기
 		Basket b = new Basket();
 		ArrayList<Basket> bList = new ArrayList<Basket>();
@@ -56,6 +60,14 @@ public class BasketPurchaseServlet extends HttpServlet {
 				b = new BasketService().selectInBasket(checkArr[i] , no);
 				bList.add(b);
 			};
+			
+		Seller s = new Seller();
+		SellerService ss = new SellerService();
+		ArrayList<Seller> seller = new ArrayList<Seller>();
+			for(int i = 0; i < bList.size();i++) {
+				s=ss.selectStore(bList.get(i).getBasket_Sname());
+				seller.add(s);
+			}
 			
 		//현재 로그인 유저의 정보가져오기
 		Member m = new PurchaseService().selectMember(no);
@@ -67,7 +79,7 @@ public class BasketPurchaseServlet extends HttpServlet {
 		Consumer c = new PurchaseService().selectMoney(no);
 		
 		//배송비 넘겨주기
-		int delPrice = Integer.parseInt(request.getParameter("delPrice"));
+		delPrice = Integer.parseInt(request.getParameter("delPrice"));
 		
 		//할인상품 체크 및 할인가격 넘겨주기
 		int discountRate = new MainPageService().discountRate();
@@ -90,15 +102,16 @@ public class BasketPurchaseServlet extends HttpServlet {
 			j++;
 		};
 		
-		//String[] sp = Arrays.toString(salePrice).split("[\\[\\]]")[1].split(", "); 
 		
-		//request.setAttribute("sp", sp);
+		
+		request.setAttribute("sp", Arrays.toString(salePrice));
 		request.setAttribute("delPrice", delPrice);
 		request.setAttribute("list", list);
 		request.setAttribute("bList", bList);
 		request.setAttribute("consumer", c);
 		request.setAttribute("m", m);
-		request.setAttribute("salePrice", salePrice);
+		request.setAttribute("seller", seller);
+		request.setAttribute("ck", ck);
 		
 		request.getRequestDispatcher("views/purchase/basketPurPage.jsp").forward(request, response);
 		
