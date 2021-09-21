@@ -10,7 +10,7 @@
 <style>
 	.outer{
 		width:900px;
-		height:700px;
+		height:1000px;
 		margin-top:50px; 
 		margin-left:auto;
 		margin-right:auto;
@@ -42,21 +42,21 @@
 <jsp:include page="../common/sellerMenuBar.jsp" flush="true"/>
 	<br><br>
 	
-	<h2>상품 등록</h2>
+	<h2 class="text-center">상품 등록</h2>
 	
 	<div class="outer">
 	<form id="productInsert" action="<%= request.getContextPath() %>/insert.pr" method="post" enctype="multipart/form-data" onsubmit="return insertValidate();">
 		<table>
-			<tr>
+			<tr>	
 				<td>상품코드</td>
 				<td>
-					<input type="text" name="pCode" required>
-					<button type="button" id="codeCheckBtn" onclick="checkCode();">중복확인</button>
+					<input type="text" class="form-control" name="pCode" required>
+					<button type="button" class="btn btn-outline-primary mb-3" id="codeCheckBtn" onclick="checkCode();">중복확인</button>
 				</td>
 			</tr>
 			<tr>
 				<td>상품명</td>
-				<td><input type="text" name="pName"></td>
+				<td><input type="text" class="form-control" name="pName"></td>
 			</tr>
 			<tr>
 				<td>대분류</td>
@@ -132,17 +132,17 @@
 			</tr>
 			<tr>
 				<td>상품수량</td>
-				<td><input type="text" name="pStock">
+				<td><input class="form-control" type="text" name="pStock">
 				</td>
 			</tr>
 			<tr>
 				<td>상품가격</td>
-				<td><input type="text" name="price">
+				<td><input class="form-control" type="text" name="price">
 				</td>
 			</tr>
 			<tr>
 				<td>상품옵션</td>
-				<td><input type="text" name="option">
+				<td><input class="form-control" type="text" name="option">
 				</td>
 			</tr>
 			<tr>

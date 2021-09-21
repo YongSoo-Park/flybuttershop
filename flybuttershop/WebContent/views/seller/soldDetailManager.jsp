@@ -5,16 +5,12 @@
 ArrayList<SoldList> sList = (ArrayList<SoldList>)request.getAttribute("sList");
 SoldList s = (SoldList)request.getAttribute("s");
 
-
-
 String pt = null;
 if(s.getPurType()==1){
 	pt = "무통장입금";
 }else{
 	pt = "카드결제";
 }
-
-
 %>
 
 <!DOCTYPE html>
@@ -34,6 +30,16 @@ if(s.getPurType()==1){
 		$("#postForm").submit();
 				
 	}
+	function cancelPur(){
+		$("#postForm").attr("action", "<%=request.getContextPath()%>/cancelPur.sl");
+		$("#postForm").submit();
+				
+	}
+	function refund(){
+		$("#postForm").attr("action", "<%=request.getContextPath()%>/refund.sl");
+		$("#postForm").submit();
+				
+	}
 </script>
 </head>
 <body style="margin: 0 auto">
@@ -43,10 +49,23 @@ if(s.getPurType()==1){
 	
 	<h2>주문 내역</h2>
 	<h3>주문 번호 : <%=s.getPno()%></h3>
+	<div>
+	<% int status = sList.get(0).getpStatus();
+	   if(status == 1){ %>
+	    <button type="button" class="btn btn-outline-danger" onclick="cancelPur();">판매취소</button>
+	<% }else if(status == 2){%>
+		<button type="button" class="btn btn-outline-danger" onclick="cancelPur();">판매취소</button>
+		<button type="button" class="btn btn-outline-primary" onclick="updateDel();">배송정보입력</button>
+	 
+	<% }else if(status == 8){ %>
+		<button type="button" class="btn btn-outline-primary" onclick="refund();">환불완료</button>
+	<%} %>
+	 </div>
 	
+	 <form action="" id="postForm" method="post">
 	
 	<table border="1" id="soldInfo" class="soldInfo">
-        <tr>
+        <tr class="table-primary">
             <td colspan="4">주문자 정보</td>
         </tr>
         <tr>
@@ -70,16 +89,16 @@ if(s.getPurType()==1){
             
             <td colspan="3">
             	<%=s.getDelNo()%>
-            	<button type="button" onclick="updateDel();">배송정보입력</button>
             </td>
            
         </tr>
-        <tr>
+        <tr class="table-primary">
             <td colspan="4">판매 상품 내역</td>
         </tr>
         <table>
         	<thead>
-        		<th>상품코드</th>
+        		<th>상품이미지</th>
+        		<th>상품명</th>
         		<th>상품옵션</th>
         		<th>수량</th>
         	</thead>
@@ -93,7 +112,8 @@ if(s.getPurType()==1){
         			
         		%>
         			<tr>
-						<td><%=sl.getpCode()%></td>
+						<td><img src="${pageContext.request.contextPath}${requestScope.sl.pImg}" width="100px"></td>
+						<td><%=sl.getpName()%></td>
 						<td><%=sl.getpOption()%></td>
 						<td><%=sl.getpAmount()%></td>
 					</tr>
@@ -102,17 +122,17 @@ if(s.getPurType()==1){
         	</tbody>
         	
         	<tfoot>
-        		<tr>
+        		<tr class="table-warning">
+        			<td></td>
         			<td></td>
         			<td>총 금액</td>
-        			<td><%=s.getPurPrice()%></td>
+        			<td><%=s.getPurPrice()%>원</td>
         		</tr>
         	</tfoot>
         </table>
     </table>
-    
-    <form action="" id="postForm" method="post">
    		<input type="hidden" name="pNo" value="<%=s.getPno()%>">
+   		
 	</form>
 	
 	

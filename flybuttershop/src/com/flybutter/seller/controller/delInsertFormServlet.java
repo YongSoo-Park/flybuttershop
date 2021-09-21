@@ -35,8 +35,11 @@ public class delInsertFormServlet extends HttpServlet {
 		int pno = Integer.parseInt(request.getParameter("pNo"));
 		
 		System.out.println("운송장번호 입력 ~~ " + pno);
-		
+		//운송장번호 등록
 		SoldList s = new SellerService().selectSoldInfo(pno);
+		
+		//상태 변경
+		
 		
 		request.setAttribute("s", s);
 		request.getRequestDispatcher("views/seller/delNoInertForm.jsp").forward(request, response);
