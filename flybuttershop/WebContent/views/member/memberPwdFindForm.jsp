@@ -102,7 +102,7 @@
 				</tr>
 				<tr>
 					<td>* 이메일</td>
-					<td><input id ="inputbox" type="text" name="email" placeholder="....@...."></td>
+					<td><input id ="inputbox" type="text" maxlength="15" name="email" placeholder="....@...."></td>
 					<td></td>
 				</tr>
 				<tr>

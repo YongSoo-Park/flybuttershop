@@ -43,6 +43,8 @@ public class LoginServlet extends HttpServlet {
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
 		if(loginUser != null) {
+			
+
 			int userNo = loginUser.getUserNo();
 			String userName = loginUser.getUserName();
 			int lev = loginUser.getLev();
@@ -52,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 
-			if(category == 1) {
+			if(category == 1 && category ==2) {
 				Member consumerInfo = new MemberService().selectCMember(loginUser);
 				if(consumerInfo != null) {
 					 recPno= consumerInfo.getRecPno();
@@ -60,6 +62,8 @@ public class LoginServlet extends HttpServlet {
 				}
 			}
 
+//			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@  category : "+ "["+category+"]");
+//			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@  loginUser : "+ loginUser);
 
 	
 //			com.flybutter.dummy.model.vo.Member loginMember = new com.flybutter.dummy.model.vo.Member(userNo, userName, lev, category, recPno, money);
