@@ -8,6 +8,8 @@ import static com.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 
 import com.flybutter.consumer.model.dao.ConsumerDao;
+import com.flybutter.consumer.model.vo.Consumer;
+import com.flybutter.purchase.model.dao.PurchaseDao;
 
 public class ConsumerService {
 

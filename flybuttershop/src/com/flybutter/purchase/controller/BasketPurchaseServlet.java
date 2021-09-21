@@ -21,6 +21,8 @@ import com.flybutter.product.model.service.ProductService;
 import com.flybutter.product.model.vo.Product;
 import com.flybutter.purchase.model.service.PurchaseService;
 import com.flybutter.purchase.model.vo.Purchase;
+import com.flybutter.seller.model.service.SellerService;
+import com.flybutter.seller.model.vo.Seller;
 
 /**
  * Servlet implementation class BasketPurchaseServlet
@@ -59,6 +61,14 @@ public class BasketPurchaseServlet extends HttpServlet {
 				bList.add(b);
 			};
 			
+		Seller s = new Seller();
+		SellerService ss = new SellerService();
+		ArrayList<Seller> seller = new ArrayList<Seller>();
+			for(int i = 0; i < bList.size();i++) {
+				s=ss.selectStore(bList.get(i).getBasket_Sname());
+				seller.add(s);
+			}
+			
 		//현재 로그인 유저의 정보가져오기
 		Member m = new PurchaseService().selectMember(no);
 		
@@ -93,12 +103,14 @@ public class BasketPurchaseServlet extends HttpServlet {
 		};
 		
 		
+		
 		request.setAttribute("sp", Arrays.toString(salePrice));
 		request.setAttribute("delPrice", delPrice);
 		request.setAttribute("list", list);
 		request.setAttribute("bList", bList);
 		request.setAttribute("consumer", c);
 		request.setAttribute("m", m);
+		request.setAttribute("seller", seller);
 		request.setAttribute("ck", ck);
 		
 		request.getRequestDispatcher("views/purchase/basketPurPage.jsp").forward(request, response);

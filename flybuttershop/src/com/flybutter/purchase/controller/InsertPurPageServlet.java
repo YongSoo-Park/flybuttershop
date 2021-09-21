@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import com.flybutter.basket.model.service.BasketService;
 import com.flybutter.consumer.model.vo.Consumer;
+import com.flybutter.consumerMyPage.model.service.MypageService;
 import com.flybutter.coupon.model.vo.Coupon;
+import com.flybutter.mainpage.model.service.MainPageService;
 import com.flybutter.member.model.vo.Member;
 import com.flybutter.money.model.vo.Money;
 import com.flybutter.product.model.service.ProductService;
@@ -78,9 +80,26 @@ public class InsertPurPageServlet extends HttpServlet {
 		//적립금 가져와 넘겨주기
 		Consumer c = new PurchaseService().selectMoney(no);
 		
+		//할인상품 체크 및 할인가격 넘겨주기
+		int discountRate = new MainPageService().discountRate();
+		double dr = discountRate * 0.01;
+		Product pd = new ProductService().selectUpdateProduct(pCode); 
+		int salePrice = 0;
+		if(pd.getSale_Flag() == 1) {
+			salePrice = (int) (price * dr);
+		}
+		
+		Seller s = new Seller();
+		SellerService ss = new SellerService();
+	
+		s=ss.selectStore(sName);
+
+		
+		request.setAttribute("salePrice", salePrice);
 		request.setAttribute("purInfo", p);
 		request.setAttribute("list", list);
 		request.setAttribute("consumer", c);
+		request.setAttribute("seller", s);
 		request.setAttribute("m", m);
 		request.getRequestDispatcher("views/purchase/purchasePage.jsp").forward(request, response);
 	}
