@@ -110,11 +110,11 @@ public class SellerService {
 	}
 
 
-	public ArrayList<Purchase> soldList(int storeNo) {
+	public ArrayList<SoldList> soldList(PageInfo pi, int storeNo) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Purchase> pList = new SellerDao().soldList(conn, storeNo);
+		ArrayList<SoldList> pList = new SellerDao().soldList(conn, pi, storeNo);
 		
 		close(conn);
 		
@@ -238,6 +238,40 @@ public class SellerService {
 		close(conn);
 		
 		return listCount;
+	}
+
+
+	public int soldListCount(int storeNo) {
+
+		Connection conn = getConnection();
+		
+		int soldListCount = new SellerDao().soldListCount(conn, storeNo);
+		
+		close(conn);
+		
+		return soldListCount;
+	}
+
+
+	public String getpImage(String pCode) {
+
+		Connection conn = getConnection();
+		
+		String pImg = new SellerDao().getpImage(conn, pCode);
+		
+		close(conn);
+		return pImg;
+	}
+
+
+	public String getpName(String pCode) {
+		
+		Connection conn = getConnection();
+		
+		String pName = new SellerDao().getpName(conn, pCode);
+		
+		close(conn);
+		return pName;
 	}
 
 

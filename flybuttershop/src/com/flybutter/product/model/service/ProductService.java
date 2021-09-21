@@ -49,12 +49,12 @@ public class ProductService {
 		return result;
 	}
 
-	public int insertProduct(Product p) {
+	public int insertProduct(Product pi) {
 		
 
 		Connection conn = getConnection();
 		
-		int result = new ProductDao().insertProduct(conn, p);
+		int result = new ProductDao().insertProduct(conn, pi);
 		
 		if(result > 0) {
 			commit(conn);
@@ -134,6 +134,22 @@ public class ProductService {
 		}
 		close(conn);
 		
+		
+		return result;
+	}
+
+	public int updateProduct(Product pi) {
+
+		Connection conn = getConnection();
+		
+		int result = new ProductDao().updateProduct(conn, pi); 
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
 		
 		return result;
 	}

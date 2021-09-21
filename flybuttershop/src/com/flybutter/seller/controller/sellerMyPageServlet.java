@@ -42,6 +42,7 @@ public class sellerMyPageServlet extends HttpServlet {
 	      
 	      RequestDispatcher view = null;
 	      
+	      
 	      if(seller != null) {
 	         request.setAttribute("seller", seller);
 	         view = request.getRequestDispatcher("views/seller/sellerMyPage.jsp");

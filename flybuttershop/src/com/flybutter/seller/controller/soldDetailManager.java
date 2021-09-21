@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flybutter.product.model.service.ProductService;
 import com.flybutter.seller.model.service.SellerService;
 import com.flybutter.seller.model.vo.SoldList;
 
@@ -54,7 +55,10 @@ public class soldDetailManager extends HttpServlet {
 	            
 	            temp2=temp1[i].split(":");
 	            
-	            sList.add(new SoldList(temp2[0],temp2[1],temp2[2],temp2[3], temp2[4]));
+	            String pImage = new SellerService().getpImage(temp2[0]);
+	            String pName = new SellerService().getpName(temp2[0]);
+	            
+	            sList.add(new SoldList(pImage, pName, temp2[0],temp2[1],temp2[2],temp2[3], Integer.parseInt(temp2[4])));
 	            
 	         }
 		}    
