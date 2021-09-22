@@ -18,14 +18,14 @@ import com.flybutter.member.model.vo.Member;
 /**
  * Servlet implementation class HelpListServlet
  */
-@WebServlet("/list.help")
-public class HelpListServlet extends HttpServlet {
+@WebServlet("/listAll.help")
+public class HelpAllListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HelpListServlet() {
+    public HelpAllListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -65,22 +65,13 @@ public class HelpListServlet extends HttpServlet {
 				
 				PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 				
-				Member m = (Member) request.getSession().getAttribute("loginMember");	
-				
-				if(m != null) {
+			
 					
-					int userNo = m.getUserNo();
-					
-					ArrayList<Help> list = new HelpService().helpSelectList(pi, userNo);
+					ArrayList<Help> list = new HelpService().helpSelectAllList(pi);
 				
 					request.setAttribute("list", list);
 					request.setAttribute("pi", pi);
-					request.getRequestDispatcher("views/help/helpList.jsp").forward(request, response);
-				}else {
-					
-					request.setAttribute("msg", "로그인이 필요한 서비스 입니다.");
-					request.getRequestDispatcher("views/member/loginPage.jsp").forward(request, response);
-				}
+					request.getRequestDispatcher("views/help/helpAllList.jsp").forward(request, response);
 				
 				
 	

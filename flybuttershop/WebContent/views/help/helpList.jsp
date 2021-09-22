@@ -12,6 +12,9 @@ int currentPage = pi.getCurrentPage();
 int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
+
+
+
 %>
 
 
@@ -34,55 +37,10 @@ int endPage = pi.getEndPage();
 
 
 <style type="text/css">
-#cslogo {
-	font-weight: bold;
-}
-
-#container { 
-	background-color: lightgray;
-	width: 1200px;
-	height: 70px;
-	padding: 10px;
-}
-
-#container1 {
-	width: 1200px;
-	height: 60px;
-	padding: 10px;
-}
-
-#searchbar {
-	margin-right: 0px;
-	padding-right: 0px;
-	width: 600px;
-}
-
-#livechat {
-	align: right;
-}
-
-.cs {
-	margin-left: 20px;
-}
-
-.search {
-	margin-left: 40px;
-	margin-right: 0px;
-	display: inline-flex;
-}
-
-.live {
-	margin-left: 40px;
-}
-
-.searchbtn {
-	margin-left: 0px;
-}
-
 
 .outer {
 	width: 1200px;
-	height: 500px;
+	height: auto;
 	color: black;
 	margin: auto;
 	margin-top: 50px;
@@ -119,20 +77,22 @@ int endPage = pi.getEndPage();
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
-					 <th width="100">번호</th>
-					<th width="100">제목</th>
-					<th width="300">날짜</th>
-			
+					 <th width="150">번호</th>
+					<th width="900">제목</th>
+					<th width="150">날짜</th>
+				<th style="visibility:hidden;" width="0">유저</th>
 				</tr>
 			</thead>
 			<tbody>
 				
 				 <% if(list.isEmpty()){ %>
 				 	<tr>
-						<td colspan="5">존재하는 공지사항이 없습니다.</td>
+						<td colspan="4">존재하는 공지사항이 없습니다.</td>
 					</tr>
 				 <% }else{  %>
 				 	<% for(Help h : list){ %>
+				 	
+				 		
 				 		<tr>
 				 			<td ><%= h.getHelp_No()%></td>
 				 			<td><%= h.getHelp_Title() %></td>
@@ -146,23 +106,11 @@ int endPage = pi.getEndPage();
 			
 		</table>
 	
-		<br><br>
-		<div align="center">
-			
-			<button onclick="goHelpInsertForm();">문의글작성</button> 
-	
-		</div>
+		
+		
 	
 	<script>
 		
-
-	
-		
-		
-	
-		function goHelpInsertForm(){
-			location.href="<%=request.getContextPath()%>/insertForm.help";
-		}
 		<%if(!list.isEmpty()){%>
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){
@@ -208,6 +156,8 @@ int endPage = pi.getEndPage();
 		
 			<!-- 맨 끝으로 (>>) -->
 			<button onclick="location.href='<%=request.getContextPath()%>/list.help?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
+			
+
 		</div> 
 		
 	
@@ -225,11 +175,12 @@ int endPage = pi.getEndPage();
 		
 		
 		
-		
-		
+					
+<jsp:include page="../header_footer/footer.jsp" flush="true"/>
+			
+	</div>	
 	</section>
 
-<jsp:include page="../header_footer/footer.jsp" flush="true"/>
 
 
 </body>

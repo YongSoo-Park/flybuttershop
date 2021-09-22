@@ -23,7 +23,7 @@
 <style>
 	.outer {
 	width: 1200px;
-	height: 1500px;
+	height: auto;
 	color: black;
 	margin: auto;
 	margin-top: 50px;
@@ -34,11 +34,11 @@
 	 
 	.outer>table{
 		width:1200px;
-		height:1000px;
+		height:auto;
 	}
 	
 	.outer>table p{
-		height:230px;
+		height:auto;
 		margin:0;
 	}
 </style>
@@ -54,15 +54,15 @@
 	
 		<table align="center">
 			<tr>
-				<td>카테고리</td>
-				<td><%= f.getFaq_Category() %></td>
-				<td>제목</td>
-				<td colspan="3"><%= f.getFaq_Title()%></td>
+				<td width="150" align="center" >카테고리</td>
+				<td width="100" align="center"><%= f.getFaq_Category() %></td>
+				<td width="150" align="center">제목</td>
+				<td width="800"><%= f.getFaq_Title()%></td>
 				
 			</tr>
 			
 			<tr>
-					<td colspan="6">내용
+					<td colspan="4">
 					<p><%= f.getFaq_Content() %></p>
 				</td>
 			</tr>

@@ -60,7 +60,7 @@
 				<td><%= n.getNotice_Date() %></td>
 			</tr>
 			<tr>
-				<td colspan="6">
+				<td colspan="6" style="height: auto">
 					<% if(n.getNotice_File_System() != null){ %>
 					<div class="detailImgArea" align="center">
 						<img width="600px" height="450px" src="<%=request.getContextPath()%>/resources/notice_file/<%=n.getNotice_File_System()%>"><br>
@@ -73,7 +73,7 @@
 				
 			</tr>	
 			<tr>
-					<td colspan="6">내용
+					<td colspan="6" style="height: auto">내용
 					<p><%= n.getNotice_Content() %></p>
 				</td>
 			</tr>

@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, com.flybutter.notice.model.vo.*"%>
-
+	import="java.util.ArrayList, com.flybutter.help.model.vo.*"%>
+<%@ page import="com.flybutter.member.model.vo.Member" %>
 <%
-ArrayList<Notice> list = (ArrayList<Notice>) request.getAttribute("list");
+Member loginUser = (Member)session.getAttribute("loginMember");
+ArrayList<Help> list = (ArrayList<Help>) request.getAttribute("list");
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 
 int listCount = pi.getListCount();
@@ -11,6 +12,9 @@ int currentPage = pi.getCurrentPage();
 int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
+
+
+
 %>
 
 
@@ -33,56 +37,10 @@ int endPage = pi.getEndPage();
 
 
 <style type="text/css">
-#cslogo {
-	font-weight: bold;
-}
-
-#container { 
-	background-color: lightgray;
-	width: 1200px;
-	height: 70px;
-	padding: 10px;
-}
-
-#container1 {
-	width: 1200px;
-	height: 60px;
-	padding: 10px;
-}
-
-#searchbar {
-	margin-right: 0px;
-	padding-right: 0px;
-	width: 600px;
-}
-
-#livechat {
-	align: right;
-}
-
-.cs {
-	margin-left: 20px;
-}
-
-.search {
-	margin-left: 40px;
-	margin-right: 0px;
-	display: inline-flex;
-}
-
-.live {
-	margin-left: 40px;
-}
-
-.searchbtn {
-	margin-left: 0px;
-}
-
-
 
 .outer {
 	width: 1200px;
-	height: 500px;
+	height: auto;
 	color: black;
 	margin: auto;
 	margin-top: 50px;
@@ -112,51 +70,36 @@ int endPage = pi.getEndPage();
 
 	<section>
 	<jsp:include page="../common/csMenubar.jsp" flush="true"/>
-		
-		<div class="btn-group" id="container1">
-
-
-			<button type="button" class="btn btn-outline-dark"
-				onclick="goEntireNoticeList();">전체</button>
-			<button type="button" class="btn btn-outline-dark"
-				onclick="goNoticeList();">공지</button>
-			<button type="button" class="btn btn-outline-dark"
-				onclick="goEventList();">이벤트</button>
-		</div>
-
 	
-		<hr>
-					
-
 <div class="outer">
 		
 		        
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
-					 <th  width="70">글번호</th>
-					<th width="70">카테고리</th>
-					<th width="400">글제목</th>
+					 <th width="150">번호</th>
+					<th width="900">제목</th>
+					<th width="150">날짜</th>
+				<th style="visibility:hidden;" width="0">유저</th>
+			
 				</tr>
 			</thead>
 			<tbody>
 				
 				 <% if(list.isEmpty()){ %>
 				 	<tr>
-						<td colspan="5">존재하는 공지사항이 없습니다.</td>
+						<td colspan="4">존재하는 공지사항이 없습니다.</td>
 					</tr>
 				 <% }else{  %>
-				 	<% for(Notice n : list){ %>
-				 		<tr>
+				 	<% for(Help h : list){ %>
+				 	
 				 		
-				 			<td><%= n.getNotice_No() %></td>
-				 			<% if(n.getNotice_Category() == 1){ %>
-				 			<td>[공지]</td>
-				 			 <% }else if(n.getNotice_Category() == 2){  %>
-				 			 <td>[이벤트]</td>
-				 			 <% } %>
-							<td><%= n.getNotice_Title() %></td>
-							
+				 		<tr>
+				 			<td ><%= h.getHelp_No()%></td>
+				 			<td><%= h.getHelp_Title() %></td>
+							<td><%= h.getHelp_Date() %></td>
+							<td style="visibility:hidden;" ><%= h.getUser_No() %></td>
+					
 				 		</tr>
 				 	<% } %>
 				 <% } %>
@@ -166,34 +109,21 @@ int endPage = pi.getEndPage();
 	
 		
 		
-						
+	
 	<script>
-		
-
-		function goEntireNoticeList(){
-			location.href="<%=request.getContextPath()%>/entireList.no";
-		}
-		function goNoticeList(){
-			location.href="<%=request.getContextPath()%>/noticeList.no";
-		}
-		function goEventList(){
-			location.href="<%=request.getContextPath()%>/eventList.no";
-			}
-		function goEntireNoticeList(){
-			location.href="<%=request.getContextPath()%>/entireList.no";
-		}
 		
 		<%if(!list.isEmpty()){%>
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){
 				var no = $(this).children().eq(0).text();
-				location.href="<%= request.getContextPath()%>/detail.no?no="+no;
+				location.href="<%= request.getContextPath()%>/detail.help?no="+no;
 			})
 		})
 		<%}%>
 		
 		</script>
-			<br><br>
+		
+		<br><br>
 		
 		<!-- 페이징바 만들기 -->
 		<div class="pagingArea" align="center">
@@ -234,17 +164,22 @@ int endPage = pi.getEndPage();
 		<%if(!list.isEmpty()){%>
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){
-				var bno = $(this).children().eq(0).text();
-				location.href="<%= request.getContextPath()%>/detail.no?no="+no;
+				var no = $(this).children().eq(0).text();
+				location.href="<%= request.getContextPath()%>/detail.help?no="+no;
 			})
 		})
 		<%}%>
 	</script>
 		
+		
+		
+		
+		
+		
 	</section>
 
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
-
+</div>
 
 </body>
 </html>

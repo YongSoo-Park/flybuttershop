@@ -36,42 +36,7 @@ public class HelpDao {
 		}
 	}
 	
-	public ArrayList<Help> helpSelectList(Connection conn, PageInfo pi) {
-		ArrayList<Help> list = new ArrayList<Help>();
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("helpSelectList");
-		
-		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-		int endRow = startRow + pi.getBoardLimit()-1;
-
-		//helpSelectList=SELECT HELP_NO, HELP_TITLE, HELP_DATE FROM HELP
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Help(rset.getInt("HELP_NO"),
-									rset.getString("HELP_TITLE"),
-									rset.getDate("HELP_DATE")));
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt); 
-		
-		}
 	
-		return list;
-	}
 
 	public Help selectHelp(Connection conn, int no) {
 		Help h = null;
@@ -137,7 +102,7 @@ public class HelpDao {
 				pstmt.setString(4, h.getHelp_Content());
 				pstmt.setString(5, h.getHelp_File_Origin());
 				pstmt.setString(6, h.getHelp_File_System());
-				
+				System.out.println("userNO dao : " + h.getUser_No());
 			
 				
 				result = pstmt.executeUpdate();
@@ -453,6 +418,88 @@ public class HelpDao {
 		}
 		
 		return result;
+	}
+
+
+
+	public ArrayList<Help> helpSelectList(Connection conn, PageInfo pi, int userNo) {
+		ArrayList<Help> list = new ArrayList<Help>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("helpSelectList");
+		System.out.println("helpSelectList sql : " + sql);
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
+
+		//helpSelectList=SELECT HELP_NO, USER_NO, HELP_TITLE, HELP_DATE FROM HELP WHERE USER_NO=?
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			System.out.println("userNo : " + userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Help(rset.getInt("HELP_NO"),
+						rset.getInt("USER_NO"),
+									rset.getString("HELP_TITLE"),
+									rset.getDate("HELP_DATE")));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt); 
+		
+		}
+	System.out.println("============dao list : " + list);
+		return list;
+	}
+
+
+
+	public ArrayList<Help> helpSelectAllList(Connection conn, PageInfo pi) {
+ArrayList<Help> list = new ArrayList<Help>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("helpSelectAllList");
+		System.out.println("helpSelectAllList sql : " + sql);
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
+
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Help(rset.getInt("HELP_NO"),
+						rset.getInt("USER_NO"),
+									rset.getString("HELP_TITLE"),
+									rset.getDate("HELP_DATE")));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt); 
+		
+		}
+	System.out.println("============dao list : " + list);
+		return list;
 	}
 
 	 

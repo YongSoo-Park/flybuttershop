@@ -125,7 +125,7 @@ int endPage = pi.getEndPage();
 				onclick="goFAQOrderList();">주문/결제</button>
 			<button type="button" class="btn btn-outline-dark"
 				onclick="goFAQMemberList();">회원서비스</button>
-			<% if(loginUser.getUserNo() == 0 || loginUser.getUserNo() == 2){ %>  
+			<% if(loginUser.getUserNo() == 0 || loginUser.getCategory() == 2){ %>  
 			<button type="button" class="btn btn-outline-dark"
 				onclick="goFAQSellerList();">판매자문의</button>
 				
@@ -142,9 +142,9 @@ int endPage = pi.getEndPage();
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
-					 <th style="visibility:hidden;" width="100">글번호</th>
-					<th width="100">카테고리</th>
-					<th width="300">글제목</th>
+					 <th  width="150">글번호</th>
+					<th width="150">카테고리</th>
+					<th width="900">글제목</th>
 			
 				</tr>
 			</thead>
@@ -157,7 +157,7 @@ int endPage = pi.getEndPage();
 				 <% }else{  %>
 				 	<% for(FAQ f : list){ %>
 				 		<tr>
-				 			<td style="visibility:hidden;" ><%= f.getFaq_No() %></td>
+				 			<td  ><%= f.getFaq_No() %></td>
 				 				 <td>[회원서비스]</td>
 							<td><%= f.getFaq_Title() %></td>
 					

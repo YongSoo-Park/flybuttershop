@@ -76,7 +76,7 @@
 </head>
 <body style="margin: 0 auto">
 
-	<div class="container" id="container">
+<!-- 	<div class="container" id="container">
 
 		<form class="form-inline">
 			<div class="cs">
@@ -95,6 +95,7 @@
 			
 		</form>
 	</div>
+ -->
 	<script>
 		
 		
@@ -113,13 +114,15 @@
 	<% if(loginUser.getUserNo() == 0){ %>  
 		<button type="button" class="btn btn-outline-dark"
 			onclick="goNoticeWrite();">글쓰기</button>
-		
+		<button type="button" class="btn btn-outline-dark"
+			onclick="goHelpAllList();">문의내역</button>
 	<%}else { %>  
 		<button type="button" class="btn btn-outline-dark"
 			onclick="goHelpWrite();">1대1문의</button>
-	<%} %> 
 		<button type="button" class="btn btn-outline-dark"
 			onclick="goHelpList();">문의내역</button>
+	<%} %> 
+		
 	</div>
 
 	<script>
@@ -150,10 +153,13 @@
 			location.href="<%=request.getContextPath()%>/deliveryList.faq";
 		}
 		function goHelpWrite(){
-			location.href="<%=request.getContextPath()%>/write.help";
+			location.href="<%=request.getContextPath()%>/insertForm.help";
 		}
 		function goNoticeWrite(){
 			location.href="<%=request.getContextPath()%>/insertForm.no";
+		}
+		function goHelpAllList(){
+			location.href="<%=request.getContextPath()%>/listAll.help";
 		}
 		function goHelpList(){
 			location.href="<%=request.getContextPath()%>/list.help";

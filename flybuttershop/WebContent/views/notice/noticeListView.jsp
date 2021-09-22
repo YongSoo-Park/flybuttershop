@@ -134,9 +134,9 @@ int endPage = pi.getEndPage();
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
-					 <th style="visibility:hidden;" width="100">글번호</th>
-					<th width="100">카테고리</th>
-					<th width="300">글제목</th>
+					 <th  width="70">글번호</th>
+					<th width="70">카테고리</th>
+					<th width="400">글제목</th>
 			
 				</tr>
 			</thead>
@@ -150,7 +150,7 @@ int endPage = pi.getEndPage();
 				 	<% for(Notice n : list){ %>
 				 		<tr>
 				 		
-				 			<td style="visibility:hidden;" ><%= n.getNotice_No() %></td>
+				 			<td ><%= n.getNotice_No() %></td>
 				 			<% if(n.getNotice_Category() == 1){ %>
 				 			<td>[공지]</td>
 				 			 <% }else if(n.getNotice_Category() == 2){  %>
