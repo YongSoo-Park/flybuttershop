@@ -47,15 +47,10 @@ public class HelpInsertServlet extends HttpServlet {
 			Member m = (Member) request.getSession().getAttribute("loginMember");
 			if (m != null) {
 
-				int userNo = m.getUserNo();
-				System.out.println("userNo servlet : " + userNo);
-
+				int userNo = m.getUserNo();		
 				int category = Integer.parseInt(multiRequest.getParameter("category"));
 				String title = multiRequest.getParameter("title");
-				String content = multiRequest.getParameter("content");
-
-				// int userNo =
-				// ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+				String content = multiRequest.getParameter("content");	
 
 				Help h = new Help();
 				h.setHelp_Category(category);
@@ -68,7 +63,6 @@ public class HelpInsertServlet extends HttpServlet {
 
 					h.setHelp_File_Origin(originName);
 					h.setHelp_File_System(changeName);
-
 				}
 
 				int result = new HelpService().insertHelp(h);
@@ -81,14 +75,10 @@ public class HelpInsertServlet extends HttpServlet {
 						File failedFile = new File(h.getHelp_File_Origin() + h.getHelp_File_System());
 						failedFile.delete();
 					}
-
 					request.setAttribute("msg", "문의글이 등록되지 않았습니다.");
-
 					RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 					view.forward(request, response);
-
-				}
-			
+				}		
 
 		} else {
 			request.setAttribute("msg", "로그인이 필요한 서비스 입니다.");

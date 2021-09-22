@@ -23,7 +23,7 @@
 <style>
 	.outer {
 	width: 1200px;
-	height: 1500px;
+	height: auto;
 	color: black;
 	margin: auto;
 	margin-top: 50px;
@@ -34,11 +34,11 @@
 	 
 	.outer>table{
 		width:1200px;
-		height:1000px;
+		height:auto;
 	}
 	
 	.outer>table p{
-		height:230px;
+		height:auto;
 		margin:0;
 	}
 </style>

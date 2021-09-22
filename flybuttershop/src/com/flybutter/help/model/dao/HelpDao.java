@@ -44,7 +44,8 @@ public class HelpDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectHelp");
-		//selectHelp=SELECT HELP_NO, USER_NO, HELP_CATEGORY, HELP_TITLE, HELP_CONTENT, HELP_FILE_ORIGIN, HELP_FILE_SYSTEM, HELP_DATE, HELP_STATUS FROM HELP WHERE HELP_NO=?
+		//selectHelp=SELECT HELP_NO, USER_NO, HELP_CATEGORY, HELP_TITLE, HELP_CONTENT, 
+		//HELP_FILE_ORIGIN, HELP_FILE_SYSTEM, HELP_DATE, HELP_STATUS FROM HELP WHERE HELP_NO=?
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
