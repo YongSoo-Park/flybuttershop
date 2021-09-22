@@ -15,7 +15,7 @@ int delPrice = 0;
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-<title>Insert title here</title>
+<title>장바구니</title>
 <link rel="stylesheet" href="resources/css/BasketList.css?afterw">
 </head>
 <body style="margin: 0 auto">
@@ -77,8 +77,8 @@ int delPrice = 0;
                      	<td id="amount" style="visibility:hidden;"><%=b.getbAmount()%></td>
                         <td id="bt4"><%=b.getbOption()%> / <%=b.getbAmount()%>개 <br> 
                         <td id="bt5"><%=shipPrice%>원</td>
-                        <td id="bt6"><%=b.getPrice()%>원</td>
-                        <%sumPrice += b.getPrice(); delPrice += shipPrice; %>
+                        <td id="bt6"><%=b.getPrice() * b.getbAmount()%>원</td>
+                        <%sumPrice += b.getPrice() * b.getbAmount(); delPrice += shipPrice; %>
                     </tr>
                 	<%}%>
                 	<%} %>
@@ -189,7 +189,7 @@ int delPrice = 0;
    				return false;
    			}
    			
-   			var confirm_val = confirm(cnt+"개의 상품이 선택되었습니다. 주문하시겠습니까?");
+   			var confirm_val = confirm(cnt+"종의 상품이 선택되었습니다. 주문하시겠습니까?");
        	 
    	        if (confirm_val) {
    	        	

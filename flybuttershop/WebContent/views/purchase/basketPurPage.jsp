@@ -1,6 +1,6 @@
 <%@page import="com.sun.javafx.geom.CubicApproximator"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, 
+    pageEncoding="UTF-8" import="java.util.ArrayList, java.util.Arrays,
     com.flybutter.member.model.vo.*, com.flybutter.consumer.model.vo.*, com.flybutter.coupon.model.vo.*,
     com.flybutter.basket.model.vo.*, com.flybutter.seller.model.vo.*"%>
 <%
@@ -11,17 +11,15 @@ ArrayList<Basket> bList = (ArrayList<Basket>) request.getAttribute("bList");
 ArrayList<Seller> seller = (ArrayList<Seller>) request.getAttribute("seller");
 Member m = (Member)request.getAttribute("m");
 String[] sp = ((String)request.getAttribute("sp")).split("[\\[\\]]")[1].split(", ");
+
 int delPrice = (int)request.getAttribute("delPrice");
 int sumPrice = 0;
 int shipPrice = 0;
-int lastPrice = 0;
-int couponDc = 0;
-int moneyDc = 0;
+int productPrice = 0;
 String ck = (String)request.getAttribute("ck");
-
 String res="";
-
-
+int resultPrice = 0;
+String pName = "";
 int z = 0;
 String purInfo = "";
 for(Basket b : bList){
@@ -30,13 +28,23 @@ for(Basket b : bList){
 		purInfo+="/";
 	z++;
 }
+int q = 0;
+int base = 0;
+int salePrice = 0;
+int a = 0;
+for(Basket b : bList){
+	base = Integer.parseInt(sp[q]) * b.getbAmount();
+	salePrice += base;
+	q++;
+}
+int bAmo = bList.size();
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/BasketPur.css?afterw">
+<title>장바구니 주문</title>
+<link rel="stylesheet" href="resources/css/BasketPur.css?afterww">
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body style="margin: 0 auto">
@@ -71,18 +79,25 @@ for(Basket b : bList){
           }else if(b.getPrice() >= 50000){
              shipPrice = 0;
           }%>
+          <%productPrice = ((b.getPrice() * b.getbAmount()) - Integer.parseInt(sp[j]) * b.getbAmount()); %>
         <td id="pt1"> <img id="pImg" src="${pageContext.request.contextPath}<%=b.getBasket_PImg()%>"/></td>
         <td id="pt2"><%=b.getBasket_Pname() %></td> 
         <td id="pt3"><%=b.getBasket_Sname()%></td>
          <td id="pt4"><%=shipPrice%>원</td>
          <td id="pt5"><%=b.getbAmount() %>개</td>
-         <td id="pt6"><%=sp[j]%>원</td>
-         <td id="pt7"><%=b.getPrice()%>원</td>
-         <%sumPrice += b.getPrice();
+         <td id="pt6"><%=Integer.parseInt(sp[j]) * b.getbAmount()%>원</td>
+         <td id="pt7"><%=productPrice%>원</td>
+         <%
+         sumPrice += productPrice;
+         System.out.println(b.getPrice() * b.getbAmount());
          j++;%>
+         <%pName = b.getBasket_Pname(); 
+         %>
      </tr>
      <%} %>
-
+		<%resultPrice = sumPrice + delPrice; %>
+		<input type="hidden" name="pName" value="<%=pName%>">
+		<input type="hidden" name="bAmo" value="<%=bAmo%>">
   </table>
   </div>
   <div id="ship">
@@ -105,24 +120,25 @@ for(Basket b : bList){
   		<h4 class="text2">쿠폰 할인</h4>
   		<label id="lb1">사용가능 쿠폰</label>	
   		
+  		<input type="hidden" name="resultPrice" value="<%=resultPrice%>">
   		<input type="hidden" name="checkArr" value="<%=ck%>">
   		<input type="hidden" name="delPrice" value="<%=delPrice%>">
   		<input type="hidden" name="purInfo" value="<%=purInfo %>">
   		<input type="hidden" name="couponNum" value="-1">
-  		<input type="hidden" name="moneyVal" value="-1">
+  		<input type="hidden" name="moneyVal" value="0">
   		<table id="ct">		
   	
   			<%
   			if(list.size() < 1) { 
   			%>
   			<tr>
-  				<td><label>사용할 수 있는 쿠폰이 없습니다.</label></td>
+  				<td><label id="noUseC">사용할 수 있는 쿠폰이 없습니다.</label></td>
   			</tr>
   		<% 	}else{
   		int i = 0;%>
   			<%for(Coupon cu : list) {
   			
-  				if(cu.getMinPrice() > sumPrice) {%>
+  				if(cu.getMinPrice() <= sumPrice) {%>
   			<tr>
   				<td id="ctd1"><%=cu.getCp_name() %></td>
   				<td id="ctd3"><button type="button" id="cub" value="<%=i %>" name="coupon" style="cursor:pointer;" 
@@ -130,11 +146,11 @@ for(Basket b : bList){
   				<input type="hidden" id="discount<%=i%>" value="<%= (int)cu.getCp_discount()%>">
   				<% i++;%>
   			</tr>
-  			<%}else if(cu.getMinPrice() <= sumPrice) {%>
+  			<%}else if(cu.getMinPrice() > sumPrice) {%>
   				<tr>
   				<td id="ctd1"><%=cu.getCp_name() %></td>
   				<td id="ctd3"><button type="button" disabled value='사용불가' id="cub" value="<%=i %>" name="coupon" style="cursor:pointer;" 
-  				onclick="useCoupon(this.value)"></button></td>
+  				onclick="useCoupon(this.value)">사용불가</button></td>
   				<% i++;%>
   			</tr>
   				<%} %>
@@ -147,7 +163,7 @@ for(Basket b : bList){
   			<tr>
   				<td id="mtd1"><%=c.getMoney() %>원</td>
   				<td><input type="text" id="inputMoney" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
-  				<td><button type="button" onclick="useMoney(this.value)" value="<%=c.getMoney() %>">사용</button></td>
+  				<td><button type="button" id="mBtn" onclick="useMoney(this.value)" value="<%=c.getMoney() %>">사용</button></td>
   			</tr>
   		</table>
   		<h3 class="text1">결제수단</h3>
@@ -217,9 +233,9 @@ for(Basket b : bList){
   		<h4 class="text3" id="tt2"><%=m.getPhone() %></h4>
   		<h4 class="text3" id="tt2"><%=m.getEmail() %></h4>
   		<h3 class="text1" id="tt3">결제 상세</h3>
-  		<label class="text2" id="tt3">주문금액<b id="b1">n원</b></label><br>
-  		<input type="hidden" name="resultPrice" value="<%=sumPrice%>">
-  		<label class="text3" id="tt4">상품금액<b id="b2"><%=sumPrice %>원</b></label><br>
+  		
+  		<input type="hidden" name="sumPrice" id="sumPrice" value="<%=sumPrice%>">
+  		<label class="text3" id="tt4">상품금액<b id="b2" ><%=sumPrice %>원</b></label><br>
   		<label class="text3" id="tt5">배송비<b id="b3"><%=delPrice%>원</b></label><br>
   		<label class="text3" id="tt6">쿠폰할인<b id="bcu" name="bmo">0원</b></label><br>
   		<label class="text3" id="tt7">적립금사용<b id="bmo" name="bmo">0원</b></label>
@@ -285,7 +301,9 @@ for(Basket b : bList){
             var dc = document.getElementById("bcu");
             var name = "discount"+no;
             dc.innerText = document.getElementById(name).value+"원";
+            
             $('input[name=couponNum]').attr('value',no);
+           
             return true;
     	}else{
     		return false;
@@ -300,7 +318,9 @@ for(Basket b : bList){
     			return false;
     		}else{
     			 var dc = document.getElementById("bmo");
+    			 var origin = $('#sumPrice').val();
     			 dc.innerText = valueMoney+"원";
+    			 
     			 $('input[name=moneyVal]').attr('value',valueMoney);
     		}
        return true;

@@ -1,6 +1,7 @@
 package com.flybutter.purchase.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -44,6 +45,8 @@ public class BasketPurchaseServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=utf-8"); 
+	try {
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
 			
 		int no = loginM.getUserNo();
@@ -73,7 +76,8 @@ public class BasketPurchaseServlet extends HttpServlet {
 		Member m = new PurchaseService().selectMember(no);
 		
 		//쿠폰에서 가져와 넘겨주기
-		ArrayList<Coupon> list = new PurchaseService().selectCoupon(no);
+		int use = 0;
+		ArrayList<Coupon> list = new PurchaseService().selectCoupon(no, use);
 		
 		//적립금 가져와 넘겨주기
 		Consumer c = new PurchaseService().selectMoney(no);
@@ -102,7 +106,7 @@ public class BasketPurchaseServlet extends HttpServlet {
 			j++;
 		};
 		
-		
+	
 		
 		request.setAttribute("sp", Arrays.toString(salePrice));
 		request.setAttribute("delPrice", delPrice);
@@ -115,7 +119,13 @@ public class BasketPurchaseServlet extends HttpServlet {
 		
 		request.getRequestDispatcher("views/purchase/basketPurPage.jsp").forward(request, response);
 		
+	}catch(NullPointerException e) {
 		
+		PrintWriter out = response.getWriter();
+		out.println("<script charset='utf-8'> alert('로그인 후 이용해주세요.'); location.href='mainpage.ma';</script>");
+		
+		out.flush();
+	}
 	}
 
 	/**

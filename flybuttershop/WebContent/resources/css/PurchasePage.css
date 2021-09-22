@@ -322,3 +322,13 @@
 #newi{
 	 width: 500px;
 }
+#mBtn{
+	position: relative;
+	left: -90px;
+}
+#noUseC{
+	position: relative;
+	top: 7px;
+	left: 10px;
+	color: gray;
+}
