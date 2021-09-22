@@ -198,7 +198,7 @@ function deleteProduct(){
 		<div class="topInfo">
 		<table border="1">
         <tr>
-            <td colspan="2" rowspan="11" class="pimage"><img src="${pageContext.request.contextPath}${requestScope.p.pImage_Origin}"></td>
+            <td colspan="2" rowspan="11" class="pimage"><img src="${pageContext.request.contextPath}${requestScope.p.pImage_Origin}" width="400px"></td>
             <td class="index">상품코드</td>
              <td class="info" name="pCode" value="<%=p.getpCode() %>"><%=p.getpCode() %></td>
         </tr>
@@ -244,7 +244,7 @@ function deleteProduct(){
         </tr>
         <tr>
         	<td colspan="4" class="infoImg">
-        		<img src="${pageContext.request.contextPath}${requestScope.p.pExp_Image_Origin}">
+        		<img src="${pageContext.request.contextPath}${requestScope.p.pExp_Image_Origin}" width="600px">
         	</td>
         </tr>
         

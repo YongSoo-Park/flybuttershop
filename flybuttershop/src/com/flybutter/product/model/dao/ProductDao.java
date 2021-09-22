@@ -310,8 +310,8 @@ public class ProductDao {
 								  rset.getDate("QNA_DATE"),
 								  rset.getString("QNA_STATUS"),
 								  rset.getInt("LOCK_FLAG"),
-								  rset.getInt("QNA_PWD")
-								  
+								  rset.getInt("QNA_PWD"),
+								  rset.getString("MEM_USER_ID")
 								  ));
 			}
 			

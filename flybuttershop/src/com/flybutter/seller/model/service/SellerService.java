@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import com.flybutter.product.model.vo.PageInfo;
 import com.flybutter.product.model.vo.Product;
-import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.qna.model.vo.Qna;
 import com.flybutter.review.model.vo.Review;
 import com.flybutter.seller.model.dao.SellerDao;
@@ -180,31 +179,7 @@ public class SellerService {
 		return s;
 	}
 
-
-	public SoldList updateDel(int pno, int delNo) {
-		
-		Connection conn = getConnection();
-		
-		SoldList updateDel = null;
-		
-		int result = new SellerDao().updateDel(conn, pno, delNo);
-		
-		if(result > 0) {
-			
-			commit(conn);
-			updateDel = new SellerDao().selectSoldInfo(conn, pno);
-			
-			System.out.println("송장 업데이트         : " + updateDel);
-			
-		}else {
-			rollback(conn);
-		}
-		close(conn);	
-		
-		return updateDel;
-	}
-
-
+	
 	public int productQnaListCount(String pcode) {
 		
 		Connection conn = getConnection();
@@ -273,6 +248,112 @@ public class SellerService {
 		close(conn);
 		return pName;
 	}
+
+
+	public int cancelPurchase(int pno, String result) {
+
+		Connection conn = getConnection();
+		
+		int cancelPur = new SellerDao().cancelPurchase(conn, pno, result);
+		
+		if(cancelPur > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return cancelPur;
+	}
+
+
+	public int updateDel(int pno, int delNo, String result) {
+
+		Connection conn = getConnection();
+		
+		int updateDel = new SellerDao().updateDel(conn, pno, delNo, result);
+		
+		if(updateDel > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateDel;
+	}
+
+
+	public int confirmPurchase(int pno, String result) {
+		
+		Connection conn = getConnection();
+		
+		int confirm = new SellerDao().confirmPurchase(conn, pno, result);
+		
+		if(confirm > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return confirm;
+	}
+
+
+	public int refundPurchase(int pno, String result) {
+		
+		Connection conn = getConnection();
+		
+		int refund = new SellerDao().refundPurchase(conn, pno, result);
+		
+		if(refund > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return refund;
+	}
+
+
+	public int updateSumPrice(int userNo, int price) {
+		Connection conn = getConnection(); 
+
+		int result = new SellerDao().updateSumPrice(conn, userNo, price); 
+
+		if(result == 1) { 
+		commit(conn);
+		}else { 
+		rollback(conn); 
+	
+		} 
+		close(conn); 
+
+		return result; 
+
+	}
+	
+	public int updateMoney(int userNo, double d, int purNo) { 
+		Connection conn = getConnection(); 
+		
+		int result = new SellerDao().updateMoney(conn, userNo, d, purNo); 
+
+		if(result == 1) { 
+		commit(conn); 
+		 }else { 
+			 rollback(conn); 
+		} 
+		close(conn); 
+
+		return result; 
+		}
+
+
+
+
+
 
 
 }

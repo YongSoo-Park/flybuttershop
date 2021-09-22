@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.common.ProductFileRenamePolicy;
 import com.flybutter.member.model.vo.Member;
 import com.flybutter.product.model.service.ProductService;
@@ -38,53 +40,53 @@ public class productUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//size
-		int maxSize = 10 * 1024 * 1024;
-		System.out.println("maxSize" + maxSize);
+		response.setCharacterEncoding("UTF-8");
 		
-		//path
-		String resources = request.getSession().getServletContext().getRealPath("/resources");
-		String savePath = resources + "\\product\\";
-		System.out.println("savePath : " + savePath);
-		
-		String savePath2 = resources + "\\productExp\\";
-		System.out.println("savePath : " + savePath2);
-		//rename
-		MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new ProductFileRenamePolicy());
+		if (ServletFileUpload.isMultipartContent(request)) {
+			// size
+			int maxSize = 10 * 1024 * 1024;
+			System.out.println("maxSize" + maxSize);
 
-		Product pi = new Product();
-		
-		File tempFile = null;
-		
-		int emptyCount = 0;
-		
-		for(int i = 1; i<=2; i++) {
-			String name = "file"+i;
-			if(multiRequest.getOriginalFileName(name) != null) {
-				String originPimg = multiRequest.getOriginalFileName(name);
-				String changePimg = multiRequest.getFilesystemName(name);
-				
-				pi.setpImage_Origin(savePath+originPimg);
-				pi.setpImage_System(savePath+changePimg);
-				
+			// path
+			String savePath = request.getServletContext().getRealPath("/resources/product");
+			System.out.println("savePath : " + savePath);
 
-				tempFile = new File(savePath+changePimg);
-				tempFile.delete();
-				
-				if(i==2) {
-					String originExpimg = multiRequest.getOriginalFileName(name);
-					String changeExpimg = multiRequest.getOriginalFileName(name);
-					
-					pi.setpExp_Image_Origin(savePath2+originExpimg);
-					pi.setpExp_Image_System(savePath2+changeExpimg);
-					
-					tempFile = new File(savePath2+changeExpimg);
-					tempFile.delete();
+			// rename
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
+					new ProductFileRenamePolicy());
+
+			Product pi = new Product();
+
+			File tempFile = null;
+
+			for (int i = 1; i <= 2; i++) {
+				String name = "file" + i;
+
+				if (i == 1) {
+					if (multiRequest.getOriginalFileName(name) != null) {
+						String originPimg = multiRequest.getOriginalFileName(name);
+						String changePimg = multiRequest.getFilesystemName(name);
+
+						pi.setpImage_Origin("/resources/product/" + changePimg);
+						pi.setpImage_System("/resources/product/" + originPimg);
+
+						tempFile = new File(savePath + originPimg);
+						tempFile.delete();
+					}
+
+				} else if (i == 2) {
+					if (multiRequest.getOriginalFileName(name) != null) {
+						String originExpimg = multiRequest.getOriginalFileName(name);
+						String changeExpimg = multiRequest.getFilesystemName(name);
+
+						pi.setpExp_Image_Origin("/resources/product/" + changeExpimg);
+						pi.setpExp_Image_System("/resources/product/" + originExpimg);
+
+						tempFile = new File(savePath + originExpimg);
+						tempFile.delete();
+					}
 				}
-			}else {
-				emptyCount++;
 			}
-		}
 		
 		String pCode = multiRequest.getParameter("pCode");
 		String pName = multiRequest.getParameter("pName");
@@ -110,15 +112,17 @@ public class productUpdateServlet extends HttpServlet {
 		
 		int result = new ProductService().updateProduct(pi);
 		
-		if(emptyCount==2) {
-			request.setAttribute("msg", "상품 수정 실패");
+		if(result > 0) {
+			response.sendRedirect("productManager.sl");
+		}else {
+			request.setAttribute("msg", "상품수정 실패");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}
 		
-		response.sendRedirect("productManager.sl");
-		}
-		
+	}
+
+}
 
 	
 	/**

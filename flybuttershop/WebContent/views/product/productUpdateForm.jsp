@@ -4,10 +4,11 @@
 	Product p = (Product)request.getAttribute("p");	
 	
 	String[] category = new String[8];
+	String[] div = new String[8];
 
 	String category1 = String.valueOf(p.getpCategory());
 	switch(category1){
-	case "1": category[0] = "checked"; break;
+	case "1": category[0] = "checked"; div[0]="visible"; break;
 	case "2": category[1] = "checked"; break;
 	case "3": category[2] = "checked"; break;
 	case "4": category[3] = "checked"; break;
@@ -50,25 +51,12 @@
 		margin-left:auto;
 		margin-right:auto;
 	} 
-    div.box{display: none;}
     #productUpdate td:nth-child(1){text-align:right;}
     #productUpdate input{margin:10px;}
     #productUpdate img{margin:10px;}
 </style>
 <script>
-function showDiv(element){
-    
-    var tag = document.getElementsByClassName("box");
 
-    for(var i = 0; i < tag.length; i++){
-        if(element.id+"Box" == tag[i].id){
-            tag[i].style.display = "block";
-        }else{
-            tag[i].style.display = "none"
-        }
-    }
-
-}
 function updateValidate(){
 	if(!(/^[a-z][a-z\d]{3,50}$/i.test($("#productUpdate input[name=pName]").val()))){
 		alert("상품명에는 영어, 한글, 숫자만 입력가능합니다.");
@@ -151,26 +139,28 @@ function updateValidate(){
 			<tr>
 				<td>대분류</td>
 				<td>
-					<input type="radio" class="category1" onclick="showDiv(this);" id="cloth" name="category1" value="1" <%=category[0]%>>1. 의류
-				    <input type="radio" class="category1" onclick="showDiv(this);" id="fancy" name="category1" value="2" <%=category[1] %>>2. 잡화
-				    <input type="radio" class="category1" onclick="showDiv(this);" id="buety" name="category1" value="3" <%=category[2] %>>3. 뷰티
-				    <input type="radio" class="category1" onclick="showDiv(this);" id="food" name="category1" value="4" <%=category[3] %>>4. 식/음료
-				    <input type="radio" class="category1" onclick="showDiv(this);" id="home" name="category1" value="5" <%=category[4] %>>5. 가구
-				    <input type="radio" class="category1" onclick="showDiv(this);" id="digital" name="category1" value="6" <%=category[5] %>>6. 전자기기
-				    <input type="radio" class="category1" onclick="showDiv(this);" id="life" name="category1" value="7" <%=category[6] %>>7. 생필품
-				    <input type="radio" class="category1" onclick="showDiv(this);" id="pet" name="category1" value="8" <%=category[7] %>>8. 반려동물
+					<input type="radio" class="category1" id="cloth" name="category1" value="1" <%=category[0]%>>1. 의류
+				    <input type="radio" class="category1" id="fancy" name="category1" value="2" <%=category[1] %>>2. 잡화
+				    <input type="radio" class="category1" id="buety" name="category1" value="3" <%=category[2] %>>3. 뷰티
+				    <input type="radio" class="category1" id="food" name="category1" value="4" <%=category[3] %>>4. 식/음료
+				    <input type="radio" class="category1" id="home" name="category1" value="5" <%=category[4] %>>5. 가구
+				    <input type="radio" class="category1" id="digital" name="category1" value="6" <%=category[5] %>>6. 전자기기
+				    <input type="radio" class="category1" id="life" name="category1" value="7" <%=category[6] %>>7. 생필품
+				    <input type="radio" class="category1" id="pet" name="category1" value="8" <%=category[7] %>>8. 반려동물
 				</td>
 			</tr>
 			<tr>
 				<td>중분류</td>
 				<td>
-					<div id="clothBox" class="box">
+					<%if(category1.equals("1")){ %>
+					<div id="clothBox" class="box" >
 				        <input type="radio" class="category2" id="1" name="category2" value="1" <%=subCategory[0]%>>1. 여성상의
 				        <input type="radio" class="category2" id="2" name="category2" value="2" <%=subCategory[1]%>>2. 원피스
 				        <input type="radio" class="category2" id="3" name="category2" value="3" <%=subCategory[2]%>>3. 여성하의
 				        <input type="radio" class="category2" id="4" name="category2" value="4" <%=subCategory[3]%>>4. 남성상의
 				        <input type="radio" class="category2" id="5" name="category2" value="5" <%=subCategory[4]%>>5. 남성하의
 				    </div>
+				    <%} else if(category1.equals("2")){ %>
 				    <div id="fancyBox" class="box">
 				        <input type="radio" class="category2" id="1" name="category2" value="1" <%=subCategory[0]%>>1. 모자
 				        <input type="radio" class="category2" id="2" name="category2" value="2" <%=subCategory[1]%>>2. 가방
@@ -178,6 +168,7 @@ function updateValidate(){
 				        <input type="radio" class="category2" id="4" name="category2" value="4" <%=subCategory[3]%>>4. 신발
 				        <input type="radio" class="category2" id="5" name="category2" value="5" <%=subCategory[4]%>>5. 벨트
 				    </div>
+				    <%} else if(category1.equals("3")){ %>
 				    <div id="buetyBox" class="box">
 				        <input type="radio" class="category2" id="1" name="category2" value="1" <%=subCategory[0]%>>1. 기초
 				        <input type="radio" class="category2" id="2" name="category2" value="2" <%=subCategory[1]%>>2. 베이스메이크업
@@ -185,6 +176,7 @@ function updateValidate(){
 				        <input type="radio" class="category2" id="4" name="category2" value="4" <%=subCategory[3]%>>4. 립메이크업
 				        <input type="radio" class="category2" id="5" name="category2" value="5" <%=subCategory[4]%>>5. 바디
 				    </div>
+				    <%} else if(category1.equals("4")){ %>
 				    <div id="foodBox" class="box">
 				        <input type="radio" class="category2" id="1" name="category2" value="1" <%=subCategory[0]%>>1. 차/음료
 				        <input type="radio" class="category2" id="2" name="category2" value="2" <%=subCategory[1]%>>2. 커피
@@ -192,11 +184,13 @@ function updateValidate(){
 				        <input type="radio" class="category2" id="4" name="category2" value="4" <%=subCategory[3]%>>4. 운동보조식품
 				        <input type="radio" class="category2" id="5" name="category2" value="5" <%=subCategory[4]%>>5. 영양제
 				    </div>
+				    <%} else if(category1.equals("5")){ %>
 				    <div id="homeBox" class="box">
 				        <input type="radio" class="category2" id="1" name="category2" value="1" <%=subCategory[0]%>>1. 가구커버
 				        <input type="radio" class="category2" id="2" name="category2" value="2" <%=subCategory[1]%>>2. 걸이용품
 				        <input type="radio" class="category2" id="3" name="category2" value="3" <%=subCategory[2]%>>3. 악세서리
 				    </div>
+				    <%} else if(category1.equals("6")){ %>
 				    <div id="digitalBox" class="box">
 				        <input type="radio" class="category2" id="1" name="category2" value="1" <%=subCategory[0]%>>1. 주방기기
 				        <input type="radio" class="category2" id="2" name="category2" value="2" <%=subCategory[1]%>>2. 생활가전
@@ -204,6 +198,7 @@ function updateValidate(){
 				        <input type="radio" class="category2" id="4" name="category2" value="4" <%=subCategory[3]%>>4. 컴퓨터 주변기기
 				        <input type="radio" class="category2" id="5" name="category2" value="5" <%=subCategory[4]%>>5. 웨어러블기기
 				    </div>
+				    <%} else if(category1.equals("7")){ %>
 				    <div id="lifeBox" class="box">
 				        <input type="radio" class="category2" id="1" name="category2" value="1" <%=subCategory[0]%>>1. 세탁세제
 				        <input type="radio" class="category2" id="2" name="category2" value="2" <%=subCategory[1]%>>2. 주방세제
@@ -211,6 +206,7 @@ function updateValidate(){
 				        <input type="radio" class="category2" id="4" name="category2" value="4" <%=subCategory[3]%>>4. 구강/위생용품
 				        <input type="radio" class="category2" id="5" name="category2" value="5" <%=subCategory[4]%>>5. 기타
 				    </div>
+				    <%} else if(category1.equals("8")){ %>
 				    <div id="petBox" class="box">
 				        <input type="radio" class="category2" id="1" name="category2" value="1" <%=subCategory[0]%>>1. 사료
 				        <input type="radio" class="category2" id="2" name="category2" value="2" <%=subCategory[1]%>>2. 장난감
@@ -218,6 +214,7 @@ function updateValidate(){
 				        <input type="radio" class="category2" id="4" name="category2" value="4" <%=subCategory[3]%>>4. 산책용품
 				        <input type="radio" class="category2" id="5" name="category2" value="5" <%=subCategory[4]%>>5. 미용용품	
 			        </div>			
+			        <%} %>
 				</td>
 			</tr>
 			<tr>
@@ -246,14 +243,12 @@ function updateValidate(){
 				<td>상품이미지</td>
 				<td>
 					<img id="pImg" width="150" height="120" name="pImg" src="<%=p.getpImage_Origin()%>">
-					
 				</td>
 			</tr>
 			<tr>
 				<td>상품설명이미지</td>
 				<td>
 					<img id="pExpImg" width="150" height="120" name="pExpImg" src="<%=p.getpExp_Image_Origin()%>">
-					
 				</td>
 			</tr>
 		</table>

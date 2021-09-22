@@ -99,11 +99,11 @@ public class soldManagerServlet extends HttpServlet {
 			
 			for(int j = 0 ; j <temp1.length; j++) {
 		         
-		         if(temp1[j].contains(String.valueOf(storeNo))) {
+		         if(temp1[j] != null) {
 		            
 		            temp2=temp1[j].split(":");
 		            
-		            sInfo.add(new SoldList(pList.get(0).getPno(), pList.get(0).getpDate(), Integer.parseInt(temp2[4])));
+		            sInfo.add(new SoldList(pList.get(i).getPno(), pList.get(i).getpDate(), Integer.parseInt(temp2[4])));
 		            
 		         }
 			}    

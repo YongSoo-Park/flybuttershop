@@ -15,16 +15,16 @@ import com.flybutter.seller.model.service.SellerService;
 import com.flybutter.seller.model.vo.SoldList;
 
 /**
- * Servlet implementation class deletePurchaseServlet
+ * Servlet implementation class refundPurchaseServlet
  */
-@WebServlet("/cancelPur.sl")
-public class deletePurchaseServlet extends HttpServlet {
+@WebServlet("/refund.sl")
+public class refundPurchaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public deletePurchaseServlet() {
+    public refundPurchaseServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,53 +33,53 @@ public class deletePurchaseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		int pno = Integer.parseInt(request.getParameter("pNo"));
-		
+
 		SoldList list = new SellerService().selectSoldInfo(pno);
-		
+
 		String purInfo = list.getPurInfo();
-		
+
 		ArrayList<SoldList> purList = new ArrayList<SoldList>();
-		
+
 		String[] temp1 = purInfo.split("/");
 		String[] temp2;
-		
-		for(int j = 0; j < temp1.length; j++) {
-			if(temp1[j] != null) {
-	        	
-		          temp2=temp1[j].split(":");
-		          
-		          purList.add(new SoldList(temp2[0], temp2[1], temp2[2], temp2[3], Integer.parseInt(temp2[4])));
-		          
+
+		for (int j = 0; j < temp1.length; j++) {
+			if (temp1[j] != null) {
+
+				temp2 = temp1[j].split(":");
+
+				purList.add(new SoldList(temp2[0], temp2[1], temp2[2], temp2[3], Integer.parseInt(temp2[4])));
+
 			}
 		}
-		
+
 		System.out.println(purList);
-		
+
 		String[] info = new String[purList.size()];
-		
-		for(int i = 0; i < purList.size(); i++) {
+
+		for (int i = 0; i < purList.size(); i++) {
 			String infoStr = "";
-			purList.get(i).setpStatus(6);
+			purList.get(i).setpStatus(9);
 			infoStr += purList.get(i).getpCode() + ":";
 			infoStr += purList.get(i).getStoreNo() + ":";
-	    	infoStr += purList.get(i).getpAmount()+ ":";
-	    	infoStr += purList.get(i).getpOption() + ":";
-	    	infoStr += purList.get(i).getpStatus();
-	    	
-	    	info[i] = infoStr;
-	    	System.out.println("결과 확인 : " + infoStr);
+			infoStr += purList.get(i).getpAmount() + ":";
+			infoStr += purList.get(i).getpOption() + ":";
+			infoStr += purList.get(i).getpStatus();
+
+			info[i] = infoStr;
+			System.out.println("결과 확인 : " + infoStr);
 		}
-		
+
 		String result = String.join("/", info);
 		System.out.println("결과 확인2 : " + info);
-		
+
 		list.setPurInfo(result);
-		
+
 		System.out.println("result~~~~" + result);
 		
-		int cancelPur = new SellerService().cancelPurchase(pno, result);
+		int refund = new SellerService().refundPurchase(pno, result);
 		
 		//사용한 쿠폰, 적립금 돌려주기
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
@@ -93,8 +93,7 @@ public class deletePurchaseServlet extends HttpServlet {
 
 		
 		
-		//페이지 전환
-		if(cancelPur > 0) {
+		if(refund > 0) {
 			response.sendRedirect("purchaseManager.sl");
 		}else {
 			request.setAttribute("msg", "주문수정 실패");

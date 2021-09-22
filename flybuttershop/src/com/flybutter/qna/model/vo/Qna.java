@@ -107,6 +107,37 @@ public class Qna {
 	}
 
 
+	public Qna(int qna_No, int qna_Category, int user_No, String qna_Title, 
+			String qna_Content, Date qna_Date, String qna_Status, int lock_Flag,
+			int qna_Pwd, String qna_Writer) {
+		this.qna_No = qna_No;
+		this.qna_Category = qna_Category;
+		this.user_No = user_No;
+		this.qna_Title = qna_Title;
+		this.qna_Content = qna_Content;
+		this.qna_Date = qna_Date;
+		this.qna_Status = qna_Status;
+		this.qna_Pwd = qna_Pwd;
+		this.lock_Flag = lock_Flag;
+		this.qna_Writer = qna_Writer;
+	}
+
+
+	public Qna(int qna_No, String pCode, int qna_Category, 
+			int user_No, String qna_Title, String qna_Content, 
+			Date qna_Date, String qna_Status, String qna_Writer) {
+		this.qna_No = qna_No;
+		this.user_No = user_No;
+		this.pCode = pCode;
+		this.qna_Category = qna_Category;
+		this.qna_Title = qna_Title;
+		this.qna_Content = qna_Content;
+		this.qna_Date = qna_Date;
+		this.qna_Status = qna_Status;
+		this.qna_Writer = qna_Writer;
+	}
+
+
 	public int getQna_No() {
 		return qna_No;
 	}
