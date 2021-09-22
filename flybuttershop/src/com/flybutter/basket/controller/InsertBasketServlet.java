@@ -60,9 +60,6 @@ public class InsertBasketServlet extends HttpServlet {
 		String basket_Pname = request.getParameter("pName");
 		String basket_Sname = request.getParameter("sName");
 		
-		
-		
-		
 		//중복상품체크
 		ArrayList<Basket> checkList = new BasketService().selectCheck(no, pCode);
 		
@@ -75,10 +72,8 @@ public class InsertBasketServlet extends HttpServlet {
 			}
 			
 			originAmount += bAmount;
-			System.out.println("장바구니 인서트 : " + originAmount);
 		
 			int result = new BasketService().updateAmount(originAmount, pCode);
-//			int pResult = new BasketService().updatePrice(newPrice, pCode);
 			response.sendRedirect("basket.do");
 		}else {
 			b.setpCode(pCode);

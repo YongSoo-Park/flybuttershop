@@ -583,6 +583,8 @@ public class AdminDao {
 	}
 
 	public int eventImgSet(Connection conn, ArrayList<String> fileNameList, int judgeDBUpdate) {
+		
+		System.out.println(fileNameList);
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = "";
