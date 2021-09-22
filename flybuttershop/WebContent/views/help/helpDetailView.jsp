@@ -24,7 +24,7 @@
 <style>
 	.outer {
 	width: 1200px;
-	height: 2300px;
+	height: auto;
 	color: black;
 	margin: auto;
 	margin-top: 50px;
@@ -35,23 +35,25 @@
 	 
 	.outer>table{
 		width:1200px;
-		height:1000px;
+		height:auto;
 	}
 	
 	.outer>table p{
-		height:230px;
+		height:auto;
 		margin:0;
+		
 	}
 	.replyArea{
 		width:800px;
 		color:white;
 		background:black;
 		margin:auto;
+		height:auto;
 	}
 	p{
 	width:1200px;
-	height:230px;
-		border:1px solid black;
+	height:auto;
+		
 	}
 </style>
 </head>
@@ -66,15 +68,15 @@
 	
 		<table align="center">
 			<tr>
-				<td>카테고리</td>
-				<td colspan="2"><%= h.getHelp_Category() %></td>
-				<td>제목</td>
-				<td colspan="2"><%= h.getHelp_Title() %></td>
-				<td>작성일</td>
-				<td colspan="2"><%= h.getHelp_Date() %></td>
+				<td width="150" align="center" >카테고리</td>
+				<td width="100" align="center" ><%= h.getHelp_Category() %></td>
+				<td width="150" align="center" >제목</td>
+				<td width="550" align="center" ><%= h.getHelp_Title() %></td>
+				<td width="100" align="center" >작성일</td>
+				<td width="200" align="center" ><%= h.getHelp_Date() %></td>
 			</tr>
 			<tr>
-				<td colspan="9">
+				<td colspan="6">
 					<% if(h.getHelp_File_System() != null){ %>
 					<div class="detailImgArea" align="center">
 						<img width="600px" height="450px" src="<%=request.getContextPath()%>/resources/help/<%=h.getHelp_File_System()%>"><br>
@@ -87,7 +89,7 @@
 				
 			</tr>	
 			<tr>
-					<td colspan="9">내용
+					<td colspan="6">
 					<p><%= h.getHelp_Content() %></p>
 				</td>
 			</tr>
@@ -96,10 +98,10 @@
 		<br>
 	
 		<% if(h.getHelp_status().equals("Y")){ %>
-			<h3>답변</h3>
-					<p height="100px"><%= hr.getReply_Content() %></p>
+			<h6>답변</h6>
+					<p 	style="border:1px solid black"><%= hr.getReply_Content() %></p>
 				
-				<input type="hidden" height="100px" name="no" <%= hr.getHelp_No() %>>
+				<input type="hidden"  name="no" <%= hr.getHelp_No() %>>
 			
 		
 		<% } %>

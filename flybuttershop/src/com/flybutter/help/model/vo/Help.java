@@ -35,6 +35,22 @@ public class Help {
 		
 	}
 
+	public Help(int help_No, int user_No, String help_Title, Date help_Date) {
+		super();
+		this.help_No = help_No;
+		this.user_No = user_No;
+		this.help_Title = help_Title;
+		this.help_Date = help_Date;
+	}
+
+	public Help(int help_No, int user_No, int help_Category, String help_Title) {
+		super();
+		this.help_No = help_No;
+		this.user_No = user_No;
+		this.help_Category = help_Category;
+		this.help_Title = help_Title;
+	}
+
 	public Help(int help_No, String help_Title, Date help_Date, String help_status) {
 		super();
 		this.help_No = help_No;

@@ -15,13 +15,7 @@ import com.flybutter.help.model.vo.PageInfo;
 
 public class HelpService {
 
-	public ArrayList<Help> helpSelectList(PageInfo pi) {
-		Connection conn = getConnection();
-		ArrayList<Help> list = new HelpDao().helpSelectList(conn, pi);
-		close(conn);
-
-		return list;
-	}
+	
 
 	public Help selectHelp(int no) {
 		Connection conn = getConnection();
@@ -33,6 +27,7 @@ public class HelpService {
 
 	public int insertHelp(Help h) {
 		Connection conn = getConnection();
+		System.out.println("userNO service1 : " + h.getUser_No());
 		int result = new HelpDao().insertHelp(conn, h);
 		if(result > 0) {
 			commit(conn);
@@ -40,6 +35,7 @@ public class HelpService {
 			rollback(conn);
 		}
 		close(conn);	
+		System.out.println("userNO service2 : " + h.getUser_No());
 		return result;
 	}
 
@@ -180,6 +176,22 @@ public class HelpService {
 		close(conn);	
 	
 		return result;
+	}
+
+	public ArrayList<Help> helpSelectList(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+		ArrayList<Help> list = new HelpDao().helpSelectList(conn, pi, userNo);
+		close(conn);
+
+		return list;
+	}
+
+	public ArrayList<Help> helpSelectAllList(PageInfo pi) {
+		Connection conn = getConnection();
+		ArrayList<Help> list = new HelpDao().helpSelectAllList(conn, pi);
+		close(conn);
+
+		return list;
 	}
 
 	

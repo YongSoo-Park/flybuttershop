@@ -48,7 +48,7 @@
 		<jsp:include page="../common/csMenubar.jsp" flush="true" />
 
 			<div class="outer">
-<h1>수정수정</h1>
+
 			<!--  action=" <%--<%= contextPath %> --%> /insert.no" method="post" -->
 			<form id="updateForm" action="<%= request.getContextPath() %>/update.no" method="post" enctype="multipart/form-data">
 				<table align="center">

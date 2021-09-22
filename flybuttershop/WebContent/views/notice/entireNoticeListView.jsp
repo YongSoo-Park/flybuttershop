@@ -2,7 +2,10 @@
 	pageEncoding="UTF-8"
 	import="java.util.ArrayList, com.flybutter.notice.model.vo.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
+<%@ page import="com.flybutter.member.model.vo.Member" %>
+ 
+ <%
+ 	Member loginUser = (Member)session.getAttribute("loginMember");
 ArrayList<Notice> list = (ArrayList<Notice>) request.getAttribute("list");
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 
@@ -37,6 +40,7 @@ int endPage = pi.getEndPage();
 .listArea {
 	border: 1px solid black;
 	text-align: center;
+	
 }
 
 .searchArea {
@@ -80,9 +84,9 @@ int endPage = pi.getEndPage();
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
-					 <th style="visibility:hidden;" width="100">글번호</th>
-					<th width="100">카테고리</th>
-					<th width="300">글제목</th>
+					 <th  width="70">글번호</th>
+					<th width="70">카테고리</th>
+					<th width="400">글제목</th>
 			
 				</tr>
 			</thead>
@@ -95,7 +99,7 @@ int endPage = pi.getEndPage();
 				 <% }else{  %>
 				 	<% for(Notice n : list){ %>
 				 		<tr>
-				 			<td style="visibility:hidden;" ><%= n.getNotice_No() %></td>
+				 			<td ><%= n.getNotice_No() %></td>
 				 			<% if(n.getNotice_Category() == 1){ %>
 				 			<td>[공지]</td>
 				 			 <% }else if(n.getNotice_Category() == 2){  %>
