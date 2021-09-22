@@ -13,6 +13,7 @@ import com.flybutter.member.model.vo.Member;
 import com.flybutter.money.model.vo.Money;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.review.model.vo.PageInfo;
+import com.flybutter.review.model.vo.Review;
 import com.flybutter.wishlist.model.vo.Wishlist;
 
 
@@ -357,6 +358,47 @@ public class MypageService {
 		close(conn);
 		
 		return phone;
+	}
+
+	public int changeMember(int userNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().changeMember(conn, userNo);
+		
+		
+		if(result == 1) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+		}
+		
+		
+		return result;
+	}
+
+	public String checkUserCel(int userNo) {
+		Connection conn = getConnection();
+		
+		String result = new MypageDao().checkUserCel(conn, userNo);
+		
+		close(conn);
+		
+		return result;
+	
+	}
+
+	public Review updateReviewForm(int reNo) {
+		
+		Connection conn = getConnection();
+		
+		Review r = new MypageDao().updateReviewForm(conn, reNo);
+		
+		close(conn);
+		
+		return r;
 	}
 
 }

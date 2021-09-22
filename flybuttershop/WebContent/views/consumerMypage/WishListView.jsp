@@ -41,6 +41,7 @@
         .info{
 
             padding: 30px;
+           
 
         }
 
@@ -56,6 +57,12 @@
             padding-right: 30px;
 
         }
+        
+        .link{
+        	
+        	cursor:pointer;
+        	 padding: 30px;
+	}
 
     </style>
 </head>
@@ -85,8 +92,12 @@
         <table id="wishWrap" align="center" rules="none" border="1px">
 
             <tr>
-                <td rowspan="3"><img src="<%= contextPath %><%=w.getpImage() %>" width="150px"></td>
-                <td align="left" class="info" width="450px"><%= w.getpName() %></td>
+                <td rowspan="3">
+                <img src="<%= contextPath %><%=w.getpImage() %>" width="150px" class="link" onclick="location.href='<%= request.getContextPath()%>/detail.pr?pCode=<%=w.getpCode()%>'">
+                </td>
+                <td align="left" class="info, link" width="450px" class="link" onclick="location.href='<%= request.getContextPath()%>/detail.pr?pCode=<%=w.getpCode()%>'">
+                <b><%= w.getpName() %></b>
+                </td>
                 
             </tr>
             <tr>
@@ -94,7 +105,7 @@
                 <td align="right" width="50px" id="btnWrap"><input type="button" value="삭제하기" id="btn" onclick="location.href='<%= request.getContextPath()%>/deleteWish.mp?no=<%=w.getWish_no()%>'"></td>
             </tr>
             <tr>
-                <td align="left" class="info"><%= w.getScore() %></td>
+                <td align="left" class="info"><b>평점</b> <%= w.getScore() %></td>
             </tr>
             
            
@@ -102,6 +113,14 @@
         </table>
         
         <br><br>
+        
+         <%} %>
+
+		
+			
+		<%} %>
+		
+		
         <div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
 			<button onclick="location.href='<%=contextPath%>/wishlist.mp?currentPage=1'"> &lt;&lt; </button>
@@ -135,13 +154,7 @@
 			<!-- 맨 끝으로 (>>) -->
 			<button onclick="location.href='<%=contextPath%>/wishlist.mp?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
 		</div> 
-	
-        
-         <%} %>
-
-		
-			
-		<%} %>
+	<br><br>
     </div>
     
     

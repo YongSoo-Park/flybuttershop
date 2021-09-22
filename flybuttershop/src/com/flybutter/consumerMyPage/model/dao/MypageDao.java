@@ -20,6 +20,7 @@ import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.member.model.vo.Member;
 import com.flybutter.money.model.vo.Money;
 import com.flybutter.review.model.vo.PageInfo;
+import com.flybutter.review.model.vo.Review;
 import com.flybutter.wishlist.model.vo.Wishlist;
 
 public class MypageDao {
@@ -869,6 +870,108 @@ public class MypageDao {
 			close(pstmt);
 		}
 		return phone;
+	}
+
+
+
+
+
+	public int changeMember(Connection conn, int userNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String sql = prop.getProperty("changeMember");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setInt(1, userNo);
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("CONSUMER 테이블  changeMember : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+
+
+	public String checkUserCel(Connection conn, int userNo) {
+		String result = "";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getPhone");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				result = rset.getString("USER_CEL");
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("CONSUMER 테이블  checkUserCel : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+
+
+	public Review updateReviewForm(Connection conn, int reNo) {
+		Review r = new Review();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("updateReviewForm");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.setInt(1, reNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				r.setRe_no(reNo);
+				r.setRe_title(rset.getString("RE_TITLE"));
+				r.setRe_content(rset.getString("RE_CONTENT"));
+				r.setScore(rset.getInt("SCORE"));
+				r.setpName(rset.getString("PNAME"));
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("REVIEW 테이블  updateReviewForm : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
 	}
 
 }

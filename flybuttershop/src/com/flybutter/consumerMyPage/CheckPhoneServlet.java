@@ -43,9 +43,11 @@ public class CheckPhoneServlet extends HttpServlet {
 			
 		}else {
 			
+			request.setAttribute("msg", "번호가 일치하지 않습니다");
+			request.getRequestDispatcher("views/consumerMypage/IdentificationView.jsp").forward(request, response);
+			
 		}
-		request.setAttribute("msg", "번호가 일치하지 않습니다");
-		request.getRequestDispatcher("views/consumerMypage/IdentificationView.jsp").forward(request, response);
+		
 	}
 
 	/**

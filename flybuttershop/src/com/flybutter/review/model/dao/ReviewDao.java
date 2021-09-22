@@ -227,4 +227,34 @@ public class ReviewDao {
 		return result;
 	}
 
+
+
+
+	public int updateReview(Connection conn, Review r) {
+	int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateReview");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, r.getRe_title());
+			pstmt.setString(2, r.getRe_content());
+			pstmt.setInt(3, r.getScore());
+			pstmt.setInt(4, r.getRe_no());
+
+			result = pstmt.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			System.out.println("REVIEW 테이블 updateReview : " + e.getMessage());
+		}finally {
+
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

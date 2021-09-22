@@ -3,9 +3,7 @@
     
 <%
 	
-	int purNo = Integer.parseInt(request.getParameter("purNo"));
-	String pCode = (String)request.getAttribute("pCode");
-	String pName = (String)request.getAttribute("pName");
+	Review r = (Review)request.getAttribute("r");
 	String contextPath = request.getContextPath();
 
 
@@ -14,7 +12,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-<title>리뷰작성</title>
+<title>리뷰 수정</title>
 
 <style>
 	.outer{
@@ -47,14 +45,14 @@
 	<div class="outer">
 		<br>
 		
-		<h2 align="center">리뷰 작성</h2>
+		<h2 align="center">리뷰 수정</h2>
 		<br>
 		
-		<form id="insertForm" action="<%= contextPath %>/insert.rv?purNo=<%=purNo%>&&pCode=<%=pCode %>" method="post" enctype="multipart/form-data">
+		<form id="insertForm" action="<%= contextPath %>/update.rv?rNo=<%= r.getRe_no()%>" method="post" enctype="multipart/form-data">
 			<table align="center" rules="none" border="1px">
                 <tr>
                     <th width="100">상품명</th>
-                    <td width="700"><%= pName %></td>
+                    <td width="700"><%= r.getpName() %></td>
                 </tr>
 				<tr>
 					<th width="100">별점</th>
@@ -70,13 +68,13 @@
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="title" required="required" maxlength="30"></td>
+					<td><input type="text" name="title" required="required" maxlength="20" value="<%= r.getRe_title() %>"></td>
 				</tr>
 				<tr>
 					<th>내용</th>
 					<td>
-						<textarea rows="15" name="content" style="resize:none;" required="required"  maxlength="1000">
-						1000자 이하로 작성해주세요
+						<textarea rows="15" name="content" style="resize:none;" required="required" maxlength="1000">
+						<%= r.getRe_content() %>
 						</textarea>
 					</td>
 				</tr>
