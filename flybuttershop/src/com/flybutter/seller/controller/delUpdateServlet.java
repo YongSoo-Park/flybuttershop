@@ -19,58 +19,86 @@ import com.flybutter.seller.model.vo.SoldList;
 @WebServlet("/updateDel.sl")
 public class delUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public delUpdateServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int pno = Integer.parseInt(request.getParameter("pNo"));
-		int delNo = Integer.parseInt(request.getParameter("number"));
-		
-		ArrayList<SoldList> list = new SellerService().selectSold(pno);
-		
-		SoldList s = new SellerService().updateDel(pno, delNo);
-		
-		String pInfo = s.getPurInfo();
-		System.out.println("판매디테일 서블릿"+ s.getDelNo());
-		
-		
-		String[] temp1 = pInfo.split("/");
-		String[] temp2;
-		
-		ArrayList<SoldList> sList = new ArrayList<SoldList>();
-		
-		for(int i = 0 ; i <temp1.length; i++) {
-	         
-	         if(temp1[i] != null) {
-	            
-	            temp2=temp1[i].split(":");
-	            
-	            sList.add(new SoldList(temp2[0],temp2[1],temp2[2],temp2[3], temp2[4]));
-	            
-	         }
-		}
-		
-		
-			request.setAttribute("s", s);
-			request.setAttribute("sList", sList);
-			request.getRequestDispatcher("views/seller/soldDetailManager.jsp").forward(request, response);
-		
+	public delUpdateServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		int pno = Integer.parseInt(request.getParameter("pNo"));
+		int delNo = Integer.parseInt(request.getParameter("number"));
+
+		SoldList list = new SellerService().selectSoldInfo(pno);
+
+		String purInfo = list.getPurInfo();
+
+		ArrayList<SoldList> purList = new ArrayList<SoldList>();
+
+		String[] temp1 = purInfo.split("/");
+		String[] temp2;
+
+		for (int j = 0; j < temp1.length; j++) {
+			if (temp1[j] != null) {
+
+				temp2 = temp1[j].split(":");
+
+				purList.add(new SoldList(temp2[0], temp2[1], temp2[2], temp2[3], Integer.parseInt(temp2[4])));
+
+			}
+		}
+
+		System.out.println(purList);
+
+		String[] info = new String[purList.size()];
+
+		for (int i = 0; i < purList.size(); i++) {
+			String infoStr = "";
+			purList.get(i).setpStatus(3);
+			infoStr += purList.get(i).getpCode() + ":";
+			infoStr += purList.get(i).getStoreNo() + ":";
+			infoStr += purList.get(i).getpAmount() + ":";
+			infoStr += purList.get(i).getpOption() + ":";
+			infoStr += purList.get(i).getpStatus();
+
+			info[i] = infoStr;
+			System.out.println("결과 확인 : " + infoStr);
+		}
+
+		String result = String.join("/", info);
+		System.out.println("결과 확인2 : " + info);
+
+		list.setPurInfo(result);
+
+		System.out.println("result~~~~" + result);
+
+		int updateDel = new SellerService().updateDel(pno, delNo, result);
+		
+		if(updateDel > 0) {
+			response.sendRedirect("purchaseManager.sl");
+		}else {
+			request.setAttribute("msg", "주문수정 실패");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

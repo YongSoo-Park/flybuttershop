@@ -40,6 +40,11 @@ if(s.getPurType()==1){
 		$("#postForm").submit();
 				
 	}
+	function confirmPur(){
+		$("#postForm").attr("action", "<%=request.getContextPath()%>/confirmPur.sl");
+		$("#postForm").submit();
+				
+	}
 </script>
 </head>
 <body style="margin: 0 auto">
@@ -53,10 +58,9 @@ if(s.getPurType()==1){
 	<% int status = sList.get(0).getpStatus();
 	   if(status == 1){ %>
 	    <button type="button" class="btn btn-outline-danger" onclick="cancelPur();">판매취소</button>
+	    <button type="button" class="btn btn-outline-success" onclick="confirmPur();">주문접수</button>
 	<% }else if(status == 2){%>
-		<button type="button" class="btn btn-outline-danger" onclick="cancelPur();">판매취소</button>
 		<button type="button" class="btn btn-outline-primary" onclick="updateDel();">배송정보입력</button>
-	 
 	<% }else if(status == 8){ %>
 		<button type="button" class="btn btn-outline-primary" onclick="refund();">환불완료</button>
 	<%} %>
@@ -97,7 +101,6 @@ if(s.getPurType()==1){
         </tr>
         <table>
         	<thead>
-        		<th>상품이미지</th>
         		<th>상품명</th>
         		<th>상품옵션</th>
         		<th>수량</th>
@@ -112,7 +115,6 @@ if(s.getPurType()==1){
         			
         		%>
         			<tr>
-						<td><img src="${pageContext.request.contextPath}${requestScope.sl.pImg}" width="100px"></td>
 						<td><%=sl.getpName()%></td>
 						<td><%=sl.getpOption()%></td>
 						<td><%=sl.getpAmount()%></td>
@@ -132,7 +134,8 @@ if(s.getPurType()==1){
         </table>
     </table>
    		<input type="hidden" name="pNo" value="<%=s.getPno()%>">
-   		
+   		<input type="hidden" name="price" value="<%=s.getPurPrice()%>">
+   		<input type="hidden" name="userNo" value="<%=s.getUserNo()%>">
 	</form>
 	
 	

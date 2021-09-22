@@ -26,73 +26,72 @@ import com.oreilly.servlet.MultipartRequest;
 @WebServlet("/insert.pr")
 public class productInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public productInsertServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public productInsertServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		response.setCharacterEncoding("UTF-8");
-		
+
 		System.out.println("상품등록 서블릿 입장");
-		
-		
-		if(ServletFileUpload.isMultipartContent(request)) {
-			//size
+
+		if (ServletFileUpload.isMultipartContent(request)) {
+			// size
 			int maxSize = 10 * 1024 * 1024;
 			System.out.println("maxSize" + maxSize);
-			
-			//path
-			String resources = request.getSession().getServletContext().getRealPath("/resources");
-			String savePath = resources + "\\product\\";
+
+			// path
+			String savePath = request.getServletContext().getRealPath("/resources/product");
 			System.out.println("savePath : " + savePath);
-			
-			String savePath2 = resources + "\\productExp\\";
-			System.out.println("savePath : " + savePath2);
-			//rename
-			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new ProductFileRenamePolicy());
+
+			// rename
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
+					new ProductFileRenamePolicy());
 
 			Product pi = new Product();
-			
+
 			File tempFile = null;
-			
-			int emptyCount = 0;
-			
-			for(int i = 1; i<=2; i++) {
-				String name = "file"+i;
-				if(multiRequest.getOriginalFileName(name) != null) {
-					String originPimg = multiRequest.getOriginalFileName(name);
-					String changePimg = multiRequest.getFilesystemName(name);
-					
-					pi.setpImage_Origin(savePath+originPimg);
-					pi.setpImage_System(savePath+changePimg);
-					
-					tempFile = new File(savePath+changePimg);
-					tempFile.delete();
-					
-					if(i==2) {
-						String originExpimg = multiRequest.getOriginalFileName(name);
-						String changeExpimg = multiRequest.getOriginalFileName(name);
-						
-						pi.setpExp_Image_Origin(savePath2+originExpimg);
-						pi.setpExp_Image_System(savePath2+changeExpimg);
-						
-						tempFile = new File(savePath2+changeExpimg);
+
+			for (int i = 1; i <= 2; i++) {
+				String name = "file" + i;
+
+				if (i == 1) {
+					if (multiRequest.getOriginalFileName(name) != null) {
+						String originPimg = multiRequest.getOriginalFileName(name);
+						String changePimg = multiRequest.getFilesystemName(name);
+
+						pi.setpImage_Origin("/resources/product/" + changePimg);
+						pi.setpImage_System("/resources/product/" + originPimg);
+
+						tempFile = new File(savePath + originPimg);
 						tempFile.delete();
 					}
-				}else {
-					emptyCount++;
+
+				} else if (i == 2) {
+					if (multiRequest.getOriginalFileName(name) != null) {
+						String originExpimg = multiRequest.getOriginalFileName(name);
+						String changeExpimg = multiRequest.getFilesystemName(name);
+
+						pi.setpExp_Image_Origin("/resources/product/" + changeExpimg);
+						pi.setpExp_Image_System("/resources/product/" + originExpimg);
+
+						tempFile = new File(savePath + originExpimg);
+						tempFile.delete();
+					}
 				}
 			}
-			
+
 
 			String pCode = multiRequest.getParameter("pCode");
 			String pName = multiRequest.getParameter("pName");
@@ -102,13 +101,13 @@ public class productInsertServlet extends HttpServlet {
 			int price = Integer.parseInt(multiRequest.getParameter("price"));
 			String option = multiRequest.getParameter("option");
 			int sale = Integer.parseInt(multiRequest.getParameter("sale"));
-			
-			int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
+
+			int userNo = ((Member) request.getSession().getAttribute("loginMember")).getUserNo();
 			Seller seller = new SellerService().selectStore(userNo);
 			int storeNo = seller.getStore_No();
-			
+
 			System.out.println("상품등록 ~~~~ " + storeNo);
-			
+
 			pi.setpCode(pCode);
 			pi.setStore_No(storeNo);
 			pi.setpCategory(category1);
@@ -118,25 +117,29 @@ public class productInsertServlet extends HttpServlet {
 			pi.setpStock(pStock);
 			pi.setPrice(price);
 			pi.setSale_Flag(sale);
-			
 
 			int result = new ProductService().insertProduct(pi);
-		
-			if(emptyCount==2) {
+
+			
+			
+			if(result > 0) {
+				response.sendRedirect("productManager.sl");
+			}else {
 				request.setAttribute("msg", "상품등록 실패");
 				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 				view.forward(request, response);
 			}
 			
-			response.sendRedirect("productManager.sl");
-			}
-			
 		}
 
+	}
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

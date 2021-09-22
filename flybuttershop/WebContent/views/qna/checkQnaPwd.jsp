@@ -25,6 +25,10 @@ function pwdValidate(){
 .check{
 	text-align:center;
 }
+div{
+width:400px;
+height:400px;
+}
 </style>
 </head>
 <body style="margin: 0 auto">

@@ -3,12 +3,14 @@ package com.flybutter.seller.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flybutter.consumerMyPage.model.service.MypageService;
 import com.flybutter.seller.model.service.SellerService;
 import com.flybutter.seller.model.vo.SoldList;
 
@@ -34,53 +36,72 @@ public class deletePurchaseServlet extends HttpServlet {
 		
 		int pno = Integer.parseInt(request.getParameter("pNo"));
 		
-		ArrayList<SoldList> list = new SellerService().selectSold(pno);
+		SoldList list = new SellerService().selectSoldInfo(pno);
 		
-		ArrayList<ArrayList<SoldList>> purList = new ArrayList<ArrayList<SoldList>>();
+		String purInfo = list.getPurInfo();
 		
-		for(int i = 0; i < list.size(); i++) {
-			
-			String pInfo = list.get(i).getPurInfo();
-			
-			String[] temp1 = pInfo.split("/");
-			String[] temp2;
-			
-			ArrayList<SoldList> sInfo = new ArrayList<SoldList>();
-			
-			for(int j = 0 ; j <temp1.length; j++) {
-		         
-		         if(temp1[j] != null) {
-		            
-		            temp2=temp1[j].split(":");
-		            
-		            sInfo.add(new SoldList(temp2[0], temp2[1], temp2[2], temp2[3], 6));
-		         } 
-			}purList.add(sInfo);
+		ArrayList<SoldList> purList = new ArrayList<SoldList>();
+		
+		String[] temp1 = purInfo.split("/");
+		String[] temp2;
+		
+		for(int j = 0; j < temp1.length; j++) {
+			if(temp1[j] != null) {
+	        	
+		          temp2=temp1[j].split(":");
+		          
+		          purList.add(new SoldList(temp2[0], temp2[1], temp2[2], temp2[3], Integer.parseInt(temp2[4])));
+		          
+			}
 		}
 		
-			String pcode = null;
-			String storeNo = null;
-			String amount = null;
-			String option = null;
-			String status = null;;
+		System.out.println(purList);
 		
-		for(SoldList s : list) {
-			pcode = s.getpCode();
-			storeNo = s.getStoreNo();
-			amount = s.getpAmount();
-			option = s.getpOption();
-			status = String.valueOf(s.getpStatus());
+		String[] info = new String[purList.size()];
+		
+		for(int i = 0; i < purList.size(); i++) {
+			String infoStr = "";
+			purList.get(i).setpStatus(6);
+			infoStr += purList.get(i).getpCode() + ":";
+			infoStr += purList.get(i).getStoreNo() + ":";
+	    	infoStr += purList.get(i).getpAmount()+ ":";
+	    	infoStr += purList.get(i).getpOption() + ":";
+	    	infoStr += purList.get(i).getpStatus();
+	    	
+	    	info[i] = infoStr;
+	    	System.out.println("결과 확인 : " + infoStr);
 		}
 		
-		//for문으로 상태만 set어케하지
+		String result = String.join("/", info);
+		System.out.println("결과 확인2 : " + info);
 		
-//		if(int i = 0; i < ) {
-//			
-//		}
+		list.setPurInfo(result);
+		
+		System.out.println("result~~~~" + result);
+		
+		int cancelPur = new SellerService().cancelPurchase(pno, result);
+		
+		//사용한 쿠폰, 적립금 돌려주기
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		int price = Integer.parseInt(request.getParameter("price"));
+		System.out.println("판매취소 ~~" + userNo);
+		System.out.println("판매취소 ~~" + price);
+		
+		double d = 0.01;
+		int sumResult = new SellerService().updateSumPrice(userNo, price); 
+		int mResult = new SellerService().updateMoney(userNo,(price*d), pno);
+
 		
 		
-		//SoldList updateSold = new SellerService().cancelPurchase(new )
-	
+		//페이지 전환
+		if(cancelPur > 0) {
+			response.sendRedirect("purchaseManager.sl");
+		}else {
+			request.setAttribute("msg", "주문수정 실패");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
+		}
+		
 	}
 
 	/**

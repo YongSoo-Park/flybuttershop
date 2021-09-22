@@ -105,6 +105,13 @@ function basketProduct(){
 	return true;
 }
 
+function whishList(){
+	$("#proOrder").attr("action", "<%=request.getContextPath()%>/addWish.mp");
+	$("#proOrder").submit();
+	
+	return true;
+}
+
 function qnaInsert(){
 	$("#proOrder").attr("action", "<%=request.getContextPath()%>/qnaForm.sl");
 	$("#proOrder").submit();
@@ -142,6 +149,7 @@ $(function(){
 			location.href="<%= request.getContextPath() %>/reviewDetail.pr?rNo="+rNo;
 		})
 	})
+	
 
 </script>
 <style type="text/css">
@@ -184,7 +192,7 @@ $(function(){
 							
 								<button type="button" class="btn btn-outline-primary"
 									onclick="basketProduct();">장바구니 담기</button>
-								<button type="button" class="btn btn-outline-danger mx-auto">찜하기</button>
+								<button type="button" class="btn btn-outline-danger mx-auto" onclick="whishList();">찜하기</button>
 					
 						</td>
 					</tr>
@@ -389,7 +397,17 @@ $(function(){
 		<table border="1">
 			<tr>
 				<th width="200px"><%=s.getStore_Name()%></th>
-				<th width="200px"><%=s.getStore_Lev() %></th>
+				<th width="200px">
+				<%if(s.getStore_Lev()==1){ %>
+                	<a>새싹 등급</a>
+                	<%}else if(s.getStore_Lev()==2) {%>
+                	<a>줄기 등급</a>
+                	<%}else if(s.getStore_Lev()==3){ %>
+                	<a>꽃 등급</a>
+                	<%}else {%>
+                	<a>상점 등급 없음</a>
+                	<%} %>
+				</th>
 			</tr>
 			<tr>
 				<td>대표자</td>
@@ -417,8 +435,7 @@ $(function(){
 			</tr>
 		</table>
 		<br> <br>
-		<button type="submit" class="btn btn-outline-primary">상점 상세 정보 보기</button>
-
+		
 	</div>
 </div>
 
