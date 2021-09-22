@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.basket.model.service.BasketService;
 import com.flybutter.basket.model.vo.Basket;
+import com.flybutter.consumer.model.vo.Consumer;
 import com.flybutter.member.model.vo.Member;
 import com.flybutter.product.model.vo.Product;
+import com.flybutter.purchase.model.service.PurchaseService;
 
 /**
  * Servlet implementation class InsertBasketServlet
@@ -39,9 +41,15 @@ public class InsertBasketServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+		response.setContentType("text/html; charset=utf-8"); 
+	try {
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
 		int no = loginM.getUserNo();
+		
+		//소비자 인증여부
+		Consumer c = new PurchaseService().selectMoney(no);
+		
+		if(c.getUser_Cel().equals("Y")) {
 		Basket b = new Basket();
 		
 		String pCode = request.getParameter("pCode");
@@ -52,12 +60,14 @@ public class InsertBasketServlet extends HttpServlet {
 		String basket_Pname = request.getParameter("pName");
 		String basket_Sname = request.getParameter("sName");
 		
+		
+		
+		
 		//중복상품체크
 		ArrayList<Basket> checkList = new BasketService().selectCheck(no, pCode);
 		
-		//중복이면 수량, 가격 업데이트
+		//중복이면 수량 업데이트
 		if(checkList.size() > 0) {
-			int newPrice = 0;
 			int originAmount = 0;
 			ArrayList<Basket> list = new BasketService().selectBasketList(no);
 			for(Basket bb : list) {
@@ -65,10 +75,10 @@ public class InsertBasketServlet extends HttpServlet {
 			}
 			
 			originAmount += bAmount;
-			newPrice = originAmount * price;
+			System.out.println("장바구니 인서트 : " + originAmount);
 		
 			int result = new BasketService().updateAmount(originAmount, pCode);
-			int pResult = new BasketService().updatePrice(newPrice, pCode);
+//			int pResult = new BasketService().updatePrice(newPrice, pCode);
 			response.sendRedirect("basket.do");
 		}else {
 			b.setpCode(pCode);
@@ -91,7 +101,19 @@ public class InsertBasketServlet extends HttpServlet {
 				view.forward(request, response);	
 			}
 		}
+		}else {
+			PrintWriter out = response.getWriter();
+			out.println("<script charset='utf-8'> alert('소비자 인증 후 이용해주세요.'); location.href='indentifi.mp';</script>");
 			
+			out.flush();
+		}
+	}catch(NullPointerException e) {
+		
+		PrintWriter out = response.getWriter();
+		out.println("<script charset='utf-8'> alert('로그인 후 이용해주세요.'); location.href='mainpage.ma';</script>");
+		
+		out.flush();
+	}	
 		
 		
 	}

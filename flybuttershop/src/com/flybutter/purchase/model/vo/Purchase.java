@@ -12,7 +12,7 @@ public class Purchase {
 	private int pur_Type;
 	private String pur_Bank;
 	private String pur_Account;
-	private int card_No;
+	private String card_No;
 	private String card_Agency;
 	private String card_Date;
 	private int del_No;
@@ -63,7 +63,6 @@ public class Purchase {
 //	p.setPur_SName(sName);	
 	
 	
-	
 	public Purchase(int user_No, String pCode, String pur_Image, String pur_Pname, String pur_POption, int pur_Amount,
 			String pur_SName) {
 		super();
@@ -74,6 +73,11 @@ public class Purchase {
 		this.pur_POption = pur_POption;
 		this.pur_Amount = pur_Amount;
 		this.pur_SName = pur_SName;
+	}
+
+	public Purchase(int pur_No) {
+		super();
+		this.pur_No = pur_No;
 	}
 
 	//판매자 판매 내역
@@ -95,7 +99,6 @@ public class Purchase {
 		this.pur_Type = pur_Type;
 		this.pur_Bank = pur_Bank;
 		this.pur_Account = pur_Account;
-		this.del_No = del_No;
 		this.cp_Use = cp_Use;
 		this.money_Use = money_Use;
 		this.pur_Info = pur_Info;
@@ -103,7 +106,7 @@ public class Purchase {
 
 	//카드결제
 	public Purchase(int user_No, int pur_No, Date pur_Date, int pur_Price, String pur_Address, int pur_Type,
-				int card_No, String card_Agency, String card_Date, int del_No, String cp_Use, String money_Use,
+				String card_No, String card_Agency, String card_Date, int del_No, String cp_Use, String money_Use,
 				String pur_Info) {
 		super();
 		this.user_No = user_No;
@@ -112,6 +115,26 @@ public class Purchase {
 		this.pur_Price = pur_Price;
 		this.pur_Address = pur_Address;
 		this.pur_Type = pur_Type;
+		this.card_No = card_No;
+		this.card_Agency = card_Agency;
+		this.card_Date = card_Date;
+		this.cp_Use = cp_Use;
+		this.money_Use = money_Use;
+		this.pur_Info = pur_Info;
+	}
+	
+	public Purchase(int user_No, int pur_No, Date pur_Date, int pur_Price, String pur_Address, int pur_Type,
+			String pur_Bank, String pur_Account, String card_No, String card_Agency, String card_Date, int del_No,
+			String cp_Use, String money_Use, String pur_Info) {
+		super();
+		this.user_No = user_No;
+		this.pur_No = pur_No;
+		this.pur_Date = pur_Date;
+		this.pur_Price = pur_Price;
+		this.pur_Address = pur_Address;
+		this.pur_Type = pur_Type;
+		this.pur_Bank = pur_Bank;
+		this.pur_Account = pur_Account;
 		this.card_No = card_No;
 		this.card_Agency = card_Agency;
 		this.card_Date = card_Date;
@@ -185,11 +208,11 @@ public class Purchase {
 		this.pur_Account = pur_Account;
 	}
 
-	public int getCard_No() {
+	public String getCard_No() {
 		return card_No;
 	}
 
-	public void setCard_No(int card_No) {
+	public void setCard_No(String card_No) {
 		this.card_No = card_No;
 	}
 

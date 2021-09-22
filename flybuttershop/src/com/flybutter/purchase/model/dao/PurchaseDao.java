@@ -74,7 +74,7 @@ public class PurchaseDao {
 		return m;
 	}
 
-	public ArrayList<Coupon> selectCoupon(Connection conn, int no) {
+	public ArrayList<Coupon> selectCoupon(Connection conn, int no, int use) {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 		
 		PreparedStatement pstmt = null;
@@ -84,10 +84,11 @@ public class PurchaseDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
+			pstmt.setInt(2, use);
 			
 			rset = pstmt.executeQuery();
 			
-//			selectCoupon=SELECT * FROM COUPON WHERE USER_NO = ? ORDER BY CP_DISCOUNT DESC;
+//			selectCoupon=SELECT * FROM COUPON WHERE USER_NO = ? AND CP_COUNT = ? ORDER BY CP_DISCOUNT DESC
 					
 //			CP_NO	NUMBER
 //			USER_NO	NUMBER
@@ -190,5 +191,146 @@ public class PurchaseDao {
 		return result;
 	}
 
+	public int insertBankPur(Connection conn, Purchase bankPur, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertBankPur");
+		
+//		insertBankPur=INSERT INTO PURCHASE (USER_NO, PUR_NO, PUR_DATE, PUR_PRICE, PUR_ADDRESS, PUR_TYPE, PUR_BANK, PUR_ACCOUNT, CP_USE, MONEY_USE, PUR_INFO) VALUES(?,PUR_NO_SQ.NEXTVAL,SYSDATE,?,?,?,?,?,?,?,?)
+		
+//		USER_NO	NUMBER
+//		PUR_PRICE	NUMBER
+//		PUR_ADDRESS	VARCHAR2(100 BYTE)
+//		PUR_TYPE	NUMBER
+//		PUR_BANK	VARCHAR2(50 BYTE)
+//		PUR_ACCOUNT	VARCHAR2(50 BYTE)
+//		CP_USE	VARCHAR2(20 BYTE)
+//		MONEY_USE	VARCHAR2(20 BYTE)
+//		PUR_INFO	VARCHAR2(1000 BYTE)
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+			pstmt.setInt(2, bankPur.getPur_Price());
+			pstmt.setString(3, bankPur.getPur_Address());
+			pstmt.setInt(4, bankPur.getPur_Type());
+			pstmt.setString(5, bankPur.getPur_Bank());
+			pstmt.setString(6, bankPur.getPur_Account());
+			pstmt.setString(7, bankPur.getCp_Use());
+			pstmt.setString(8, bankPur.getMoney_Use());
+			pstmt.setString(9, bankPur.getPur_Info());
+		
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
+	public int insertCardPur(Connection conn, Purchase cardPur, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertCardPur");
+		
+//		insertCardPur=INSERT INTO PURCHASE (USER_NO, PUR_NO, PUR_DATE, PUR_PRICE, PUR_ADDRESS, PUR_TYPE, CARD_NO, CARD_AGENCY, CARD_DATE, CP_USE, MONEY_USE, PUR_INFO) VALUES(?,PUR_NO_SQ.NEXTVAL,SYSDATE,?,?,?,?,?,?,?,?,?)
+		
+//		USER_NO	NUMBER
+//		PUR_PRICE	NUMBER
+//		PUR_ADDRESS	VARCHAR2(100 BYTE)
+//		PUR_TYPE	NUMBER
+//		CARD_NO	VARCHAR2(20 BYTE)
+//		CARD_AGENCY	VARCHAR2(50 BYTE)
+//		CARD_DATE	VARCHAR2(10 BYTE)
+//		CP_USE	VARCHAR2(20 BYTE)
+//		MONEY_USE	VARCHAR2(20 BYTE)
+//		PUR_INFO	VARCHAR2(1000 BYTE)
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+			pstmt.setInt(2, cardPur.getPur_Price());
+			pstmt.setString(3, cardPur.getPur_Address());
+			pstmt.setInt(4, cardPur.getPur_Type());
+			pstmt.setString(5, cardPur.getCard_No());
+			pstmt.setString(6, cardPur.getCard_Agency());
+			pstmt.setString(7, cardPur.getCard_Date());
+			pstmt.setString(8, cardPur.getCp_Use());
+			pstmt.setString(9, cardPur.getMoney_Use());
+			pstmt.setString(10, cardPur.getPur_Info());
+		
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Purchase selectPurNo (Connection conn, int no) {
+		Purchase purNo = new Purchase();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPurNo");
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+//			selectPurNo=SELECT MAX(PUR_NO) AS MAX_NUM FROM PURCHASE WHERE USER_NO = ?
+			while(rset.next()) {
+				purNo = new Purchase(rset.getInt("MAX_NUM"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Purchase 테이블  selectPurNo 오류메세지 : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return purNo;
+	}
+
+	public int updateCMoney(Connection conn, int no, int resultMoney) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateCMoney");
+		
+//		updateCMoney=UPDATE CONSUMER SET MONEY =? WHERE USER_NO =?
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, resultMoney);
+			pstmt.setInt(2, no);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("CONSUMER 테이블  updateCMoney : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 }

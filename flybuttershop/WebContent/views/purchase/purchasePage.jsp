@@ -3,16 +3,16 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, com.flybutter.purchase.model.vo.*, 
     com.flybutter.member.model.vo.*, com.flybutter.consumer.model.vo.*, com.flybutter.coupon.model.vo.*,
     com.flybutter.product.model.vo.*"%>
-<%
-//ArrayList<Purchase> list = (ArrayList<Purchase>) request.getAttribute("list"); 
+<% 
 Member loginM= (Member)request.getSession().getAttribute("loginMember");
 Purchase p = (Purchase)request.getAttribute("purInfo");
 Consumer c = (Consumer)request.getAttribute("consumer");
 ArrayList<Coupon> list = (ArrayList<Coupon>) request.getAttribute("list");
 Member m = (Member)request.getAttribute("m");
-//ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList"); 
-//ArrayList<Purchase> sNameList = (ArrayList<Purchase>) request.getAttribute("sNameList"); 
-
+int sp = 0;
+int salePrice = (int)request.getAttribute("salePrice");
+int bAmo = 1;
+int productPrice = 0;
 int resultPrice = 0;
 int shipPrice = 0;
 String empty = "";
@@ -20,14 +20,19 @@ int couponDc = 0;
 
 if(p.getPur_Price() < 50000){
 	shipPrice = 2500;
+}else{
+	shipPrice = 0;
 }
+sp = salePrice * p.getPur_Amount();
+productPrice = p.getPur_Price() * p.getPur_Amount() - sp;
+resultPrice = productPrice + shipPrice;
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/PurchasePage.css?afterw">
+<title>주문</title>
+<link rel="stylesheet" href="resources/css/PurchasePage.css?afterww">
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body style="margin: 0 auto">
@@ -58,8 +63,8 @@ if(p.getPur_Price() < 50000){
          <td id="pt3"><%=p.getPur_SName() %></td>
          <td id="pt4"><%=shipPrice%>원</td>
          <td id="pt5"><%=p.getPur_Amount()%>개</td>
-         <td id="pt6"></td>
-         <td id="pt7"><%=p.getPur_Price()%>원</td>
+         <td id="pt6"><%=sp %>원</td>
+         <td id="pt7"><%=productPrice%>원</td>
      </tr>
   </table>
   </div>
@@ -82,16 +87,39 @@ if(p.getPur_Price() < 50000){
   		<h3 class="text1">할인 정보</h3>
   		<h4 class="text2">쿠폰 할인</h4>
   		<label id="lb1">사용가능 쿠폰</label>	
+  		
+  		<input type="hidden" name="bAmo" value="<%=bAmo%>">
+  		<input type="hidden" name="couponNum" value="-1">
+  		<input type="hidden" name="moneyVal" value="0">
+  		
   		<table id="ct">		
-  		<%for(Coupon cu : list) {%>
+  			<%
+  			if(list.size() < 1) { 
+  			%>
+  			<tr>
+  				<td><label id="noUseC">사용할 수 있는 쿠폰이 없습니다.</label></td>
+  			</tr>
+  		<% 	}else{
+  		int i = 0;%>
+  			<%for(Coupon cu : list) {
   			
+  				if(cu.getMinPrice() <= resultPrice) {%>
   			<tr>
   				<td id="ctd1"><%=cu.getCp_name() %></td>
-  				<td id="ctd2"><%=cu.getCp_count() %>장</td>
-  				<td id="ctd3"><button id="cub" value="<%=cu.getCp_no() %>" name="coupon" style="cursor:pointer;" 
-  				onclick="useCoupon()">사용</button></td>  			
+  				<td id="ctd3"><button type="button" id="cub" value="<%=i %>" name="coupon" style="cursor:pointer;" 
+  				onclick="useCoupon(this.value)">사용</button></td>
+  				<input type="hidden" id="discount<%=i%>" value="<%= (int)cu.getCp_discount()%>">
+  				<% i++;%>
   			</tr>
-  			
+  			<%}else if(cu.getMinPrice() > resultPrice) {%>
+  				<tr>
+  				<td id="ctd1"><%=cu.getCp_name() %></td>
+  				<td id="ctd3"><button type="button" disabled value='사용불가' id="cub" value="<%=i %>" name="coupon" style="cursor:pointer;" 
+  				onclick="useCoupon(this.value)">사용불가</button></td>
+  				<% i++;%>
+  			</tr>
+  				<%} %>
+  			<%} %>
   		<%} %>
   		</table>
   		<h4 class="text2">적립금</h4>
@@ -99,8 +127,8 @@ if(p.getPur_Price() < 50000){
   		<table id="mt">	
   			<tr>
   				<td id="mtd1"><%=c.getMoney() %>원</td>
-  				<td id="mtd2"><button id="mub" value="<%=c.getMoney() %>" name="money" style="cursor:pointer;" 
-  				onclick="window.open('views/purchase/moneyUse.jsp','적립금 사용','width=430,height=500,location=no,status=no,scrollbars=yes');">사용</button></td>
+  				<td><input type="text" id="inputMoney" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+  				<td><button type="button" id="mBtn" onclick="useMoney(this.value)" value="<%=c.getMoney() %>">사용</button></td>
   			</tr>
   		</table>
   		<h3 class="text1">결제수단</h3>
@@ -170,9 +198,8 @@ if(p.getPur_Price() < 50000){
   		<h4 class="text3" id="tt2"><%=m.getPhone() %></h4>
   		<h4 class="text3" id="tt2"><%=m.getEmail() %></h4>
   		<h3 class="text1" id="tt3">결제 상세</h3>
-  		<label class="text2" id="tt3">주문금액<b id="b1">n원</b></label><br>
   		<input type="hidden" name="resultPrice" value="<%=resultPrice%>">
-  		<label class="text3" id="tt4">상품금액<b id="b2"><%=p.getPur_Price() %>원</b></label><br>
+  		<label class="text3" id="tt4">상품금액<b id="b2"><%=productPrice %>원</b></label><br>
   		<label class="text3" id="tt5">배송비<b id="b3"><%=shipPrice%>원</b></label><br>
   		<label class="text3" id="tt6">쿠폰할인<b id="bcu">0원</b></label><br>
   		<label class="text3" id="tt7">적립금사용<b id="bmo">0원</b></label>
@@ -238,14 +265,38 @@ if(p.getPur_Price() < 50000){
    			
     };
     
-    function useCoupon(){
+    function useCoupon(no){
     	if(confirm('쿠폰을 사용하시겠습니까?')){
             var dc = document.getElementById("bcu");
-
-            dc.innerText = "<%=couponDc%>";
- 
+            var name = "discount"+no;
+            dc.innerText = document.getElementById(name).value+"원";
+            
+            $('input[name=couponNum]').attr('value',no);
+           
+            return true;
+    	}else{
+    		return false;
     	}
     };
+    
+    function useMoney(money){
+    	if(confirm('적립금을 사용하시겠습니까?')){
+    		var valueMoney = $('#inputMoney').val();
+    		if(parseInt(valueMoney)>parseInt(money)){
+    			alert('보유 적립금보다 많은 금액을 입력하셨습니다');
+    			return false;
+    		}else{
+    			 var dc = document.getElementById("bmo");
+    			 var origin = $('#sumPrice').val();
+    			 dc.innerText = valueMoney+"원";
+    			 
+    			 $('input[name=moneyVal]').attr('value',valueMoney);
+    		}
+       return true;
+    	}else{
+    		return false;
+    	}
+    }; 
     
 </script>
 

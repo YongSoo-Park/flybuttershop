@@ -1,6 +1,7 @@
 package com.flybutter.purchase.controller;
  
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -46,10 +47,17 @@ public class InsertPurPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+		response.setContentType("text/html; charset=utf-8"); 
+	try {
 		Member loginM = (Member)request.getSession().getAttribute("loginMember");
 		
 		int no = loginM.getUserNo();
+		
+		//소비자 인증여부
+		Consumer cc = new PurchaseService().selectMoney(no);
+		
+		if(cc.getUser_Cel().equals("Y")) {
+
 		
 		//현재 로그인 유저의 정보가져오기
 		Member m = new PurchaseService().selectMember(no);
@@ -75,7 +83,8 @@ public class InsertPurPageServlet extends HttpServlet {
 		p.setPur_SName(sName);		
 		
 		//쿠폰에서 가져와 넘겨주기
-		ArrayList<Coupon> list = new PurchaseService().selectCoupon(no);
+		int use = 0;
+		ArrayList<Coupon> list = new PurchaseService().selectCoupon(no, use);
 		
 		//적립금 가져와 넘겨주기
 		Consumer c = new PurchaseService().selectMoney(no);
@@ -102,6 +111,20 @@ public class InsertPurPageServlet extends HttpServlet {
 		request.setAttribute("seller", s);
 		request.setAttribute("m", m);
 		request.getRequestDispatcher("views/purchase/purchasePage.jsp").forward(request, response);
+		
+		}else {
+			PrintWriter out = response.getWriter();
+			out.println("<script charset='utf-8'> alert('소비자 인증 후 이용해주세요.'); location.href='indentifi.mp';</script>");
+			
+			out.flush();
+		}
+	}catch(NullPointerException e) {
+		
+		PrintWriter out = response.getWriter();
+		out.println("<script charset='utf-8'> alert('로그인 후 이용해주세요.'); location.href='mainpage.ma';</script>");
+		
+		out.flush();
+	}
 	}
 
 	/**
