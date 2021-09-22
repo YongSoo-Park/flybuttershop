@@ -55,7 +55,7 @@ public class OrderDetailServlet extends HttpServlet {
 	          String pName = new MypageService().getpName(temp2[0]);
 	     
 	 
-	          info.add(new OrderInfo(temp2[0],pName,Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]),temp2[3],Integer.parseInt(temp2[4]),list.getPurNo(),list.getPurDate(), pImage));
+	          info.add(new OrderInfo(temp2[0],pName,Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]),temp2[3],Integer.parseInt(temp2[4]),list.getPurNo(),list.getPurDate(), pImage, list.getDelNo(), list.getPurType(), list.getPurPrice()));
 	          
 	         
 	        }

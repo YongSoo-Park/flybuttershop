@@ -78,7 +78,7 @@
         <table align="center" rules="none" border="1px">
 
             <tr>
-                <td rowspan="4" width="200px" height="200px"><img src="<%=o.get(0).getpImage() %>" border="1px"></td>
+                <td rowspan="4" width="200px" height="200px"><img src="<%= contextPath %><%=o.get(0).getpImage() %>" width="200px"></td>
                 <td align="left" id="pNo">&nbsp;&nbsp; <b>주문번호</b><br>&nbsp;&nbsp; <%=o.get(0).getPurNo() %></td>
                 <td align="right"><b>
                 <% int state =  o.get(0).getState(); 
@@ -89,8 +89,11 @@
   							<c:when test="${state == '2'}">배송전</c:when>
   							<c:when test="${state == '3'}">배송중</c:when>
   							<c:when test="${state == '4'}">배송완료</c:when>
-  							<c:when test="${state == '5'}">소비자 취소</c:when>
+  							<c:when test="${state == '5'}">구매 취소</c:when>
   							<c:when test="${state == '6'}">판매자 취소</c:when>
+  							<c:when test="${state == '7'}">배송완료</c:when>
+  							<c:when test="${state == '8'}">환불 요청</c:when>
+  							<c:when test="${state == '9'}">환불 완료</c:when>
   							<c:otherwise>오류</c:otherwise>
 							</c:choose>
                 	&nbsp;&nbsp;
@@ -105,10 +108,10 @@
             <tr>
                 <td align="left">&nbsp;&nbsp; <b>주문일시</b><br>&nbsp;&nbsp; <%=o.get(0).getPurDate() %></td>
                 <td align="right">
-                <% if(state == 4) {%>
-                <!--  <button class="btn" onclick="location.href='<%= request.getContextPath()%>/insertForm.rv?pno=<%=o.get(0).getPurNo()%>?pcode=<%=o.get(0).getpCode()%>'">후기작성</button>-->
+                <% if(state == 3) {%>
+                <button class="btn" onclick="delComplete(<%=o.get(0).getPurNo()%>)">배송완료</button>
                 <%} else if(state == 1 || state == 2){%>
-                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/cancelOrder?pno=<%=o.get(0).getPurNo()%>'">주문취소</button>
+                <button class="btn" onclick="location.href='<%= request.getContextPath()%>/cancelOrder.mp?pno=<%=o.get(0).getPurNo()%>'">주문취소</button>
                 <%} %>
                 </td>
             </tr>
@@ -121,6 +124,8 @@
             
             </table>
             <br><br>
+            
+            
             <%} %>
 			<%} %>
 		
@@ -176,8 +181,19 @@
 		var pno = td.eq(1).text();
 		location.href="<%= request.getContextPath()%>/detailOrder.mp?pno="+pno;
 		
+		
+		
 })
     
+    
+    function delComplete(p) {
+		if(!confirm("정말 배송을 완료하시겠습니까?")){
+			alert("취소되었습니다");
+		}else{
+			
+			location.href="<%= request.getContextPath()%>/delComplete.mp?pno="+p;
+		}
+	}
     
     </script>
     
