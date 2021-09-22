@@ -43,6 +43,7 @@ public class MainpageServlet extends HttpServlet {
 //		HashMap<String, Product> RVItemsList = null;
 		ArrayList<Product> RVItemsList = null;
 		Admin mainPageList = null;
+		String categoryEventImg = "";
 		int no;
 		ArrayList<Mainpage> newList = null;
 		ArrayList<Mainpage> bestList = null;
@@ -66,11 +67,13 @@ public class MainpageServlet extends HttpServlet {
 			}
 		}
 		mainPageList = new AdminService().mainPageList();
+		categoryEventImg = mainPageList.getS_Event_Img_Sys();
 		saleTotalList = new MainPageService().saleTotalList();
 		newList = new MainPageService().newList();
 		bestList = new MainPageService().bestList();
 		session.setAttribute("loginMember", loginMember);
 		session.setAttribute("RVItemsList", RVItemsList);
+		session.setAttribute("categoryEventImg", categoryEventImg);
 		request.setAttribute("mainPageList", mainPageList);
 		request.setAttribute("saleTotalList", saleTotalList);
 		request.setAttribute("newList", newList);

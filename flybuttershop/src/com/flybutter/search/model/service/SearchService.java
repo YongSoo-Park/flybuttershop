@@ -9,10 +9,10 @@ import com.flybutter.search.model.vo.Search;
 
 public class SearchService {
 
-	public ArrayList<Search> searchList(String sWord) {
+	public ArrayList<Search> searchList(String sWord, int userNo) {
 		Connection conn = getConnection();
 		ArrayList<Search> searchList = new ArrayList<Search>();
-		searchList = new SearchDao().searchList(conn, sWord);
+		searchList = new SearchDao().searchList(conn, sWord, userNo);
 		close(conn);
 		return searchList;
 	}
@@ -30,10 +30,10 @@ public class SearchService {
 		return count;
 	}
 	
-	public ArrayList<Search> searchListNext(String sWord,int start, int end, int sKind) {
+	public ArrayList<Search> searchListNext(String sWord,int start, int end, int sKind, int userNo) {
 		Connection conn = getConnection();
 		ArrayList<Search> searchList = new ArrayList<Search>();
-		searchList = new SearchDao().searchListNext(conn, sWord, start, end,sKind);
+		searchList = new SearchDao().searchListNext(conn, sWord, start, end,sKind,userNo);
 		close(conn);
 		return searchList;
 	}

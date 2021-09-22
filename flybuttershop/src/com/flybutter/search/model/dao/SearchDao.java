@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.flybutter.consumerMyPage.model.service.MypageService;
 import com.flybutter.search.model.vo.Search;
 
 public class SearchDao {
@@ -33,9 +34,10 @@ public class SearchDao {
 
 	}
 
-	public ArrayList<Search> searchList(Connection conn, String sWord) {
+	public ArrayList<Search> searchList(Connection conn, String sWord, int userNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		int wishListTemp;
 		ArrayList<Search> searchList = new ArrayList<Search>();
 		String sql = prop.getProperty("searchList");
 		try {
@@ -44,10 +46,11 @@ public class SearchDao {
 			rset = pstmt.executeQuery();
 			while (true) {
 				if (rset.next()) {
+					wishListTemp = new MypageService().checkWish(userNo, rset.getString("PCODE"));
 					searchList.add(new Search(rset.getString("PCODE"), rset.getString("PIMAGE_ORIGIN"),
 							rset.getString("PNAME"), rset.getInt("PRICE"), rset.getString("SCORE_AVG"),
 							rset.getInt("PSTOCK"), rset.getInt("STORE_NO"), rset.getString("STORE_NAME"),
-							rset.getInt("STORE_LEV")));
+							rset.getInt("STORE_LEV"),wishListTemp));
 					continue;
 				} else {
 					break;
@@ -121,9 +124,10 @@ public class SearchDao {
 		return count;
 	}
 
-	public ArrayList<Search> searchListNext(Connection conn, String sWord, int start, int end, int sKind) {
+	public ArrayList<Search> searchListNext(Connection conn, String sWord, int start, int end, int sKind, int userNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		int wishListTemp;
 		ArrayList<Search> searchList = new ArrayList<Search>();
 		String sql = prop.getProperty("searchListNext");
 		if (sKind == 2) {
@@ -141,10 +145,11 @@ public class SearchDao {
 			rset = pstmt.executeQuery();
 			while (true) {
 				if (rset.next()) {
+					wishListTemp = new MypageService().checkWish(userNo, rset.getString("PCODE"));
 					searchList.add(new Search(rset.getString("PCODE"), rset.getString("PIMAGE_ORIGIN"),
 							rset.getString("PNAME"), rset.getInt("PRICE"), rset.getString("SCORE_AVG"),
 							rset.getInt("PSTOCK"), rset.getInt("STORE_NO"), rset.getString("STORE_NAME"),
-							rset.getInt("STORE_LEV")));
+							rset.getInt("STORE_LEV"),wishListTemp));
 					continue;
 				} else {
 					break;

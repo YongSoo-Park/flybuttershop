@@ -93,6 +93,19 @@ text-align: center;
 }
 </style>
 <script type="text/javascript">
+
+$(function() {
+	
+	
+	var isMsg = sessionStorage.getItem("isMsg");
+	if(isMsg == 1){
+	console.log(isMsg);
+	sessionStorage.removeItem("isMsg");
+	location.reload();
+	}
+	
+	
+})
 function listPageMove(movingPage,mCategory,sCategory,total,sKind) {
 	console.log(mCategory);
 	var form = document.createElement('form');
@@ -125,8 +138,23 @@ function listPageMove(movingPage,mCategory,sCategory,total,sKind) {
 	form.appendChild(hInput5);
 	document.body.appendChild(form);
 	form.submit();
+	
 }
 
+function wishListAdd(pCode,pName) {
+	if(confirm("["+pName + "] 상품을 위시리스트에 등록하시겠습니까?")){
+		var form = document.createElement('form');
+		form.setAttribute('method','post');  
+		form.setAttribute('action', 'views/wishList/wishList.jsp');
+		var hInput = document.createElement('input');
+		hInput.setAttribute('type','hidden');
+		hInput.setAttribute('name', 'pCode');
+		hInput.setAttribute('value', pCode);
+		form.appendChild(hInput);
+		document.body.appendChild(form);
+		form.submit();
+	}
+}
 </script>
 </head>
 <body style="margin: 0 auto">
@@ -165,7 +193,16 @@ function listPageMove(movingPage,mCategory,sCategory,total,sKind) {
 		<span style="font-size: 23px; font-weight: bold;"><a onclick="detailP('${list.pCode}')" style="cursor: pointer;"><c:out value="${list.pName}"/></a></span><br><br><c:out value="${list.price}원"/><br><br>
 		<span style="font-size: 13px;"><c:out value="평점 : ${list.score_Avg} 점"/>  <c:out value="재고 : ${list.pStock}"/> </span>
 		</div>
-<div class="categoryListItem3"><img src="${pageContext.request.contextPath}/resources/icon/favHeart.png" style="margin: 10px"/></div>
+<div class="categoryListItem3">
+<c:choose>
+<c:when test="${list.wishList == 1}">
+<img src="${pageContext.request.contextPath}/resources/icon/favHeart.png" style="margin: 10px"/>
+</c:when>
+<c:otherwise>
+<img src="${pageContext.request.contextPath}/resources/icon/eHeart.jpg" style="margin: 10px; cursor: pointer;" onclick="wishListAdd('${list.pCode}','${list.pName}')"/>
+</c:otherwise>
+</c:choose>
+</div>
 <div class="categoryListItem4">
 <div class="categoryListItem4child"><span style="font-size: 20px; font-weight: bold; line-height: 200%">
 <c:out value="${list.store_Name}"/> </span><br>

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.flybutter.category.model.vo.Category;
+import com.flybutter.consumerMyPage.model.service.MypageService;
 
 public class CategoryDao {
 
@@ -33,7 +34,8 @@ public class CategoryDao {
 
 	}
 
-	public ArrayList<Category> categoryList(Connection conn, int mCategory, int sCategory) {
+	public ArrayList<Category> categoryList(Connection conn, int mCategory, int sCategory, int userNo) {
+		int wishListTemp;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Category> categoryList = new ArrayList<Category>();
@@ -49,10 +51,11 @@ public class CategoryDao {
 			rset = pstmt.executeQuery();
 			while (true) {
 				if (rset.next()) {
+					wishListTemp = new MypageService().checkWish(userNo, rset.getString("PCODE"));
 					categoryList.add(new Category(rset.getString("PCODE"), rset.getString("PIMAGE_ORIGIN"),
 							rset.getString("PNAME"), rset.getInt("PRICE"), rset.getString("SCORE_AVG"),
 							rset.getInt("PSTOCK"), rset.getInt("STORE_NO"), rset.getString("STORE_NAME"),
-							rset.getInt("STORE_LEV")));
+							rset.getInt("STORE_LEV"),wishListTemp));
 					continue;
 				} else {
 					break;
@@ -137,7 +140,8 @@ public class CategoryDao {
 	}
 
 	public ArrayList<Category> categoryListNext(Connection conn, int mCategory, int sCategory, int start, int end,
-			int sKind) {
+			int sKind, int userNo) {
+		int wishListTemp;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Category> categoryList = new ArrayList<Category>();
@@ -162,10 +166,11 @@ public class CategoryDao {
 			rset = pstmt.executeQuery();
 			while (true) {
 				if (rset.next()) {
+					wishListTemp = new MypageService().checkWish(userNo, rset.getString("PCODE"));
 					categoryList.add(new Category(rset.getString("PCODE"), rset.getString("PIMAGE_ORIGIN"),
 							rset.getString("PNAME"), rset.getInt("PRICE"), rset.getString("SCORE_AVG"),
 							rset.getInt("PSTOCK"), rset.getInt("STORE_NO"), rset.getString("STORE_NAME"),
-							rset.getInt("STORE_LEV")));
+							rset.getInt("STORE_LEV"),wishListTemp));
 					continue;
 				} else {
 					break;

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.category.model.service.CategoryService;
 import com.flybutter.category.model.vo.Category;
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.paging.model.vo.Paging;
 
 /**
@@ -33,6 +34,7 @@ public class CategoryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
 		int mCategory; 
 		int sCategory;
 		
@@ -41,7 +43,7 @@ public class CategoryServlet extends HttpServlet {
 		Paging paging = null;
 		ArrayList<Category> categoryList = new ArrayList<Category>();
 		ArrayList<Category> categorySaleList = new ArrayList<Category>();
-		categoryList = new CategoryService().categoryList(mCategory, sCategory);
+		categoryList = new CategoryService().categoryList(mCategory, sCategory,userNo);
 		categorySaleList = new CategoryService().categorySaleList(mCategory, sCategory);
 		String categoryName = new CategoryService().categoryName(mCategory, sCategory);
 		request.setAttribute("mCategory", mCategory);
