@@ -96,7 +96,6 @@
 					<td colspan="4"><%=r.getRere_content()%></td>
 				</tr>
 				<tr>
-					
 					<td colspan="3" align="right"><%=r.getRere_date()%></td>
 				</tr>
 			<% } %>
@@ -105,9 +104,9 @@
 	</div>
 	
 	<br>
-		
-		<button id="btn" href="">목록으로</button>
-		
+		<div class="text-center">
+			<button type="reset" id="btn" class="btn btn-outline-secondary" onclick="history.go(-1)">목록으로</button>
+		</div>
 	<br>
 	
 	

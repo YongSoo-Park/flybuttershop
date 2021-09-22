@@ -24,8 +24,14 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  <!--스타일 cdn?-->
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!--jQuery연결하는 CDN-->
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <style>
 	table{
@@ -99,7 +105,7 @@
 			<%}else{ %>
 				<tr>
 					<td rowspan="2" width="100px">답변</td>
-					<td colspan="4"><%=q.getQna_Comment() %></td>
+					<td colspan="4" width="300px"><%=q.getQna_Comment() %></td>
 				</tr>
 				<tr>
 					
@@ -108,7 +114,7 @@
 			<% } %>
 		</table>
 		
-		<button type="button" class="btn" action="">목록으로</button>
+		<button type="button" class="btn btn-outline-secondary" onclick="history.go(-1)">목록으로</button>
 	
 	</div>
 		

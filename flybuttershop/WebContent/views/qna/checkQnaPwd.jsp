@@ -25,20 +25,17 @@ function pwdValidate(){
 .check{
 	text-align:center;
 }
-div{
-width:400px;
-height:400px;
-}
+
 </style>
 </head>
 <body style="margin: 0 auto">
 <jsp:include page="../header_footer/header.jsp" flush="true"/>
   
-	<div class="check">
+	<div class="check" align="center">
 		<form id="qnaPwd" action="<%=request.getContextPath()%>/checkPwd.na" method="post" onsubmit="return pwdValidate();">
 			<input type="hidden" name="qNo" value="<%=q.getQna_No()%>">
 			<input type="password" id="pwd" name="pwd">
-			<button type="submit">비밀번호 확인</button>		
+			<button type="submit" class="btn btn-outline-secondary">비밀번호 확인</button>		
 			
 		</form>
 	

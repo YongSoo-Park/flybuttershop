@@ -104,7 +104,7 @@ function updateValidate(){
         <br><br><br>
 		<div class="btns" align="center">
 		<button type="submit" class="btn btn-outline-primary">수정하기</button>
-		<button type="button" class="btn btn-outline-secondary" onclick="location.href=<%=request.getContextPath()%>">취소</button>
+		<button type="button" class="btn btn-outline-secondary" onclick="history.go(-1)">취소</button>
 		</div>
 	</form>
 	</div>

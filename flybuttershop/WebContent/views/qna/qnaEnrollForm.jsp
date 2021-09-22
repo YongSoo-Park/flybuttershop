@@ -129,7 +129,7 @@ function insertValidate(){
 
             <div class="btns" align="center">
                 <button type="submit" class="btn btn-outline-primary">문의 등록</button>
-                <button type="reset" class="btn btn-outline-dark">취소</button>
+                <button type="reset" class="btn btn-outline-dark" onclick="history.go(-1)">취소</button>
 
             </div>
         </form>

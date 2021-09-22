@@ -38,7 +38,7 @@ $(function(){
 	
 	<h2 align="center">접수된 주문 내역</h2><br>
 	
-	<table class="pList table table-hover"" aline="center">
+	<table class="pList table table-hover" aline="center">
 		<thead>
 			<tr class="table-primary">
 				<th>주문번호</th>
