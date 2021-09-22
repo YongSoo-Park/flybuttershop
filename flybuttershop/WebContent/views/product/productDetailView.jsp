@@ -310,10 +310,11 @@ $(function(){
 			onclick="qnaInsert();">상품 문의하기</button>
 		<br> <br>
 		
-		<table class="qnaList" align="center">
-			<thead>
+		<table class="qnaList table table-hover" align="center">
+			<thead class="table-primary">
 				<th>
 				<%--잠금 이미지--%>
+				
 				</th>
 				<th>글번호</th>
 				<th>문의유형</th>
@@ -341,9 +342,18 @@ $(function(){
 					}else {
 						qCategory = "기타";
 					}
+					
 				%>
 				<tr>
-					<td><%=q.getLock_Flag() %><input type="hidden" name="pwd" value="<%=q.getQna_Pwd()%>"></td>
+					<td>
+					<%if(q.getLock_Flag()==1){ %>
+						
+					<%}else{ %>
+						2
+					<%} %>
+					<input type="hidden" name="lock" value="<%=q.getLock_Flag()%>">
+					<input type="hidden" name="pwd" value="<%=q.getQna_Pwd()%>">
+					</td>
 					<td><%=q.getQna_No() %></td>
 					<td><%=qCategory %></td>
 					<td><%=q.getQna_Writer()%></td>

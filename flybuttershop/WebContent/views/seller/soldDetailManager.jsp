@@ -31,18 +31,26 @@ if(s.getPurType()==1){
 				
 	}
 	function cancelPur(){
-		$("#postForm").attr("action", "<%=request.getContextPath()%>/cancelPur.sl");
-		$("#postForm").submit();
-				
+		 const result = confirm("주문을 취소하시겠습니까? 승인 후에는 취소할 수 없습니다.")
+		 if(result){
+			$("#postForm").attr("action", "<%=request.getContextPath()%>/cancelPur.sl");
+			$("#postForm").submit();
+		 }
 	}
 	function refund(){
-		$("#postForm").attr("action", "<%=request.getContextPath()%>/refund.sl");
-		$("#postForm").submit();
-				
+		 const result = confirm("환불을 승인하시겠습니까? 승인 후에는 취소할 수 없습니다.")
+		 if(result){
+			$("#postForm").attr("action", "<%=request.getContextPath()%>/refund.sl");
+			$("#postForm").submit();
+		 }
 	}
 	function confirmPur(){
-		$("#postForm").attr("action", "<%=request.getContextPath()%>/confirmPur.sl");
-		$("#postForm").submit();
+		 const result = confirm("주문을 승인하시겠습니까? 승인 후에는 취소할 수 없습니다.")
+		 if(result){
+			 $("#postForm").attr("action", "<%=request.getContextPath()%>/confirmPur.sl");
+			 $("#postForm").submit();
+		 }
+		
 				
 	}
 </script>
@@ -55,6 +63,7 @@ if(s.getPurType()==1){
 	<h2>주문 내역</h2>
 	<h3>주문 번호 : <%=s.getPno()%></h3>
 	<div>
+		<button type="button" class="btn btn-outline-secondary" onclick="history.go(-1)">목록으로</button>
 	<% int status = sList.get(0).getpStatus();
 	   if(status == 1){ %>
 	    <button type="button" class="btn btn-outline-danger" onclick="cancelPur();">판매취소</button>

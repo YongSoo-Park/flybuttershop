@@ -192,6 +192,7 @@ function deleteProduct(){
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 			<button type="button" class="btn btn-outline-primary me-md-2" onclick="updateProduct();">상품 수정</button>
 			<button type="button" class="btn btn-outline-danger" onclick="deleteProduct();">상품 삭제</button>
+			<button type="button" class="btn btn-outline-secondary" onclick="history.go(-1)">목록으로</button>
 		</div>
 		<br>
 		

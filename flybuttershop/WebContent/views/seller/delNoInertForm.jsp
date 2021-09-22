@@ -21,21 +21,29 @@ function delValidate(){
 	 
 }
 </script>
+<style type="text/css">
+.insertDelNo{
+	width:500px;
+	border: 1px solid black;
+	text-align:center;
+}
+</style>
 </head>
 <body style="margin: 0 auto">
 <jsp:include page="../header_footer/header.jsp" flush="true"/>
 <jsp:include page="../common/sellerMenuBar.jsp" flush="true"/>
 	<br><br>  
 	
-	<h2>운송장 번호 등록</h2>
+	<h2 class="text-center">운송장 번호 등록</h2>
 	
 	
 <div class="insertDelNo">
 	<form id="delNo" action="<%=request.getContextPath()%>/updateDel.sl" method="post" onsubmit="return delValidate();">
-		<input type="text" id="number" name="number">
+		<input type="text"  class="form-control" id="number" name="number">
 		<input type="hidden" id="pNo" name="pNo" value="<%=s.getPno()%>">
 		<br>
-		<button type="submit">운송장 번호 등록</button>
+		<button type="submit" class="btn btn-outline-primary">운송장 번호 등록</button>
+		<button type="submit" class="btn btn-outline-danger">취소</button>
 	</form>
 </div>
 

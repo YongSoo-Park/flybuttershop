@@ -61,17 +61,31 @@
 		height:150px;
 		text-align:center;
 	}
+	#btn{
+	align:center;
+	}
 
 </style>
 <script type="text/javascript">
 function insertValidate(){
-	if(!(/^[a-z][a-z\d]{3,50}$/i.test($("#productInsert input[name=pName]").val()))){
-		alert("상품명에는 영어, 한글, 숫자만 입력가능합니다.");
-		$("#productInsert input[name=pName]").focus();
+	if(!(/^{3,200}$/i.test($("#reply textarea").val()))){
+		alert("답글은 200자 까지만 입력가능합니다.");
+		$("#reply textarea").focus();
         return false;
 	}
 	return true;
 }
+$('#replyContent').keyup(function (e){
+    var content = $(this).val();
+    $('#replyContent').html("("+content.length+" / 최대 150자)");    //글자수 실시간 카운팅
+
+    if (content.length > 150){
+        alert("최대 100자까지 입력 가능합니다.");
+        $(this).val(content.substring(0, 150));
+        $('#replyContent').html("(100 / 최대 150자)");
+    }
+});
+
 </script>
 </head>
 <body style="margin: 0 auto">
@@ -125,9 +139,9 @@ function insertValidate(){
 	</div>
 	
 	<br>
-		
-		<button id="btn" href="qnaManager.sl">목록으로</button>
-		
+		<div class="text-center">
+			<button id="btn" class="btn btn-outline-secondary" onclick="history.go(-1)">목록으로</button>
+		</div>
 	<br>
 	
 	
@@ -136,15 +150,13 @@ function insertValidate(){
 			<table  border="1" align="center">
 				<tr>
 					<th>답변작성<input type="hidden" name="qNo" value="<%=q.getQna_No()%>"></th>
-					<td><textarea name="comment" rows="10" cols="60" id="replyContent" style="resize:none;"></textarea></td>
-					<td><button type="submit" id="addReply">댓글등록</button></td>
+					<td><textarea name="comment" rows="10" cols="58" id="replyContent" placeholder="답변을 입력해주세요." style="resize:none;"></textarea></td>
+					<td><button type="submit" id="addReply" class="btn btn-outline-primary">댓글등록</button></td>
 				</tr>
 			</table>
 		</form>
 	</div>
 	
-
-
 
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>

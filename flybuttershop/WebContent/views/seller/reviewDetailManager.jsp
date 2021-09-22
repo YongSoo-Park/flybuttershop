@@ -106,11 +106,10 @@
 	</div>
 	
 	<br>
-		
-		<button id="btn" href="">목록으로</button>
-		
+		<div class="text-center">
+			<button id="btn" class="btn btn-outline-secondary" onclick="history.go(-1)">목록으로</button>
+		</div>
 	<br>
-	
 	
 	<div class="reply">
 		<form id="reply" action="<%= request.getContextPath() %>/reInsert.sl" method="post">
@@ -123,7 +122,6 @@
 			</table>
 		</form>
 	</div>
-
 
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>
 </body>
