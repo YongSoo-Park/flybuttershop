@@ -38,6 +38,12 @@
         	width: 100px;
         	height: 50px;
         }
+           
+        .link{
+        	
+        	cursor:pointer;
+        	
+	}
         
 
     </style>
@@ -58,8 +64,13 @@
 			<% for(OrderInfo o : list){ %>
            <tr height="200px">
 
-            <td width="200px"><img src="<%= contextPath %><%=o.getpImage() %>" border="1px" width="200px"></td>
-            <td width="550px" align="left">&nbsp;&nbsp;&nbsp;<b><%=o.getpName() %></b><br>&nbsp;&nbsp;&nbsp;옵션명 <%=o.getOption() %></td>
+            <td width="200px">
+            <img src="<%= contextPath %><%=o.getpImage() %>" border="1px" width="200px" class="link" onclick="location.href='<%= request.getContextPath()%>/detail.pr?pCode=<%=o.getpCode()%>'">
+            </td>
+            <td width="550px" align="left" class="link" onclick="location.href='<%= request.getContextPath()%>/detail.pr?pCode=<%=o.getpCode()%>'">
+            &nbsp;&nbsp;&nbsp;<b><%=o.getpName() %></b>
+            <br>&nbsp;&nbsp;&nbsp;옵션명 <%=o.getOption() %>
+            </td>
             <td width="250px"><b>
                 <% int state =  o.getState(); 
 								pageContext.setAttribute("state", state);

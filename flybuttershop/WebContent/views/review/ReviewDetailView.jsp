@@ -119,8 +119,8 @@
 			
 			<% if(loginMember != null && loginMember.getUserNo() == r.getUser_no()){ %>
 				
-				<button type="button" onclick="updateForm();">수정하기</button>
-				<button type="button" onclick="deleteBoard();">삭제하기</button>
+				<button type="button" onclick="location.href='<%= request.getContextPath()%>/updateForm.rv?rno=<%=r.getRe_no()%>'">수정하기</button>
+		
 			<% } %>
 
         </div>

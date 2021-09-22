@@ -37,7 +37,7 @@
 		text-align:center;
 	}
 	.listArea>tbody>tr:hover{
-		background: #F5D042;
+		background: lightgrey;
 		cursor:pointer
 	}
 </style>

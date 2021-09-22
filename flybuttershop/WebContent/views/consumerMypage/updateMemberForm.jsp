@@ -15,16 +15,22 @@
     <style>
 
         #wrap{
-
+			display: inline-block;
             text-align: center;
+            width: 1200px
         }
 
         #loginForm{
-
-            text-align: center;
+			display: inline-block;
+            text-align: left;
             line-height: 30px;
 
         }
+     
+ 	
+ 	
+        
+        
     </style>
 
 <script>
@@ -57,26 +63,27 @@ function loginValidate() {
 
 
         <h2>회원정보 수정</h2>
+        <br> <br>
 
         <div id="loginForm">
         <form name="login" action="updateMem.mp" method="post" onsubmit="return loginValidate();">
-            <label>아이디</label>
+            <label>아이디</label><br>
             <input type="text" name="user_ID" value=<%= m.getUserId() %> readonly>
             
             <br>
-             <label>비밀번호</label>
+             <label>비밀번호</label><br>
             <input type="password" id ="pass1" name="user_PW1" required><label id="pwdResult"></label><br>
-             <label>비밀번호 재확인 </label>
+             <label>비밀번호 재확인 </label><br>
             <input type="password" id ="pass2" name="user_PW2" required>
             <input type="button" name="user_PWcheck" value="비밀번호 확인" onclick="checkPass();">
             <br>
-            <label>이름 </label>
+            <label>이름 </label><br>
             <input type="text" name="name" value=<%= m.getUserName()%> required> <br>
-             <label>이메일</label>
+             <label>이메일</label><br>
             <input type="email" name="email" value=<%= m.getEmail()%> required><br>
-             <label>휴대전화 </label>
+             <label>휴대전화 </label><br>
             <input type="text" name="phone" value=<%=m.getPhone()%> required><br>
-             <label>주소 </label>
+             <label>주소 </label><br>
             <textarea id="address" name = "address" required><%= m.getAddress() %></textarea>
 
 
@@ -84,7 +91,7 @@ function loginValidate() {
             <input type="submit" name="submit" value="변경하기">
             
           </form>
-        
+         <br> <br>
         </div>
 
     </div>

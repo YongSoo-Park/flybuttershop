@@ -88,6 +88,27 @@ public class ReviewService {
 	
 		return result;
 	}
+
+
+
+
+
+	public int updateReview(Review r) {
+		Connection conn = getConnection();
+		
+		int result = new ReviewDao().updateReview(conn, r);
+		
+		if(result > 0) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+		}
+		
+	
+		return result;
+	}
 	
 }
 

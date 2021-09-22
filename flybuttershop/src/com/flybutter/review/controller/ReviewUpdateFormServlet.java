@@ -1,8 +1,6 @@
-package com.flybutter.consumerMyPage.controller;
+package com.flybutter.review.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.flybutter.consumerMyPage.model.service.MypageService;
-import com.flybutter.member.model.vo.Member;
+import com.flybutter.review.model.vo.Review;
 
 /**
- * Servlet implementation class IndentificationServlet
+ * Servlet implementation class ReviewUpdateFormServlet
  */
-@WebServlet("/indentifi.mp")
-public class IndentificationServlet extends HttpServlet {
+@WebServlet("/updateForm.rv")
+public class ReviewUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IndentificationServlet() {
+    public ReviewUpdateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,28 +30,21 @@ public class IndentificationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int userNo = ((Member) request.getSession().getAttribute("loginMember")).getUserNo();
+		int reNo = Integer.parseInt(request.getParameter("rno"));
 		
-		String result = new MypageService().checkUserCel(userNo);
+		Review r = new MypageService().updateReviewForm(reNo);
 		
-		if(result.equals("Y")) {
+		if(r.getRe_no() > 0) {
 			
-			request.setAttribute("msg", "번호를 입력해주세요");
-
-			request.getRequestDispatcher("views/consumerMypage/IdentificationView.jsp").forward(request, response);
+			request.setAttribute("r", r);
+			request.getRequestDispatcher("views/review/ReviewUpdateFormView.jsp").forward(request, response);
+			
 			
 		}else {
 			
-			response.setContentType("text/html; charset=utf-8"); 
-			PrintWriter out = response.getWriter();
-			out.println("<script charset='utf-8'> alert('이미 본인 인증이 완료되었습니다'); location.href='main.mp';</script>");
-			
-			out.flush();
-			
+			request.setAttribute("msg", "수정불가");
 			
 		}
-		
-		
 		
 		
 		
