@@ -6,12 +6,14 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.flybutter.consumerMyPage.model.dao.MypageDao;
+import com.flybutter.consumerMyPage.model.vo.OrderInfo;
 import com.flybutter.consumerMyPage.model.vo.OrderList;
 import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.member.model.vo.Member;
 import com.flybutter.money.model.vo.Money;
 import com.flybutter.purchase.model.vo.Purchase;
 import com.flybutter.review.model.vo.PageInfo;
+import com.flybutter.wishlist.model.vo.Wishlist;
 
 
 
@@ -197,6 +199,164 @@ public class MypageService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int cancelOrder(OrderList list) {
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().cancelOrder(conn, list);
+		
+		
+		if(result == 1) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+			
+		}
+		
+		
+		return result;
+	}
+
+	public int refundOrder(OrderList list) {
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().cancelOrder(conn, list);
+		
+		
+		if(result == 1) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+			
+		}
+		
+		
+		return result;
+	}
+
+	public int updateSumPrice(int userNo, int purPrice) {
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().updateSumPrice(conn, userNo, purPrice);
+		
+		
+		if(result == 1) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+		}
+		
+		
+		return result;
+	}
+
+	public int updateCoupon(int purNo) {
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().updateCoupon(conn, purNo);
+		
+		
+		if(result == 1) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+		}
+		
+		
+		return result;
+	}
+
+	public int updateMoney(int userNo, double d, int purNo) {
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().updateMoney(conn, userNo, d, purNo);
+		
+		
+		if(result == 1) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+		}
+		
+		
+		return result;
+	}
+
+	public int updateAmount(String pCode, int amount) {
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().updateAmount(conn, pCode, amount);
+		
+		
+		if(result == 1) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+		}
+		
+		
+		return result;
+	}
+
+	public int getWishlistCount(int userNo) {
+		Connection conn = getConnection();
+		
+		int listCount = new MypageDao().getWishlistCount(conn, userNo);
+		
+		close(conn);
+		
+		
+		return listCount;
+	}
+
+	public ArrayList<Wishlist> selectWishlist(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Wishlist> list = new MypageDao().selectWishlist(conn, pi, userNo);
+		
+		close(conn);
+		return list;
+	}
+
+	public int deleteWish(int wNo) {
+		Connection conn = getConnection();
+		
+		int result = new MypageDao().deleteWish(conn, wNo);
+		
+		
+		if(result == 1) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+		}
+		
+		
+		return result;
+	}
+
+	public String getPhone(int userNo) {
+		Connection conn = getConnection();
+		
+		String phone = new MypageDao().getPhone(conn, userNo);
+		
+		close(conn);
+		
+		return phone;
 	}
 
 }

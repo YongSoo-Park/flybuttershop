@@ -104,7 +104,7 @@
                 
        
 					
-                <img src="<%=contextPath %>/resources/reviewUpfile/<%= r.getRe_originFile()%>" width="600px" height="450px">
+                <img src="<%=contextPath %>/resources/reviewUpfile/<%= r.getRe_changeFile()%>" width="600px" height="450px">
                 </td>
             </tr>
             <%} %>

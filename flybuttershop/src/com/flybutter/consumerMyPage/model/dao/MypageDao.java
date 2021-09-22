@@ -14,11 +14,13 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.flybutter.basket.model.dao.BasketDao;
+import com.flybutter.consumerMyPage.model.vo.OrderInfo;
 import com.flybutter.consumerMyPage.model.vo.OrderList;
 import com.flybutter.coupon.model.vo.Coupon;
 import com.flybutter.member.model.vo.Member;
 import com.flybutter.money.model.vo.Money;
 import com.flybutter.review.model.vo.PageInfo;
+import com.flybutter.wishlist.model.vo.Wishlist;
 
 public class MypageDao {
 	
@@ -316,6 +318,9 @@ public class MypageDao {
 				list.setPurNo(purNo);				
 				list.setPurDate(rset.getDate("PUR_DATE"));
 				list.setOrderInfo(rset.getString("PUR_INFO"));
+				list.setDelNo(rset.getInt("DEL_NO"));
+				list.setPurType(rset.getInt("PUR_TYPE"));
+				list.setPurPrice(rset.getInt("PUR_PRICE"));
 			}
 		} catch (SQLException e) {
 			System.out.println("PURCHASE 테이블  selectOrderDetail : " + e.getMessage());
@@ -575,6 +580,295 @@ public class MypageDao {
 			close(pstmt);
 		}
 		return count;
+	}
+
+
+
+
+
+	public int cancelOrder(Connection conn, OrderList list) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String sql = prop.getProperty("cancelOrder");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setString(1, list.getOrderInfo());
+			pstmt.setInt(2, list.getPurNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("PURCHASE 테이블  cancelOrder : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+
+
+	public int updateSumPrice(Connection conn, int userNo, int purPrice) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String sql = prop.getProperty("updateSumPrice");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setInt(1, purPrice);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("CONSUMER 테이블  updateSumPrice : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+
+
+	public int updateCoupon(Connection conn, int purNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String sql = prop.getProperty("updateCoupon");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setInt(1, 0);
+			pstmt.setInt(2, purNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("COUPON 테이블  updateCoupon : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+
+
+	public int updateMoney(Connection conn, int userNo, double d, int purNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String sql = prop.getProperty("updateMoney");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setInt(1, purNo);
+			pstmt.setInt(2, userNo);
+			pstmt.setDouble(3, d);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("MONEY 테이블  updateMoney : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+
+
+	public int updateAmount(Connection conn, String pCode, int amount) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String sql = prop.getProperty("updateAmount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setInt(1, amount);
+			pstmt.setString(2, pCode);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("PRODUCT 테이블  updateAmount : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+
+
+	public int getWishlistCount(Connection conn, int userNo) {
+		int count = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getWishlistCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				count = rset.getInt("COUNT(*)");
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("COUPON 테이블  checkWish : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+
+
+
+
+	public ArrayList<Wishlist> selectWishlist(Connection conn, PageInfo pi, int userNo) {
+		
+		ArrayList<Wishlist> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWishlist");
+		
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Wishlist(rset.getInt("WISH_NO"),
+									rset.getString("PCODE"),
+									rset.getString("PIMAGE_ORIGIN"),
+									rset.getString("PNAME"),
+									rset.getString("SCORE_AVG"),
+									rset.getInt("PRICE")
+									
+						));
+			}
+		} catch (SQLException e) {
+			System.out.println("WISHLIST 테이블  selectWishlist : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return list;
+	}
+
+
+
+
+
+	public int deleteWish(Connection conn, int wNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String sql = prop.getProperty("deleteWish");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setInt(1, wNo);
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("WISHLIST 테이블  deleteWish : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+
+
+	public String getPhone(Connection conn, int userNo) {
+		String phone = "";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getPhone");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				phone = rset.getString("MEM_PHONE");
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("MEMBER 테이블  getPhone : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return phone;
 	}
 
 }

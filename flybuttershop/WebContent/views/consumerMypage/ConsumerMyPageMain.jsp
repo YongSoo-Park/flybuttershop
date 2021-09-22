@@ -98,7 +98,7 @@
             <div class="menu" onclick="goReviewList();">내 후기 관리</div>
             <div class="menu" onclick="goOrderCheck();">주문내역확인</div>
             <div class="menu" onclick="goCoupon();">쿠폰/적립금확인</div>
-            <div class="menu" onclick="goRecentlyView();">최근 본 상품</div>
+            <div class="menu" onclick="goRecentlyView();">본인인증</div>
             <div class="menu" onclick="goWishList();">위시리스트</div>
             
         </div>
@@ -122,7 +122,7 @@
         }
 
         function goRecentlyView(){
-            location.href="recentlyList.mp";
+            location.href="indentifi.mp";
         }
 
         function goWishList(){

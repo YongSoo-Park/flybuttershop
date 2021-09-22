@@ -13,6 +13,10 @@ public class OrderInfo {
 	private int purNo;
 	private Date purDate;
 	private String pImage;
+	private int delNo;
+	private int purType;
+	private int purPrice;
+	
 	
 	
 	public OrderInfo() {
@@ -22,6 +26,44 @@ public class OrderInfo {
 	
 	
 	
+
+
+
+	public OrderInfo(String pCode, String pName, int sellerNo, int amount, String option, int state, int purNo,
+			Date purDate, String pImage, int delNo, int purType, int purPrice) {
+		super();
+		this.pCode = pCode;
+		this.pName = pName;
+		this.sellerNo = sellerNo;
+		this.amount = amount;
+		this.option = option;
+		this.state = state;
+		this.purNo = purNo;
+		this.purDate = purDate;
+		this.pImage = pImage;
+		this.delNo = delNo;
+		this.purType = purType;
+		this.purPrice = purPrice;
+	}
+
+
+
+	
+
+
+
+	public OrderInfo(String pCode, int sellerNo, int amount, String option, int state) {
+		super();
+		this.pCode = pCode;
+		this.sellerNo = sellerNo;
+		this.amount = amount;
+		this.option = option;
+		this.state = state;
+	}
+
+
+
+
 
 
 
@@ -154,12 +196,77 @@ public class OrderInfo {
 
 
 
+	public int getDelNo() {
+		return delNo;
+	}
+
+
+
+
+
+
+
+	public void setDelNo(int delNo) {
+		this.delNo = delNo;
+	}
+
+
+
+
+
+
+
+	public int getPurType() {
+		return purType;
+	}
+
+
+
+
+
+
+
+	public void setPurType(int purType) {
+		this.purType = purType;
+	}
+
+
+
+
+
+
+
+	public int getPurPrice() {
+		return purPrice;
+	}
+
+
+
+
+
+
+
+	public void setPurPrice(int purPrice) {
+		this.purPrice = purPrice;
+	}
+
+
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "OrderInfo [pCode=" + pCode + ", pName=" + pName + ", sellerNo=" + sellerNo + ", amount=" + amount
 				+ ", option=" + option + ", state=" + state + ", purNo=" + purNo + ", purDate=" + purDate + ", pImage="
-				+ pImage + "]";
+				+ pImage + ", delNo=" + delNo + ", purType=" + purType + ", purPrice=" + purPrice + "]";
 	}
+
+
+
+
+
 
 
 

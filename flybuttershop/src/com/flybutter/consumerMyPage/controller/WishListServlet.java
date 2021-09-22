@@ -13,22 +13,20 @@ import com.flybutter.consumerMyPage.model.service.MypageService;
 import com.flybutter.consumerMyPage.model.vo.OrderInfo;
 import com.flybutter.consumerMyPage.model.vo.OrderList;
 import com.flybutter.member.model.vo.Member;
-import com.flybutter.purchase.model.vo.Purchase;
-import com.flybutter.review.model.service.ReviewService;
 import com.flybutter.review.model.vo.PageInfo;
-import com.flybutter.review.model.vo.Review;
+import com.flybutter.wishlist.model.vo.Wishlist;
 
 /**
- * Servlet implementation class OrderListServlet
+ * Servlet implementation class WishListServlet
  */
-@WebServlet("/orderList.mp")
-public class OrderListServlet extends HttpServlet {
+@WebServlet("/wishlist.mp")
+public class WishListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderListServlet() {
+    public WishListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,6 +35,7 @@ public class OrderListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		
 		Member m = (Member) request.getSession().getAttribute("loginMember");
 		int userNo = m.getUserNo();
@@ -52,7 +51,7 @@ public class OrderListServlet extends HttpServlet {
 				int boardLimit;			
 				
 				
-				listCount = new MypageService().getMyOrderListCount(userNo);
+				listCount = new MypageService().getWishlistCount(userNo);
 				
 				
 				currentPage = 1;
@@ -81,49 +80,15 @@ public class OrderListServlet extends HttpServlet {
 				
 				PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 				
-				ArrayList<OrderList> list = new MypageService().selectOrderList(pi,userNo);
+				ArrayList<Wishlist> list = new MypageService().selectWishlist(pi,userNo);
 				
-				ArrayList<ArrayList<OrderInfo>> listIn = new ArrayList<ArrayList<OrderInfo>>(); //= new MypageService().selectOrderListIn(pi,userNo);
+				System.out.println(list);
 				
-				
-				for(int i = 0; i < list.size(); i++) {
-					
-					String str = list.get(i).getOrderInfo();
-				      
-				      String[] temp1 =str.split("/");
-				      String[] temp2;
-				      ArrayList<OrderInfo> info=new ArrayList<OrderInfo>();
-				      for(int j = 0 ; j <temp1.length; j++) {
-				        if(temp1[j] != null) {
-				        	
-				          temp2=temp1[j].split(":");
-				          
-				          String pImage = new MypageService().getpImage(temp2[0]);
-				          String pName = new MypageService().getpName(temp2[0]);
-				     
-				 
-				          info.add(new OrderInfo(temp2[0],pName,Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]),temp2[3],Integer.parseInt(temp2[4]),list.get(i).getPurNo(),list.get(i).getPurDate(), pImage));
-				          
-				         
-				          
-				          
-				         }
-				        
-				         
-				      }
-				      
-				      
-				      listIn.add(info);
-				      
-					
-				}
-				
-
-				
-				request.setAttribute("list", listIn);
+				request.setAttribute("list", list);
 				request.setAttribute("pi", pi);
-				request.getRequestDispatcher("views/consumerMypage/OrderListView.jsp").forward(request, response);
-
+				request.getRequestDispatcher("views/consumerMypage/WishListView.jsp").forward(request, response);;
+		
+		
 		
 	}
 
