@@ -61,7 +61,12 @@ public class AddWishListServlet extends HttpServlet {
 		}
 		
 		
+		request.setAttribute("pCode", pCode);
+
+		response.setContentType("text/html;charset=UTF-8");
+
 		
+		request.getRequestDispatcher("detail.pr").forward(request, response);
 		
 		
 		

@@ -11,10 +11,10 @@ import com.flybutter.category.model.vo.Category;
 
 public class CategoryService {
 
-	public ArrayList<Category> categoryList(int mCategory, int sCategory) {
+	public ArrayList<Category> categoryList(int mCategory, int sCategory, int userNo) {
 		Connection conn = getConnection();
 		ArrayList<Category> categoryList = new ArrayList<Category>();
-		categoryList = new CategoryDao().categoryList(conn, mCategory, sCategory);
+		categoryList = new CategoryDao().categoryList(conn, mCategory, sCategory,userNo);
 		close(conn);
 		return categoryList;
 	}
@@ -32,10 +32,10 @@ public class CategoryService {
 		return count;
 	}
 	
-	public ArrayList<Category> categoryListNext(int mCategory, int sCategory,int start, int end, int sKind) {
+	public ArrayList<Category> categoryListNext(int mCategory, int sCategory,int start, int end, int sKind, int userNo) {
 		Connection conn = getConnection();
 		ArrayList<Category> categoryList = new ArrayList<Category>();
-		categoryList = new CategoryDao().categoryListNext(conn, mCategory, sCategory, start, end,sKind);
+		categoryList = new CategoryDao().categoryListNext(conn, mCategory, sCategory, start, end,sKind,userNo);
 		close(conn);
 		return categoryList;
 	}

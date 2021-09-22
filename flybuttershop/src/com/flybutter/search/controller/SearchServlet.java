@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flybutter.member.model.vo.Member;
 import com.flybutter.paging.model.vo.Paging;
 import com.flybutter.search.model.service.SearchService;
 import com.flybutter.search.model.vo.Search;
@@ -33,12 +34,13 @@ public class SearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
 		String sWord = request.getParameter("sWord");
 		Paging paging = null;
 		ArrayList<Search> searchList = new ArrayList<Search>();
 		ArrayList<Search> searchSaleList = new ArrayList<Search>();
 		
-		searchList = new SearchService().searchList(sWord);
+		searchList = new SearchService().searchList(sWord,userNo);
 		searchSaleList = new SearchService().searchSaleList(sWord);
 		if(searchList.size()!= 0) {
 			paging = new Paging(new SearchService().searchListCount(sWord), 1, 10, 10);

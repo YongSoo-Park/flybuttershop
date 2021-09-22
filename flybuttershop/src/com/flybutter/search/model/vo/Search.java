@@ -12,6 +12,8 @@ public class Search {
 	private int store_No;
 	private String store_Name;
 	private int store_Lev;
+	private int wishList;
+	
 	public Search() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -28,6 +30,21 @@ public class Search {
 		this.store_No = store_No;
 		this.store_Name = store_Name;
 		this.store_Lev = store_Lev;
+	}
+	
+	public Search(String pCode, String pImage_Origin, String pName, int price, String score_Avg, int pStock,
+			int store_No, String store_Name, int store_Lev, int wishList) {
+		super();
+		this.pCode = pCode;
+		this.pImage_Origin = pImage_Origin;
+		this.pName = pName;
+		this.price = price;
+		this.score_Avg = score_Avg;
+		this.pStock = pStock;
+		this.store_No = store_No;
+		this.store_Name = store_Name;
+		this.store_Lev = store_Lev;
+		this.wishList = wishList;
 	}
 	
 	
@@ -92,12 +109,20 @@ public class Search {
 	public void setStore_Lev(int store_Lev) {
 		this.store_Lev = store_Lev;
 	}
+	public int getWishList() {
+		return wishList;
+	}
+	public void setWishList(int wishList) {
+		this.wishList = wishList;
+	}
 	@Override
 	public String toString() {
 		return "Search [pCode=" + pCode + ", pImage_Origin=" + pImage_Origin + ", pName=" + pName + ", price=" + price
 				+ ", score_Avg=" + score_Avg + ", pStock=" + pStock + ", store_No=" + store_No + ", store_Name="
-				+ store_Name + ", store_Lev=" + store_Lev + "]";
+				+ store_Name + ", store_Lev=" + store_Lev + ", wishList=" + wishList + "]";
 	}
+	
+	
 	
 	
 

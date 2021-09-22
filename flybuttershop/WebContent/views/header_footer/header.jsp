@@ -405,7 +405,7 @@ function categoryChoce(mCategory, sCategory) {
 </ul>
 
 <div style="position: absolute; left: 640px;">
-<img src="${pageContext.request.contextPath}/resources/event/event1.png" style="cursor: pointer; width: 600px; height: 350px;"/>
+<img src="${sessionScope.categoryEventImg}" style="cursor: pointer; width: 600px; height: 350px;"/>
 
 </div>
 </div>
