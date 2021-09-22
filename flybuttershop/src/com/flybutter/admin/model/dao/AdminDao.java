@@ -605,13 +605,14 @@ public class AdminDao {
 			} finally {
 				close(pstmt);
 			}
-		} else {
+		} else if(judgeDBUpdate == 3){
 			sql = prop.getProperty("eventAllImgSet");
 
 			try {
 				pstmt = conn.prepareStatement(sql);
 				for (int i = 0; i < 4; i++) {
 					pstmt.setString(i + 1, fileNameList.get(i));
+					System.out.println("afasfsf"+ i);
 				}
 
 				result = pstmt.executeUpdate();

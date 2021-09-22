@@ -30,7 +30,6 @@ public class MainpageServlet extends HttpServlet {
 	 */
 	public MainpageServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -40,7 +39,6 @@ public class MainpageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Member loginMember = null;
-//		HashMap<String, Product> RVItemsList = null;
 		ArrayList<Product> RVItemsList = null;
 		Admin mainPageList = null;
 		String categoryEventImg = "";
@@ -53,11 +51,9 @@ public class MainpageServlet extends HttpServlet {
 		if (loginMember != null) {
 			no = loginMember.getUserNo();
 			if (no == 0) {
-//				loginMember = new MemberService().loginAdmin(no);
 				loginMember.setRecPno("0");
 				loginMember.setMoney(999999);
 			} else {
-//				loginMember = new MemberService().loginMember(no);
 			}
 			if(loginMember.getRecPno() == null) {
 				loginMember.setRecPno("0");

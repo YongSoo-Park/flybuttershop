@@ -232,7 +232,7 @@ $(function() {
 </c:forEach>
 </div>
 </div>
-
+<c:if test="${empty sessionScope.loginMember}">
 <div style="position: absolute; top : 2700px;">
 <form action="dummyLoginA.ma" method="post">
 <input type="hidden" value="0" name="no">
@@ -251,10 +251,11 @@ $(function() {
 <input type="hidden" value="4" name="no">
 <input type="submit" value="판매자로그인">
 </form>
-
 <br>
 </div>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br>
+</c:if>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

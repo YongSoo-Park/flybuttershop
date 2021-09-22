@@ -41,7 +41,7 @@ public class EventImgSetServlet extends HttpServlet {
 		int judgeDBUpdate = 0;
 
 		int result = 0;
-
+		String temp = "";
 		ArrayList<String> fileNameList = new ArrayList<String>();
 		Admin mainPageList = null;
 		String saveDir = request.getSession().getServletContext().getRealPath("/resources/event/");
@@ -61,6 +61,7 @@ public class EventImgSetServlet extends HttpServlet {
 		if (multiRequest != null) {
 			for (int i = 1; i <= 2; i++) {
 				String name = "eventImg" + i;
+				
 				if (multiRequest.getOriginalFileName(name) != null) {
 					String originName = multiRequest.getOriginalFileName(name);
 					String changeName = multiRequest.getFilesystemName(name);
@@ -69,7 +70,7 @@ public class EventImgSetServlet extends HttpServlet {
 						File tempFile = new File(saveDir + changeName);
 						tempFile.delete();
 						request.setAttribute("upResultMsg", i + "번째 파일은 업로드 하실 수 없는 확장자 파일입니다.");
-						judgeDBUpdate = 3;
+						temp =  i + "번째 파일은 업로드 하실 수 없는 확장자 파일입니다." +(3-i)+"번째 파일은 ";
 					} else {
 
 //					if(i==2) {
@@ -91,12 +92,12 @@ public class EventImgSetServlet extends HttpServlet {
 			}
 			if (judgeDBUpdate == 0) {
 				request.setAttribute("upResultMsg", "아무 이미지도 업로드 하지 않으셨습니다.");
-			} else if (judgeDBUpdate == 1 || judgeDBUpdate == 2) {
+			} else{
 
 				result = new AdminService().eventImgSet(fileNameList, judgeDBUpdate);
 
 				if (result > 0) {
-					request.setAttribute("upResultMsg", "이벤트 이미지 교체를 성공적으로 완료하였습니다.");
+					request.setAttribute("upResultMsg", temp + "이벤트 이미지 교체를 성공적으로 완료하였습니다.");
 				} else {
 					request.setAttribute("upResultMsg", "이벤트 이미지 교체를 실패하였습니다.");
 				}
