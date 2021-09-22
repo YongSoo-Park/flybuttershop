@@ -70,9 +70,6 @@ public class MemberSInsertServlet extends HttpServlet {
 				
 				cs.createConsumer(rtnMemInfo.getUserNo());
 				
-				//리턴값 
-				//request.getSession().setAttribute("msg", "축하합니다 ! 회원가입에 성공하셨습니다!");
-				//response.sendRedirect(request.getContextPath());
 				response.getWriter().write("member");
 			}else{
 				
@@ -94,8 +91,7 @@ public class MemberSInsertServlet extends HttpServlet {
 				Member rtnMemInfo = new MemberService().selectMember(memInfo);
 				
 				cs.createConsumer(rtnMemInfo.getUserNo());
-				//request.getSession().setAttribute("msg", "축하합니다 !회원가입과 판매자 가입에 성공하셨습니다!");
-				//response.sendRedirect(request.getContextPath());
+				
 				response.getWriter().write("seller");
 			}else{
 				

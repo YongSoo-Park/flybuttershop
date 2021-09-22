@@ -89,13 +89,12 @@ public class FindPwdServlet extends HttpServlet {
 				session.setAttribute("member", member);
 				RequestDispatcher view = request.getRequestDispatcher("views/member/memberPwdFindResult.jsp");
 				view.forward(request, response);
-			} else {
-
-				request.setAttribute("msg", "존재하지 않습니다.");
-				RequestDispatcher view = request.getRequestDispatcher("views/member/errorPage.jsp");
-				view.forward(request, response);
-
 			}
+		} else {
+
+			request.setAttribute("msg", "존재하지 않습니다.");
+			RequestDispatcher view = request.getRequestDispatcher("views/member/errorPage.jsp");
+			view.forward(request, response);
 
 		}
 	}

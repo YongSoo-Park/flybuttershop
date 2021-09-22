@@ -62,17 +62,11 @@ public class LoginServlet extends HttpServlet {
 				}
 			}
 
-//			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@  category : "+ "["+category+"]");
-//			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@  loginUser : "+ loginUser);
+			System.out.println(">>>>>>>>>>>>>>>>>> category : "+ "["+category+"]");
 
 	
-//			com.flybutter.dummy.model.vo.Member loginMember = new com.flybutter.dummy.model.vo.Member(userNo, userName, lev, category, recPno, money);
-
 			session.setAttribute("loginMember", loginUser);
-//			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@  loginMember : "+loginMember);
 			response.sendRedirect("mainpage.ma");
-//			RequestDispatcher view = request.getRequestDispatcher("/mainpage.ma");
-//			view.forward(request, response);
 		}else {
 			request.setAttribute("msg", "로그인에 실패했습니다.");
 			
