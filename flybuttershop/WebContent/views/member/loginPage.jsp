@@ -139,12 +139,12 @@
 				</tr>
 				<tr>
 					<th><label for = "userPwd" style="color:white;">PASSWORD</label></th>
-					<td><input id="userPwd" type="text" name="userPwd"></td>
+					<td><input id="userPwd" type="password" name="userPwd"></td>
 				</tr>
 				</table>
 			</div>
 			
-			<button id = "loginBtn" type="submit">LOGIN</button>
+			<button type="submit" id = "loginBtn">LOGIN</button>
 			
 			<div>
 				<button id = "findIdBtn" type="button" onclick="findIdPage();">아이디 찾기</button>
