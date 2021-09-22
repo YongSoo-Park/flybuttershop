@@ -34,17 +34,13 @@ public class HelpDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		System.out.println("no : " + request.getParameter("no"));
+		
 		int no = Integer.parseInt(request.getParameter("no"));
 
-		
-		System.out.println("no : " + no);
-		System.out.println("no : " + no);
+	
 		Help h = new HelpService().selectHelp(no);
 		HelpReply hr = new HelpService().selectReplyHelp(no);
-		System.out.println("h : " + h);
-		System.out.println("hr : " + hr);
-	
+		
 			
 					if( h != null ) {
 						
