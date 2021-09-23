@@ -63,7 +63,7 @@
 
             <tr>
                 <th id="pImage" rowspan="3" width="150px" height="150px">
-               	<img src="<%=contextPath%><%= r.getpImage_origin() %>" width="150px">
+               	<img src="<%=contextPath%><%= r.getpImage_origin() %>" width="150px" >
              
                 </th>
                 <th id="title" colspan="2"><%= r.getRe_title()%></th>

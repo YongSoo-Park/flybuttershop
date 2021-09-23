@@ -910,7 +910,7 @@ public class MypageDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("getPhone");
+		String sql = prop.getProperty("checkUserCel");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -921,8 +921,7 @@ public class MypageDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				result = rset.getString("USER_CEL");
-						
+				result = rset.getString("USER_CEL");	
 			}
 
 			
@@ -972,6 +971,42 @@ public class MypageDao {
 			close(pstmt);
 		}
 		return r;
+	}
+
+
+
+
+
+	public int moneyCount(Connection conn, int userNo) {
+		int money = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("moneyCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				money = rset.getInt("MONEY");
+						
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println("REVIEW 테이블  moneyCount : " + e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return money;
 	}
 
 }

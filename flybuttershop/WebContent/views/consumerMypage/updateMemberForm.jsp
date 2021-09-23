@@ -78,7 +78,7 @@ function loginValidate() {
             <input type="button" name="user_PWcheck" value="비밀번호 확인" onclick="checkPass();">
             <br>
             <label>이름 </label><br>
-            <input type="text" name="name" value=<%= m.getUserName()%> required> <br>
+            <input type="text" name="name" value=<%= m.getUserName()%> readonly> <br>
              <label>이메일</label><br>
             <input type="email" name="email" value=<%= m.getEmail()%> required><br>
              <label>휴대전화 </label><br>

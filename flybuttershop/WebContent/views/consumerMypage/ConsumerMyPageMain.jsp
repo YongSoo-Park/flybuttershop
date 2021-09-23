@@ -79,7 +79,7 @@
   				<c:otherwise>오류</c:otherwise>
 				</c:choose>
 				</b>입니다 <br>
-                <div id="upgradePrice">원을 더 구매하시면 
+                <div id="upgradePrice"><%=sumPrice %>원을 더 구매하시면 
                 <c:choose>
   				<c:when test="${sessionScope.loginMember.lev== '1'}">번데기로 등급업</c:when>
   				<c:when test="${sessionScope.loginMember.lev == '2'}">나비로 등급업</c:when>
@@ -140,6 +140,8 @@
             if(sumPrice < 100000){
                 price1 = 100000 - sumPrice;
                 $("#upgradePrice").prepend(price1);
+                console.log(sumPrice);
+                console.log(price1);
             }
 
         });

@@ -119,7 +119,7 @@ public class OrderListServlet extends HttpServlet {
 				}
 				
 
-				
+				System.out.println(listIn);
 				request.setAttribute("list", listIn);
 				request.setAttribute("pi", pi);
 				request.getRequestDispatcher("views/consumerMypage/OrderListView.jsp").forward(request, response);

@@ -36,7 +36,7 @@ public class CouponListServlet extends HttpServlet {
 		
 		int cpCount = new MypageService().couponCount(userNo);
 		
-		int money = member.getMoney();
+		int money = new MypageService().moneyCount(userNo);
 		
 		request.setAttribute("cpCount", cpCount);
 		request.setAttribute("money", money);

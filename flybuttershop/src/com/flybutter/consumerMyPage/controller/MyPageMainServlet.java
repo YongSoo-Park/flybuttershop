@@ -53,12 +53,15 @@ public class MyPageMainServlet extends HttpServlet {
 
 			int sumPrice = new MypageService().selectSumPrice(userNo);
 			
-			//System.out.println("sumPrice = " + sumPrice);
+			System.out.println("sumPrice ====== " + sumPrice);
+			
+			int result = 500000 - sumPrice;
+			
 			
 			request.setAttribute("name", userName);
 			request.setAttribute("level", level);
 			
-			request.setAttribute("sumPrice", sumPrice);
+			request.setAttribute("sumPrice", result);
 			
 			
 			

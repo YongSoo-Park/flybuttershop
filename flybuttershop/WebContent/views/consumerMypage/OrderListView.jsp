@@ -102,7 +102,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="left">&nbsp;&nbsp; <b>상품명</b><br>&nbsp;&nbsp; <%=o.get(0).getpName() %>
-                <br>&nbsp;&nbsp; 외 <%=list.size()-1 %> 건
+                <br>&nbsp;&nbsp; 외 <%=o.size()-1 %> 건
                 </td>
             </tr>
             <tr>

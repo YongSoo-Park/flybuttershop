@@ -401,4 +401,15 @@ public class MypageService {
 		return r;
 	}
 
+	public int moneyCount(int userNo) {
+
+		Connection conn = getConnection();
+		
+		int m = new MypageDao().moneyCount(conn, userNo);
+		
+		close(conn);
+		
+		return m;
+	}
+
 }
