@@ -45,7 +45,11 @@ public class DelCompleteServlet extends HttpServlet {
 		
 		ArrayList<OrderInfo> info = new ArrayList<OrderInfo>();
 		
+		System.out.println(list.getOrderInfo());
+		
 		String str = list.getOrderInfo();
+		
+		System.out.println(str);
 		
 		 String[] temp1 =str.split("/");
 	      String[] temp2;

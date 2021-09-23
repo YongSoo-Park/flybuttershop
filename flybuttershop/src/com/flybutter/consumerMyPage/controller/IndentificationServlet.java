@@ -36,7 +36,9 @@ public class IndentificationServlet extends HttpServlet {
 		
 		String result = new MypageService().checkUserCel(userNo);
 		
-		if(result.equals("Y")) {
+		System.out.println(result);
+		
+		if(result.equals("N")) {
 			
 			request.setAttribute("msg", "번호를 입력해주세요");
 

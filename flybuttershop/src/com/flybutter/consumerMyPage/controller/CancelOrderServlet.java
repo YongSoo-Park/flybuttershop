@@ -116,6 +116,8 @@ public class CancelOrderServlet extends HttpServlet {
 	      //다시 합쳐진 최종 결과 문자열로 합치기
 	      String result = String.join("/", strArr);	
 	      
+
+	      
 	      //원래 주문내역 정보에 최종으로 합쳐진 문자열 set
 	      list.setOrderInfo(result);
 	      
