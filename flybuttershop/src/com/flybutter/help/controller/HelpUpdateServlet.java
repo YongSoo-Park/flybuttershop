@@ -72,7 +72,7 @@ public class HelpUpdateServlet extends HttpServlet {
 				response.sendRedirect("detail.help?no=" + no);
 				
 			}else { 
-				request.setAttribute("msg", "게시글 수정에  실패했습니다.");
+				request.setAttribute("msg", "문의글 수정에  실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}

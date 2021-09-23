@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.flybutter.help.model.vo.*" %>
-<%
+<%@ page import="com.flybutter.member.model.vo.Member" %>
+ 
+ <%
+ 	Member loginUser = (Member)session.getAttribute("loginMember");
 	Help h = (Help)request.getAttribute("h");
  HelpReply hr = (HelpReply)request.getAttribute("hr");
 %>
@@ -112,13 +115,15 @@
 		
 			<a href="list.help">목록으로</a> &nbsp;&nbsp;
 				
-			
+			<% if(loginUser.getUserNo() != 0){ %>
 			
 			<a href="updateForm.help?no=<%=h.getHelp_No()%>">수정하기</a> &nbsp;&nbsp;
+			<% } %>
 			<a href="delete.help?no=<%=h.getHelp_No()%>">삭제하기</a> &nbsp;&nbsp;
 			<br>
+			<% if(loginUser.getUserNo() == 0){ %>
 			<a href="replyForm.help?no=<%=h.getHelp_No()%>">답글달기</a> 
-			
+			<% } %>
 			<% if(hr != null){ %>
 			<a href="replyUpdateForm.help?no=<%=hr.getHelp_No() %>">답글수정</a>
 			<a href="replyDelete.help?no=<%=hr.getHelp_No() %>">답글삭제</a>
