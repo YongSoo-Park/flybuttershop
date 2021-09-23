@@ -58,8 +58,8 @@
 <script>
 
 function updateValidate(){
-	if(!(/^[a-z][a-z\d]{3,50}$/i.test($("#productUpdate input[name=pName]").val()))){
-		alert("상품명에는 영어, 한글, 숫자만 입력가능합니다.");
+	if(!(/^[가-힣]{2,25}$/i.test($("#productUpdate input[name=pName]").val()))){
+		alert("상품명에는 한글 25까지만 입력가능합니다.");
 		$("#productUpdate input[name=pName]").focus();
         return false;
 	}
@@ -75,8 +75,8 @@ function updateValidate(){
 		 $("#productUpdate input[name=price]").focus();
         return false;
 	 }
-	 if(!(/^[a-z][a-z\d]{3,20}$/i.test($("#productUpdate input[name=pOption]").val()))){
-			alert("상품옵션에는 영어, 한글, 숫자만 입력가능합니다.");
+	 if(!(/^[가-힣]{2,20}$/i.test($("#productUpdate input[name=pOption]").val()))){
+			alert("상품옵션에는 한글만 입력가능합니다.");
 			$("#productUpdate input[name=pOption]").focus();
 	        return false;
 		}
@@ -260,7 +260,7 @@ function updateValidate(){
 		
 		<div class="btns" align="center">
 			<button type="submit" class="btn btn-outline-primary mb-3">수정하기</button>
-			<button type="reset" class="btn btn-outline-danger mb-3" onclick="">취소</button>
+			<button type="reset" class="btn btn-outline-danger mb-3" onclick="history.go(-1)">취소</button>
 		</div>
 	</form>
 	</div>

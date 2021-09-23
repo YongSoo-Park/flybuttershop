@@ -67,24 +67,31 @@
 
 </style>
 <script type="text/javascript">
-function insertValidate(){
-	if(!(/^{3,200}$/i.test($("#reply textarea").val()))){
-		alert("답글은 200자 까지만 입력가능합니다.");
-		$("#reply textarea").focus();
-        return false;
-	}
-	return true;
-}
-$('#replyContent').keyup(function (e){
-    var content = $(this).val();
-    $('#replyContent').html("("+content.length+" / 최대 150자)");    //글자수 실시간 카운팅
+$(document).ready(function() {
+    $('#replyContent').on('keyup', function() {
+        if($(this).val().length > 150) {
+            $(this).val($(this).val().substring(0, 150));
+            alert("답변 글자수가 초과하였습니다.")
+        }
+    });
 
-    if (content.length > 150){
-        alert("최대 100자까지 입력 가능합니다.");
-        $(this).val(content.substring(0, 150));
-        $('#replyContent').html("(100 / 최대 150자)");
-    }
 });
+$(function(){
+    $("textarea").keydown(function(){
+        var inputLength = $(this).val().length;
+        var remain = 150-inputLength;
+
+        $("#count").html(remain)
+        if(remain >= 0){
+            $("#count").css("color", "black")
+
+        }else{
+            $("#count").css("color", "red")
+        }
+
+    })
+})
+
 
 </script>
 </head>
@@ -150,7 +157,9 @@ $('#replyContent').keyup(function (e){
 			<table  border="1" align="center">
 				<tr>
 					<th>답변작성<input type="hidden" name="qNo" value="<%=q.getQna_No()%>"></th>
-					<td><textarea name="comment" rows="10" cols="58" id="replyContent" placeholder="답변을 입력해주세요." style="resize:none;"></textarea></td>
+					<td><textarea name="comment" rows="10" cols="58" id="replyContent" placeholder="답변을 입력해주세요." style="resize:none;"></textarea>
+						<p type="text" id="count"">150</p>
+					</td>
 					<td><button type="submit" id="addReply" class="btn btn-outline-primary">댓글등록</button></td>
 				</tr>
 			</table>

@@ -172,7 +172,7 @@ public class Review {
 		         String re_content, Date re_date, String re_originFile,
 		         String re_changeFile, char re_status, String rere_title,
 		         String rere_content, Date rere_date, int store_no, 
-		          int score, int pur_no, String userName) {
+		           int pur_no, int score, String userName) {
 		      this.re_no = re_no;
 		      this.pCode = pCode;
 		      this.user_no = user_no;

@@ -367,6 +367,8 @@ public class ProductDao {
 				
 			}
 			
+			System.out.println("상품 디테일 다오 리뷰 " + rList);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

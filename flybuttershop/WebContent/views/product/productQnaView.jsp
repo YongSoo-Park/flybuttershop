@@ -23,7 +23,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 Q&A</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  <!--스타일 cdn?-->
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!--jQuery연결하는 CDN-->
@@ -66,6 +66,16 @@
 	}
 
 </style>
+<script type="text/javascript">
+$(function() {
+	   
+   $('#mainCategory').css('box-sizing','unset');
+})
+$(function() {
+   
+   $('#userSearch').css('box-sizing','unset');
+})
+</script>
 <title>Insert title here</title>
 </head>
 <body style="margin: 0 auto">
@@ -113,9 +123,12 @@
 				</tr>
 			<% } %>
 		</table>
-		
-		<button type="button" class="btn btn-outline-secondary" onclick="history.go(-1)">목록으로</button>
-	
+		<div class="btns" align="center">
+			<form action="<%=request.getContextPath()%>/detail.pr"  method="post" >
+				<input type="hidden" name="pCode" value="<%=q.getpCode()%>">
+				<button type="submit" class="btn btn-outline-secondary">목록으로</button>
+			</form>
+		</div>
 	</div>
 		
 <jsp:include page="../header_footer/footer.jsp" flush="true"/>

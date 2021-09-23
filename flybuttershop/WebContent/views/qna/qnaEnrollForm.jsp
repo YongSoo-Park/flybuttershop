@@ -64,7 +64,21 @@ function insertValidate(){
        return false;
 	 }
 }
+$(function(){
+    $("textarea").keydown(function(){
+        var inputLength = $(this).val().length;
+        var remain = 300-inputLength;
 
+        $("#count").html(remain)
+        if(remain >= 0){
+            $("#count").css("color", "black")
+
+        }else{
+            $("#count").css("color", "red")
+        }
+
+    })
+})
 </script>
 </head>
 <body style="margin: 0 auto">
@@ -116,12 +130,19 @@ function insertValidate(){
                 <tr>
                     <td>내용</td>
                     <td ><input type="checkbox" id="lock" class="box" name="lock" value="2" onclick="checkedChange()">비밀글</td>
-                    <td colspan="8"><input type="hidden" class="pwdBox" name="pwd"></td>
+                    <td colspan="8"><input type="hidden" class="pwdBox" name="pwd">
+                    	<input type="hidden" class="storeNo" name="storeNo" value="<%=s.getStore_No()%>">
+                    </td>
             
                 </tr>
                 <tr>
                     <td colspan="10"> <textarea name="content" cols="120" rows="15"
-                            style="resize: none;"></textarea></td>
+                            style="resize: none;">
+                            
+                            </textarea>
+                            <p type="text" id="count"">300</p>
+                            </td>
+                            
                 </tr>
                  
             </table>

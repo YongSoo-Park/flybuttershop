@@ -24,6 +24,7 @@ if(p.getpCategory()==1){
 		c2 = "남성하의";
 	}
 }else if(p.getpCategory()==2){
+	c1 = "잡화";
 	if(p.getpCategory2()==1) { 
 		c2 = "모자 "; 
 	}else if(p.getpCategory2() == 2) { 

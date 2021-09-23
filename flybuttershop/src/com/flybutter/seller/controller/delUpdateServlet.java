@@ -53,12 +53,8 @@ public class delUpdateServlet extends HttpServlet {
 				temp2 = temp1[j].split(":");
 
 				purList.add(new SoldList(temp2[0], temp2[1], temp2[2], temp2[3], Integer.parseInt(temp2[4])));
-
 			}
 		}
-
-		System.out.println(purList);
-
 		String[] info = new String[purList.size()];
 
 		for (int i = 0; i < purList.size(); i++) {
@@ -86,7 +82,7 @@ public class delUpdateServlet extends HttpServlet {
 		if(updateDel > 0) {
 			response.sendRedirect("purchaseManager.sl");
 		}else {
-			request.setAttribute("msg", "주문수정 실패");
+			request.setAttribute("msg", "운송장번호 입력 실패");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}

@@ -80,6 +80,8 @@ public class reviewListManagerServlet extends HttpServlet {
 		
 		ArrayList<Review> list = new SellerService().reviewList(pi, storeNo);
 		
+		System.out.println("리뷰별점~~" + list);
+		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		RequestDispatcher view = request.getRequestDispatcher("views/seller/reviewListManager.jsp");

@@ -35,14 +35,11 @@ public class soldDetailManager extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int pno = Integer.parseInt(request.getParameter("pNo"));
-		System.out.println("주문내역상세 == " + pno);
 		
 		ArrayList<SoldList> list = new SellerService().selectSold(pno);
 		SoldList s = new SellerService().selectSoldInfo(pno);
-		
+		//M001:2:1:BLACK:9/M002:2:1:BLACK:9
 		String pInfo = s.getPurInfo();
-		System.out.println("판매디테일 서블릿"+ s.getDelNo());
-		
 		
 		String[] temp1 = pInfo.split("/");
 		String[] temp2;

@@ -223,8 +223,8 @@
 	}
 	
 	function insertValidate(){
-		if(!(/^[a-z][a-z\d]{3,50}$/i.test($("#productInsert input[name=pName]").val()))){
-			alert("상품명에는 영어, 한글, 숫자만 입력가능합니다.");
+		if(!(/^[가-힣]{2,20}$/i.test($("#productInsert input[name=pName]").val()))){
+			alert("상품명에는 한글만 입력가능합니다.");
 			$("#productInsert input[name=pName]").focus();
 	        return false;
 		}
@@ -240,8 +240,8 @@
 			 $("#productInsert input[name=price]").focus();
 	        return false;
 		 }
-		 if(!(/^[a-z][a-z\d]{3,20}$/i.test($("#productInsert input[name=pOption]").val()))){
-				alert("상품옵션에는 영어, 한글, 숫자만 입력가능합니다.");
+		 if(!(/^[가-힣]{2,20}$/i.test($("#productInsert input[name=pOption]").val()))){
+				alert("상품옵션에는 한글만 입력가능합니다.");
 				$("#productInsert input[name=pOption]").focus();
 		        return false;
 			}
