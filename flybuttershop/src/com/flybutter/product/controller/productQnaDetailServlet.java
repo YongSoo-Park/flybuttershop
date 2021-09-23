@@ -46,9 +46,6 @@ public class productQnaDetailServlet extends HttpServlet {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}
-		
-	
-	
 	}
 
 	/**

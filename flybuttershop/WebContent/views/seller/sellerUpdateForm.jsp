@@ -46,14 +46,34 @@ function updateValidate(){
         return false;
 	 }
 	 
-	 if(!(/^[a-z][a-z\d]{3,100}$/i.test($("#sellerUpdate input[name=storeExp]").val()))){
-			alert("상점소개는 100자까지 입력가능합니다.");
-			$("#sellerUpdate input[name=storeExp]").focus();
-	        return false;
-		}
-	 
 	 return true;
 }
+
+
+$(function(){
+    $("textarea").keydown(function(){
+        var inputLength = $(this).val().length;
+        var remain = 150-inputLength;
+
+        $("#count").html(remain)
+        if(remain >= 0){
+            $("#count").css("color", "black")
+
+        }else{
+            $("#count").css("color", "red")
+        }
+
+    })
+})
+$(document).ready(function() {
+    $('#storeExp').on('keyup', function() {
+        if($(this).val().length > 150) {
+            $(this).val($(this).val().substring(0, 150));
+            alert("상점소개 글자수가 초과하였습니다.")
+        }
+    });
+
+});
 </script>
 </head>
 <body style="margin: 0 auto">
@@ -98,14 +118,20 @@ function updateValidate(){
             </tr>
             <tr>
                 <td>상점소개</td>
-                <td><textarea class="form-control" id="storeExp" cols="10" row="5" name="storeExp">${requestScope.seller.store_Exp}</textarea></td>
+                <td><textarea class="form-control" id="storeExp" cols="10" row="7" name="storeExp">${requestScope.seller.store_Exp}</textarea></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><p type="text" id="count"">150</p></td>
             </tr>
         </table>
+        
         <br><br><br>
 		<div class="btns" align="center">
 		<button type="submit" class="btn btn-outline-primary">수정하기</button>
 		<button type="button" class="btn btn-outline-secondary" onclick="history.go(-1)">취소</button>
 		</div>
+		
 	</form>
 	</div>
 

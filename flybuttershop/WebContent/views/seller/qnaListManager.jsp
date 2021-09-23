@@ -39,12 +39,12 @@
 	}
 </style>
 <script>
-	$(function(){
-		$(".qnaList>tbody>tr").click(function(){
-			var qNo = $(this).children().eq(0).text();
-			location.href="<%= request.getContextPath() %>/qnaDetail.sl?qNo="+qNo;
-		})
+$(function(){
+	$(".qnaList>tbody>tr").click(function(){
+		var qNo = $(this).children().eq(0).text();
+		location.href="<%= request.getContextPath() %>/qnaDetail.sl?qNo="+qNo;
 	})
+})
 </script>
 </head>
 <body style="margin: 0 auto">

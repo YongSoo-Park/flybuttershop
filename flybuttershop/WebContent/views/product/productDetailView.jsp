@@ -129,12 +129,11 @@ function showDiv(element){
             tag[i].style.display = "none"
         }
     }
-
 }
 $(function(){
 	$(".qnaList>tbody>tr").click(function(){
 		var qLock = $(this).children().eq(0).text();
-		var qNo = $(this).children().eq(1).text();
+		var qNo = $(this).children().eq(2).text();
 		
 		if(qLock == 2){
 			location.href="<%= request.getContextPath() %>/checkQnaPwd.pr?qNo="+qNo;
@@ -143,14 +142,12 @@ $(function(){
 		}
 	})
 })
-	$(function(){
-		$(".reviewList>tbody>tr").click(function(){
-	 		var rNo = $(this).children().eq(0).text();
-			location.href="<%= request.getContextPath() %>/reviewDetail.pr?rNo="+rNo;
-		})
+$(function(){
+	$(".reviewList>tbody>tr").click(function(){
+ 		var rNo = $(this).children().eq(0).text();
+		location.href="<%= request.getContextPath() %>/reviewDetail.pr?rNo="+rNo;
 	})
-	
-
+})
 </script>
 <style type="text/css">
 .product{
@@ -232,9 +229,9 @@ $(function(){
 
 	<div id="reviewBox" class="bottom none">
 		<br><br>
-		<table class="reviewList" align="center">
+		<table class="reviewList table table-hover" align="center">
 		<thead>
-			<tr>
+			<tr class="table-primary">
 				<th>글번호</th>
 				<th>상품코드</th>
 				<th>작성자</th>
@@ -310,11 +307,10 @@ $(function(){
 			onclick="qnaInsert();">상품 문의하기</button>
 		<br> <br>
 		
-		<table class="qnaList table table-hover" align="center">
+		<table class="qnaList table table-hover" id="qna" align="center">
 			<thead class="table-primary">
+				<th class="d-none"></th>
 				<th>
-				<%--잠금 이미지--%>
-				
 				</th>
 				<th>글번호</th>
 				<th>문의유형</th>
@@ -345,21 +341,25 @@ $(function(){
 					
 				%>
 				<tr>
+					<td class="d-none"><%=q.getLock_Flag()%></td>
 					<td>
 					<%if(q.getLock_Flag()==1){ %>
 						
 					<%}else{ %>
-						2
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+ 							 <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+						</svg>
 					<%} %>
-					<input type="hidden" name="lock" value="<%=q.getLock_Flag()%>">
-					<input type="hidden" name="pwd" value="<%=q.getQna_Pwd()%>">
 					</td>
 					<td><%=q.getQna_No() %></td>
 					<td><%=qCategory %></td>
 					<td><%=q.getQna_Writer()%></td>
 					<td><%=q.getQna_Title()%></td>
 					<td><%=q.getQna_Status()%></td>
-					<td><%=q.getQna_Date()%></td>
+					<td><%=q.getQna_Date()%>
+						
+						<input type="hidden" name="pwd" value="<%=q.getQna_Pwd()%>">
+					</td>
 				</tr>
 			 	<% } %>
 			 <% } %>	

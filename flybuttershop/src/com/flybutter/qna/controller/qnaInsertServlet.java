@@ -36,7 +36,7 @@ public class qnaInsertServlet extends HttpServlet {
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginMember")).getUserNo();
 		String pCode = request.getParameter("pCode");
-		int stireNo = Integer.parseInt(request.getParameter("storeNo"));
+		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
 		String title = request.getParameter("title");
 		int category = Integer.parseInt(request.getParameter("category"));
 		int pwd = Integer.parseInt(request.getParameter("pwd"));
@@ -50,7 +50,7 @@ public class qnaInsertServlet extends HttpServlet {
 		Qna q = new Qna();
 		q.setQna_Writer(String.valueOf(userNo));
 		q.setpCode(pCode);
-		q.setStore_no(stireNo);
+		q.setStore_no(storeNo);
 		q.setQna_Title(title);
 		q.setQna_Category(category);
 		

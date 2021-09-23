@@ -48,6 +48,16 @@
 	}
 
 </style>
+<script type="text/javascript">
+$(function() {
+	   
+   $('#mainCategory').css('box-sizing','unset');
+})
+$(function() {
+   
+   $('#userSearch').css('box-sizing','unset');
+})
+</script>
 </head>
 <body style="margin: 0 auto">
 <jsp:include page="../header_footer/header.jsp" flush="true" />
@@ -78,7 +88,7 @@
 				<tr>
 					<th>사진</th>
 					<td colspan="3">
-						<p><%=r.getRe_originFile()%></p>
+						<p><img src="${pageContext.request.contextPath}<%=r.getRe_originFile()%>"></p>
 					</td>
 				</tr>
 		</table>
