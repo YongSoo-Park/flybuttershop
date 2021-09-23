@@ -61,8 +61,6 @@ int delPrice = 0;
                     </tr>
                     
 				<% if(list.size() > 0){%>
-				
-				
 					<%for(Basket b : list){ %>
                     <tr><% 			
                         	if(b.getPrice() < 50000){
