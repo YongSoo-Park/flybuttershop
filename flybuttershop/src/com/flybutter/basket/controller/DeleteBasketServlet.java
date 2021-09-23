@@ -34,11 +34,12 @@ public class DeleteBasketServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		
+		//장바구니 리스트jsp에서 받아온 체크된 행의 상품코드
 		String ck = request.getParameter("checkArr");
 		String [] checkArr = ck.split(",");
 		
-		
-		
+		//체크된 행의 상품들이 반복문을 돌며 delete됨
 		int result = 0;
 	      if(checkArr != null) {
 	         for(int i = 0; i < checkArr.length; i++) {

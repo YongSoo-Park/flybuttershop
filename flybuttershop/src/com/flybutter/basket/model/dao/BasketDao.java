@@ -143,7 +143,7 @@ public class BasketDao {
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			System.out.println("Basket 테이블  insertBasket 오류메세지 : " + e.getMessage());
+			System.out.println("Basket 테이블  deleteBasket 오류메세지 : " + e.getMessage());
 		}finally {
 			close(pstmt);
 		}
